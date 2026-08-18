@@ -97,6 +97,60 @@
       "at": 40,
       "alt": "Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door.",
       "label": "Predicted semantics"
+    },
+    "mx-indoor-rgb": {
+      "src": "_source/media/m2h-mx-qualitative/indoor-rgb.png",
+      "resize": [
+        769,
+        572
+      ],
+      "label": "RGB input",
+      "alt": "An indoor living room: a person seated on a patterned sofa, a table lamp, a wooden side table, an armchair, and framed pictures on the wall."
+    },
+    "mx-indoor-depth": {
+      "src": "_source/media/m2h-mx-qualitative/indoor-depth.png",
+      "resize": [
+        769,
+        572
+      ],
+      "label": "Predicted depth",
+      "alt": "Predicted depth for the same living room, as a smooth colour field where the near armchair and sofa stand out from the far wall."
+    },
+    "mx-indoor-semantics": {
+      "src": "_source/media/m2h-mx-qualitative/indoor-semantics.png",
+      "resize": [
+        769,
+        572
+      ],
+      "label": "Predicted semantics",
+      "alt": "Predicted semantic labels for the same living room, with flat colour regions for sofa, chair, lamp, table, floor, wall, and pictures."
+    },
+    "mx-outdoor-rgb": {
+      "src": "_source/media/m2h-mx-qualitative/outdoor-rgb.png",
+      "resize": [
+        1472,
+        573
+      ],
+      "label": "RGB input",
+      "alt": "A city street seen from a vehicle: parked and moving cars, a yellow DHL lorry, road markings, traffic signs, trees, and buildings."
+    },
+    "mx-outdoor-depth": {
+      "src": "_source/media/m2h-mx-qualitative/outdoor-depth.png",
+      "resize": [
+        1472,
+        573
+      ],
+      "label": "Predicted depth",
+      "alt": "Predicted depth for the same street, with the road surface graded from near to far and vehicles resolved as separate depth bodies."
+    },
+    "mx-outdoor-semantics": {
+      "src": "_source/media/m2h-mx-qualitative/outdoor-semantics.png",
+      "resize": [
+        1472,
+        573
+      ],
+      "label": "Predicted semantics",
+      "alt": "Predicted semantic labels for the same street, with distinct colours for road, cars, vegetation, buildings, poles, and traffic signs."
     }
   },
   "videos": {
@@ -139,6 +193,35 @@
         "start": 30,
         "duration": 60
       }
+    }
+  },
+  "wipeSets": {
+    "m2h-mx-indoor": {
+      "title": "Indoor, NYUDv2",
+      "panes": [
+        "mx-indoor-rgb",
+        "mx-indoor-depth",
+        "mx-indoor-semantics"
+      ],
+      "caption": "One indoor frame, three ways. M2H-MX predicts metric depth and semantic labels from the single RGB image on the left. These two dense outputs are exactly what the mapping backend consumes; nothing else is measured."
+    },
+    "m2h-mx-outdoor": {
+      "title": "Outdoor, Cityscapes",
+      "panes": [
+        "mx-outdoor-rgb",
+        "mx-outdoor-depth",
+        "mx-outdoor-semantics"
+      ],
+      "caption": "The same model on a street scene it was not designed for. M2H-MX is built for indoor mapping, and it still reaches 82.28 mIoU on Cityscapes, which is 3.15 points above the strongest baseline compared."
+    },
+    "itc-corridor": {
+      "title": "ITC building corridor",
+      "panes": [
+        "wipe-rgb",
+        "wipe-depth",
+        "wipe-semantics"
+      ],
+      "caption": "One frame from the ITC corridor sequence, shown as the camera image, the predicted depth, and the predicted semantic labels."
     }
   }
 }

@@ -802,3 +802,15 @@ figure video {
 .hero { margin-bottom: 4rem; }
 h2 { margin-top: 3.75rem; }
 .descent { margin-bottom: 4rem; }
+
+.wipe-title {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 0.7rem;
+}
+.wipe + .wipe { margin-top: 2.75rem; }
+.wipe.is-interactive .wipe-stage { max-width: 52rem; }
+.wipe.is-interactive .wipe-control { max-width: 52rem; }

@@ -115,14 +115,21 @@ def do_frames(man, force):
         if not src.exists():
             print(f"  skip {name}: source missing")
             continue
-        d = digest(src, f"{spec['at']}{WIDTHS}")
+        d = digest(src, f"{spec.get('at')}{spec.get('resize')}{WIDTHS}")
         if not force and man["frames"].get(name, {}).get("digest") == d:
             print(f"  ok   {name} (unchanged)")
             continue
-        still = tmp / f"{name}.png"
-        sh(FFMPEG, "-hide_banner", "-loglevel", "error", "-ss", str(spec["at"]),
-           "-i", str(src), "-frames:v", "1", "-y", str(still))
-        rec = emit_responsive(name, Image.open(still), "frame", man, "frames")
+        if src.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp"):
+            im = Image.open(src)
+        else:
+            still = tmp / f"{name}.png"
+            sh(FFMPEG, "-hide_banner", "-loglevel", "error", "-ss", str(spec["at"]),
+               "-i", str(src), "-frames:v", "1", "-y", str(still))
+            im = Image.open(still)
+        if spec.get("resize"):
+            # panes in one set must share exact dimensions or the crossfade jitters
+            im = im.convert("RGB").resize(tuple(spec["resize"]), Image.LANCZOS)
+        rec = emit_responsive(name, im, "frame", man, "frames")
         rec["digest"] = d
         rec["alt"] = spec["alt"]
         rec["label"] = spec.get("label", "")

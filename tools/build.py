@@ -29,6 +29,7 @@ PROJECTS = json.loads((DATA / "projects.json").read_text())
 TIMELINE = json.loads((DATA / "timeline.json").read_text())
 _mf = ROOT / "media" / "MANIFEST.json"
 MEDIA = json.loads(_mf.read_text()) if _mf.exists() else {"images": {}, "frames": {}, "videos": {}}
+MEDIACFG = json.loads((DATA / "media.json").read_text())
 
 ORIGIN = SITE["origin"].rstrip("/")
 NAME = SITE["identity"]["canonicalName"]
@@ -206,9 +207,13 @@ def video_ld(key, page_url):
             "embedUrl": page_url}
 
 
-def wipe():
-    """RGB to depth to semantics on one frame. Static three-up without JavaScript."""
-    keys = ["wipe-rgb", "wipe-depth", "wipe-semantics"]
+def wipe(set_id="itc-corridor", heading=True):
+    """RGB, predicted depth, predicted semantics on one frame.
+    Without JavaScript this is three frames side by side, which is already the point."""
+    spec = MEDIACFG.get("wipeSets", {}).get(set_id)
+    if not spec:
+        return ""
+    keys = spec["panes"]
     if not all(k in MEDIA["frames"] for k in keys):
         return ""
     panes = ""
@@ -218,21 +223,22 @@ def wipe():
         av = ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"]["avif"])
         wp = ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"]["webp"])
         panes += (f'<div class="wipe-pane" data-pane="{i}">'
-                  f'<picture><source type="image/avif" srcset="{av}" sizes="(min-width:56em) 20rem, 90vw">'
-                  f'<source type="image/webp" srcset="{wp}" sizes="(min-width:56em) 20rem, 90vw">'
+                  f'<picture>'
+                  f'<source type="image/avif" srcset="{av}" sizes="(min-width:56em) 22rem, 92vw">'
+                  f'<source type="image/webp" srcset="{wp}" sizes="(min-width:56em) 22rem, 92vw">'
                   f'<img src="{big}" alt="{e(rec["alt"])}" width="{rec["width"]}" '
                   f'height="{rec["height"]}" loading="lazy" decoding="async"></picture>'
                   f'<span class="wipe-label">{e(rec["label"])}</span></div>')
-    return f'''<figure class="wipe" data-wipe>
-  <div class="wipe-stage">{panes}</div>
-  <label class="wipe-control" data-wipe-control hidden>
-    <span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span>
-    <input type="range" min="0" max="200" value="0" step="1" data-wipe-input>
-  </label>
-  <figcaption>One frame, three ways: the camera image, the predicted depth, and the predicted
-    semantic labels. These are the two dense outputs the mapping backend actually consumes.
-    Drag the slider to blend between them.</figcaption>
-</figure>'''
+    head = f'<p class="wipe-title">{e(spec["title"])}</p>' if heading else ""
+    return (f'<figure class="wipe" data-wipe>{head}'
+            f'<div class="wipe-stage">{panes}</div>'
+            f'<label class="wipe-control" data-wipe-control hidden>'
+            f'<span class="sr-only">Blend between RGB, predicted depth, and predicted semantics'
+            f'</span>'
+            f'<input type="range" min="0" max="200" value="0" step="1" data-wipe-input>'
+            f'</label>'
+            f'<figcaption>{e(spec["caption"])} Drag the slider to blend between them.'
+            f'</figcaption></figure>')
 
 
 def youtube_facade(video_id, title, thumb):
@@ -251,7 +257,8 @@ def _pub_figures():
     return {
         "mono-hydra-plus": picture("mono-hydra-pp-pipeline") + picture("uhumans2-loop")
                            + picture("scannet-radius") + picture("scannet-failure"),
-        "m2h-mx":          picture("m2h-mx-architecture") + picture("m2h-mx-rgm")
+        "m2h-mx":          wipe("m2h-mx-indoor") + wipe("m2h-mx-outdoor")
+                           + picture("m2h-mx-architecture") + picture("m2h-mx-rgm")
                            + picture("m2h-mx-ctm-msca"),
         "m2h":             wipe() + youtube_facade("X2w_AqGwkaY",
                                "Mono Hydra with M2H for Monocular 3D Scene Graph Construction",
@@ -263,7 +270,8 @@ def _pub_figures():
 def _proj_media():
     return {
         "mono-hydra-plus": picture("scene-graph-itc") + picture("itc-embedded"),
-        "m2h-mx":          video("icra26") + picture("m2h-mx-architecture"),
+        "m2h-mx":          wipe("m2h-mx-indoor") + wipe("m2h-mx-outdoor")
+                           + video("icra26") + picture("m2h-mx-architecture"),
         "m2h":             video("itc-loop") + wipe(),
         "mono-hydra":      picture("scenegraph-system-design"),
         "learned-exploration": video("scope-explorer"),
@@ -553,7 +561,11 @@ def build_home():
 <p class="section-intro"><a href="/research/">Read the long-form argument</a>.</p>
 
 <h2>What the camera gives the map</h2>
-{wipe()}
+<p class="section-intro">M2H-MX takes one RGB frame and predicts metric depth and semantic labels
+together. Those two outputs are the entire input to the mapping backend. Indoors is what the
+system is built for; the street scene is the same model on data it was not designed for.</p>
+{wipe("m2h-mx-indoor")}
+{wipe("m2h-mx-outdoor")}
 
 <h2>Selected work</h2>
 <ul class="cards">{cards}</ul>

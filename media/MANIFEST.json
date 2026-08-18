@@ -799,7 +799,7 @@
         "wipe-rgb-848.webp": 24144,
         "wipe-rgb-848.jpg": 44659
       },
-      "digest": "68ffe7ba8c0e65c6",
+      "digest": "ef2b2fcb772a0770",
       "alt": "A corridor in the ITC building seen by the monocular camera: doors on the right, artwork on the walls, an orange floor receding into the distance.",
       "label": "RGB input"
     },
@@ -847,7 +847,7 @@
         "wipe-depth-848.webp": 9362,
         "wipe-depth-848.jpg": 22213
       },
-      "digest": "f2a8cc5f9641462c",
+      "digest": "07935ca3497e0873",
       "alt": "Predicted depth for the same corridor frame, rendered as a colour field where blue is near and red is the far end of the corridor.",
       "label": "Predicted depth"
     },
@@ -895,8 +895,341 @@
         "wipe-semantics-848.webp": 11972,
         "wipe-semantics-848.jpg": 26086
       },
-      "digest": "b0c58cfbcdc3a034",
+      "digest": "a6dbfe03de8fad20",
       "alt": "Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door.",
+      "label": "Predicted semantics"
+    },
+    "mx-indoor-rgb": {
+      "kind": "frame",
+      "width": 769,
+      "height": 572,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-indoor-rgb-480.avif"
+          },
+          {
+            "w": 769,
+            "path": "/media/images/mx-indoor-rgb-769.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-indoor-rgb-480.webp"
+          },
+          {
+            "w": 769,
+            "path": "/media/images/mx-indoor-rgb-769.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-indoor-rgb-480.jpg"
+          },
+          {
+            "w": 769,
+            "path": "/media/images/mx-indoor-rgb-769.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "mx-indoor-rgb-480.avif": 7575,
+        "mx-indoor-rgb-480.webp": 12418,
+        "mx-indoor-rgb-480.jpg": 22991,
+        "mx-indoor-rgb-769.avif": 12445,
+        "mx-indoor-rgb-769.webp": 23064,
+        "mx-indoor-rgb-769.jpg": 45496
+      },
+      "digest": "47f0720442222dc4",
+      "alt": "An indoor living room: a person seated on a patterned sofa, a table lamp, a wooden side table, an armchair, and framed pictures on the wall.",
+      "label": "RGB input"
+    },
+    "mx-indoor-depth": {
+      "kind": "frame",
+      "width": 769,
+      "height": 572,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-indoor-depth-480.avif"
+          },
+          {
+            "w": 769,
+            "path": "/media/images/mx-indoor-depth-769.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-indoor-depth-480.webp"
+          },
+          {
+            "w": 769,
+            "path": "/media/images/mx-indoor-depth-769.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-indoor-depth-480.jpg"
+          },
+          {
+            "w": 769,
+            "path": "/media/images/mx-indoor-depth-769.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "mx-indoor-depth-480.avif": 1134,
+        "mx-indoor-depth-480.webp": 2232,
+        "mx-indoor-depth-480.jpg": 6191,
+        "mx-indoor-depth-769.avif": 1867,
+        "mx-indoor-depth-769.webp": 3940,
+        "mx-indoor-depth-769.jpg": 11109
+      },
+      "digest": "de8a774ece7ed4d2",
+      "alt": "Predicted depth for the same living room, as a smooth colour field where the near armchair and sofa stand out from the far wall.",
+      "label": "Predicted depth"
+    },
+    "mx-indoor-semantics": {
+      "kind": "frame",
+      "width": 769,
+      "height": 572,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-indoor-semantics-480.avif"
+          },
+          {
+            "w": 769,
+            "path": "/media/images/mx-indoor-semantics-769.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-indoor-semantics-480.webp"
+          },
+          {
+            "w": 769,
+            "path": "/media/images/mx-indoor-semantics-769.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-indoor-semantics-480.jpg"
+          },
+          {
+            "w": 769,
+            "path": "/media/images/mx-indoor-semantics-769.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "mx-indoor-semantics-480.avif": 3674,
+        "mx-indoor-semantics-480.webp": 5952,
+        "mx-indoor-semantics-480.jpg": 13649,
+        "mx-indoor-semantics-769.avif": 5259,
+        "mx-indoor-semantics-769.webp": 9136,
+        "mx-indoor-semantics-769.jpg": 22640
+      },
+      "digest": "b56cfd59e747e8bc",
+      "alt": "Predicted semantic labels for the same living room, with flat colour regions for sofa, chair, lamp, table, floor, wall, and pictures.",
+      "label": "Predicted semantics"
+    },
+    "mx-outdoor-rgb": {
+      "kind": "frame",
+      "width": 1472,
+      "height": 573,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-outdoor-rgb-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/mx-outdoor-rgb-960.avif"
+          },
+          {
+            "w": 1472,
+            "path": "/media/images/mx-outdoor-rgb-1472.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-outdoor-rgb-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/mx-outdoor-rgb-960.webp"
+          },
+          {
+            "w": 1472,
+            "path": "/media/images/mx-outdoor-rgb-1472.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-outdoor-rgb-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/mx-outdoor-rgb-960.jpg"
+          },
+          {
+            "w": 1472,
+            "path": "/media/images/mx-outdoor-rgb-1472.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "mx-outdoor-rgb-480.avif": 7807,
+        "mx-outdoor-rgb-480.webp": 10056,
+        "mx-outdoor-rgb-480.jpg": 16448,
+        "mx-outdoor-rgb-960.avif": 18219,
+        "mx-outdoor-rgb-960.webp": 26120,
+        "mx-outdoor-rgb-960.jpg": 49595,
+        "mx-outdoor-rgb-1472.avif": 29034,
+        "mx-outdoor-rgb-1472.webp": 44662,
+        "mx-outdoor-rgb-1472.jpg": 95127
+      },
+      "digest": "8c54253d2c771d1d",
+      "alt": "A city street seen from a vehicle: parked and moving cars, a yellow DHL lorry, road markings, traffic signs, trees, and buildings.",
+      "label": "RGB input"
+    },
+    "mx-outdoor-depth": {
+      "kind": "frame",
+      "width": 1472,
+      "height": 573,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-outdoor-depth-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/mx-outdoor-depth-960.avif"
+          },
+          {
+            "w": 1472,
+            "path": "/media/images/mx-outdoor-depth-1472.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-outdoor-depth-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/mx-outdoor-depth-960.webp"
+          },
+          {
+            "w": 1472,
+            "path": "/media/images/mx-outdoor-depth-1472.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-outdoor-depth-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/mx-outdoor-depth-960.jpg"
+          },
+          {
+            "w": 1472,
+            "path": "/media/images/mx-outdoor-depth-1472.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "mx-outdoor-depth-480.avif": 1517,
+        "mx-outdoor-depth-480.webp": 2568,
+        "mx-outdoor-depth-480.jpg": 6667,
+        "mx-outdoor-depth-960.avif": 2729,
+        "mx-outdoor-depth-960.webp": 5726,
+        "mx-outdoor-depth-960.jpg": 15767,
+        "mx-outdoor-depth-1472.avif": 4117,
+        "mx-outdoor-depth-1472.webp": 9670,
+        "mx-outdoor-depth-1472.jpg": 27811
+      },
+      "digest": "e02632e05d4c4ba0",
+      "alt": "Predicted depth for the same street, with the road surface graded from near to far and vehicles resolved as separate depth bodies.",
+      "label": "Predicted depth"
+    },
+    "mx-outdoor-semantics": {
+      "kind": "frame",
+      "width": 1472,
+      "height": 573,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-outdoor-semantics-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/mx-outdoor-semantics-960.avif"
+          },
+          {
+            "w": 1472,
+            "path": "/media/images/mx-outdoor-semantics-1472.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-outdoor-semantics-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/mx-outdoor-semantics-960.webp"
+          },
+          {
+            "w": 1472,
+            "path": "/media/images/mx-outdoor-semantics-1472.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/mx-outdoor-semantics-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/mx-outdoor-semantics-960.jpg"
+          },
+          {
+            "w": 1472,
+            "path": "/media/images/mx-outdoor-semantics-1472.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "mx-outdoor-semantics-480.avif": 4392,
+        "mx-outdoor-semantics-480.webp": 6452,
+        "mx-outdoor-semantics-480.jpg": 11847,
+        "mx-outdoor-semantics-960.avif": 7640,
+        "mx-outdoor-semantics-960.webp": 12674,
+        "mx-outdoor-semantics-960.jpg": 26217,
+        "mx-outdoor-semantics-1472.avif": 10447,
+        "mx-outdoor-semantics-1472.webp": 18302,
+        "mx-outdoor-semantics-1472.jpg": 40762
+      },
+      "digest": "a748958e45521dde",
+      "alt": "Predicted semantic labels for the same street, with distinct colours for road, cars, vegetation, buildings, poles, and traffic signs.",
       "label": "Predicted semantics"
     }
   },
