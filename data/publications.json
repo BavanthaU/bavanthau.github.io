@@ -385,7 +385,7 @@
   },
   "preprints": {
     "heading": "Review preprints",
-    "note": "Single-author literature reviews written alongside the MSc, posted to arXiv in February 2023. Not peer reviewed.",
+    "note": "Single-author literature reviews written during the MSc at Middlesex University Dubai, posted to arXiv later. Not peer reviewed.",
     "entries": [
       {
         "slug": "evolution-of-slam",
@@ -395,7 +395,7 @@
         ],
         "venue": "arXiv preprint",
         "venueShort": "arXiv preprint",
-        "year": 2023,
+        "year": 2021,
         "status": "preprint",
         "statusLabel": "Preprint, not peer reviewed",
         "identifiers": {
@@ -408,7 +408,9 @@
         "hasPage": false,
         "summary": "A survey of how SLAM developed from filtering approaches through graph optimisation towards learned components.",
         "abstract": "Simultaneous localisation and mapping (SLAM) is the problem of autonomous robots to construct or update a map of an undetermined unstructured environment while simultaneously estimate the pose in it. The current trend towards self-driving vehicles has influenced the development of robust SLAM techniques over the last 30 years. This problem is addressed by using a standard sensor or a sensor array (Ultrasonic sensor, LIDAR, Camera, Kinect RGB-D) with sensor fusion techniques to achieve the perception step. Sensing method is determined by considering the specifications of the environment to extract the features. Then the usage of classical Filter-based approaches, the global optimisation approach which is a popular method for visual-based SLAM and convolutional neural network-based methods such as deep learning-based SLAM are discussed whereas considering how to overcome the localisation and mapping issues. The robustness and scalability in long-term autonomy, performance and other new directions in the algorithms compared with each other to sort out. This paper is looking at the published previous work with a judgemental perspective from sensors to algorithm development while discussing open challenges and new research frontiers.",
-        "sourceFile": "_source/papers/scholar-metadata/arxiv-parsed.json"
+        "sourceFile": "_source/papers/scholar-metadata/arxiv-parsed.json",
+        "written": 2021,
+        "posted": "2023-02-13"
       },
       {
         "slug": "drl-autonomous-driving",
@@ -418,7 +420,7 @@
         ],
         "venue": "arXiv preprint",
         "venueShort": "arXiv preprint",
-        "year": 2023,
+        "year": 2021,
         "status": "preprint",
         "statusLabel": "Preprint, not peer reviewed",
         "identifiers": {
@@ -431,7 +433,9 @@
         "hasPage": false,
         "summary": "A survey of deep reinforcement learning applied to autonomous driving, and why results in games transfer badly to the road.",
         "abstract": "Since deep neural networks' resurgence, reinforcement learning has gradually strengthened and surpassed humans in many conventional games. However, it is not easy to copy these accomplishments to autonomous driving because state spaces are immensely complicated in the real world and action spaces are continuous and fine control is necessary. Besides, autonomous driving systems must also maintain their functionality regardless of the environment's complexity. The deep reinforcement learning domain (DRL) has become a robust learning framework to handle complex policies in high dimensional surroundings with deep representation learning. This research outlines deep, reinforcement learning algorithms (DRL). It presents a nomenclature of autonomous driving in which DRL techniques have been used, thus discussing important computational issues in evaluating autonomous driving agents in the real environment. Instead, it involves similar but not standard RL techniques, adjoining fields such as emulation of actions, modelling imitation, inverse reinforcement learning. The simulators' role in training agents is addressed, as are the methods for validating, checking and robustness of existing RL solutions.",
-        "sourceFile": "_source/papers/scholar-metadata/arxiv-parsed.json"
+        "sourceFile": "_source/papers/scholar-metadata/arxiv-parsed.json",
+        "written": 2021,
+        "posted": "2023-02-13"
       },
       {
         "slug": "swarm-robotics-coordination",
@@ -441,7 +445,7 @@
         ],
         "venue": "arXiv preprint",
         "venueShort": "arXiv preprint",
-        "year": 2023,
+        "year": 2021,
         "status": "preprint",
         "statusLabel": "Preprint, not peer reviewed",
         "identifiers": {
@@ -454,7 +458,9 @@
         "hasPage": false,
         "summary": "A survey of coordinated motion and tracking strategies in swarm robotics.",
         "abstract": "Swarm robotics is a creative method of organizing multi-robot structures, consisting of many basic robots influenced by communal insects. The greatest astonishing attribute of swarm robots is their capacity to function together to accomplish a collective objective. This paper addresses the list of current surveys, problems and algorithms that were stimulated in the research of Coordinated Movement in Swarm robotics. Algorithms for swarm robotics movement are contrasted, considering the swarm micro-robots to accomplish aggregation, creation, and clamouring by contrasting the relative computational simulations between the algorithms and simulations used.",
-        "sourceFile": "_source/papers/scholar-metadata/arxiv-parsed.json"
+        "sourceFile": "_source/papers/scholar-metadata/arxiv-parsed.json",
+        "written": 2021,
+        "posted": "2023-02-13"
       }
     ]
   }

@@ -736,6 +736,9 @@ def cite_links(x):
 def cite_entry(x, extra_class=""):
     auth = f'<p class="pub-authors">{authors_html(x["authors"])}</p>' if x.get("authors") else ""
     when = f'{e(x["context"])}, {e(x["year"])}'
+    if x.get("posted"):
+        when = (f'{e(x["context"])}, written {e(x["written"])}, '
+                f'posted {humandate(x["posted"])}')
     if x.get("grade"):
         when += f', {e(x["grade"])}'
     role = f'<p class="pub-venue">{e(x["role"])}</p>' if x.get("role") else ""
@@ -905,6 +908,7 @@ OTHER_BIBTEX = [
   title         = {Evolution of SLAM: Toward the Robust-Perception of Autonomy},
   author        = {Udugama, B.},
   year          = {2023},
+  note          = {Written 2021},
   eprint        = {2302.06365},
   archivePrefix = {arXiv}
 }"""),
@@ -912,6 +916,7 @@ OTHER_BIBTEX = [
   title         = {Review of Deep Reinforcement Learning for Autonomous Driving},
   author        = {Udugama, B.},
   year          = {2023},
+  note          = {Written 2021},
   eprint        = {2302.06370},
   archivePrefix = {arXiv}
 }"""),
@@ -919,6 +924,7 @@ OTHER_BIBTEX = [
   title         = {Review on Efficient Strategies for Coordinated Motion and Tracking in Swarm Robotics},
   author        = {Udugama, B.},
   year          = {2023},
+  note          = {Written 2021},
   eprint        = {2302.06360},
   archivePrefix = {arXiv}
 }"""),
