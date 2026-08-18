@@ -97,7 +97,7 @@
 <div class="wrap">
 
 <h1>Research</h1>
-<p class="standfirst">A monocular camera, one that the field assumed needed a depth sensor beside it, builds a hierarchical metric-semantic 3D scene graph in real time. The next question is what a robot does with that structure when it has to decide where to look next.</p>
+<p class="standfirst">A monocular camera is passive, light, cheap, and geometrically ambiguous. This work makes one build a hierarchical map of a building in real time, and then decide where to look next.</p>
 
 <div class="note">
   <span class="note-label">Prologue</span>
@@ -108,6 +108,36 @@
 <h2>Part I. Structuring the seen</h2>
 <p>Building metric-semantic hierarchical 3D scene graphs from a single camera and an IMU, in real time.</p>
 <figure class=""><picture><source type="image/avif" srcset="/media/images/perception-pipeline-480.avif 480w, /media/images/perception-pipeline-960.avif 960w, /media/images/perception-pipeline-1600.avif 1600w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/perception-pipeline-480.webp 480w, /media/images/perception-pipeline-960.webp 960w, /media/images/perception-pipeline-1600.webp 1600w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/perception-pipeline-1600.jpg" alt="Pipeline diagram. Monocular RGB enters M2H-MX on the GPU, producing depth and semantics. Those feed pose-aware temporal alignment and a CPU-side VIO that uses predicted depth, with IMU input. The result is a metric semantic mesh and a 3D scene graph with building, room, place, object, and mesh layers." width="1822" height="764" loading="lazy" decoding="async"></picture><figcaption>One camera and one IMU in, a layered scene graph out. The two arrows returning from odometry into the perception block are the part that distinguishes this from a feed-forward pipeline: pose stabilises the next prediction rather than only consuming it.</figcaption></figure>
+
+<h3>One building, four generations</h3>
+<p>One building, four system generations, same measurement. Hardware and input resolution change across rows, so this is a system progression, not a controlled ablation.</p>
+<div class="table-scroll">
+  <table>
+    <caption class="sr-only">Mapping error by system generation</caption>
+    <thead><tr><th>System</th><th>Year</th><th>Mean error</th><th>Input</th><th>Hardware</th></tr></thead>
+    <tbody>
+        <tr>
+          <td>Mono-Hydra</td><td>2023</td><td>0.19 m</td>
+          <td>848x480</td><td>RTX 3080 laptop</td>
+        </tr>
+        <tr>
+          <td>M2H</td><td>2025</td><td>0.11 m</td>
+          <td>224x224</td><td>RTX 3080 laptop</td>
+        </tr>
+        <tr>
+          <td>M2H-MX-B</td><td>2026</td><td>0.10 m</td>
+          <td>640x480</td><td>RTX 4080 Super</td>
+        </tr>
+        <tr>
+          <td>M2H-MX-L</td><td>2026</td><td>0.08 m</td>
+          <td>640x480</td><td>RTX 4080 Super</td>
+        </tr>
+        <tr class="embedded">
+          <td>M2H-MX-L, embedded</td><td>2026</td><td>0.22 m</td>
+          <td>256x192</td><td>Jetson Orin NX 16GB</td>
+        </tr></tbody>
+  </table>
+</div>
 <p>Metric-semantic mapping systems that produce usable scene graphs have almost always assumed
 RGB-D or LiDAR input, because reliable geometry is the hard part and a depth sensor supplies it
 directly. That assumption rules out the platforms where the mapping is most useful, since payload

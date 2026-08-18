@@ -489,7 +489,10 @@ def build_home():
     d = SITE["deployment"]
     v = d["verified"]
     arc = SITE["arc"]
+    story = SITE["story"]
     prog = SITE["headlineProgression"]
+
+    paras = "".join(f"<p>{e(x)}</p>" for x in story["paragraphs"])
 
     pubs = PUBS["publications"]
     cards = "".join(f"""
@@ -499,12 +502,6 @@ def build_home():
         <p>{e(p["claim"])}</p>
         <p class="card-meta"><span>{e(p["statusLabel"])}</span></p>
       </li>""" for p in pubs)
-
-    rows = "".join(f"""
-        <tr{' class="embedded"' if "embedded" in r["system"].lower() else ""}>
-          <td>{e(r["system"])}</td><td>{e(r["year"])}</td><td>{e(r["error"])}</td>
-          <td>{e(r["resolution"])}</td><td>{e(r["hardware"])}</td>
-        </tr>""" for r in prog["rows"])
 
     body = f"""
 <div class="hero">
@@ -528,54 +525,46 @@ def build_home():
   </aside>
 </div>
 
+{video("itc-loop")}
+
+<h2>{e(story['heading'])}</h2>
+{paras}
+
+<h2>{e(arc['actOne']['label'])}. {e(arc['actOne']['title'])}</h2>
+<p class="section-intro">{e(arc['actOne']['homeLine'])}</p>
+<p class="section-intro">M2H-MX turns one RGB frame into metric depth and semantic labels together.
+Those two outputs are the entire input to the mapping backend. Indoors is what the system is built
+for; the street scene is the same model on data it was not designed for.</p>
+{wipe("m2h-mx-indoor")}
+{wipe("m2h-mx-outdoor")}
+
+<h2>{e(arc['actTwo']['label'])}. {e(arc['actTwo']['title'])}
+  <span class="tag tag-progress">In progress</span></h2>
+<p class="section-intro">{e(arc['actTwo']['homeLine'])}</p>
+{video("scope-explorer")}
+<p class="section-intro"><a href="/projects/learned-exploration/">How the exploration system is
+put together</a>.</p>
+
+<h2>What changed over four years</h2>
+<p class="section-intro">Mean mapping error on the second floor of the ITC building, measured
+against a LiDAR ground truth, across four generations of the system. The embedded point in amber is
+the model running on the drone at reduced resolution, which is a different trade-off rather than a
+regression.</p>
+
 <figure class="descent">
   <div class="descent-head">
-    <h2>The descent</h2>
+    <h3>The descent</h3>
     <span class="unit">{e(prog['label'])}</span>
   </div>
   <div class="descent-figure">{descent_svg()}</div>
   <div class="legend">
-    <span><i class="k-main"></i> measured on laptop or desktop GPU</span>
-    <span><i class="k-emb"></i> embedded operating point, Jetson Orin NX</span>
+    <span><i class="k-main"></i> laptop or desktop GPU</span>
+    <span><i class="k-emb"></i> Jetson Orin NX, embedded</span>
   </div>
-  <figcaption>{e(prog['caption'])} The embedded point is a different accuracy, latency, and
-    compute trade-off at reduced input resolution, not a regression.</figcaption>
+  <figcaption>Hardware and input resolution change across the points, so this is a system
+    progression rather than a controlled ablation. <a href="/research/">The full table, and the
+    argument behind it</a>.</figcaption>
 </figure>
-
-<div class="table-scroll">
-  <table>
-    <caption class="sr-only">Mapping error by system generation</caption>
-    <thead><tr><th>System</th><th>Year</th><th>Mean error</th><th>Input</th><th>Hardware</th></tr></thead>
-    <tbody>{rows}</tbody>
-  </table>
-</div>
-
-<h2>Watch it build</h2>
-{video("itc-loop")}
-
-<h2>Two parts</h2>
-<div class="acts">
-  <section class="act">
-    <p class="act-no">{e(arc['actOne']['label'])}</p>
-    <h3>{e(arc['actOne']['title'])}</h3>
-    <p>{e(arc['actOne']['line'])}</p>
-    <p><span class="tag">Four papers</span></p>
-  </section>
-  <section class="act">
-    <p class="act-no">{e(arc['actTwo']['label'])}</p>
-    <h3>{e(arc['actTwo']['title'])}</h3>
-    <p>{e(arc['actTwo']['line'])}</p>
-    <p><span class="tag tag-progress">In progress, no results yet</span></p>
-  </section>
-</div>
-<p class="section-intro"><a href="/research/">Read the long-form argument</a>.</p>
-
-<h2>What the camera gives the map</h2>
-<p class="section-intro">M2H-MX takes one RGB frame and predicts metric depth and semantic labels
-together. Those two outputs are the entire input to the mapping backend. Indoors is what the
-system is built for; the street scene is the same model on data it was not designed for.</p>
-{wipe("m2h-mx-indoor")}
-{wipe("m2h-mx-outdoor")}
 
 <h2>Selected work</h2>
 <ul class="cards">{cards}</ul>
@@ -593,6 +582,12 @@ system is built for; the street scene is the same model on data it was not desig
 
 def build_research():
     arc = SITE["arc"]
+    prog = SITE["headlineProgression"]
+    rows = "".join(f"""
+        <tr{' class="embedded"' if "embedded" in r["system"].lower() else ""}>
+          <td>{e(r["system"])}</td><td>{e(r["year"])}</td><td>{e(r["error"])}</td>
+          <td>{e(r["resolution"])}</td><td>{e(r["hardware"])}</td>
+        </tr>""" for r in prog["rows"])
     a2 = arc["actTwo"]
     proj2 = next(p for p in PROJECTS["projects"] if p["slug"] == "learned-exploration")
     points = "".join(f"<li>{e(x)}</li>" for x in proj2["designPoints"])
@@ -610,6 +605,16 @@ def build_research():
 <h2>{e(arc['actOne']['label'])}. {e(arc['actOne']['title'])}</h2>
 <p>{e(arc['actOne']['line'])}</p>
 {picture("perception-pipeline")}
+
+<h3>One building, four generations</h3>
+<p>{e(prog['caption'])}</p>
+<div class="table-scroll">
+  <table>
+    <caption class="sr-only">Mapping error by system generation</caption>
+    <thead><tr><th>System</th><th>Year</th><th>Mean error</th><th>Input</th><th>Hardware</th></tr></thead>
+    <tbody>{rows}</tbody>
+  </table>
+</div>
 <p>Metric-semantic mapping systems that produce usable scene graphs have almost always assumed
 RGB-D or LiDAR input, because reliable geometry is the hard part and a depth sensor supplies it
 directly. That assumption rules out the platforms where the mapping is most useful, since payload

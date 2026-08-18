@@ -53,14 +53,15 @@
     "ieeeAuthorPageNote": "Removed 2026-08-18. The previously listed id 37061362800 belongs to Sachini Ekanayake, a co-author on the Peradeniya papers, not to Bavantha Udugama. A wrong sameAs entry asserts that two people are the same person, so it is left empty until the correct author id is confirmed while signed in to IEEE Xplore."
   },
   "arc": {
-    "statement": "A monocular camera, one that the field assumed needed a depth sensor beside it, builds a hierarchical metric-semantic 3D scene graph in real time. The next question is what a robot does with that structure when it has to decide where to look next.",
+    "statement": "A monocular camera is passive, light, cheap, and geometrically ambiguous. This work makes one build a hierarchical map of a building in real time, and then decide where to look next.",
     "wordCount": 44,
     "actOne": {
       "title": "Structuring the seen",
       "line": "Building metric-semantic hierarchical 3D scene graphs from a single camera and an IMU, in real time.",
       "status": "complete",
       "label": "Part I",
-      "subtitle": "Understanding space"
+      "subtitle": "Understanding space",
+      "homeLine": "Learned depth and semantics feed a visual-inertial estimator, and the map that comes out is layered: mesh, objects, places, rooms, building. Four papers, from showing it was possible to closing the loop back into the estimator."
     },
     "actTwo": {
       "title": "Exploring the unseen",
@@ -69,7 +70,8 @@
       "honesty": "The formulation and the layering contract are written up. The experiments are not run yet, so there are no results to report.",
       "commitment": "Certification creates, learning selects.",
       "label": "Part II",
-      "subtitle": "Learning to explore"
+      "subtitle": "Learning to explore",
+      "homeLine": "A deterministic planner proposes only routes it has already certified as safe. A learned model chooses among them, or refuses and hands control back. The formulation is written; the experiments are not run yet."
     },
     "prologue": "The same question was asked at Peradeniya in 2017: an autonomous exploration planning strategy for a robot mapping an unknown space, using a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.",
     "prologueVideo": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s",
@@ -175,5 +177,14 @@
     "googleSearchConsole": "LWcJVt2Oa5A7B_dpxRGxcpkIGy-YoHjrJKUzmU_0QO4",
     "googleSearchConsoleNote": "Paste only the content value of the google-site-verification meta tag Search Console gives you, then rebuild. See LAUNCH_CHECKLIST.md step 1.",
     "bingWebmaster": null
+  },
+  "story": {
+    "heading": "The problem",
+    "paragraphs": [
+      "An aerial robot inspecting a bridge, counting warehouse stock, or entering a building after an incident has to do three things: understand the space, organise what it sees into something it can act on, and work out where to look next.",
+      "The second one is where most systems stop short. A point cloud tells a robot where surfaces are. It does not tell it that this is a room, that is a doorway, and there is a fire extinguisher on the wall. Planning, search, and instructions all need objects, places, and rooms, not raw geometry.",
+      "The sensor here is one camera and an IMU. Passive, light, inexpensive, information-rich, and geometrically ambiguous: a single image cannot tell you scale. Every hard problem in this work follows from choosing not to carry a depth sensor, and the reason to accept that is payload. What a small drone can lift decides what it can do, and for how long."
+    ],
+    "source": "Adapted from the thesis abstract."
   }
 }

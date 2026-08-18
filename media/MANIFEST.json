@@ -1271,7 +1271,7 @@
       "clickToLoad": false
     },
     "scope-explorer": {
-      "digest": "a74744b8577cca7d",
+      "digest": "9c436c9be993137e",
       "width": 1100,
       "height": 892,
       "mp4": "/media/video/scope-explorer.mp4",
@@ -1284,9 +1284,9 @@
         "scope-explorer-preview.mp4": 458285
       },
       "alt": "Simulated indoor exploration run showing the robot's occupancy map growing as it selects routes through the environment.",
-      "caption": "A 60 second excerpt of an exploration run in simulation, showing local and global behaviour as the occupancy map fills in.",
+      "caption": "Autonomous exploration in simulation. The robot holds an occupancy map it has built itself and commits to one certified route at a time, so the map fills in region by region rather than by wandering. 60 second excerpt.",
       "credit": "Exploration work in progress",
-      "clickToLoad": true
+      "clickToLoad": false
     }
   }
 }
