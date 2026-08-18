@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bavantha Udugama | M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction</title>
+<meta name="description" content="Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score. Accepted, ICRA 2026 SRRA Workshop. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
+<link rel="canonical" href="https://bavanthau.github.io/publications/m2h-mx/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Bavantha Udugama">
+<meta property="og:title" content="Bavantha Udugama | M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction">
+<meta property="og:description" content="Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score. Accepted, ICRA 2026 SRRA Workshop. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
+<meta property="og:url" content="https://bavanthau.github.io/publications/m2h-mx/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bavantha Udugama | M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction">
+<meta name="twitter:description" content="Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score. Accepted, ICRA 2026 SRRA Workshop. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction",
+  "name": "M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "U.V.B.L. Udugama",
+      "@id": "https://bavanthau.github.io/#person"
+    },
+    {
+      "@type": "Person",
+      "name": "George Vosselman"
+    },
+    {
+      "@type": "Person",
+      "name": "Francesco Nex"
+    }
+  ],
+  "datePublished": "2026",
+  "url": "https://bavanthau.github.io/publications/m2h-mx/",
+  "isPartOf": {
+    "@type": "Periodical",
+    "name": "IEEE International Conference on Robotics and Automation (ICRA) 2026, SRRA Workshop, Vienna"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "IEEE International Conference on Robotics and Automation (ICRA) 2026, SRRA Workshop, Vienna"
+  },
+  "abstract": "Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score.",
+  "creativeWorkStatus": "Accepted, ICRA 2026 SRRA Workshop",
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "DOI",
+      "value": "10.48550/arXiv.2603.29236"
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "arXiv",
+      "value": "2603.29236"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Bavantha Udugama</a>
+    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+
+<p class="eyebrow"><a href="/publications/">Publications</a></p>
+<h1>M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction</h1>
+<p class="pub-venue">Also circulated as: M2H-MX: Multi-Task Dense Visual Perception for Real-Time Monocular Spatial Understanding</p>
+<p class="pub-authors"><span class="self">U.V.B.L. Udugama</span>, <span>George Vosselman</span>, <span>Francesco Nex</span></p>
+<p class="pub-venue">IEEE International Conference on Robotics and Automation (ICRA) 2026, SRRA Workshop, Vienna</p>
+<div class="linkrow"><a href="https://doi.org/10.48550/arXiv.2603.29236">DOI</a><a href="https://arxiv.org/abs/2603.29236">arXiv</a><a href="https://github.com/BavanthaU/m2h_mx">Code</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/">LinkedIn</a><a href="/publications/bibtex/#m2h-mx">BibTeX</a></div>
+
+
+<p class="lede" style="margin-top:2rem">Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score.</p>
+
+<h2>Context</h2>
+<p>Dense prediction papers usually stop at per-frame metrics, which leaves open whether a better model actually produces a better map. M2H-MX is evaluated twice: once as a benchmark predictor, and once as the perception front end inside a running monocular SLAM pipeline that is otherwise unchanged.</p>
+
+<h2>Contribution</h2>
+<p>A DINOv3 backbone with LoRA adaptation, a register-gated Mamba decoder, and directed cross-task refinement. The ablation is the interesting part and it does not flatter the new modules: replacing DINOv3 with DINOv2-L costs 8.81 mIoU, while removing the cross-task mixer and the spatial attention costs 2.07. Most of the gain comes from backbone feature quality, and the paper says so.</p>
+
+<h2>Results</h2>
+<ul class="results">
+      <li class="result">
+        <span class="value">65.60 mIoU, 0.3800 RMSE</span>
+        <span class="what">NYUDv2 semantic segmentation and depth</span>
+        <span class="conditions">M2H-MX-L, RTX 4080 Super. This is +4.06 mIoU points and 9.4 % lower RMSE than M2H.</span>
+      </li>
+      <li class="result">
+        <span class="value">6.91 cm</span>
+        <span class="what">average ATE on selected ScanNet sequences</span>
+        <span class="conditions">Mono-Hydra stack with M2H-MX, monocular. Down from 17.59 cm for monocular Go-SLAM, a 60.7 % reduction. RGB-D baselines in the same table sit at 7.02 to 7.15 cm.</span>
+      </li>
+      <li class="result">
+        <span class="value">82.28 mIoU</span>
+        <span class="what">Cityscapes semantic segmentation</span>
+        <span class="conditions">M2H-MX-L, against MTMamba++ at 79.13</span>
+      </li></ul>
+<p class="pub-venue">Datasets: NYUDv2, Cityscapes, ScanNet (ScanNet25k subset for the deployed model). Hardware: RTX 4080 Super, 25 to 30 Hz asynchronous perception-to-mapping loop at 640x480.</p>
+
+<h2>Limitations</h2>
+<ul class="limits"><li>M2H-MX-L (4 heads) is 353.53 M parameters and 491.91 GFLOPs. This is a large model, and the accuracy is bought with compute.</li><li>The gain is dominated by backbone quality rather than by the proposed decoder blocks, which the ablation states directly.</li><li>The ScanNet comparison uses selected sequences, not the full benchmark.</li><li>Monocular ATE is close to the RGB-D baselines but does not beat the best of them.</li></ul>
+
+<h2>Links</h2>
+<div class="linkrow"><a href="https://doi.org/10.48550/arXiv.2603.29236">DOI</a><a href="https://arxiv.org/abs/2603.29236">arXiv</a><a href="https://github.com/BavanthaU/m2h_mx">Code</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/">LinkedIn</a><a href="/publications/bibtex/#m2h-mx">BibTeX</a></div>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <ul>
+      <li><a href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+      <li><a href="https://github.com/BavanthaU">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+      <li><a href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+      <li><a href="/publications/bibtex/">BibTeX</a></li>
+    </ul>
+    <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,13 @@
+/* TEAM */
+Name: Bavantha Udugama
+Publishes as: U.V.B.L. Udugama
+Role: PhD candidate, Faculty ITC, University of Twente
+Contact: bavanthaU@eng.pdn.ac.lk
+Scholar: https://scholar.google.com/citations?user=qQ5IPg4AAAAJ
+GitHub: https://github.com/BavanthaU
+
+/* SITE */
+Standards: HTML5, CSS3
+Components: none. Hand-written, no framework, no runtime dependency.
+Built: 2026-08-18
+Source of truth: data/*.json, rendered by tools/build.py

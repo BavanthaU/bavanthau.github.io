@@ -1,0 +1,9 @@
+# Source material: papers, raw media, CV. Never deployed.
+_source/
+
+# Media pipeline scratch
+media/.cache/
+
+# OS noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,246 @@
+{
+  "projects": [
+    {
+      "slug": "mono-hydra-plus",
+      "name": "Mono-Hydra++",
+      "act": 1,
+      "order": 1,
+      "oneLine": "The current system. One camera, one IMU, a hierarchical 3D scene graph, and a perception loop that feeds back into state estimation.",
+      "status": "under review",
+      "years": "2025 to 2026",
+      "paper": "mono-hydra-plus",
+      "repos": [
+        {
+          "name": "mono-hydra-pp",
+          "url": "https://github.com/BavanthaU/mono-hydra-pp",
+          "role": "system"
+        },
+        {
+          "name": "mono_hydra_vio",
+          "url": "https://github.com/BavanthaU/mono_hydra_vio",
+          "role": "VIO backend with sparse depth factors"
+        }
+      ],
+      "whatItDoes": "Predicted sparse depth enters the visual-inertial odometry as metric anchor factors. Semantic masks keep dynamic and unreliable regions out of the estimator. The poses that come back out temporally align the next dense predictions. The loop runs in both directions, which is the whole point.",
+      "keyNumbers": [
+        "0.08 m ITC 2nd floor mean error",
+        "0.033 m calibrated ATE on 7-Scenes",
+        "44.96 % semantic mesh mIoU on ScanNet"
+      ],
+      "media": {
+        "hero": {
+          "asset": "itc-full-resolution",
+          "type": "image",
+          "source": "_source/media/thesis-figures/itc_full_resolution.png"
+        },
+        "supporting": [
+          {
+            "asset": "mono-hydra-pp-pipeline",
+            "type": "image",
+            "source": "_source/media/thesis-figures/mono_hydra_pp_pipeline.png",
+            "caption": "Where each learned output enters the estimator. Look at the two return arrows: pose feeds back into perception, not just forward into the map."
+          },
+          {
+            "asset": "uhumans2-ablation",
+            "type": "image",
+            "source": "_source/media/thesis-figures/uhumans2_ablation_overview.png",
+            "caption": "The component study. Node F1 and ATE improve under different settings, which is why no single configuration is presented as best."
+          },
+          {
+            "asset": "scannet-semantic-failure",
+            "type": "image",
+            "source": "_source/media/thesis-figures/scannet_semantic_failure.png",
+            "caption": "A failure case: small classes absorbed into neighbouring dominant classes. Shown because the aggregate mIoU hides it."
+          }
+        ]
+      },
+      "gaps": [
+        "G5 scene-graph overlay still",
+        "G6 decimated glTF for the 3D viewer"
+      ]
+    },
+    {
+      "slug": "m2h-mx",
+      "name": "M2H-MX",
+      "act": 1,
+      "order": 2,
+      "oneLine": "The perception front end that made the map better, and the ablation that says why.",
+      "status": "published",
+      "years": "2026",
+      "paper": "m2h-mx",
+      "repos": [
+        {
+          "name": "m2h_mx",
+          "url": "https://github.com/BavanthaU/m2h_mx",
+          "role": "model and training"
+        }
+      ],
+      "whatItDoes": "DINOv3 features adapted with LoRA, decoded through register-gated Mamba blocks at multiple scales, with directed cross-task refinement between depth and semantics. Exported to ONNX and TensorRT FP16 for the drone.",
+      "keyNumbers": [
+        "65.60 mIoU and 0.3800 RMSE on NYUDv2",
+        "6.91 cm average ScanNet ATE, down from 17.59 cm",
+        "25.53 fps on Jetson Orin NX 16GB at 256x192"
+      ],
+      "media": {
+        "hero": {
+          "asset": "m2h-mx-architecture",
+          "type": "image",
+          "source": "_source/media/thesis-figures/m2h_mx_architecture.png"
+        },
+        "supporting": [
+          {
+            "asset": "m2h-mx-rgm",
+            "type": "image",
+            "source": "_source/media/thesis-figures/m2h_mx_rgm_block.png",
+            "caption": "The register-gated Mamba block. A single global vector gates every decoder scale, which is how global layout reaches local decoding without paying for attention."
+          },
+          {
+            "asset": "m2h-mx-ctm-msca",
+            "type": "image",
+            "source": "_source/media/thesis-figures/m2h_mx_ctm_msca.png",
+            "caption": "Cross-task mixing followed by spatial attention. Removing both costs 2.07 mIoU. Swapping the backbone costs 8.81."
+          },
+          {
+            "asset": "icra26-teaser",
+            "type": "video",
+            "source": "_source/media/icra26-teaser.mp4",
+            "caption": "10 second teaser, 3840x1644 with audio. Needs a silent 1600px cut through tools/media.sh."
+          }
+        ]
+      },
+      "gaps": [
+        "G4 drone photograph for the embedded deployment section"
+      ]
+    },
+    {
+      "slug": "m2h",
+      "name": "M2H",
+      "act": 1,
+      "order": 3,
+      "oneLine": "Four dense tasks in one model, replacing two separate networks that did not agree with each other.",
+      "status": "published",
+      "years": "2025",
+      "paper": "m2h",
+      "repos": [
+        {
+          "name": "M2H",
+          "url": "https://github.com/UAV-Centre-ITC/M2H",
+          "role": "model, training, pretrained weights"
+        }
+      ],
+      "whatItDoes": "Window-based cross-task attention on a DINOv2-small backbone, predicting depth, semantics, surface normals, and edges together so that each task can use what the others found.",
+      "keyNumbers": [
+        "61.54 mIoU and 0.4196 RMSE on NYUDv2",
+        "0.11 m ITC mean error at 30 fps",
+        "81 M parameters, 488 GFLOPs"
+      ],
+      "media": {
+        "hero": {
+          "asset": "m2h-aligned-streams",
+          "type": "interactive",
+          "component": "stage-wipe",
+          "source": "_source/media/iros25-aligned-streams/",
+          "note": "Five frame-aligned 3:37 streams at 848x480: rgb, depth_vis, semantics, normals, edges. This is the material for the RGB to depth to semantics wipe. No new capture needed."
+        },
+        "supporting": [
+          {
+            "asset": "m2h-2nd-floor-loop",
+            "type": "video",
+            "source": "_source/media/m2h-2nd-floor-loop.mp4",
+            "caption": "Full 2nd floor loop, 41 seconds. 3840x1644 with audio, needs processing."
+          },
+          {
+            "asset": "youtube-demo",
+            "type": "external-video",
+            "url": "https://www.youtube.com/watch?v=X2w_AqGwkaY",
+            "caption": "Full-length network demo. Facade only, no iframe until click."
+          }
+        ]
+      },
+      "gaps": []
+    },
+    {
+      "slug": "mono-hydra",
+      "name": "Mono-Hydra",
+      "act": 1,
+      "order": 4,
+      "oneLine": "Where it started. The first real-time 3D scene graph built from a monocular camera and an IMU.",
+      "status": "published",
+      "years": "2022 to 2023",
+      "paper": "mono-hydra",
+      "repos": [
+        {
+          "name": "mono_hydra",
+          "url": "https://github.com/UAV-Centre-ITC/mono_hydra",
+          "role": "system"
+        }
+      ],
+      "whatItDoes": "Learned depth and learned semantics run as separate networks, feeding a robocentric square-root VIO and the Hydra scene graph layers: mesh, objects, places, rooms, buildings.",
+      "keyNumbers": [
+        "0.19 m and 0.21 m ITC mean error",
+        "15 fps at 848x480",
+        "RTX 3080 8GB laptop"
+      ],
+      "media": {
+        "hero": {
+          "asset": "scenegraph-system-design",
+          "type": "image",
+          "source": "_source/media/thesis-figures/scenegraph_system_design.png"
+        },
+        "supporting": [
+          {
+            "asset": "stairs-vio",
+            "type": "video",
+            "source": "_source/media/stairs-vio.webm",
+            "caption": "2nd to 3rd floor including the stairwell. The stairs are the hard part for monocular scale."
+          }
+        ]
+      },
+      "gaps": []
+    },
+    {
+      "slug": "learned-exploration",
+      "name": "Learned exploration",
+      "act": 2,
+      "order": 5,
+      "oneLine": "A deterministic planner proposes only routes it has certified as safe. A learned model chooses among them, or refuses.",
+      "status": "in progress",
+      "statusLabel": "Work in progress, no results yet",
+      "years": "2025 to present",
+      "paper": null,
+      "repos": [],
+      "honesty": "The formulation, the layering contract, and the objective are written up in the thesis. The experiments are not run yet, so there are no results to report. The exploration agent does not currently consume the Mono-Hydra++ scene graph either: it maintains its own topological memory over a 2D occupancy map built from simulated depth and pose. Connecting the two acts is the next step.",
+      "whatItDoes": "The robot enters an unmapped indoor space with one forward-facing camera and must cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes verified against the occupancy map the robot has built. The open problem is choice, not motion. The learned layer may re-order the certified options and may abstain, but it may never generate a route of its own.",
+      "commitment": "Certification creates, learning selects.",
+      "designPoints": [
+        "Options are judged relative to one another, so that two routes leading through the same opening are not treated as genuine alternatives.",
+        "Actions are temporally extended, because passing through a doorway is locally expensive and locally uninformative and everything of value happens afterwards.",
+        "Branch memory gives the agent a persistent notion of unfinished work, so regions get completed and exhausted ones get abandoned.",
+        "Ensemble disagreement drives abstention, which hands control back to the deterministic layer."
+      ],
+      "media": {
+        "hero": null,
+        "heroNote": "Gap. No visual of the agent's own behaviour exists.",
+        "supporting": [
+          {
+            "asset": "scope-explorer",
+            "type": "video",
+            "source": "_source/media/exploration-baselines/SCOPE_explorer_local_global.mp4",
+            "caption": "SCOPE explorer, local and global behaviour. 3 minutes, 1280x1038.",
+            "attribution": "own work, confirmed 2026-08-18"
+          }
+        ]
+      },
+      "gaps": [
+        "G10 no exploration result of any kind yet"
+      ]
+    }
+  ],
+  "platform": {
+    "name": "Custom drone",
+    "compute": "Jetson Orin NX 16GB",
+    "deploymentStatus": "Perception deployed and measured. Full-suite onboard deployment planned for August 2026.",
+    "media": null,
+    "mediaNote": "Gap G4. No photograph of the platform and no verified hardware specification sheet exist. The thesis records the same gap."
+  }
+}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bavantha Udugama | Mono-Hydra++</title>
+<meta name="description" content="The current system. One camera, one IMU, a hierarchical 3D scene graph, and a perception loop that feeds back into state estimation. By Bavantha Udugama, ITC University of Twente.">
+<link rel="canonical" href="https://bavanthau.github.io/projects/mono-hydra-plus/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Bavantha Udugama">
+<meta property="og:title" content="Bavantha Udugama | Mono-Hydra++">
+<meta property="og:description" content="The current system. One camera, one IMU, a hierarchical 3D scene graph, and a perception loop that feeds back into state estimation. By Bavantha Udugama, ITC University of Twente.">
+<meta property="og:url" content="https://bavanthau.github.io/projects/mono-hydra-plus/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bavantha Udugama | Mono-Hydra++">
+<meta name="twitter:description" content="The current system. One camera, one IMU, a hierarchical 3D scene graph, and a perception loop that feeds back into state estimation. By Bavantha Udugama, ITC University of Twente.">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "Mono-Hydra++",
+  "description": "The current system. One camera, one IMU, a hierarchical 3D scene graph, and a perception loop that feeds back into state estimation.",
+  "url": "https://bavanthau.github.io/projects/mono-hydra-plus/",
+  "codeRepository": [
+    "https://github.com/BavanthaU/mono-hydra-pp",
+    "https://github.com/BavanthaU/mono_hydra_vio"
+  ],
+  "programmingLanguage": [
+    "C++",
+    "Python"
+  ],
+  "author": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Bavantha Udugama</a>
+    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+
+<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Act I</p>
+<h1>Mono-Hydra++</h1>
+<p class="standfirst">The current system. One camera, one IMU, a hierarchical 3D scene graph, and a perception loop that feeds back into state estimation.</p>
+<p class="pub-venue">2025 to 2026 &middot;
+  under review</p>
+
+<h2>What it does</h2>
+<p>Predicted sparse depth enters the visual-inertial odometry as metric anchor factors. Semantic masks keep dynamic and unreliable regions out of the estimator. The poses that come back out temporally align the next dense predictions. The loop runs in both directions, which is the whole point.</p>
+
+<h2>Key numbers</h2><ul class="results"><li class="result"><span class="value">0.08 m ITC 2nd floor mean error</span></li><li class="result"><span class="value">0.033 m calibrated ATE on 7-Scenes</span></li><li class="result"><span class="value">44.96 % semantic mesh mIoU on ScanNet</span></li></ul>
+<h2>Paper</h2><p><a href="/publications/mono-hydra-plus/">Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping</a><br><span class="pub-venue">Under review at ISPRS Journal of Photogrammetry and Remote Sensing</span></p>
+<h2>Code</h2><ul class="limits"><li><a href="https://github.com/BavanthaU/mono-hydra-pp">mono-hydra-pp</a> <span class="pub-venue">system</span></li><li><a href="https://github.com/BavanthaU/mono_hydra_vio">mono_hydra_vio</a> <span class="pub-venue">VIO backend with sparse depth factors</span></li></ul>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <ul>
+      <li><a href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+      <li><a href="https://github.com/BavanthaU">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+      <li><a href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+      <li><a href="/publications/bibtex/">BibTeX</a></li>
+    </ul>
+    <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
+  </div>
+</footer>
+</body>
+</html>

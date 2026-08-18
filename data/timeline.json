@@ -1,0 +1,124 @@
+{
+  "timeline": [
+    {
+      "start": "2014",
+      "end": "2017",
+      "title": "BSc Electrical and Electronic Engineering",
+      "org": "University of Peradeniya, Sri Lanka",
+      "detail": "Second Class Upper Division, GPA 3.55 of 4.00. Final-year project: a vision- and LiDAR-based mobile robot for reconnaissance in unknown environments. Autonomous exploration planning with a 2D laser range finder and a particle filter on a Raspberry Pi.",
+      "act": "prologue",
+      "tags": ["exploration", "SLAM"]
+    },
+    {
+      "start": "2017-11",
+      "end": "2019-06",
+      "title": "Corporate Applications Engineer",
+      "org": "Synopsys Inc., Sri Lanka",
+      "detail": "Chip verification support, including on-site work at Samsung Electronics in South Korea within the first year.",
+      "act": null,
+      "tags": []
+    },
+    {
+      "start": "2019-09",
+      "end": "2021-11",
+      "title": "MSc Robotics Engineering",
+      "org": "Middlesex University Dubai",
+      "detail": "Distinction. Thesis on a heterogeneous swarm robot system with distributed data processing at the edge for collective transportation.",
+      "act": null,
+      "tags": ["robotics"]
+    },
+    {
+      "start": "2019-10",
+      "end": "2020-09",
+      "title": "Robotics Engineer, STEM and IoT",
+      "org": "Premier Genie, Dubai",
+      "detail": "Robotics and IoT prototypes for Dubai school programmes.",
+      "act": null,
+      "tags": []
+    },
+    {
+      "start": "2020-10",
+      "end": "2022-06",
+      "title": "Senior Robotics Software Engineer and Project Lead",
+      "org": "Expert Hub Robotics, Dubai",
+      "detail": "Founding robotics engineer, promoted within 10 months to lead a team of 3. Built the core ROS navigation stack. Led deployment of more than 30 humanoid robots across Expo 2020 Dubai, healthcare, and reception sites. Fine-tuned and shipped a YOLOv5 thermal face detector running live in a commercial product.",
+      "act": null,
+      "tags": ["deployment", "ROS"]
+    },
+    {
+      "start": "2022-08",
+      "end": "2026-08",
+      "title": "PhD candidate, robotics and computer vision",
+      "org": "Faculty ITC, University of Twente",
+      "detail": "Autonomous real-time UAV mapping with spatial perception for indoor applications. Supervised by George Vosselman and Francesco Nex. Thesis: Structuring the Seen, Exploring the Unseen. Expected completion August 2026.",
+      "act": "both",
+      "tags": ["SLAM", "scene graphs", "multi-task learning", "exploration"]
+    },
+    {
+      "start": "2023",
+      "end": "2023",
+      "title": "Mono-Hydra published",
+      "org": "ISPRS Annals",
+      "detail": "First real-time 3D scene graph from a monocular camera and an IMU. 0.19 m mean error on the ITC 2nd floor at 15 fps.",
+      "act": "one",
+      "publication": "mono-hydra",
+      "tags": ["milestone"]
+    },
+    {
+      "start": "2025",
+      "end": "2025",
+      "title": "M2H published",
+      "org": "IEEE/RSJ IROS 2025",
+      "detail": "Four dense tasks in one model. ITC mean error drops to 0.11 m and the loop doubles to 30 fps.",
+      "act": "one",
+      "publication": "m2h",
+      "tags": ["milestone"]
+    },
+    {
+      "start": "2026",
+      "end": "2026",
+      "title": "M2H-MX accepted",
+      "org": "ICRA 2026 SRRA Workshop, Vienna",
+      "detail": "65.60 mIoU on NYUDv2, and ScanNet average ATE down from 17.59 cm to 6.91 cm inside the mapping loop.",
+      "act": "one",
+      "publication": "m2h-mx",
+      "tags": ["milestone"]
+    },
+    {
+      "start": "2026",
+      "end": "2026",
+      "title": "Perception running on the drone",
+      "org": "Jetson Orin NX 16GB",
+      "detail": "M2H-MX-L exported to ONNX and TensorRT FP16 with CUDA Graphs. 25.53 fps and 39.02 ms mean GPU compute at 256x192. Perception only: VIO, mapping, and scene graph construction ran off-board.",
+      "act": "one",
+      "tags": ["deployment", "milestone"]
+    },
+    {
+      "start": "2026",
+      "end": null,
+      "title": "Mono-Hydra++ under review",
+      "org": "ISPRS Journal of Photogrammetry and Remote Sensing",
+      "detail": "The full system. 0.08 m on the ITC 2nd floor, 0.033 m calibrated ATE on 7-Scenes.",
+      "act": "one",
+      "publication": "mono-hydra-plus",
+      "tags": ["milestone"]
+    },
+    {
+      "start": "2025",
+      "end": null,
+      "title": "Learned exploration, in progress",
+      "org": "University of Twente",
+      "detail": "A learned selector over certified routes. Formulation written, experiments not yet run, no results.",
+      "act": "two",
+      "project": "learned-exploration",
+      "tags": ["exploration", "in progress"]
+    }
+  ],
+
+  "teaching": [
+    {
+      "period": "2022 to 2026",
+      "detail": "Designed lab exercises on YOLO-based human detection and tracking, and on LiDAR-based SLAM, for the Robotics master's courses. Supervised 3 master's thesis students."
+    }
+  ]
+}

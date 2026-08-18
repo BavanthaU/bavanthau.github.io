@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bavantha Udugama | Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping</title>
+<meta name="description" content="A single camera and an IMU build a hierarchical metric-semantic 3D scene graph of an indoor building in real time, and the map is accurate to 0.08 m. Under review at ISPRS Journal of Photogrammetry and Remote Sensing. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
+<link rel="canonical" href="https://bavanthau.github.io/publications/mono-hydra-plus/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Bavantha Udugama">
+<meta property="og:title" content="Bavantha Udugama | Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping">
+<meta property="og:description" content="A single camera and an IMU build a hierarchical metric-semantic 3D scene graph of an indoor building in real time, and the map is accurate to 0.08 m. Under review at ISPRS Journal of Photogrammetry and Remote Sensing. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
+<meta property="og:url" content="https://bavanthau.github.io/publications/mono-hydra-plus/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bavantha Udugama | Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping">
+<meta name="twitter:description" content="A single camera and an IMU build a hierarchical metric-semantic 3D scene graph of an indoor building in real time, and the map is accurate to 0.08 m. Under review at ISPRS Journal of Photogrammetry and Remote Sensing. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping",
+  "name": "Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "U.V.B.L. Udugama",
+      "@id": "https://bavanthau.github.io/#person"
+    },
+    {
+      "@type": "Person",
+      "name": "George Vosselman"
+    },
+    {
+      "@type": "Person",
+      "name": "Francesco Nex"
+    }
+  ],
+  "datePublished": "2026",
+  "url": "https://bavanthau.github.io/publications/mono-hydra-plus/",
+  "isPartOf": {
+    "@type": "Periodical",
+    "name": "ISPRS Journal of Photogrammetry and Remote Sensing"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ISPRS Journal of Photogrammetry and Remote Sensing"
+  },
+  "abstract": "A single camera and an IMU build a hierarchical metric-semantic 3D scene graph of an indoor building in real time, and the map is accurate to 0.08 m.",
+  "creativeWorkStatus": "Under review at ISPRS Journal of Photogrammetry and Remote Sensing"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Bavantha Udugama</a>
+    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+
+<p class="eyebrow"><a href="/publications/">Publications</a></p>
+<h1>Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping</h1>
+
+<p class="pub-authors"><span class="self">U.V.B.L. Udugama</span>, <span>George Vosselman</span>, <span>Francesco Nex</span></p>
+<p class="pub-venue">ISPRS Journal of Photogrammetry and Remote Sensing, 2026</p>
+<div class="linkrow"><a href="https://github.com/BavanthaU/mono-hydra-pp">Code</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/">LinkedIn</a><a href="/publications/bibtex/#mono-hydra-plus">BibTeX</a></div>
+
+<div class="note">
+  <span class="note-label">Status</span>
+  <p>Under review at ISPRS Journal of Photogrammetry and Remote Sensing. Manuscript number PHOTO-S-26-02536.</p>
+</div>
+
+<p class="lede" style="margin-top:2rem">A single camera and an IMU build a hierarchical metric-semantic 3D scene graph of an indoor building in real time, and the map is accurate to 0.08 m.</p>
+
+<h2>Context</h2>
+<p>Metric-semantic mapping systems that produce usable scene graphs have almost always assumed RGB-D or LiDAR input, because reliable geometry is the hard part and depth sensors supply it directly. That assumption rules out the platforms where mapping is most useful, since payload and power are what limit small drones. Mono-Hydra++ removes the depth sensor and closes the loop between perception and state estimation instead.</p>
+
+<h2>Contribution</h2>
+<p>Predicted sparse depth is fed back into the VIO as metric anchor factors, semantic masks protect the estimator from dynamic and unreliable regions, and the resulting poses temporally align the dense predictions. Each direction of that loop is ablated separately. The honest limit is that the components are evaluated in-loop, so the system comparison does not prove any single component is independently causal.</p>
+
+<h2>Results</h2>
+<ul class="results">
+      <li class="result">
+        <span class="value">0.08 m</span>
+        <span class="what">mesh mean error, ITC building 2nd floor</span>
+        <span class="conditions">M2H-MX-L front end, 640x480, RTX 4080 Super</span>
+      </li>
+      <li class="result">
+        <span class="value">0.033 m</span>
+        <span class="what">calibrated average ATE RMSE on 7-Scenes</span>
+        <span class="conditions">ScanNet-trained weights, RGB plus IMU</span>
+      </li>
+      <li class="result">
+        <span class="value">44.96 %</span>
+        <span class="what">global semantic mesh mIoU on evaluated ScanNet scenes</span>
+        <span class="conditions">fixed mapping backend, RGB plus IMU</span>
+      </li></ul>
+<p class="pub-venue">Datasets: ScanNet, 7-Scenes, uHumans2, ITC building (own capture). Hardware: RTX 4080 Super for the full system. Jetson Orin NX 16GB for the exported perception model only.</p>
+
+<h2>Limitations</h2>
+<ul class="limits"><li>Map quality is multi-objective and the improvements do not move together. On uHumans2 Apartment, adding depth and semantic components raises node F1 from 0.432 to 0.596 while making ATE worse, from 0.068 m to 0.075 m.</li><li>On uHumans2 Office the best ATE (1.125 m, K=3) and the best node F1 (0.452, K=1) come from different configurations, so no single setting is best on every axis.</li><li>The temporal alignment effect is non-monotonic in window length. Longer is not better.</li><li>Evaluation is indoor throughout. Nothing here supports a claim about outdoor or large-scale environments.</li></ul>
+
+<h2>Links</h2>
+<div class="linkrow"><a href="https://github.com/BavanthaU/mono-hydra-pp">Code</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/">LinkedIn</a><a href="/publications/bibtex/#mono-hydra-plus">BibTeX</a></div>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <ul>
+      <li><a href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+      <li><a href="https://github.com/BavanthaU">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+      <li><a href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+      <li><a href="/publications/bibtex/">BibTeX</a></li>
+    </ul>
+    <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
+  </div>
+</footer>
+</body>
+</html>

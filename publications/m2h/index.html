@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bavantha Udugama | M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception</title>
+<meta name="description" content="Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop. Published, IEEE/RSJ IROS 2025. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
+<link rel="canonical" href="https://bavanthau.github.io/publications/m2h/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Bavantha Udugama">
+<meta property="og:title" content="Bavantha Udugama | M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception">
+<meta property="og:description" content="Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop. Published, IEEE/RSJ IROS 2025. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
+<meta property="og:url" content="https://bavanthau.github.io/publications/m2h/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bavantha Udugama | M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception">
+<meta name="twitter:description" content="Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop. Published, IEEE/RSJ IROS 2025. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception",
+  "name": "M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "U.V.B.L. Udugama",
+      "@id": "https://bavanthau.github.io/#person"
+    },
+    {
+      "@type": "Person",
+      "name": "George Vosselman"
+    },
+    {
+      "@type": "Person",
+      "name": "Francesco Nex"
+    }
+  ],
+  "datePublished": "2025",
+  "url": "https://bavanthau.github.io/publications/m2h/",
+  "isPartOf": {
+    "@type": "Periodical",
+    "name": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2025"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2025"
+  },
+  "abstract": "Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop.",
+  "creativeWorkStatus": "Published, IEEE/RSJ IROS 2025",
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "arXiv",
+      "value": "2510.17363"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Bavantha Udugama</a>
+    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+
+<p class="eyebrow"><a href="/publications/">Publications</a></p>
+<h1>M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception</h1>
+
+<p class="pub-authors"><span class="self">U.V.B.L. Udugama</span>, <span>George Vosselman</span>, <span>Francesco Nex</span></p>
+<p class="pub-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2025</p>
+<div class="linkrow"><a href="https://arxiv.org/abs/2510.17363">arXiv</a><a href="https://github.com/UAV-Centre-ITC/M2H">Code</a><a href="https://www.youtube.com/watch?v=X2w_AqGwkaY">Video</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7392253889087074304/">LinkedIn</a><a href="/publications/bibtex/#m2h">BibTeX</a></div>
+
+
+<p class="lede" style="margin-top:2rem">Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop.</p>
+
+<h2>Context</h2>
+<p>Mono-Hydra ran an independent depth network and an independent semantic network side by side. That duplicates compute and produces two representations that do not agree with each other. M2H replaces both with one multi-task model in which depth, semantics, surface normals, and edges exchange information through window-based cross-task attention.</p>
+
+<h2>Contribution</h2>
+<p>A window-based cross-task attention module that lets tasks exchange structured features while keeping task-specific detail, on a DINOv2-small backbone. The ablation shows both the local attention and the global fusion module are load-bearing: removing either degrades every task.</p>
+
+<h2>Results</h2>
+<ul class="results">
+      <li class="result">
+        <span class="value">61.54 mIoU, 0.4196 RMSE</span>
+        <span class="what">NYUDv2 semantic segmentation and depth</span>
+        <span class="conditions">RTX 3080 laptop. Best prior compared: SwinMTL 58.14 mIoU, MTMamba++ 0.4818 RMSE.</span>
+      </li>
+      <li class="result">
+        <span class="value">0.11 m at 30 fps</span>
+        <span class="what">ITC building 2nd floor mesh mean error, in the Mono-Hydra loop</span>
+        <span class="conditions">224x224, RTX 3080 laptop. The Mono-Hydra baseline with separate networks reached 0.19 m at 15 fps.</span>
+      </li>
+      <li class="result">
+        <span class="value">+5.65 mIoU</span>
+        <span class="what">Hypersim semantic segmentation over EMSANet</span>
+        <span class="conditions">52.31 against 46.66, Table II. Depth RMSE 3.19 against ScaleDepth-NK at 4.825.</span>
+      </li></ul>
+<p class="pub-venue">Datasets: NYUDv2, Hypersim V1, Cityscapes, ITC building (own capture). Hardware: Trained on A40. Tested on RTX 3080 laptop, 30 fps.</p>
+
+<h2>Limitations</h2>
+<ul class="limits"><li>M2H is 81 M parameters and 488 GFLOPs. It is accurate at moderate parameter count but the GFLOP count is high, so it is not a cheap model.</li><li>M2H-small is far cheaper at 33.7 M parameters and 59 GFLOPs, and gives up 3.49 mIoU (58.05 against 61.54).</li><li>Boundary detection on NYUDv2 is the one task where the small variant falls behind prior work, at 74.44 odsF.</li></ul>
+
+<h2>Links</h2>
+<div class="linkrow"><a href="https://arxiv.org/abs/2510.17363">arXiv</a><a href="https://github.com/UAV-Centre-ITC/M2H">Code</a><a href="https://www.youtube.com/watch?v=X2w_AqGwkaY">Video</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7392253889087074304/">LinkedIn</a><a href="/publications/bibtex/#m2h">BibTeX</a></div>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <ul>
+      <li><a href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+      <li><a href="https://github.com/BavanthaU">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+      <li><a href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+      <li><a href="/publications/bibtex/">BibTeX</a></li>
+    </ul>
+    <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
+  </div>
+</footer>
+</body>
+</html>

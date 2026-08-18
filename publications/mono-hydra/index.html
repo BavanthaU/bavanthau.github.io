@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bavantha Udugama | Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU</title>
+<meta name="description" content="A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR. Published, ISPRS Annals 2023. By U.V.B.L. Udugama, G. Vosselman, F. Nex.">
+<link rel="canonical" href="https://bavanthau.github.io/publications/mono-hydra/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Bavantha Udugama">
+<meta property="og:title" content="Bavantha Udugama | Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU">
+<meta property="og:description" content="A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR. Published, ISPRS Annals 2023. By U.V.B.L. Udugama, G. Vosselman, F. Nex.">
+<meta property="og:url" content="https://bavanthau.github.io/publications/mono-hydra/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bavantha Udugama | Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU">
+<meta name="twitter:description" content="A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR. Published, ISPRS Annals 2023. By U.V.B.L. Udugama, G. Vosselman, F. Nex.">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU",
+  "name": "Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "U.V.B.L. Udugama",
+      "@id": "https://bavanthau.github.io/#person"
+    },
+    {
+      "@type": "Person",
+      "name": "G. Vosselman"
+    },
+    {
+      "@type": "Person",
+      "name": "F. Nex"
+    }
+  ],
+  "datePublished": "2023",
+  "url": "https://bavanthau.github.io/publications/mono-hydra/",
+  "isPartOf": {
+    "@type": "Periodical",
+    "name": "ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, volume 1, pages 439 to 445"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, volume 1, pages 439 to 445"
+  },
+  "abstract": "A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR.",
+  "creativeWorkStatus": "Published, ISPRS Annals 2023",
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "arXiv",
+      "value": "2308.05515"
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Bavantha Udugama</a>
+    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+
+<p class="eyebrow"><a href="/publications/">Publications</a></p>
+<h1>Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU</h1>
+
+<p class="pub-authors"><span class="self">U.V.B.L. Udugama</span>, <span>G. Vosselman</span>, <span>F. Nex</span></p>
+<p class="pub-venue">ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, volume 1, pages 439 to 445, 2023</p>
+<div class="linkrow"><a href="https://arxiv.org/abs/2308.05515">arXiv</a><a href="https://github.com/UAV-Centre-ITC/mono_hydra">Code</a><a href="https://www.youtube.com/watch?v=X2w_AqGwkaY">Video</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7107072728993533952/">LinkedIn</a><a href="/publications/bibtex/#mono-hydra">BibTeX</a></div>
+
+
+<p class="lede" style="margin-top:2rem">A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR.</p>
+
+<h2>Context</h2>
+<p>Scene graphs represent an environment as a layered graph running from mesh geometry up through objects, places, rooms, and buildings. Systems that build them in real time, Hydra and Kimera and S-Graphs+, all assumed RGB-D or 3D LiDAR input. Removing the depth sensor was largely unexplored, and it is exactly what small aerial platforms need.</p>
+
+<h2>Contribution</h2>
+<p>Learned depth and learned semantics feed a robocentric square-root visual-inertial odometry front end, and the resulting semantic mesh drives the Hydra scene graph layers. The system is the contribution rather than any single network. It was the first demonstration of this construction from monocular input plus IMU.</p>
+
+<h2>Results</h2>
+<ul class="results">
+      <li class="result">
+        <span class="value">0.19 m and 0.21 m</span>
+        <span class="what">mesh mean error on the ITC building 2nd and 3rd floors, against a LiDAR backpack point cloud</span>
+        <span class="conditions">DistDepth front end, 848x480, RTX 3080 laptop. The Lite-Mono front end was roughly twice as bad, at 0.39 m and 0.36 m.</span>
+      </li>
+      <li class="result">
+        <span class="value">15 fps</span>
+        <span class="what">end-to-end real-time system rate</span>
+        <span class="conditions">848x480 input, RTX 3080 8GB laptop GPU</span>
+      </li>
+      <li class="result">
+        <span class="value">0.03 m to 0.28 m</span>
+        <span class="what">mesh mean error against Hydra on uHumans2</span>
+        <span class="conditions">Three synthetic scenes, DistDepth 0.05 to 0.28 m, Lite-Mono 0.03 to 0.23 m with higher variance</span>
+      </li></ul>
+<p class="pub-venue">Datasets: uHumans2, ADE20k and NYUv2 (fine-tuning), ITC building (own capture, RealSense D435i), LiDAR backpack point cloud (ground truth). Hardware: Fine-tuning on TITAN Xp 12GB. System on Alienware m17 laptop, RTX 3080 8GB.</p>
+
+<h2>Limitations</h2>
+<ul class="limits"><li>The semantic quality of the generated 3D semantic mesh was never quantified, so no accuracy measure for it exists. The paper says so directly.</li><li>Hierarchical loop closure, room detection, and temporal consistency of the mesh are all named as unsolved.</li><li>The abstract summarises the mapping result as sub-20 cm, but the 3rd floor measured 0.21 m. This page quotes the table.</li><li>Deployment on embedded hardware needed further network optimisation, which is what the later work went on to do.</li></ul>
+
+<h2>Links</h2>
+<div class="linkrow"><a href="https://arxiv.org/abs/2308.05515">arXiv</a><a href="https://github.com/UAV-Centre-ITC/mono_hydra">Code</a><a href="https://www.youtube.com/watch?v=X2w_AqGwkaY">Video</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7107072728993533952/">LinkedIn</a><a href="/publications/bibtex/#mono-hydra">BibTeX</a></div>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <ul>
+      <li><a href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+      <li><a href="https://github.com/BavanthaU">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+      <li><a href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+      <li><a href="/publications/bibtex/">BibTeX</a></li>
+    </ul>
+    <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
+  </div>
+</footer>
+</body>
+</html>

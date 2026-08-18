@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bavantha Udugama | Learned exploration</title>
+<meta name="description" content="A deterministic planner proposes only routes it has certified as safe. A learned model chooses among them, or refuses. By Bavantha Udugama, ITC University of Twente.">
+<link rel="canonical" href="https://bavanthau.github.io/projects/learned-exploration/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Bavantha Udugama">
+<meta property="og:title" content="Bavantha Udugama | Learned exploration">
+<meta property="og:description" content="A deterministic planner proposes only routes it has certified as safe. A learned model chooses among them, or refuses. By Bavantha Udugama, ITC University of Twente.">
+<meta property="og:url" content="https://bavanthau.github.io/projects/learned-exploration/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bavantha Udugama | Learned exploration">
+<meta name="twitter:description" content="A deterministic planner proposes only routes it has certified as safe. A learned model chooses among them, or refuses. By Bavantha Udugama, ITC University of Twente.">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Learned exploration",
+  "description": "A deterministic planner proposes only routes it has certified as safe. A learned model chooses among them, or refuses.",
+  "url": "https://bavanthau.github.io/projects/learned-exploration/",
+  "creativeWorkStatus": "Work in progress, no results yet",
+  "author": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  }
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Bavantha Udugama</a>
+    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+
+<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Act II</p>
+<h1>Learned exploration</h1>
+<p class="standfirst">A deterministic planner proposes only routes it has certified as safe. A learned model chooses among them, or refuses.</p>
+<p class="pub-venue">2025 to present &middot;
+  <span class="tag tag-progress">Work in progress, no results yet</span></p>
+
+<div class="note">
+  <span class="note-label">Status</span>
+  <p>The formulation, the layering contract, and the objective are written up in the thesis. The experiments are not run yet, so there are no results to report. The exploration agent does not currently consume the Mono-Hydra++ scene graph either: it maintains its own topological memory over a 2D occupancy map built from simulated depth and pose. Connecting the two acts is the next step.</p>
+</div>
+<h2>What it does</h2>
+<p>The robot enters an unmapped indoor space with one forward-facing camera and must cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes verified against the occupancy map the robot has built. The open problem is choice, not motion. The learned layer may re-order the certified options and may abstain, but it may never generate a route of its own.</p>
+<h2>Design commitments</h2><p class="lede">Certification creates, learning selects.</p><ul class="limits"><li>Options are judged relative to one another, so that two routes leading through the same opening are not treated as genuine alternatives.</li><li>Actions are temporally extended, because passing through a doorway is locally expensive and locally uninformative and everything of value happens afterwards.</li><li>Branch memory gives the agent a persistent notion of unfinished work, so regions get completed and exhausted ones get abandoned.</li><li>Ensemble disagreement drives abstention, which hands control back to the deterministic layer.</li></ul>
+
+
+
+
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <ul>
+      <li><a href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+      <li><a href="https://github.com/BavanthaU">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+      <li><a href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+      <li><a href="/publications/bibtex/">BibTeX</a></li>
+    </ul>
+    <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
+  </div>
+</footer>
+</body>
+</html>

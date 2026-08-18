@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bavantha Udugama | Research: monocular scene graphs and learned exploration</title>
+<meta name="description" content="The two-act research arc: building hierarchical metric-semantic 3D scene graphs from a single camera, then learning to select among certified exploration routes.">
+<link rel="canonical" href="https://bavanthau.github.io/research/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Bavantha Udugama">
+<meta property="og:title" content="Bavantha Udugama | Research: monocular scene graphs and learned exploration">
+<meta property="og:description" content="The two-act research arc: building hierarchical metric-semantic 3D scene graphs from a single camera, then learning to select among certified exploration routes.">
+<meta property="og:url" content="https://bavanthau.github.io/research/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bavantha Udugama | Research: monocular scene graphs and learned exploration">
+<meta name="twitter:description" content="The two-act research arc: building hierarchical metric-semantic 3D scene graphs from a single camera, then learning to select among certified exploration routes.">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://bavanthau.github.io/#person",
+  "name": "Bavantha Udugama",
+  "alternateName": [
+    "Bavantha Lakshan Udugama Udugama Vithanage",
+    "B.L.U. Udugama Vithanage",
+    "Bavantha Udugama Vithanage",
+    "U.V.B.L. Udugama",
+    "U.V.B.L Udugama",
+    "B. Udugama"
+  ],
+  "jobTitle": "PhD candidate",
+  "url": "https://bavanthau.github.io/",
+  "affiliation": {
+    "@type": "Organization",
+    "name": "Faculty ITC, University of Twente",
+    "url": "https://www.itc.nl/"
+  },
+  "knowsAbout": [
+    "monocular SLAM",
+    "visual-inertial odometry",
+    "3D scene graphs",
+    "metric-semantic mapping",
+    "multi-task learning",
+    "dense prediction",
+    "autonomous exploration",
+    "edge deployment"
+  ],
+  "sameAs": [
+    "https://scholar.google.com/citations?user=qQ5IPg4AAAAJ",
+    "https://github.com/BavanthaU",
+    "https://www.linkedin.com/in/bavantha-udugama/",
+    "https://research.utwente.nl/en/persons/bavantha-udugama",
+    "https://ieeexplore.ieee.org/author/37061362800",
+    "https://www.youtube.com/@udugamavithanagebavanthala6361"
+  ],
+  "email": "mailto:bavanthaU@eng.pdn.ac.lk"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Bavantha Udugama</a>
+    <nav class="nav" aria-label="Primary"><a href="/research/" aria-current="page">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+
+<h1>Research</h1>
+<p class="standfirst">A monocular camera, one that the field assumed needed a depth sensor beside it, builds a hierarchical metric-semantic 3D scene graph in real time. The next question is what a robot does with that structure when it has to decide where to look next.</p>
+
+<div class="note">
+  <span class="note-label">Prologue</span>
+  <p>The same question was asked at Peradeniya in 2016 and 2017, with a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera. <a href="https://www.youtube.com/watch?v=csG_hieJj6s&amp;t=59s">The project video</a> is still online.</p>
+</div>
+
+<h2>Act I. Understanding space</h2>
+<p>Building metric-semantic hierarchical 3D scene graphs from a single camera and an IMU, in real time.</p>
+<p>Metric-semantic mapping systems that produce usable scene graphs have almost always assumed
+RGB-D or LiDAR input, because reliable geometry is the hard part and a depth sensor supplies it
+directly. That assumption rules out the platforms where the mapping is most useful, since payload
+and power are exactly what limit a small drone. Removing the depth sensor was the question, and
+four papers answer it in sequence.</p>
+
+<h3>Mono-Hydra, 2023. Proving it is possible</h3>
+<p>Learned depth and learned semantics, running as two separate networks, feed a robocentric
+square-root visual-inertial odometry front end, and the resulting semantic mesh drives the layered
+scene graph. Measured against a LiDAR backpack point cloud of the ITC building it reached 0.19 m
+and 0.21 m mean error on two floors, at 15 fps.
+<a href="/publications/mono-hydra/">Read more</a>.</p>
+
+<h3>M2H, 2025. One model instead of two</h3>
+<p>Two independent networks duplicate compute and produce two representations that do not agree
+with each other. M2H collapses them into a single multi-task model in which depth, semantics,
+surface normals, and edges exchange information through window-based cross-task attention. The
+benchmark numbers improved, and so did the map: 0.11 m on the same building, at twice the frame
+rate. <a href="/publications/m2h/">Read more</a>.</p>
+
+<h3>M2H-MX, 2026. Testing whether the map actually cares</h3>
+<p>A better benchmark score is not the same thing as a better map, and dense prediction papers
+usually stop before finding out. M2H-MX is evaluated twice, once as a predictor and once as the
+front end inside an otherwise unchanged SLAM pipeline. Average trajectory error on selected
+ScanNet sequences fell from 17.59 cm to 6.91 cm, which puts a monocular system within reach of the
+RGB-D baselines in the same table. The ablation is blunt about where the gain comes from: the
+backbone matters more than the new decoder blocks.
+<a href="/publications/m2h-mx/">Read more</a>.</p>
+
+<h3>Mono-Hydra++, under review. Closing the loop backwards</h3>
+<p>Everything so far runs perception forwards into mapping. Mono-Hydra++ sends it back the other
+way as well: predicted sparse depth enters the estimator as metric anchor factors, semantic masks
+keep dynamic regions out of it, and the poses that come back out temporally align the next dense
+predictions. 0.08 m on the ITC second floor, 0.033 m calibrated trajectory error on 7-Scenes.
+<a href="/publications/mono-hydra-plus/">Read more</a>.</p>
+
+<h2>Act II. Learning to explore <span class="tag tag-progress">In progress</span></h2>
+<p>Turning that representation into action: a deterministic planner proposes only certified routes, and a learned model chooses among them.</p>
+
+<div class="note">
+  <span class="note-label">Status</span>
+  <p>The formulation, the layering contract, and the objective are written up in the thesis. The experiments are not run yet, so there are no results to report. The exploration agent does not currently consume the Mono-Hydra++ scene graph either: it maintains its own topological memory over a 2D occupancy map built from simulated depth and pose. Connecting the two acts is the next step.</p>
+</div>
+
+<p>The robot enters an unmapped indoor space with one forward-facing camera and must cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes verified against the occupancy map the robot has built. The open problem is choice, not motion. The learned layer may re-order the certified options and may abstain, but it may never generate a route of its own.</p>
+<p class="lede">Certification creates, learning selects.</p>
+<p>The learned component sits between two deterministic layers and has no path to the actuators
+except by selecting an option the planner above it has already certified as safe. It may re-order
+those options and it may abstain. It may not invent one. Three requirements follow from the shape
+of the task rather than from the hardware:</p>
+<ul class="limits"><li>Options are judged relative to one another, so that two routes leading through the same opening are not treated as genuine alternatives.</li><li>Actions are temporally extended, because passing through a doorway is locally expensive and locally uninformative and everything of value happens afterwards.</li><li>Branch memory gives the agent a persistent notion of unfinished work, so regions get completed and exhausted ones get abandoned.</li><li>Ensemble disagreement drives abstention, which hands control back to the deterministic layer.</li></ul>
+<p><a href="/projects/learned-exploration/">More on the exploration work</a>.</p>
+
+<h2>Thesis</h2>
+<p>The doctoral thesis, <em>Structuring the Seen, Exploring the Unseen</em>, is expected to be
+completed in 2026 at the Faculty ITC, University of Twente, supervised by
+George Vosselman and Francesco Nex.</p>
+
+</div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <ul>
+      <li><a href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+      <li><a href="https://github.com/BavanthaU">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+      <li><a href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+      <li><a href="/publications/bibtex/">BibTeX</a></li>
+    </ul>
+    <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
+  </div>
+</footer>
+</body>
+</html>

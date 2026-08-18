@@ -1,0 +1,167 @@
+{
+  "origin": "https://bavanthau.github.io",
+  "identity": {
+    "canonicalName": "Bavantha Udugama",
+    "alternateNames": [
+      "Bavantha Lakshan Udugama Udugama Vithanage",
+      "B.L.U. Udugama Vithanage",
+      "Bavantha Udugama Vithanage",
+      "U.V.B.L. Udugama",
+      "U.V.B.L Udugama",
+      "B. Udugama"
+    ],
+    "publishingName": "U.V.B.L. Udugama",
+    "publishingNameNote": "All four PhD papers are published under this form. It is listed so that a search for the publishing name resolves to this site.",
+    "role": "PhD candidate",
+    "roleUntil": "2026-08-01",
+    "field": "monocular spatial perception and robot exploration",
+    "affiliation": {
+      "name": "Faculty ITC, University of Twente",
+      "shortName": "ITC, University of Twente",
+      "city": "Enschede",
+      "country": "Netherlands",
+      "url": "https://www.itc.nl/"
+    },
+    "group": {
+      "name": "UAV Centre of Expertise",
+      "url": "https://www.itc.nl/about-itc/centres-of-expertise/uav-centre/"
+    },
+    "supervisors": [
+      "George Vosselman",
+      "Francesco Nex"
+    ],
+    "image": null,
+    "imageNote": "Gap G7. Portrait required for the Person JSON-LD image field."
+  },
+  "contact": {
+    "email": "bavanthaU@eng.pdn.ac.lk",
+    "location": "Netherlands",
+    "availableFrom": "2026-08-01",
+    "emailNote": "Confirmed 2026-08-18 as the public contact address. Deliberately not the UT address, which stops working after 2026-08-01."
+  },
+  "links": {
+    "googleScholar": "https://scholar.google.com/citations?user=qQ5IPg4AAAAJ",
+    "ieeeAuthorPage": "https://ieeexplore.ieee.org/author/37061362800",
+    "linkedin": "https://www.linkedin.com/in/bavantha-udugama/",
+    "github": "https://github.com/BavanthaU",
+    "utStaffPage": "https://research.utwente.nl/en/persons/bavantha-udugama",
+    "uavCentre": "https://www.itc.nl/about-itc/centres-of-expertise/uav-centre/",
+    "orcid": null,
+    "orcidNote": "Gap G3. Does not exist yet. This is the strongest single sameAs anchor and the largest off-site gap.",
+    "youtube": "https://www.youtube.com/@udugamavithanagebavanthala6361",
+    "youtubeNote": "Channel display name is 'Bavantha Udugama' but the handle is the auto-generated @udugamavithanagebavanthala6361. Worth claiming a clean handle, launch checklist."
+  },
+  "arc": {
+    "statement": "A monocular camera, one that the field assumed needed a depth sensor beside it, builds a hierarchical metric-semantic 3D scene graph in real time. The next question is what a robot does with that structure when it has to decide where to look next.",
+    "wordCount": 44,
+    "actOne": {
+      "title": "Understanding space",
+      "line": "Building metric-semantic hierarchical 3D scene graphs from a single camera and an IMU, in real time.",
+      "status": "complete"
+    },
+    "actTwo": {
+      "title": "Learning to explore",
+      "line": "Turning that representation into action: a deterministic planner proposes only certified routes, and a learned model chooses among them.",
+      "status": "in-progress",
+      "honesty": "The formulation and the layering contract are written up. The experiments are not run yet, so there are no results to report.",
+      "commitment": "Certification creates, learning selects."
+    },
+    "prologue": "The same question was asked at Peradeniya in 2016 and 2017, with a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.",
+    "prologueVideo": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s"
+  },
+  "deployment": {
+    "status": "perception-only",
+    "statusNote": "Upgrade path. Full-suite deployment on the Jetson Orin NX custom drone is planned for August 2026. When it lands, change status to 'full-stack', fill fullStack, and the home page updates without a copy rewrite. Until then nothing beyond verified is stated anywhere on the site.",
+    "verified": {
+      "what": "M2H-MX-L depth and semantics inference",
+      "device": "Jetson Orin NX 16GB",
+      "platform": "custom drone",
+      "pipeline": "ONNX, TensorRT FP16, CUDA Graphs",
+      "rate": "25.53 fps",
+      "gpuCompute": "39.02 ms mean",
+      "inputResolution": "256x192",
+      "mappingErrorFromThisOperatingPoint": "0.22 m mean, ITC 2nd floor",
+      "source": "results_registry R037 to R039, Mono-Hydra++ journal manuscript"
+    },
+    "notClaimed": [
+      "autonomous flight",
+      "VIO running onboard",
+      "mapping running onboard",
+      "scene graph construction running onboard"
+    ],
+    "fullStack": null
+  },
+  "headlineProgression": {
+    "label": "ITC building, 2nd floor mesh mean error",
+    "caption": "One building, four system generations, same measurement. Hardware and input resolution change across rows, so this is a system progression, not a controlled ablation.",
+    "rows": [
+      {
+        "system": "Mono-Hydra",
+        "year": 2023,
+        "error": "0.19 m",
+        "resolution": "848x480",
+        "hardware": "RTX 3080 laptop",
+        "registryId": "R034"
+      },
+      {
+        "system": "M2H",
+        "year": 2025,
+        "error": "0.11 m",
+        "resolution": "224x224",
+        "hardware": "RTX 3080 laptop",
+        "registryId": "R009"
+      },
+      {
+        "system": "M2H-MX-B",
+        "year": 2026,
+        "error": "0.10 m",
+        "resolution": "640x480",
+        "hardware": "RTX 4080 Super",
+        "registryId": "R035"
+      },
+      {
+        "system": "M2H-MX-L",
+        "year": 2026,
+        "error": "0.08 m",
+        "resolution": "640x480",
+        "hardware": "RTX 4080 Super",
+        "registryId": "R036"
+      },
+      {
+        "system": "M2H-MX-L, embedded",
+        "year": 2026,
+        "error": "0.22 m",
+        "resolution": "256x192",
+        "hardware": "Jetson Orin NX 16GB",
+        "registryId": "R037",
+        "note": "A different accuracy and latency operating point, not a regression."
+      }
+    ]
+  },
+  "nav": [
+    {
+      "label": "Research",
+      "href": "/research/"
+    },
+    {
+      "label": "Publications",
+      "href": "/publications/"
+    },
+    {
+      "label": "Projects",
+      "href": "/projects/"
+    },
+    {
+      "label": "CV",
+      "href": "/cv/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact/"
+    }
+  ],
+  "provenance": {
+    "registry": "_source/AUDIT.md and the thesis results_registry.csv",
+    "rule": "No number appears on this site unless it appears in results_registry.csv with a source location. Add it there first."
+  }
+}

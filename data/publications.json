@@ -1,0 +1,345 @@
+{
+  "hostingPolicy": {
+    "rights": "link-only",
+    "note": "No PDF is hosted on this site. Every entry links to the DOI, the arXiv record, or the publisher. This removes all publisher-rights exposure and guarantees no accepted-manuscript or review-watermarked copy is ever served."
+  },
+  "publications": [
+    {
+      "slug": "mono-hydra-plus",
+      "title": "Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping",
+      "authors": [
+        "U.V.B.L. Udugama",
+        "George Vosselman",
+        "Francesco Nex"
+      ],
+      "venue": "ISPRS Journal of Photogrammetry and Remote Sensing",
+      "venueShort": "ISPRS J. Photogramm. Remote Sens.",
+      "year": 2026,
+      "status": "under review",
+      "statusLabel": "Under review at ISPRS Journal of Photogrammetry and Remote Sensing",
+      "manuscriptNumber": "PHOTO-S-26-02536",
+      "identifiers": {
+        "doi": null,
+        "arxiv": null
+      },
+      "links": {
+        "doi": null,
+        "arxiv": null,
+        "code": "https://github.com/BavanthaU/mono-hydra-pp",
+        "video": null,
+        "bibtex": "/publications/bibtex/#mono-hydra-plus",
+        "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/"
+      },
+      "rights": "link-only",
+      "rightsReason": "Under review at an Elsevier journal. No version is hosted and no DOI exists yet.",
+      "hasPage": true,
+      "claim": "A single camera and an IMU build a hierarchical metric-semantic 3D scene graph of an indoor building in real time, and the map is accurate to 0.08 m.",
+      "context": "Metric-semantic mapping systems that produce usable scene graphs have almost always assumed RGB-D or LiDAR input, because reliable geometry is the hard part and depth sensors supply it directly. That assumption rules out the platforms where mapping is most useful, since payload and power are what limit small drones. Mono-Hydra++ removes the depth sensor and closes the loop between perception and state estimation instead.",
+      "contribution": "Predicted sparse depth is fed back into the VIO as metric anchor factors, semantic masks protect the estimator from dynamic and unreliable regions, and the resulting poses temporally align the dense predictions. Each direction of that loop is ablated separately. The honest limit is that the components are evaluated in-loop, so the system comparison does not prove any single component is independently causal.",
+      "headline": [
+        {
+          "value": "0.08 m",
+          "what": "mesh mean error, ITC building 2nd floor",
+          "conditions": "M2H-MX-L front end, 640x480, RTX 4080 Super",
+          "registryId": "R036"
+        },
+        {
+          "value": "0.033 m",
+          "what": "calibrated average ATE RMSE on 7-Scenes",
+          "conditions": "ScanNet-trained weights, RGB plus IMU",
+          "registryId": "R023"
+        },
+        {
+          "value": "44.96 %",
+          "what": "global semantic mesh mIoU on evaluated ScanNet scenes",
+          "conditions": "fixed mapping backend, RGB plus IMU",
+          "registryId": "R024"
+        }
+      ],
+      "limitations": [
+        "Map quality is multi-objective and the improvements do not move together. On uHumans2 Apartment, adding depth and semantic components raises node F1 from 0.432 to 0.596 while making ATE worse, from 0.068 m to 0.075 m.",
+        "On uHumans2 Office the best ATE (1.125 m, K=3) and the best node F1 (0.452, K=1) come from different configurations, so no single setting is best on every axis.",
+        "The temporal alignment effect is non-monotonic in window length. Longer is not better.",
+        "Evaluation is indoor throughout. Nothing here supports a claim about outdoor or large-scale environments."
+      ],
+      "datasets": [
+        "ScanNet",
+        "7-Scenes",
+        "uHumans2",
+        "ITC building (own capture)"
+      ],
+      "hardware": "RTX 4080 Super for the full system. Jetson Orin NX 16GB for the exported perception model only.",
+      "sourceFile": "_source/papers/mono-hydra-plus-manuscript-final.pdf"
+    },
+    {
+      "slug": "m2h-mx",
+      "title": "M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction",
+      "alternateTitle": "M2H-MX: Multi-Task Dense Visual Perception for Real-Time Monocular Spatial Understanding",
+      "alternateTitleNote": "Title used by the arXiv preprint. Recorded so that a search for either phrase resolves here.",
+      "authors": [
+        "U.V.B.L. Udugama",
+        "George Vosselman",
+        "Francesco Nex"
+      ],
+      "venue": "IEEE International Conference on Robotics and Automation (ICRA) 2026, SRRA Workshop, Vienna",
+      "venueShort": "ICRA 2026 SRRA Workshop",
+      "year": 2026,
+      "status": "published",
+      "statusLabel": "Accepted, ICRA 2026 SRRA Workshop",
+      "identifiers": {
+        "doi": "10.48550/arXiv.2603.29236",
+        "arxiv": "2603.29236"
+      },
+      "links": {
+        "doi": "https://doi.org/10.48550/arXiv.2603.29236",
+        "arxiv": "https://arxiv.org/abs/2603.29236",
+        "code": "https://github.com/BavanthaU/m2h_mx",
+        "video": null,
+        "bibtex": "/publications/bibtex/#m2h-mx",
+        "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/"
+      },
+      "rights": "link-only",
+      "rightsReason": "An arXiv preprint exists and could be hosted, but the site hosts no PDFs at all, so this links to arXiv for consistency.",
+      "hasPage": true,
+      "claim": "Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score.",
+      "context": "Dense prediction papers usually stop at per-frame metrics, which leaves open whether a better model actually produces a better map. M2H-MX is evaluated twice: once as a benchmark predictor, and once as the perception front end inside a running monocular SLAM pipeline that is otherwise unchanged.",
+      "contribution": "A DINOv3 backbone with LoRA adaptation, a register-gated Mamba decoder, and directed cross-task refinement. The ablation is the interesting part and it does not flatter the new modules: replacing DINOv3 with DINOv2-L costs 8.81 mIoU, while removing the cross-task mixer and the spatial attention costs 2.07. Most of the gain comes from backbone feature quality, and the paper says so.",
+      "headline": [
+        {
+          "value": "65.60 mIoU, 0.3800 RMSE",
+          "what": "NYUDv2 semantic segmentation and depth",
+          "conditions": "M2H-MX-L, RTX 4080 Super. This is +4.06 mIoU points and 9.4 % lower RMSE than M2H.",
+          "registryId": "R013, R014"
+        },
+        {
+          "value": "6.91 cm",
+          "what": "average ATE on selected ScanNet sequences",
+          "conditions": "Mono-Hydra stack with M2H-MX, monocular. Down from 17.59 cm for monocular Go-SLAM, a 60.7 % reduction. RGB-D baselines in the same table sit at 7.02 to 7.15 cm.",
+          "registryId": "R021, R022"
+        },
+        {
+          "value": "82.28 mIoU",
+          "what": "Cityscapes semantic segmentation",
+          "conditions": "M2H-MX-L, against MTMamba++ at 79.13",
+          "registryId": "R015"
+        }
+      ],
+      "limitations": [
+        "M2H-MX-L (4 heads) is 353.53 M parameters and 491.91 GFLOPs. This is a large model, and the accuracy is bought with compute.",
+        "The gain is dominated by backbone quality rather than by the proposed decoder blocks, which the ablation states directly.",
+        "The ScanNet comparison uses selected sequences, not the full benchmark.",
+        "Monocular ATE is close to the RGB-D baselines but does not beat the best of them."
+      ],
+      "datasets": [
+        "NYUDv2",
+        "Cityscapes",
+        "ScanNet (ScanNet25k subset for the deployed model)"
+      ],
+      "hardware": "RTX 4080 Super, 25 to 30 Hz asynchronous perception-to-mapping loop at 640x480.",
+      "sourceFile": "_source/papers/m2h-mx-icra2026-srra-submitted.pdf"
+    },
+    {
+      "slug": "m2h",
+      "title": "M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception",
+      "authors": [
+        "U.V.B.L. Udugama",
+        "George Vosselman",
+        "Francesco Nex"
+      ],
+      "venue": "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2025",
+      "venueShort": "IROS 2025",
+      "year": 2025,
+      "status": "published",
+      "statusLabel": "Published, IEEE/RSJ IROS 2025",
+      "identifiers": {
+        "doi": null,
+        "doiNote": "Gap G1. IEEE Xplore DOI not yet recorded.",
+        "arxiv": "2510.17363"
+      },
+      "links": {
+        "doi": null,
+        "arxiv": "https://arxiv.org/abs/2510.17363",
+        "code": "https://github.com/UAV-Centre-ITC/M2H",
+        "video": "https://www.youtube.com/watch?v=X2w_AqGwkaY",
+        "bibtex": "/publications/bibtex/#m2h",
+        "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7392253889087074304/"
+      },
+      "rights": "link-only",
+      "rightsReason": "IEEE copyright. Only an accepted manuscript could be hosted, and the copy held locally is watermarked for review, so nothing is hosted. Links to arXiv and, once recorded, the Xplore DOI.",
+      "hasPage": true,
+      "claim": "Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop.",
+      "context": "Mono-Hydra ran an independent depth network and an independent semantic network side by side. That duplicates compute and produces two representations that do not agree with each other. M2H replaces both with one multi-task model in which depth, semantics, surface normals, and edges exchange information through window-based cross-task attention.",
+      "contribution": "A window-based cross-task attention module that lets tasks exchange structured features while keeping task-specific detail, on a DINOv2-small backbone. The ablation shows both the local attention and the global fusion module are load-bearing: removing either degrades every task.",
+      "headline": [
+        {
+          "value": "61.54 mIoU, 0.4196 RMSE",
+          "what": "NYUDv2 semantic segmentation and depth",
+          "conditions": "RTX 3080 laptop. Best prior compared: SwinMTL 58.14 mIoU, MTMamba++ 0.4818 RMSE.",
+          "registryId": "R001, R002"
+        },
+        {
+          "value": "0.11 m at 30 fps",
+          "what": "ITC building 2nd floor mesh mean error, in the Mono-Hydra loop",
+          "conditions": "224x224, RTX 3080 laptop. The Mono-Hydra baseline with separate networks reached 0.19 m at 15 fps.",
+          "registryId": "R009"
+        },
+        {
+          "value": "+5.65 mIoU",
+          "what": "Hypersim semantic segmentation over EMSANet",
+          "conditions": "52.31 against 46.66, Table II. Depth RMSE 3.19 against ScaleDepth-NK at 4.825.",
+          "registryId": "R005, R006"
+        }
+      ],
+      "limitations": [
+        "M2H is 81 M parameters and 488 GFLOPs. It is accurate at moderate parameter count but the GFLOP count is high, so it is not a cheap model.",
+        "M2H-small is far cheaper at 33.7 M parameters and 59 GFLOPs, and gives up 3.49 mIoU (58.05 against 61.54).",
+        "Boundary detection on NYUDv2 is the one task where the small variant falls behind prior work, at 74.44 odsF."
+      ],
+      "datasets": [
+        "NYUDv2",
+        "Hypersim V1",
+        "Cityscapes",
+        "ITC building (own capture)"
+      ],
+      "hardware": "Trained on A40. Tested on RTX 3080 laptop, 30 fps.",
+      "sourceFile": "_source/papers/m2h-arxiv-2510.17363.pdf"
+    },
+    {
+      "slug": "mono-hydra",
+      "title": "Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU",
+      "authors": [
+        "U.V.B.L. Udugama",
+        "G. Vosselman",
+        "F. Nex"
+      ],
+      "venue": "ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, volume 1, pages 439 to 445",
+      "venueShort": "ISPRS Annals 2023",
+      "year": 2023,
+      "status": "published",
+      "statusLabel": "Published, ISPRS Annals 2023",
+      "identifiers": {
+        "doi": null,
+        "doiNote": "Gap G1. ISPRS Annals DOI not yet recorded.",
+        "arxiv": "2308.05515"
+      },
+      "links": {
+        "doi": null,
+        "arxiv": "https://arxiv.org/abs/2308.05515",
+        "code": "https://github.com/UAV-Centre-ITC/mono_hydra",
+        "video": "https://www.youtube.com/watch?v=X2w_AqGwkaY",
+        "bibtex": "/publications/bibtex/#mono-hydra",
+        "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7107072728993533952/"
+      },
+      "rights": "link-only",
+      "rightsReason": "ISPRS Annals is open access, so the published version could be hosted, but the site hosts no PDFs. Links to arXiv and, once recorded, the ISPRS DOI.",
+      "hasPage": true,
+      "claim": "A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR.",
+      "context": "Scene graphs represent an environment as a layered graph running from mesh geometry up through objects, places, rooms, and buildings. Systems that build them in real time, Hydra and Kimera and S-Graphs+, all assumed RGB-D or 3D LiDAR input. Removing the depth sensor was largely unexplored, and it is exactly what small aerial platforms need.",
+      "contribution": "Learned depth and learned semantics feed a robocentric square-root visual-inertial odometry front end, and the resulting semantic mesh drives the Hydra scene graph layers. The system is the contribution rather than any single network. It was the first demonstration of this construction from monocular input plus IMU.",
+      "headline": [
+        {
+          "value": "0.19 m and 0.21 m",
+          "what": "mesh mean error on the ITC building 2nd and 3rd floors, against a LiDAR backpack point cloud",
+          "conditions": "DistDepth front end, 848x480, RTX 3080 laptop. The Lite-Mono front end was roughly twice as bad, at 0.39 m and 0.36 m.",
+          "registryId": "R034"
+        },
+        {
+          "value": "15 fps",
+          "what": "end-to-end real-time system rate",
+          "conditions": "848x480 input, RTX 3080 8GB laptop GPU",
+          "registryId": "R034"
+        },
+        {
+          "value": "0.03 m to 0.28 m",
+          "what": "mesh mean error against Hydra on uHumans2",
+          "conditions": "Three synthetic scenes, DistDepth 0.05 to 0.28 m, Lite-Mono 0.03 to 0.23 m with higher variance",
+          "registryId": "Mono-Hydra Table 2"
+        }
+      ],
+      "limitations": [
+        "The semantic quality of the generated 3D semantic mesh was never quantified, so no accuracy measure for it exists. The paper says so directly.",
+        "Hierarchical loop closure, room detection, and temporal consistency of the mesh are all named as unsolved.",
+        "The abstract summarises the mapping result as sub-20 cm, but the 3rd floor measured 0.21 m. This page quotes the table.",
+        "Deployment on embedded hardware needed further network optimisation, which is what the later work went on to do."
+      ],
+      "datasets": [
+        "uHumans2",
+        "ADE20k and NYUv2 (fine-tuning)",
+        "ITC building (own capture, RealSense D435i)",
+        "LiDAR backpack point cloud (ground truth)"
+      ],
+      "hardware": "Fine-tuning on TITAN Xp 12GB. System on Alienware m17 laptop, RTX 3080 8GB.",
+      "sourceFile": "_source/papers/mono-hydra-arxiv-2308.05515.pdf"
+    }
+  ],
+  "earlierWork": {
+    "heading": "Earlier work",
+    "note": "Work from before the PhD.",
+    "entries": [
+      {
+        "title": "Object Dimension Extraction for Environment Mapping with Low Cost Cameras Fused with Laser Ranging",
+        "authors": [
+          "E. M. S. P. Ekanayake",
+          "T. H. M. N. C. Thelasingha",
+          "U. V. B. L. Udugama",
+          "G. M. R. I. Godaliyadda",
+          "M. P. B. Ekanayake",
+          "B. G. L. T. Samaranayake",
+          "J. V. Wijayakulasooriya"
+        ],
+        "context": "Department of Electrical and Electronic Engineering, University of Peradeniya, Sri Lanka",
+        "year": 2017,
+        "yearNote": "Work carried out 2016 to 2017. Posted to arXiv in February 2023.",
+        "identifiers": {
+          "arxiv": "2302.01387"
+        },
+        "links": {
+          "arxiv": "https://arxiv.org/abs/2302.01387",
+          "video": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s"
+        },
+        "videoAttribution": "Project video on co-author Neelanga Thelasingha's channel. The link opens at 0:59, where Bavantha Udugama presents the system.",
+        "awards": [
+          "Best Undergraduate Project, Institution of Engineers Sri Lanka, 2017",
+          "Best Technical Paper, IET Sri Lanka, 2017"
+        ],
+        "awardsSource": "Recorded on the CV. Awarded to the final-year project.",
+        "hasPage": false,
+        "relevance": "Autonomous exploration and mapping with a 2D laser range finder fused with stereo cameras, built by 3 students. Bavantha Udugama developed the SLAM. The same question the current work asks, 10 years earlier.",
+        "role": "SLAM developer, one of 3 students on the project"
+      },
+      {
+        "title": "Heterogeneous swarm robot system with distributed data processing at the edge for collective transportation",
+        "context": "MSc thesis, Robotics Engineering, Middlesex University Dubai",
+        "year": 2021,
+        "identifiers": {},
+        "links": {},
+        "hasPage": false,
+        "grade": "Distinction"
+      }
+    ]
+  },
+  "videos": {
+    "mono-hydra-m2h-demo": {
+      "youtubeId": "X2w_AqGwkaY",
+      "title": "Mono Hydra with M2H for Monocular 3D Scene Graph Construction",
+      "channel": "Bavantha Udugama",
+      "thumbnail": "https://i.ytimg.com/vi/X2w_AqGwkaY/hqdefault.jpg",
+      "usedBy": [
+        "mono-hydra",
+        "m2h"
+      ]
+    },
+    "peradeniya-exploration": {
+      "youtubeId": "csG_hieJj6s",
+      "title": "Intelligent System for Autonomous Exploration & Mapping with lidar| University of Peradeniya",
+      "channel": "Neelanga Thelasingha",
+      "channelNote": "Hosted on a co-author's channel, not owned by this site. Link out only, never claim.",
+      "thumbnail": "https://i.ytimg.com/vi/csG_hieJj6s/hqdefault.jpg",
+      "startAt": 59,
+      "usedBy": [
+        "earlier-work"
+      ],
+      "startAtNote": "Opens where Bavantha Udugama presents the system."
+    }
+  }
+}
