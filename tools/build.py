@@ -27,6 +27,8 @@ SITE = json.loads((DATA / "site.json").read_text())
 PUBS = json.loads((DATA / "publications.json").read_text())
 PROJECTS = json.loads((DATA / "projects.json").read_text())
 TIMELINE = json.loads((DATA / "timeline.json").read_text())
+_mf = ROOT / "media" / "MANIFEST.json"
+MEDIA = json.loads(_mf.read_text()) if _mf.exists() else {"images": {}, "frames": {}, "videos": {}}
 
 ORIGIN = SITE["origin"].rstrip("/")
 NAME = SITE["identity"]["canonicalName"]
@@ -98,9 +100,157 @@ def person_node():
     }
     if SITE["contact"].get("email"):
         node["email"] = f"mailto:{SITE['contact']['email']}"
+    node["image"] = f"{ORIGIN}/media/og/home.png"
     if SITE["identity"].get("image"):
         node["image"] = SITE["identity"]["image"]
     return node
+
+
+def picture(key, cls="", sizes="(min-width: 56em) 62rem, 100vw", lazy=True, caption=True):
+    """Responsive <picture> from the media manifest. Empty string if the asset is absent."""
+    rec = MEDIA["images"].get(key) or MEDIA["frames"].get(key)
+    if not rec:
+        return ""
+    def srcset(ext):
+        return ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"][ext])
+    biggest = rec["sources"]["jpg"][-1]["path"]
+    loading = 'loading="lazy" decoding="async"' if lazy else 'decoding="async"'
+    img = (f'<picture>'
+           f'<source type="image/avif" srcset="{srcset("avif")}" sizes="{sizes}">'
+           f'<source type="image/webp" srcset="{srcset("webp")}" sizes="{sizes}">'
+           f'<img src="{biggest}" alt="{e(rec["alt"])}" width="{rec["width"]}" '
+           f'height="{rec["height"]}" {loading}>'
+           f'</picture>')
+    if caption and rec.get("caption"):
+        return (f'<figure class="{cls}">{img}'
+                f'<figcaption>{e(rec["caption"])}</figcaption></figure>')
+    return f'<figure class="{cls}">{img}</figure>' if cls else img
+
+
+def video(key, cls="", autoloop=True):
+    """Poster-first video. Autoplay is handled by media.js only when in view."""
+    rec = MEDIA["videos"].get(key)
+    if not rec:
+        return ""
+    sources = f'<source src="{rec["mp4"]}" type="video/mp4">'
+    if rec.get("webm"):
+        sources = f'<source src="{rec["webm"]}" type="video/webm">' + sources
+    gated = rec.get("clickToLoad")
+    attrs = 'muted loop playsinline preload="none"'
+    if autoloop and not gated:
+        attrs += ' data-autoloop'
+    inner = (f'<video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}" '
+             f'{attrs} aria-label="{e(rec["alt"])}">{sources}</video>')
+    if gated:
+        body = (f'<div class="v-gate" data-gate>'
+                f'<img src="{rec["poster"]}" alt="{e(rec["alt"])}" width="{rec["width"]}" '
+                f'height="{rec["height"]}" loading="lazy" decoding="async">'
+                f'<button type="button" class="v-play" data-gate-btn>Load video '
+                f'<span class="v-size">{sum(rec["bytes"].values())/1e6:.1f} MB</span></button>'
+                f'<template data-gate-src>{html.escape(inner)}</template></div>')
+    else:
+        body = f'<div class="v-wrap">{inner}<button type="button" class="v-toggle" ' \
+               f'data-toggle aria-label="Play or pause video">Pause</button></div>'
+    cap = f'<figcaption>{e(rec["caption"])}</figcaption>' if rec.get("caption") else ""
+    return f'<figure class="v-figure {cls}">{body}{cap}</figure>'
+
+
+def video_ld(key, page_url):
+    rec = MEDIA["videos"].get(key)
+    if not rec:
+        return None
+    return {"@context": "https://schema.org", "@type": "VideoObject",
+            "name": rec.get("caption", "")[:110] or NAME,
+            "description": rec["alt"],
+            "thumbnailUrl": ORIGIN + rec["poster"],
+            "uploadDate": TODAY,
+            "contentUrl": ORIGIN + rec["mp4"],
+            "embedUrl": page_url}
+
+
+def wipe():
+    """RGB to depth to semantics on one frame. Static three-up without JavaScript."""
+    keys = ["wipe-rgb", "wipe-depth", "wipe-semantics"]
+    if not all(k in MEDIA["frames"] for k in keys):
+        return ""
+    panes = ""
+    for i, k in enumerate(keys):
+        rec = MEDIA["frames"][k]
+        big = rec["sources"]["jpg"][-1]["path"]
+        av = ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"]["avif"])
+        wp = ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"]["webp"])
+        panes += (f'<div class="wipe-pane" data-pane="{i}">'
+                  f'<picture><source type="image/avif" srcset="{av}" sizes="(min-width:56em) 20rem, 90vw">'
+                  f'<source type="image/webp" srcset="{wp}" sizes="(min-width:56em) 20rem, 90vw">'
+                  f'<img src="{big}" alt="{e(rec["alt"])}" width="{rec["width"]}" '
+                  f'height="{rec["height"]}" loading="lazy" decoding="async"></picture>'
+                  f'<span class="wipe-label">{e(rec["label"])}</span></div>')
+    return f'''<figure class="wipe" data-wipe>
+  <div class="wipe-stage">{panes}</div>
+  <label class="wipe-control" data-wipe-control hidden>
+    <span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span>
+    <input type="range" min="0" max="200" value="0" step="1" data-wipe-input>
+  </label>
+  <figcaption>One frame, three ways: the camera image, the predicted depth, and the predicted
+    semantic labels. These are the two dense outputs the mapping backend actually consumes.
+    Drag the slider to blend between them.</figcaption>
+</figure>'''
+
+
+def youtube_facade(video_id, title, thumb):
+    return (f'<figure class="yt" data-yt="{e(video_id)}">'
+            f'<button type="button" class="yt-btn" data-yt-btn>'
+            f'<img src="{e(thumb)}" alt="Thumbnail for {e(title)}" width="480" height="360" '
+            f'loading="lazy" decoding="async">'
+            f'<span class="yt-play" aria-hidden="true"></span>'
+            f'<span class="sr-only">Play {e(title)} on YouTube</span></button>'
+            f'<figcaption>{e(title)}. The full length version, loaded from YouTube only when '
+            f'you press play.</figcaption></figure>')
+
+
+# which figure belongs to which page
+def _pub_figures():
+    return {
+        "mono-hydra-plus": picture("mono-hydra-pp-pipeline") + picture("uhumans2-loop")
+                           + picture("scannet-radius") + picture("scannet-failure"),
+        "m2h-mx":          picture("m2h-mx-architecture") + picture("m2h-mx-rgm")
+                           + picture("m2h-mx-ctm-msca"),
+        "m2h":             wipe() + youtube_facade("X2w_AqGwkaY",
+                               "Mono Hydra with M2H for Monocular 3D Scene Graph Construction",
+                               "https://i.ytimg.com/vi/X2w_AqGwkaY/hqdefault.jpg"),
+        "mono-hydra":      picture("scenegraph-system-design"),
+    }
+
+
+def _proj_media():
+    return {
+        "mono-hydra-plus": picture("scene-graph-itc") + picture("itc-embedded"),
+        "m2h-mx":          video("icra26") + picture("m2h-mx-architecture"),
+        "m2h":             video("itc-loop") + wipe(),
+        "mono-hydra":      picture("scenegraph-system-design"),
+        "learned-exploration": video("scope-explorer"),
+    }
+
+
+PUB_FIGURE = {}
+PROJ_MEDIA = {}
+
+
+def og_for(path):
+    """Map a page path to its OpenGraph card, falling back to the section card."""
+    if path == "":
+        slug = "home"
+    elif path.startswith("publications/") and path != "publications/bibtex":
+        slug = "pub-" + path.split("/", 1)[1]
+    elif path.startswith("projects/"):
+        slug = "proj-" + path.split("/", 1)[1]
+    elif path == "publications/bibtex":
+        slug = "publications"
+    else:
+        slug = path or "home"
+    if not (ROOT / "media" / "og" / f"{slug}.png").exists():
+        slug = "home"
+    return f"/media/og/{slug}.png"
 
 
 def shell(path, title, description, body, extra_ld=None, og_type="website"):
@@ -114,6 +264,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website"):
         nav_bits.append(f'<a href="{e(n["href"])}"{mark}>{e(n["label"])}</a>')
     nav = "".join(nav_bits)
     ld = "\n".join(jsonld(o) for o in (extra_ld or []))
+    og = ORIGIN + og_for(path)
 
     out = f"""<!doctype html>
 <html lang="en">
@@ -128,7 +279,12 @@ def shell(path, title, description, body, extra_ld=None, og_type="website"):
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(description)}">
 <meta property="og:url" content="{e(canonical)}">
+<meta property="og:image" content="{e(og)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(title)}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{e(og)}">
 <meta name="twitter:title" content="{e(title)}">
 <meta name="twitter:description" content="{e(description)}">
 <link rel="stylesheet" href="{depth_prefix}assets/site.css">
@@ -160,6 +316,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website"):
     <p>{e(NAME)}, published as {e(PUBNAME)}. {e(SITE['identity']['affiliation']['shortName'])}.</p>
   </div>
 </footer>
+<script src="/assets/media.js" defer></script>
 </body>
 </html>
 """
@@ -311,22 +468,28 @@ def build_home():
   </table>
 </div>
 
-<h2>Two acts</h2>
+<h2>Watch it build</h2>
+{video("itc-loop")}
+
+<h2>Two parts</h2>
 <div class="acts">
   <section class="act">
-    <p class="act-no">Act I</p>
+    <p class="act-no">{e(arc['actOne']['label'])}</p>
     <h3>{e(arc['actOne']['title'])}</h3>
     <p>{e(arc['actOne']['line'])}</p>
     <p><span class="tag">Four papers</span></p>
   </section>
   <section class="act">
-    <p class="act-no">Act II</p>
+    <p class="act-no">{e(arc['actTwo']['label'])}</p>
     <h3>{e(arc['actTwo']['title'])}</h3>
     <p>{e(arc['actTwo']['line'])}</p>
     <p><span class="tag tag-progress">In progress, no results yet</span></p>
   </section>
 </div>
 <p class="section-intro"><a href="/research/">Read the long-form argument</a>.</p>
+
+<h2>What the camera gives the map</h2>
+{wipe()}
 
 <h2>Selected work</h2>
 <ul class="cards">{cards}</ul>
@@ -336,7 +499,8 @@ def build_home():
           "Bavantha Udugama builds real-time monocular spatial perception for robots: "
           "3D scene graphs from a single camera and IMU, multi-task dense prediction, and "
           "learned exploration. PhD candidate at ITC, University of Twente.",
-          body, extra_ld=[person_node()], og_type="profile")
+          body, extra_ld=[n for n in (person_node(), video_ld("itc-loop", f"{ORIGIN}/")) if n],
+          og_type="profile")
 
 
 # ---------------------------------------------------------------- research
@@ -356,8 +520,9 @@ def build_research():
   <p>{e(arc['prologue'])} <a href="{e(arc['prologueVideo'])}">The project video</a> is still online.</p>
 </div>
 
-<h2>Act I. {e(arc['actOne']['title'])}</h2>
+<h2>{e(arc['actOne']['label'])}. {e(arc['actOne']['title'])}</h2>
 <p>{e(arc['actOne']['line'])}</p>
+{picture("perception-pipeline")}
 <p>Metric-semantic mapping systems that produce usable scene graphs have almost always assumed
 RGB-D or LiDAR input, because reliable geometry is the hard part and a depth sensor supplies it
 directly. That assumption rules out the platforms where the mapping is most useful, since payload
@@ -394,7 +559,9 @@ keep dynamic regions out of it, and the poses that come back out temporally alig
 predictions. 0.08 m on the ITC second floor, 0.033 m calibrated trajectory error on 7-Scenes.
 <a href="/publications/mono-hydra-plus/">Read more</a>.</p>
 
-<h2>Act II. {e(a2['title'])} <span class="tag tag-progress">In progress</span></h2>
+{picture("scene-graph-itc")}
+
+<h2>{e(a2['label'])}. {e(a2['title'])} <span class="tag tag-progress">In progress</span></h2>
 <p>{e(a2['line'])}</p>
 
 <div class="note">
@@ -412,8 +579,9 @@ of the task rather than from the hardware:</p>
 <p><a href="/projects/learned-exploration/">More on the exploration work</a>.</p>
 
 <h2>Thesis</h2>
-<p>The doctoral thesis, <em>Structuring the Seen, Exploring the Unseen</em>, is expected to be
-completed in 2026 at the Faculty ITC, University of Twente, supervised by
+<p>The two parts above take their names from the thesis,
+<em>Structuring the Seen, Exploring the Unseen</em>, which is expected to be completed in 2026 at the
+Faculty ITC, University of Twente, supervised by
 {e(" and ".join(SITE['identity']['supervisors']))}.</p>
 """
     shell("research", f"{NAME} | Research: monocular scene graphs and learned exploration",
@@ -564,6 +732,7 @@ def build_publication_pages():
 
 <h2>Contribution</h2>
 <p>{e(p["contribution"])}</p>
+{PUB_FIGURE.get(p["slug"], "")}
 
 <h2>Results</h2>
 <ul class="results">{results}</ul>
@@ -665,7 +834,7 @@ def project_ld(pr):
 def build_projects_index():
     items = "".join(f"""
     <li class="card">
-      <p class="eyebrow">Act {ROMAN.get(pr["act"], pr["act"])}{" &middot; in progress" if pr["status"] == "in progress" else ""}</p>
+      <p class="eyebrow">{e(pr["partLabel"])}{" &middot; in progress" if pr["status"] == "in progress" else ""}</p>
       <h3><a href="/projects/{e(pr["slug"])}/">{e(pr["name"])}</a></h3>
       <p>{e(pr["oneLine"])}</p>
       <p class="card-meta">{"".join(chr(60)+"span"+chr(62)+e(k)+chr(60)+"/span"+chr(62) for k in pr.get("keyNumbers", [])[:2])}</p>
@@ -719,7 +888,7 @@ def build_project_pages():
                      f'<br><span class="pub-venue">{e(p["statusLabel"])}</span></p>')
 
         body = f"""
-<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Act {ROMAN.get(pr["act"], pr["act"])}</p>
+<p class="eyebrow"><a href="/projects/">Projects</a> &middot; {e(pr["partLabel"])}</p>
 <h1>{e(pr["name"])}</h1>
 <p class="standfirst">{e(pr["oneLine"])}</p>
 <p class="pub-venue">{e(pr["years"])} &middot;
@@ -728,6 +897,7 @@ def build_project_pages():
 {honesty}
 <h2>What it does</h2>
 <p>{e(pr["whatItDoes"])}</p>
+{PROJ_MEDIA.get(pr["slug"], "")}
 {design}
 {nums_block}
 {paper}
@@ -741,8 +911,18 @@ def build_project_pages():
 # ---------------------------------------------------------------- cv, contact
 
 def build_cv():
+    def ym(v, default_month):
+        if v is None:
+            return (9999, 12)          # ongoing sorts to the top
+        parts = str(v).split("-")
+        return (int(parts[0]), int(parts[1]) if len(parts) > 1 else default_month)
+
+    def sortkey(t):
+        # newest first, by when it ended; ongoing roles lead, then by start
+        return (ym(t["end"], 12), ym(t["start"], 1))
+
     items = ""
-    for t in TIMELINE["timeline"]:
+    for t in sorted(TIMELINE["timeline"], key=sortkey, reverse=True):
         a, b = humandate(t["start"]), humandate(t["end"])
         if t["end"] is None:
             when = a if "milestone" in t.get("tags", []) else f"{a} to present"
@@ -875,6 +1055,9 @@ def build_favicon():
 
 
 def main():
+    global PUB_FIGURE, PROJ_MEDIA
+    PUB_FIGURE = _pub_figures()
+    PROJ_MEDIA = _proj_media()
     build_favicon()
     build_home()
     build_research()

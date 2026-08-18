@@ -11,7 +11,12 @@
 <meta property="og:title" content="Bavantha Udugama | PhD candidate, monocular spatial perception and robot exploration">
 <meta property="og:description" content="Bavantha Udugama builds real-time monocular spatial perception for robots: 3D scene graphs from a single camera and IMU, multi-task dense prediction, and learned exploration. PhD candidate at ITC, University of Twente.">
 <meta property="og:url" content="https://bavanthau.github.io/">
+<meta property="og:image" content="https://bavanthau.github.io/media/og/home.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bavantha Udugama | PhD candidate, monocular spatial perception and robot exploration">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bavanthau.github.io/media/og/home.png">
 <meta name="twitter:title" content="Bavantha Udugama | PhD candidate, monocular spatial perception and robot exploration">
 <meta name="twitter:description" content="Bavantha Udugama builds real-time monocular spatial perception for robots: 3D scene graphs from a single camera and IMU, multi-task dense prediction, and learned exploration. PhD candidate at ITC, University of Twente.">
 <link rel="stylesheet" href="/assets/site.css">
@@ -55,7 +60,20 @@
     "https://ieeexplore.ieee.org/author/37061362800",
     "https://www.youtube.com/@udugamavithanagebavanthala6361"
   ],
-  "email": "mailto:bavanthaU@eng.pdn.ac.lk"
+  "email": "mailto:bavanthaU@eng.pdn.ac.lk",
+  "image": "https://bavanthau.github.io/media/og/home.png"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback ",
+  "description": "Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/itc-loop-poster.jpg",
+  "uploadDate": "2026-08-18",
+  "contentUrl": "https://bavanthau.github.io/media/video/itc-loop.mp4",
+  "embedUrl": "https://bavanthau.github.io/"
 }
 </script>
 </head>
@@ -153,22 +171,37 @@
   </table>
 </div>
 
-<h2>Two acts</h2>
+<h2>Watch it build</h2>
+<figure class="v-figure "><div class="v-wrap"><video poster="/media/video/itc-loop-poster.jpg" width="1280" height="570" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside."><source src="/media/video/itc-loop.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback is 10x real time. Live RGB, predicted semantics, and predicted depth run down the right.</figcaption></figure>
+
+<h2>Two parts</h2>
 <div class="acts">
   <section class="act">
-    <p class="act-no">Act I</p>
-    <h3>Understanding space</h3>
+    <p class="act-no">Part I</p>
+    <h3>Structuring the seen</h3>
     <p>Building metric-semantic hierarchical 3D scene graphs from a single camera and an IMU, in real time.</p>
     <p><span class="tag">Four papers</span></p>
   </section>
   <section class="act">
-    <p class="act-no">Act II</p>
-    <h3>Learning to explore</h3>
+    <p class="act-no">Part II</p>
+    <h3>Exploring the unseen</h3>
     <p>Turning that representation into action: a deterministic planner proposes only certified routes, and a learned model chooses among them.</p>
     <p><span class="tag tag-progress">In progress, no results yet</span></p>
   </section>
 </div>
 <p class="section-intro"><a href="/research/">Read the long-form argument</a>.</p>
+
+<h2>What the camera gives the map</h2>
+<figure class="wipe" data-wipe>
+  <div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/wipe-rgb-480.avif 480w, /media/images/wipe-rgb-848.avif 848w" sizes="(min-width:56em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-rgb-480.webp 480w, /media/images/wipe-rgb-848.webp 848w" sizes="(min-width:56em) 20rem, 90vw"><img src="/media/images/wipe-rgb-848.jpg" alt="A corridor in the ITC building seen by the monocular camera: doors on the right, artwork on the walls, an orange floor receding into the distance." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/wipe-depth-480.avif 480w, /media/images/wipe-depth-848.avif 848w" sizes="(min-width:56em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-depth-480.webp 480w, /media/images/wipe-depth-848.webp 848w" sizes="(min-width:56em) 20rem, 90vw"><img src="/media/images/wipe-depth-848.jpg" alt="Predicted depth for the same corridor frame, rendered as a colour field where blue is near and red is the far end of the corridor." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/wipe-semantics-480.avif 480w, /media/images/wipe-semantics-848.avif 848w" sizes="(min-width:56em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-semantics-480.webp 480w, /media/images/wipe-semantics-848.webp 848w" sizes="(min-width:56em) 20rem, 90vw"><img src="/media/images/wipe-semantics-848.jpg" alt="Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div>
+  <label class="wipe-control" data-wipe-control hidden>
+    <span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span>
+    <input type="range" min="0" max="200" value="0" step="1" data-wipe-input>
+  </label>
+  <figcaption>One frame, three ways: the camera image, the predicted depth, and the predicted
+    semantic labels. These are the two dense outputs the mapping backend actually consumes.
+    Drag the slider to blend between them.</figcaption>
+</figure>
 
 <h2>Selected work</h2>
 <ul class="cards">
@@ -212,5 +245,6 @@
     <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
   </div>
 </footer>
+<script src="/assets/media.js" defer></script>
 </body>
 </html>

@@ -616,3 +616,189 @@ figcaption {
 }
 
 .section-intro { max-width: 62ch; }
+
+/* ============================================================
+   Media
+   ============================================================ */
+
+figure { margin: 2.25rem 0; }
+
+figure picture { display: block; }
+
+figure img,
+figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* Source figures are rendered on white. Take the glare off them in dark mode
+   without washing out the semantic colours that carry meaning. */
+:root[data-theme="dark"] figure img,
+:root[data-theme="dark"] figure video { filter: brightness(0.92) contrast(0.96); }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) figure img,
+  :root:not([data-theme="light"]) figure video { filter: brightness(0.92) contrast(0.96); }
+}
+
+/* ---- video ---- */
+
+.v-figure { margin: 2.25rem 0; }
+.v-wrap { position: relative; }
+
+.v-toggle,
+.v-play {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 2px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+}
+
+.v-toggle {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  opacity: 0.9;
+}
+.v-toggle:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+
+.v-gate { position: relative; }
+.v-gate img { display: block; }
+
+.v-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0.6rem 1.1rem;
+  font-size: 0.8125rem;
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.18);
+}
+.v-play:hover { border-color: var(--accent); color: var(--accent); }
+.v-size { color: var(--ink-2); margin-left: 0.4rem; }
+
+/* ---- RGB to depth to semantics ---- */
+
+.wipe { margin: 2.25rem 0; }
+
+.wipe-stage {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+@media (min-width: 44em) { .wipe-stage { grid-template-columns: repeat(3, 1fr); } }
+
+.wipe-pane { position: relative; }
+
+.wipe-pane img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+.wipe-label {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.05em;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.1rem 0.4rem;
+}
+
+/* stacked crossfade, only once the script has taken over */
+.wipe.is-interactive .wipe-stage {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 44rem;
+}
+.wipe.is-interactive .wipe-pane {
+  grid-area: 1 / 1;
+  transition: opacity 80ms linear;
+}
+.wipe.is-interactive .wipe-pane[data-pane="0"] { position: relative; }
+.wipe.is-interactive .wipe-label { opacity: 0; }
+.wipe.is-interactive .wipe-pane[style*="opacity: 1"] .wipe-label { opacity: 1; }
+
+.wipe-control { display: block; max-width: 44rem; margin: 0.9rem 0 0; }
+
+.wipe-control input[type="range"] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: ew-resize;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wipe.is-interactive .wipe-pane { transition: none; }
+}
+
+/* ---- YouTube facade ---- */
+
+.yt { margin: 2.25rem 0; }
+
+.yt-btn {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 44rem;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+  overflow: hidden;
+}
+.yt-btn img { display: block; width: 100%; height: auto; border: 0; border-radius: 0; }
+.yt-btn:hover { border-color: var(--accent); }
+
+.yt-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 3.75rem;
+  height: 2.6rem;
+  border-radius: 6px;
+  background: rgba(20, 24, 31, 0.82);
+}
+.yt-play::after {
+  content: "";
+  position: absolute;
+  left: 52%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-style: solid;
+  border-width: 0.5rem 0 0.5rem 0.85rem;
+  border-color: transparent transparent transparent #fff;
+}
+.yt-btn:hover .yt-play { background: var(--accent); }
+
+.yt-frame {
+  width: 100%;
+  max-width: 44rem;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+
+/* ---- breathing room, so pages with media do not feel packed ---- */
+
+.hero { margin-bottom: 4rem; }
+h2 { margin-top: 3.75rem; }
+.descent { margin-bottom: 4rem; }

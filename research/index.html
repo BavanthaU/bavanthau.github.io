@@ -11,7 +11,12 @@
 <meta property="og:title" content="Bavantha Udugama | Research: monocular scene graphs and learned exploration">
 <meta property="og:description" content="The two-act research arc: building hierarchical metric-semantic 3D scene graphs from a single camera, then learning to select among certified exploration routes.">
 <meta property="og:url" content="https://bavanthau.github.io/research/">
+<meta property="og:image" content="https://bavanthau.github.io/media/og/research.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bavantha Udugama | Research: monocular scene graphs and learned exploration">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bavanthau.github.io/media/og/research.png">
 <meta name="twitter:title" content="Bavantha Udugama | Research: monocular scene graphs and learned exploration">
 <meta name="twitter:description" content="The two-act research arc: building hierarchical metric-semantic 3D scene graphs from a single camera, then learning to select among certified exploration routes.">
 <link rel="stylesheet" href="/assets/site.css">
@@ -55,7 +60,8 @@
     "https://ieeexplore.ieee.org/author/37061362800",
     "https://www.youtube.com/@udugamavithanagebavanthala6361"
   ],
-  "email": "mailto:bavanthaU@eng.pdn.ac.lk"
+  "email": "mailto:bavanthaU@eng.pdn.ac.lk",
+  "image": "https://bavanthau.github.io/media/og/home.png"
 }
 </script>
 </head>
@@ -78,8 +84,9 @@
   <p>The same question was asked at Peradeniya in 2016 and 2017, with a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera. <a href="https://www.youtube.com/watch?v=csG_hieJj6s&amp;t=59s">The project video</a> is still online.</p>
 </div>
 
-<h2>Act I. Understanding space</h2>
+<h2>Part I. Structuring the seen</h2>
 <p>Building metric-semantic hierarchical 3D scene graphs from a single camera and an IMU, in real time.</p>
+<figure class=""><picture><source type="image/avif" srcset="/media/images/perception-pipeline-480.avif 480w, /media/images/perception-pipeline-960.avif 960w, /media/images/perception-pipeline-1600.avif 1600w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/perception-pipeline-480.webp 480w, /media/images/perception-pipeline-960.webp 960w, /media/images/perception-pipeline-1600.webp 1600w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/perception-pipeline-1600.jpg" alt="Pipeline diagram. Monocular RGB enters M2H-MX on the GPU, producing depth and semantics. Those feed pose-aware temporal alignment and a CPU-side VIO that uses predicted depth, with IMU input. The result is a metric semantic mesh and a 3D scene graph with building, room, place, object, and mesh layers." width="1822" height="764" loading="lazy" decoding="async"></picture><figcaption>One camera and one IMU in, a layered scene graph out. The two arrows returning from odometry into the perception block are the part that distinguishes this from a feed-forward pipeline: pose stabilises the next prediction rather than only consuming it.</figcaption></figure>
 <p>Metric-semantic mapping systems that produce usable scene graphs have almost always assumed
 RGB-D or LiDAR input, because reliable geometry is the hard part and a depth sensor supplies it
 directly. That assumption rules out the platforms where the mapping is most useful, since payload
@@ -116,7 +123,9 @@ keep dynamic regions out of it, and the poses that come back out temporally alig
 predictions. 0.08 m on the ITC second floor, 0.033 m calibrated trajectory error on 7-Scenes.
 <a href="/publications/mono-hydra-plus/">Read more</a>.</p>
 
-<h2>Act II. Learning to explore <span class="tag tag-progress">In progress</span></h2>
+<figure class=""><picture><source type="image/avif" srcset="/media/images/scene-graph-itc-480.avif 480w, /media/images/scene-graph-itc-960.avif 960w, /media/images/scene-graph-itc-1600.avif 1600w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/scene-graph-itc-480.webp 480w, /media/images/scene-graph-itc-960.webp 960w, /media/images/scene-graph-itc-1600.webp 1600w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/scene-graph-itc-1600.jpg" alt="A 3D scene graph over the ITC building second floor. A single building node at the top connects down to a room node, then to a dense band of place nodes following the corridor loop, then to object nodes scattered along the walls, and finally to the reconstructed mesh of the floor." width="3826" height="2240" loading="lazy" decoding="async"></picture><figcaption>The layered scene graph over the ITC second floor. Look at the vertical structure: one building node, one room node, 1,349 place nodes tracing the corridor loop, and object nodes hanging off the walls. Counts by category are listed in the legend.</figcaption></figure>
+
+<h2>Part II. Exploring the unseen <span class="tag tag-progress">In progress</span></h2>
 <p>Turning that representation into action: a deterministic planner proposes only certified routes, and a learned model chooses among them.</p>
 
 <div class="note">
@@ -134,8 +143,9 @@ of the task rather than from the hardware:</p>
 <p><a href="/projects/learned-exploration/">More on the exploration work</a>.</p>
 
 <h2>Thesis</h2>
-<p>The doctoral thesis, <em>Structuring the Seen, Exploring the Unseen</em>, is expected to be
-completed in 2026 at the Faculty ITC, University of Twente, supervised by
+<p>The two parts above take their names from the thesis,
+<em>Structuring the Seen, Exploring the Unseen</em>, which is expected to be completed in 2026 at the
+Faculty ITC, University of Twente, supervised by
 George Vosselman and Francesco Nex.</p>
 
 </div>
@@ -152,5 +162,6 @@ George Vosselman and Francesco Nex.</p>
     <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
   </div>
 </footer>
+<script src="/assets/media.js" defer></script>
 </body>
 </html>

@@ -11,7 +11,12 @@
 <meta property="og:title" content="Bavantha Udugama | M2H-MX">
 <meta property="og:description" content="The perception front end that made the map better, and the ablation that says why. By Bavantha Udugama, ITC University of Twente.">
 <meta property="og:url" content="https://bavanthau.github.io/projects/m2h-mx/">
+<meta property="og:image" content="https://bavanthau.github.io/media/og/proj-m2h-mx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bavantha Udugama | M2H-MX">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bavanthau.github.io/media/og/proj-m2h-mx.png">
 <meta name="twitter:title" content="Bavantha Udugama | M2H-MX">
 <meta name="twitter:description" content="The perception front end that made the map better, and the ablation that says why. By Bavantha Udugama, ITC University of Twente.">
 <link rel="stylesheet" href="/assets/site.css">
@@ -49,7 +54,7 @@
 <main id="main">
 <div class="wrap">
 
-<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Act I</p>
+<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Part I</p>
 <h1>M2H-MX</h1>
 <p class="standfirst">The perception front end that made the map better, and the ablation that says why.</p>
 <p class="pub-venue">2026 &middot;
@@ -57,6 +62,7 @@
 
 <h2>What it does</h2>
 <p>DINOv3 features adapted with LoRA, decoded through register-gated Mamba blocks at multiple scales, with directed cross-task refinement between depth and semantics. Exported to ONNX and TensorRT FP16 for the drone.</p>
+<figure class="v-figure "><div class="v-wrap"><video poster="/media/video/icra26-poster.jpg" width="1280" height="570" muted loop playsinline preload="none" data-autoloop aria-label="Short clip of the M2H-MX perception front end driving the mapping pipeline."><source src="/media/video/icra26.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>M2H-MX driving the mapping pipeline.</figcaption></figure><figure class=""><picture><source type="image/avif" srcset="/media/images/m2h-mx-architecture-480.avif 480w, /media/images/m2h-mx-architecture-960.avif 960w, /media/images/m2h-mx-architecture-1600.avif 1600w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/m2h-mx-architecture-480.webp 480w, /media/images/m2h-mx-architecture-960.webp 960w, /media/images/m2h-mx-architecture-1600.webp 1600w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/m2h-mx-architecture-1600.jpg" alt="M2H-MX architecture diagram. A DINOv3 backbone with LoRA adaptation feeds token reassembly and a feature pyramid, then register-gated Mamba blocks at each scale, task adaptors, a cross-task mixer, multi-scale convolutional attention, and finally the task heads." width="2890" height="1240" loading="lazy" decoding="async"></picture><figcaption>M2H-MX. The backbone stays mostly frozen and LoRA adapts the later blocks, so the compute goes into the decoder and the cross-task exchange rather than into retraining the features.</figcaption></figure>
 
 <h2>Key numbers</h2><ul class="results"><li class="result"><span class="value">65.60 mIoU and 0.3800 RMSE on NYUDv2</span></li><li class="result"><span class="value">6.91 cm average ScanNet ATE, down from 17.59 cm</span></li><li class="result"><span class="value">25.53 fps on Jetson Orin NX 16GB at 256x192</span></li></ul>
 <h2>Paper</h2><p><a href="/publications/m2h-mx/">M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction</a><br><span class="pub-venue">Accepted, ICRA 2026 SRRA Workshop</span></p>
@@ -76,5 +82,6 @@
     <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
   </div>
 </footer>
+<script src="/assets/media.js" defer></script>
 </body>
 </html>

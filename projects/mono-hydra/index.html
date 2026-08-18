@@ -11,7 +11,12 @@
 <meta property="og:title" content="Bavantha Udugama | Mono-Hydra">
 <meta property="og:description" content="Where it started. The first real-time 3D scene graph built from a monocular camera and an IMU. By Bavantha Udugama, ITC University of Twente.">
 <meta property="og:url" content="https://bavanthau.github.io/projects/mono-hydra/">
+<meta property="og:image" content="https://bavanthau.github.io/media/og/proj-mono-hydra.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bavantha Udugama | Mono-Hydra">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bavanthau.github.io/media/og/proj-mono-hydra.png">
 <meta name="twitter:title" content="Bavantha Udugama | Mono-Hydra">
 <meta name="twitter:description" content="Where it started. The first real-time 3D scene graph built from a monocular camera and an IMU. By Bavantha Udugama, ITC University of Twente.">
 <link rel="stylesheet" href="/assets/site.css">
@@ -49,7 +54,7 @@
 <main id="main">
 <div class="wrap">
 
-<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Act I</p>
+<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Part I</p>
 <h1>Mono-Hydra</h1>
 <p class="standfirst">Where it started. The first real-time 3D scene graph built from a monocular camera and an IMU.</p>
 <p class="pub-venue">2022 to 2023 &middot;
@@ -57,6 +62,7 @@
 
 <h2>What it does</h2>
 <p>Learned depth and learned semantics run as separate networks, feeding a robocentric square-root VIO and the Hydra scene graph layers: mesh, objects, places, rooms, buildings.</p>
+<figure class=""><picture><source type="image/avif" srcset="/media/images/scenegraph-system-design-480.avif 480w, /media/images/scenegraph-system-design-960.avif 960w, /media/images/scenegraph-system-design-1354.avif 1354w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/scenegraph-system-design-480.webp 480w, /media/images/scenegraph-system-design-960.webp 960w, /media/images/scenegraph-system-design-1354.webp 1354w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/scenegraph-system-design-1354.jpg" alt="System design diagram for monocular 3D scene graph construction, showing the perception networks, visual-inertial odometry, and the scene graph layers." width="1354" height="767" loading="lazy" decoding="async"></picture><figcaption>The original Mono-Hydra design: two independent networks for depth and semantics, feeding a robocentric VIO and the Hydra scene graph layers.</figcaption></figure>
 
 <h2>Key numbers</h2><ul class="results"><li class="result"><span class="value">0.19 m and 0.21 m ITC mean error</span></li><li class="result"><span class="value">15 fps at 848x480</span></li><li class="result"><span class="value">RTX 3080 8GB laptop</span></li></ul>
 <h2>Paper</h2><p><a href="/publications/mono-hydra/">Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU</a><br><span class="pub-venue">Published, ISPRS Annals 2023</span></p>
@@ -76,5 +82,6 @@
     <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
   </div>
 </footer>
+<script src="/assets/media.js" defer></script>
 </body>
 </html>

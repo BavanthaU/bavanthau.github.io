@@ -55,19 +55,24 @@
     "statement": "A monocular camera, one that the field assumed needed a depth sensor beside it, builds a hierarchical metric-semantic 3D scene graph in real time. The next question is what a robot does with that structure when it has to decide where to look next.",
     "wordCount": 44,
     "actOne": {
-      "title": "Understanding space",
+      "title": "Structuring the seen",
       "line": "Building metric-semantic hierarchical 3D scene graphs from a single camera and an IMU, in real time.",
-      "status": "complete"
+      "status": "complete",
+      "label": "Part I",
+      "subtitle": "Understanding space"
     },
     "actTwo": {
-      "title": "Learning to explore",
+      "title": "Exploring the unseen",
       "line": "Turning that representation into action: a deterministic planner proposes only certified routes, and a learned model chooses among them.",
       "status": "in-progress",
       "honesty": "The formulation and the layering contract are written up. The experiments are not run yet, so there are no results to report.",
-      "commitment": "Certification creates, learning selects."
+      "commitment": "Certification creates, learning selects.",
+      "label": "Part II",
+      "subtitle": "Learning to explore"
     },
     "prologue": "The same question was asked at Peradeniya in 2016 and 2017, with a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.",
-    "prologueVideo": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s"
+    "prologueVideo": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s",
+    "partsNote": "Named after the thesis title, Structuring the Seen, Exploring the Unseen, and matching the Part I and Part II division the thesis itself uses."
   },
   "deployment": {
     "status": "perception-only",

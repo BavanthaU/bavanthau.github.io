@@ -11,7 +11,12 @@
 <meta property="og:title" content="Bavantha Udugama | M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction">
 <meta property="og:description" content="Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score. Accepted, ICRA 2026 SRRA Workshop. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
 <meta property="og:url" content="https://bavanthau.github.io/publications/m2h-mx/">
+<meta property="og:image" content="https://bavanthau.github.io/media/og/pub-m2h-mx.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bavantha Udugama | M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bavanthau.github.io/media/og/pub-m2h-mx.png">
 <meta name="twitter:title" content="Bavantha Udugama | M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction">
 <meta name="twitter:description" content="Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score. Accepted, ICRA 2026 SRRA Workshop. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
 <link rel="stylesheet" href="/assets/site.css">
@@ -90,6 +95,7 @@
 
 <h2>Contribution</h2>
 <p>A DINOv3 backbone with LoRA adaptation, a register-gated Mamba decoder, and directed cross-task refinement. The ablation is the interesting part and it does not flatter the new modules: replacing DINOv3 with DINOv2-L costs 8.81 mIoU, while removing the cross-task mixer and the spatial attention costs 2.07. Most of the gain comes from backbone feature quality, and the paper says so.</p>
+<figure class=""><picture><source type="image/avif" srcset="/media/images/m2h-mx-architecture-480.avif 480w, /media/images/m2h-mx-architecture-960.avif 960w, /media/images/m2h-mx-architecture-1600.avif 1600w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/m2h-mx-architecture-480.webp 480w, /media/images/m2h-mx-architecture-960.webp 960w, /media/images/m2h-mx-architecture-1600.webp 1600w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/m2h-mx-architecture-1600.jpg" alt="M2H-MX architecture diagram. A DINOv3 backbone with LoRA adaptation feeds token reassembly and a feature pyramid, then register-gated Mamba blocks at each scale, task adaptors, a cross-task mixer, multi-scale convolutional attention, and finally the task heads." width="2890" height="1240" loading="lazy" decoding="async"></picture><figcaption>M2H-MX. The backbone stays mostly frozen and LoRA adapts the later blocks, so the compute goes into the decoder and the cross-task exchange rather than into retraining the features.</figcaption></figure><figure class=""><picture><source type="image/avif" srcset="/media/images/m2h-mx-rgm-480.avif 480w, /media/images/m2h-mx-rgm-933.avif 933w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/m2h-mx-rgm-480.webp 480w, /media/images/m2h-mx-rgm-933.webp 933w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/m2h-mx-rgm-933.jpg" alt="The register-gated Mamba block. A global register vector passes through a linear layer and sigmoid to produce a channel-wise gate that modulates reshaped feature tokens before a Mamba block." width="933" height="662" loading="lazy" decoding="async"></picture><figcaption>One global register vector gates every decoder scale. This is how global scene layout reaches local decoding without paying for full attention.</figcaption></figure><figure class=""><picture><source type="image/avif" srcset="/media/images/m2h-mx-ctm-msca-480.avif 480w, /media/images/m2h-mx-ctm-msca-960.avif 960w, /media/images/m2h-mx-ctm-msca-1140.avif 1140w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/m2h-mx-ctm-msca-480.webp 480w, /media/images/m2h-mx-ctm-msca-960.webp 960w, /media/images/m2h-mx-ctm-msca-1140.webp 1140w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/m2h-mx-ctm-msca-1140.jpg" alt="Cross-task mixer followed by multi-scale convolutional attention, showing how auxiliary task features modulate a target task before spatial refinement." width="1140" height="883" loading="lazy" decoding="async"></picture><figcaption>Cross-task mixing, then spatial refinement. Removing both costs 2.07 mIoU. Swapping the backbone costs 8.81, which is the more interesting number.</figcaption></figure>
 
 <h2>Results</h2>
 <ul class="results">
@@ -130,5 +136,6 @@
     <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
   </div>
 </footer>
+<script src="/assets/media.js" defer></script>
 </body>
 </html>

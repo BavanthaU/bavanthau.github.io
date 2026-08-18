@@ -57,7 +57,8 @@
       "gaps": [
         "G5 scene-graph overlay still",
         "G6 decimated glTF for the 3D viewer"
-      ]
+      ],
+      "partLabel": "Part I"
     },
     {
       "slug": "m2h-mx",
@@ -110,7 +111,8 @@
       },
       "gaps": [
         "G4 drone photograph for the embedded deployment section"
-      ]
+      ],
+      "partLabel": "Part I"
     },
     {
       "slug": "m2h",
@@ -157,7 +159,8 @@
           }
         ]
       },
-      "gaps": []
+      "gaps": [],
+      "partLabel": "Part I"
     },
     {
       "slug": "mono-hydra",
@@ -196,7 +199,8 @@
           }
         ]
       },
-      "gaps": []
+      "gaps": [],
+      "partLabel": "Part I"
     },
     {
       "slug": "learned-exploration",
@@ -233,7 +237,8 @@
       },
       "gaps": [
         "G10 no exploration result of any kind yet"
-      ]
+      ],
+      "partLabel": "Part II"
     }
   ],
   "platform": {

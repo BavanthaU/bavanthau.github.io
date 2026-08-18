@@ -11,7 +11,12 @@
 <meta property="og:title" content="Bavantha Udugama | M2H">
 <meta property="og:description" content="Four dense tasks in one model, replacing two separate networks that did not agree with each other. By Bavantha Udugama, ITC University of Twente.">
 <meta property="og:url" content="https://bavanthau.github.io/projects/m2h/">
+<meta property="og:image" content="https://bavanthau.github.io/media/og/proj-m2h.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bavantha Udugama | M2H">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bavanthau.github.io/media/og/proj-m2h.png">
 <meta name="twitter:title" content="Bavantha Udugama | M2H">
 <meta name="twitter:description" content="Four dense tasks in one model, replacing two separate networks that did not agree with each other. By Bavantha Udugama, ITC University of Twente.">
 <link rel="stylesheet" href="/assets/site.css">
@@ -49,7 +54,7 @@
 <main id="main">
 <div class="wrap">
 
-<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Act I</p>
+<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Part I</p>
 <h1>M2H</h1>
 <p class="standfirst">Four dense tasks in one model, replacing two separate networks that did not agree with each other.</p>
 <p class="pub-venue">2025 &middot;
@@ -57,6 +62,16 @@
 
 <h2>What it does</h2>
 <p>Window-based cross-task attention on a DINOv2-small backbone, predicting depth, semantics, surface normals, and edges together so that each task can use what the others found.</p>
+<figure class="v-figure "><div class="v-wrap"><video poster="/media/video/itc-loop-poster.jpg" width="1280" height="570" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside."><source src="/media/video/itc-loop.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback is 10x real time. Live RGB, predicted semantics, and predicted depth run down the right.</figcaption></figure><figure class="wipe" data-wipe>
+  <div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/wipe-rgb-480.avif 480w, /media/images/wipe-rgb-848.avif 848w" sizes="(min-width:56em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-rgb-480.webp 480w, /media/images/wipe-rgb-848.webp 848w" sizes="(min-width:56em) 20rem, 90vw"><img src="/media/images/wipe-rgb-848.jpg" alt="A corridor in the ITC building seen by the monocular camera: doors on the right, artwork on the walls, an orange floor receding into the distance." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/wipe-depth-480.avif 480w, /media/images/wipe-depth-848.avif 848w" sizes="(min-width:56em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-depth-480.webp 480w, /media/images/wipe-depth-848.webp 848w" sizes="(min-width:56em) 20rem, 90vw"><img src="/media/images/wipe-depth-848.jpg" alt="Predicted depth for the same corridor frame, rendered as a colour field where blue is near and red is the far end of the corridor." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/wipe-semantics-480.avif 480w, /media/images/wipe-semantics-848.avif 848w" sizes="(min-width:56em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-semantics-480.webp 480w, /media/images/wipe-semantics-848.webp 848w" sizes="(min-width:56em) 20rem, 90vw"><img src="/media/images/wipe-semantics-848.jpg" alt="Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div>
+  <label class="wipe-control" data-wipe-control hidden>
+    <span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span>
+    <input type="range" min="0" max="200" value="0" step="1" data-wipe-input>
+  </label>
+  <figcaption>One frame, three ways: the camera image, the predicted depth, and the predicted
+    semantic labels. These are the two dense outputs the mapping backend actually consumes.
+    Drag the slider to blend between them.</figcaption>
+</figure>
 
 <h2>Key numbers</h2><ul class="results"><li class="result"><span class="value">61.54 mIoU and 0.4196 RMSE on NYUDv2</span></li><li class="result"><span class="value">0.11 m ITC mean error at 30 fps</span></li><li class="result"><span class="value">81 M parameters, 488 GFLOPs</span></li></ul>
 <h2>Paper</h2><p><a href="/publications/m2h/">M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception</a><br><span class="pub-venue">Published, IEEE/RSJ IROS 2025</span></p>
@@ -76,5 +91,6 @@
     <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
   </div>
 </footer>
+<script src="/assets/media.js" defer></script>
 </body>
 </html>

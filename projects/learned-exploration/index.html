@@ -11,7 +11,12 @@
 <meta property="og:title" content="Bavantha Udugama | Learned exploration">
 <meta property="og:description" content="A deterministic planner proposes only routes it has certified as safe. A learned model chooses among them, or refuses. By Bavantha Udugama, ITC University of Twente.">
 <meta property="og:url" content="https://bavanthau.github.io/projects/learned-exploration/">
+<meta property="og:image" content="https://bavanthau.github.io/media/og/proj-learned-exploration.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bavantha Udugama | Learned exploration">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bavanthau.github.io/media/og/proj-learned-exploration.png">
 <meta name="twitter:title" content="Bavantha Udugama | Learned exploration">
 <meta name="twitter:description" content="A deterministic planner proposes only routes it has certified as safe. A learned model chooses among them, or refuses. By Bavantha Udugama, ITC University of Twente.">
 <link rel="stylesheet" href="/assets/site.css">
@@ -43,7 +48,7 @@
 <main id="main">
 <div class="wrap">
 
-<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Act II</p>
+<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Part II</p>
 <h1>Learned exploration</h1>
 <p class="standfirst">A deterministic planner proposes only routes it has certified as safe. A learned model chooses among them, or refuses.</p>
 <p class="pub-venue">2025 to present &middot;
@@ -55,6 +60,7 @@
 </div>
 <h2>What it does</h2>
 <p>The robot enters an unmapped indoor space with one forward-facing camera and must cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes verified against the occupancy map the robot has built. The open problem is choice, not motion. The learned layer may re-order the certified options and may abstain, but it may never generate a route of its own.</p>
+<figure class="v-figure "><div class="v-gate" data-gate><img src="/media/video/scope-explorer-poster.jpg" alt="Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment." width="1100" height="892" loading="lazy" decoding="async"><button type="button" class="v-play" data-gate-btn>Load video <span class="v-size">2.3 MB</span></button><template data-gate-src>&lt;video poster=&quot;/media/video/scope-explorer-poster.jpg&quot; width=&quot;1100&quot; height=&quot;892&quot; muted loop playsinline preload=&quot;none&quot; aria-label=&quot;Simulated indoor exploration run showing the robot&amp;#x27;s occupancy map growing as it selects routes through the environment.&quot;&gt;&lt;source src=&quot;/media/video/scope-explorer.mp4&quot; type=&quot;video/mp4&quot;&gt;&lt;/video&gt;</template></div><figcaption>A 60 second excerpt of an exploration run in simulation, showing local and global behaviour as the occupancy map fills in.</figcaption></figure>
 <h2>Design commitments</h2><p class="lede">Certification creates, learning selects.</p><ul class="limits"><li>Options are judged relative to one another, so that two routes leading through the same opening are not treated as genuine alternatives.</li><li>Actions are temporally extended, because passing through a doorway is locally expensive and locally uninformative and everything of value happens afterwards.</li><li>Branch memory gives the agent a persistent notion of unfinished work, so regions get completed and exhausted ones get abandoned.</li><li>Ensemble disagreement drives abstention, which hands control back to the deterministic layer.</li></ul>
 
 
@@ -74,5 +80,6 @@
     <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
   </div>
 </footer>
+<script src="/assets/media.js" defer></script>
 </body>
 </html>

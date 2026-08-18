@@ -11,7 +11,12 @@
 <meta property="og:title" content="Bavantha Udugama | M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception">
 <meta property="og:description" content="Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop. Published, IEEE/RSJ IROS 2025. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
 <meta property="og:url" content="https://bavanthau.github.io/publications/m2h/">
+<meta property="og:image" content="https://bavanthau.github.io/media/og/pub-m2h.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bavantha Udugama | M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bavanthau.github.io/media/og/pub-m2h.png">
 <meta name="twitter:title" content="Bavantha Udugama | M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception">
 <meta name="twitter:description" content="Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop. Published, IEEE/RSJ IROS 2025. By U.V.B.L. Udugama, George Vosselman, Francesco Nex.">
 <link rel="stylesheet" href="/assets/site.css">
@@ -85,6 +90,16 @@
 
 <h2>Contribution</h2>
 <p>A window-based cross-task attention module that lets tasks exchange structured features while keeping task-specific detail, on a DINOv2-small backbone. The ablation shows both the local attention and the global fusion module are load-bearing: removing either degrades every task.</p>
+<figure class="wipe" data-wipe>
+  <div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/wipe-rgb-480.avif 480w, /media/images/wipe-rgb-848.avif 848w" sizes="(min-width:56em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-rgb-480.webp 480w, /media/images/wipe-rgb-848.webp 848w" sizes="(min-width:56em) 20rem, 90vw"><img src="/media/images/wipe-rgb-848.jpg" alt="A corridor in the ITC building seen by the monocular camera: doors on the right, artwork on the walls, an orange floor receding into the distance." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/wipe-depth-480.avif 480w, /media/images/wipe-depth-848.avif 848w" sizes="(min-width:56em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-depth-480.webp 480w, /media/images/wipe-depth-848.webp 848w" sizes="(min-width:56em) 20rem, 90vw"><img src="/media/images/wipe-depth-848.jpg" alt="Predicted depth for the same corridor frame, rendered as a colour field where blue is near and red is the far end of the corridor." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/wipe-semantics-480.avif 480w, /media/images/wipe-semantics-848.avif 848w" sizes="(min-width:56em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-semantics-480.webp 480w, /media/images/wipe-semantics-848.webp 848w" sizes="(min-width:56em) 20rem, 90vw"><img src="/media/images/wipe-semantics-848.jpg" alt="Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div>
+  <label class="wipe-control" data-wipe-control hidden>
+    <span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span>
+    <input type="range" min="0" max="200" value="0" step="1" data-wipe-input>
+  </label>
+  <figcaption>One frame, three ways: the camera image, the predicted depth, and the predicted
+    semantic labels. These are the two dense outputs the mapping backend actually consumes.
+    Drag the slider to blend between them.</figcaption>
+</figure><figure class="yt" data-yt="X2w_AqGwkaY"><button type="button" class="yt-btn" data-yt-btn><img src="https://i.ytimg.com/vi/X2w_AqGwkaY/hqdefault.jpg" alt="Thumbnail for Mono Hydra with M2H for Monocular 3D Scene Graph Construction" width="480" height="360" loading="lazy" decoding="async"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play Mono Hydra with M2H for Monocular 3D Scene Graph Construction on YouTube</span></button><figcaption>Mono Hydra with M2H for Monocular 3D Scene Graph Construction. The full length version, loaded from YouTube only when you press play.</figcaption></figure>
 
 <h2>Results</h2>
 <ul class="results">
@@ -125,5 +140,6 @@
     <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
   </div>
 </footer>
+<script src="/assets/media.js" defer></script>
 </body>
 </html>
