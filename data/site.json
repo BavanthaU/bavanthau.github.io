@@ -70,9 +70,10 @@
       "label": "Part II",
       "subtitle": "Learning to explore"
     },
-    "prologue": "The same question was asked at Peradeniya in 2016 and 2017, with a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.",
+    "prologue": "The same question was asked at Peradeniya in 2017: an autonomous exploration planning strategy for a robot mapping an unknown space, using a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.",
     "prologueVideo": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s",
-    "partsNote": "Named after the thesis title, Structuring the Seen, Exploring the Unseen, and matching the Part I and Part II division the thesis itself uses."
+    "partsNote": "Named after the thesis title, Structuring the Seen, Exploring the Unseen, and matching the Part I and Part II division the thesis itself uses.",
+    "prologueCitation": "https://doi.org/10.1109/ICIINFS.2017.8300386"
   },
   "deployment": {
     "status": "perception-only",

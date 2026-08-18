@@ -20,18 +20,18 @@
       "manuscriptNumber": "PHOTO-S-26-02536",
       "identifiers": {
         "doi": null,
-        "arxiv": null
+        "arxiv": "2605.17661"
       },
       "links": {
         "doi": null,
-        "arxiv": null,
+        "arxiv": "https://arxiv.org/abs/2605.17661",
         "code": "https://github.com/BavanthaU/mono-hydra-pp",
         "video": null,
         "bibtex": "/publications/bibtex/#mono-hydra-plus",
         "linkedin": "https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/"
       },
       "rights": "link-only",
-      "rightsReason": "Under review at an Elsevier journal. No version is hosted and no DOI exists yet.",
+      "rightsReason": "Under review at an Elsevier journal. The author preprint is on arXiv and is linked here; no version is hosted on this site.",
       "hasPage": true,
       "claim": "A single camera and an IMU build a hierarchical metric-semantic 3D scene graph of an indoor building in real time, and the map is accurate to 0.08 m.",
       "context": "Metric-semantic mapping systems that produce usable scene graphs have almost always assumed RGB-D or LiDAR input, because reliable geometry is the hard part and depth sensors supply it directly. That assumption rules out the platforms where mapping is most useful, since payload and power are what limit small drones. Mono-Hydra++ removes the depth sensor and closes the loop between perception and state estimation instead.",
@@ -274,8 +274,33 @@
   ],
   "earlierWork": {
     "heading": "Earlier work",
-    "note": "Work from before the PhD.",
+    "note": "Undergraduate research at the University of Peradeniya, and the MSc thesis.",
     "entries": [
+      {
+        "title": "Autonomous exploration planning strategy for a reconnaissance agent",
+        "authors": [
+          "Nilanga Thelasingha",
+          "Sachini Ekanayake",
+          "Bavantha Udugama",
+          "G.M.R.I. Godaliyadda",
+          "M.P.B. Ekanayake",
+          "B.G.L.T. Samaranayake",
+          "J.V. Wijayakulasooriya"
+        ],
+        "context": "2017 IEEE International Conference on Industrial and Information Systems (ICIIS), pages 1 to 6",
+        "year": 2017,
+        "identifiers": {
+          "doi": "10.1109/ICIINFS.2017.8300386"
+        },
+        "links": {
+          "doi": "https://doi.org/10.1109/ICIINFS.2017.8300386",
+          "video": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s"
+        },
+        "role": "SLAM developer, one of 3 students on the project",
+        "videoAttribution": "Project video on co-author Nilanga Thelasingha's channel. The link opens at 0:59, where Bavantha Udugama presents the system.",
+        "relevance": "Autonomous exploration planning for a robot mapping an unknown space. The same question the current work asks, 10 years earlier.",
+        "hasPage": false
+      },
       {
         "title": "Object Dimension Extraction for Environment Mapping with Low Cost Cameras Fused with Laser Ranging",
         "authors": [
@@ -287,34 +312,50 @@
           "B. G. L. T. Samaranayake",
           "J. V. Wijayakulasooriya"
         ],
-        "context": "Department of Electrical and Electronic Engineering, University of Peradeniya, Sri Lanka",
+        "context": "24th Annual Technical Conference of the IET Sri Lanka Network",
         "year": 2017,
-        "yearNote": "Work carried out 2016 to 2017. Posted to arXiv in February 2023.",
         "identifiers": {
           "arxiv": "2302.01387"
         },
         "links": {
-          "arxiv": "https://arxiv.org/abs/2302.01387",
-          "video": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s"
+          "arxiv": "https://arxiv.org/abs/2302.01387"
         },
-        "videoAttribution": "Project video on co-author Neelanga Thelasingha's channel. The link opens at 0:59, where Bavantha Udugama presents the system.",
         "awards": [
-          "Best Undergraduate Project, Institution of Engineers Sri Lanka, 2017",
           "Best Technical Paper, IET Sri Lanka, 2017"
         ],
-        "awardsSource": "Recorded on the CV. Awarded to the final-year project.",
-        "hasPage": false,
-        "relevance": "Autonomous exploration and mapping with a 2D laser range finder fused with stereo cameras, built by 3 students. Bavantha Udugama developed the SLAM. The same question the current work asks, 10 years earlier.",
-        "role": "SLAM developer, one of 3 students on the project"
+        "awardsSource": "Recorded on the CV.",
+        "hasPage": false
+      },
+      {
+        "title": "Laser Ranging Based Intelligent System for Unknown Environment Mapping",
+        "authors": [
+          "T.H.M.N.C. Thelasingha",
+          "U.V.B.L. Udugama",
+          "E.M.S.P. Ekanayake",
+          "G.M.R.I. Godaliyadda",
+          "M.P.B. Ekanayake",
+          "B.G.L.T. Samaranayake",
+          "J.V. Wijayakulasooriya"
+        ],
+        "context": "Annual Sessions 2017, The Institution of Engineers Sri Lanka",
+        "year": 2017,
+        "identifiers": {},
+        "links": {},
+        "awards": [
+          "Best Undergraduate Project, Institution of Engineers Sri Lanka, 2017"
+        ],
+        "awardsSource": "Recorded on the CV.",
+        "note": "No public identifier exists for this paper.",
+        "hasPage": false
       },
       {
         "title": "Heterogeneous swarm robot system with distributed data processing at the edge for collective transportation",
         "context": "MSc thesis, Robotics Engineering, Middlesex University Dubai",
+        "grade": "Distinction",
         "year": 2021,
         "identifiers": {},
         "links": {},
-        "hasPage": false,
-        "grade": "Distinction"
+        "hasPage": false
       }
     ]
   },
@@ -341,5 +382,80 @@
       ],
       "startAtNote": "Opens where Bavantha Udugama presents the system."
     }
+  },
+  "preprints": {
+    "heading": "Review preprints",
+    "note": "Single-author literature reviews written alongside the MSc, posted to arXiv in February 2023. Not peer reviewed.",
+    "entries": [
+      {
+        "slug": "evolution-of-slam",
+        "title": "Evolution of SLAM: Toward the Robust-Perception of Autonomy",
+        "authors": [
+          "B. Udugama"
+        ],
+        "venue": "arXiv preprint",
+        "venueShort": "arXiv preprint",
+        "year": 2023,
+        "status": "preprint",
+        "statusLabel": "Preprint, not peer reviewed",
+        "identifiers": {
+          "arxiv": "2302.06365"
+        },
+        "links": {
+          "arxiv": "https://arxiv.org/abs/2302.06365"
+        },
+        "rights": "link-only",
+        "hasPage": false,
+        "summary": "A survey of how SLAM developed from filtering approaches through graph optimisation towards learned components.",
+        "abstract": "Simultaneous localisation and mapping (SLAM) is the problem of autonomous robots to construct or update a map of an undetermined unstructured environment while simultaneously estimate the pose in it. The current trend towards self-driving vehicles has influenced the development of robust SLAM techniques over the last 30 years. This problem is addressed by using a standard sensor or a sensor array (Ultrasonic sensor, LIDAR, Camera, Kinect RGB-D) with sensor fusion techniques to achieve the perception step. Sensing method is determined by considering the specifications of the environment to extract the features. Then the usage of classical Filter-based approaches, the global optimisation approach which is a popular method for visual-based SLAM and convolutional neural network-based methods such as deep learning-based SLAM are discussed whereas considering how to overcome the localisation and mapping issues. The robustness and scalability in long-term autonomy, performance and other new directions in the algorithms compared with each other to sort out. This paper is looking at the published previous work with a judgemental perspective from sensors to algorithm development while discussing open challenges and new research frontiers.",
+        "sourceFile": "_source/papers/scholar-metadata/arxiv-parsed.json"
+      },
+      {
+        "slug": "drl-autonomous-driving",
+        "title": "Review of Deep Reinforcement Learning for Autonomous Driving",
+        "authors": [
+          "B. Udugama"
+        ],
+        "venue": "arXiv preprint",
+        "venueShort": "arXiv preprint",
+        "year": 2023,
+        "status": "preprint",
+        "statusLabel": "Preprint, not peer reviewed",
+        "identifiers": {
+          "arxiv": "2302.06370"
+        },
+        "links": {
+          "arxiv": "https://arxiv.org/abs/2302.06370"
+        },
+        "rights": "link-only",
+        "hasPage": false,
+        "summary": "A survey of deep reinforcement learning applied to autonomous driving, and why results in games transfer badly to the road.",
+        "abstract": "Since deep neural networks' resurgence, reinforcement learning has gradually strengthened and surpassed humans in many conventional games. However, it is not easy to copy these accomplishments to autonomous driving because state spaces are immensely complicated in the real world and action spaces are continuous and fine control is necessary. Besides, autonomous driving systems must also maintain their functionality regardless of the environment's complexity. The deep reinforcement learning domain (DRL) has become a robust learning framework to handle complex policies in high dimensional surroundings with deep representation learning. This research outlines deep, reinforcement learning algorithms (DRL). It presents a nomenclature of autonomous driving in which DRL techniques have been used, thus discussing important computational issues in evaluating autonomous driving agents in the real environment. Instead, it involves similar but not standard RL techniques, adjoining fields such as emulation of actions, modelling imitation, inverse reinforcement learning. The simulators' role in training agents is addressed, as are the methods for validating, checking and robustness of existing RL solutions.",
+        "sourceFile": "_source/papers/scholar-metadata/arxiv-parsed.json"
+      },
+      {
+        "slug": "swarm-robotics-coordination",
+        "title": "Review on Efficient Strategies for Coordinated Motion and Tracking in Swarm Robotics",
+        "authors": [
+          "B. Udugama"
+        ],
+        "venue": "arXiv preprint",
+        "venueShort": "arXiv preprint",
+        "year": 2023,
+        "status": "preprint",
+        "statusLabel": "Preprint, not peer reviewed",
+        "identifiers": {
+          "arxiv": "2302.06360"
+        },
+        "links": {
+          "arxiv": "https://arxiv.org/abs/2302.06360"
+        },
+        "rights": "link-only",
+        "hasPage": false,
+        "summary": "A survey of coordinated motion and tracking strategies in swarm robotics.",
+        "abstract": "Swarm robotics is a creative method of organizing multi-robot structures, consisting of many basic robots influenced by communal insects. The greatest astonishing attribute of swarm robots is their capacity to function together to accomplish a collective objective. This paper addresses the list of current surveys, problems and algorithms that were stimulated in the research of Coordinated Movement in Swarm robotics. Algorithms for swarm robotics movement are contrasted, considering the swarm micro-robots to accomplish aggregation, creation, and clamouring by contrasting the relative computational simulations between the algorithms and simulations used.",
+        "sourceFile": "_source/papers/scholar-metadata/arxiv-parsed.json"
+      }
+    ]
   }
 }

@@ -603,7 +603,8 @@ def build_research():
 
 <div class="note">
   <span class="note-label">Prologue</span>
-  <p>{e(arc['prologue'])} <a href="{e(arc['prologueVideo'])}">The project video</a> is still online.</p>
+  <p>{e(arc['prologue'])} <a href="{e(arc['prologueCitation'])}">That paper</a> is still on IEEE
+     Xplore and <a href="{e(arc['prologueVideo'])}">the project video</a> is still online.</p>
 </div>
 
 <h2>{e(arc['actOne']['label'])}. {e(arc['actOne']['title'])}</h2>
@@ -722,6 +723,41 @@ def linkrow(p):
     return f'<div class="linkrow">{"".join(links)}</div>' if links else ""
 
 
+def cite_links(x):
+    L = x.get("links", {})
+    bits = []
+    for key, label in (("doi", "DOI"), ("arxiv", "arXiv"), ("code", "Code"),
+                       ("video", "Video")):
+        if L.get(key):
+            bits.append(f'<a href="{e(L[key])}">{label}</a>')
+    return f'<div class="linkrow">{"".join(bits)}</div>' if bits else ""
+
+
+def cite_entry(x, extra_class=""):
+    auth = f'<p class="pub-authors">{authors_html(x["authors"])}</p>' if x.get("authors") else ""
+    when = f'{e(x["context"])}, {e(x["year"])}'
+    if x.get("grade"):
+        when += f', {e(x["grade"])}'
+    role = f'<p class="pub-venue">{e(x["role"])}</p>' if x.get("role") else ""
+    awards = ('<p class="pub-venue">' + e("; ".join(x["awards"])) + "</p>") if x.get("awards") else ""
+    summ = f'<p>{e(x["summary"])}</p>' if x.get("summary") else ""
+    rel = f'<p>{e(x["relevance"])}</p>' if x.get("relevance") else ""
+    note = f'<p class="pub-venue">{e(x["note"])}</p>' if x.get("note") else ""
+    vattr = f'<p class="pub-venue">{e(x["videoAttribution"])}</p>' if x.get("videoAttribution") else ""
+    status = ""
+    if x.get("statusLabel"):
+        status = f'<p class="pub-venue"><span class="tag">{e(x["statusLabel"])}</span></p>'
+    return f"""
+    <li class="pub {extra_class}">
+      <h3>{e(x["title"])}</h3>
+      {auth}
+      <p class="pub-venue">{when}</p>
+      {status}{role}{awards}{summ}{rel}{note}
+      {cite_links(x)}
+      {vattr}
+    </li>"""
+
+
 def build_publications_index():
     items = "".join(f"""
     <li class="pub">
@@ -733,38 +769,33 @@ def build_publications_index():
       {linkrow(p)}
     </li>""" for p in PUBS["publications"])
 
+    pre = PUBS.get("preprints")
+    prelist = ""
+    if pre:
+        for x in pre["entries"]:
+            y = dict(x)
+            y["context"] = x["venue"]
+            prelist += cite_entry(y)
+
     ew = PUBS["earlierWork"]
     early = ""
     for x in ew["entries"]:
-        xl = x.get("links", {})
-        bits = []
-        if xl.get("arxiv"):
-            bits.append(f'<a href="{e(xl["arxiv"])}">arXiv</a>')
-        if xl.get("video"):
-            bits.append(f'<a href="{e(xl["video"])}">Video</a>')
-        link = f'<div class="linkrow">{"".join(bits)}</div>' if bits else ""
-        auth = f'<p class="pub-authors">{authors_html(x["authors"])}</p>' if x.get("authors") else ""
-        role = f'<p class="pub-venue">{e(x["role"])}</p>' if x.get("role") else ""
-        awards = ('<p class="pub-venue">' + e("; ".join(x["awards"])) + "</p>") if x.get("awards") else ""
-        vattr = f'<p class="pub-venue">{e(x["videoAttribution"])}</p>' if x.get("videoAttribution") else ""
-        when = f'{e(x["context"])}, {e(x["year"])}'
-        early += f"""
-    <li class="pub">
-      <h3>{e(x["title"])}</h3>
-      {auth}
-      <p class="pub-venue">{when}{", " + e(x["grade"]) if x.get("grade") else ""}</p>
-      {role}
-      {awards}
-      {f'<p>{e(x["relevance"])}</p>' if x.get("relevance") else ""}
-      {f'<p class="pub-venue">{e(x["note"])}</p>' if x.get("note") else ""}
-      {link}
-      {vattr}
-    </li>"""
+        early += cite_entry(x)
+
+    preprint_block = ""
+    if pre:
+        preprint_block = (f'<h2>{e(pre["heading"])}</h2>'
+                          f'<p class="section-intro">{e(pre["note"])}</p>'
+                          f'<ul class="publist">{prelist}</ul>')
 
     body = f"""
 <h1>Publications</h1>
-<p class="standfirst">Published as {e(PUBNAME)}.</p>
+<p class="standfirst">Published as {e(PUBNAME)}, and earlier as B. Udugama.</p>
+
+<h2>Peer reviewed</h2>
 <ul class="publist">{items}</ul>
+
+{preprint_block}
 
 <h2>{e(ew["heading"])}</h2>
 <p class="section-intro">{e(ew["note"])}</p>
@@ -860,12 +891,60 @@ BIBTEX = {
   doi       = {10.48550/arXiv.2603.29236}
 }""",
     "mono-hydra-plus": """@unpublished{udugama2026monohydrapp,
-  title  = {Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping},
-  author = {Udugama, U. V. B. L. and Vosselman, George and Nex, Francesco},
-  note   = {Under review, ISPRS Journal of Photogrammetry and Remote Sensing, manuscript PHOTO-S-26-02536},
-  year   = {2026}
+  title        = {Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping},
+  author       = {Udugama, U. V. B. L. and Vosselman, George and Nex, Francesco},
+  note         = {Under review, ISPRS Journal of Photogrammetry and Remote Sensing, manuscript PHOTO-S-26-02536},
+  eprint       = {2605.17661},
+  archivePrefix= {arXiv},
+  year         = {2026}
 }""",
 }
+
+OTHER_BIBTEX = [
+    ("evolution-of-slam", "Evolution of SLAM: Toward the Robust-Perception of Autonomy", """@misc{udugama2023slamreview,
+  title         = {Evolution of SLAM: Toward the Robust-Perception of Autonomy},
+  author        = {Udugama, B.},
+  year          = {2023},
+  eprint        = {2302.06365},
+  archivePrefix = {arXiv}
+}"""),
+    ("drl-autonomous-driving", "Review of Deep Reinforcement Learning for Autonomous Driving", """@misc{udugama2023drlreview,
+  title         = {Review of Deep Reinforcement Learning for Autonomous Driving},
+  author        = {Udugama, B.},
+  year          = {2023},
+  eprint        = {2302.06370},
+  archivePrefix = {arXiv}
+}"""),
+    ("swarm-robotics-coordination", "Review on Efficient Strategies for Coordinated Motion and Tracking in Swarm Robotics", """@misc{udugama2023swarmreview,
+  title         = {Review on Efficient Strategies for Coordinated Motion and Tracking in Swarm Robotics},
+  author        = {Udugama, B.},
+  year          = {2023},
+  eprint        = {2302.06360},
+  archivePrefix = {arXiv}
+}"""),
+    ("exploration-planning-2017", "Autonomous exploration planning strategy for a reconnaissance agent", """@inproceedings{thelasingha2017exploration,
+  title     = {Autonomous exploration planning strategy for a reconnaissance agent},
+  author    = {Thelasingha, Nilanga and Ekanayake, Sachini and Udugama, Bavantha and Godaliyadda, G. M. R. I. and Ekanayake, M. P. B. and Samaranayake, B. G. L. T. and Wijayakulasooriya, J. V.},
+  booktitle = {2017 IEEE International Conference on Industrial and Information Systems (ICIIS)},
+  pages     = {1--6},
+  year      = {2017},
+  doi       = {10.1109/ICIINFS.2017.8300386}
+}"""),
+    ("object-dimension-extraction", "Object Dimension Extraction for Environment Mapping with Low Cost Cameras Fused with Laser Ranging", """@inproceedings{ekanayake2017objectdimension,
+  title         = {Object Dimension Extraction for Environment Mapping with Low Cost Cameras Fused with Laser Ranging},
+  author        = {Ekanayake, E. M. S. P. and Thelasingha, T. H. M. N. C. and Udugama, U. V. B. L. and Godaliyadda, G. M. R. I. and Ekanayake, M. P. B. and Samaranayake, B. G. L. T. and Wijayakulasooriya, J. V.},
+  booktitle     = {24th Annual Technical Conference of the IET Sri Lanka Network},
+  year          = {2017},
+  eprint        = {2302.01387},
+  archivePrefix = {arXiv}
+}"""),
+    ("laser-ranging-mapping", "Laser Ranging Based Intelligent System for Unknown Environment Mapping", """@inproceedings{thelasingha2017laserranging,
+  title     = {Laser Ranging Based Intelligent System for Unknown Environment Mapping},
+  author    = {Thelasingha, T. H. M. N. C. and Udugama, U. V. B. L. and Ekanayake, E. M. S. P. and Godaliyadda, G. M. R. I. and Ekanayake, M. P. B. and Samaranayake, B. G. L. T. and Wijayakulasooriya, J. V.},
+  booktitle = {Annual Sessions 2017, The Institution of Engineers Sri Lanka},
+  year      = {2017}
+}"""),
+]
 
 
 def build_bibtex():
@@ -879,6 +958,12 @@ def build_bibtex():
 <p class="pub-venue">{e(p['statusLabel'])}</p>
 <pre style="overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:1rem;font-family:var(--mono);font-size:0.8125rem;line-height:1.6">{e(bt)}</pre>
 """
+    for slug, title, bt in OTHER_BIBTEX:
+        blocks += f"""
+<h2 id="{e(slug)}">{e(title)}</h2>
+<pre style="overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:3px;padding:1rem;font-family:var(--mono);font-size:0.8125rem;line-height:1.6">{e(bt)}</pre>
+"""
+
     body = f"""
 <p class="eyebrow"><a href="/publications/">Publications</a></p>
 <h1>BibTeX</h1>
