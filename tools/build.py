@@ -241,6 +241,46 @@ def wipe(set_id="itc-corridor", heading=True):
             f'</figcaption></figure>')
 
 
+def platform_showcase(lead, pair, clip):
+    """One wide still, two beneath it, and the flight clip running full height beside them."""
+    def img(key, cls):
+        rec = MEDIA["images"].get(key)
+        if not rec:
+            return ""
+        av = ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"]["avif"])
+        wp = ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"]["webp"])
+        big = rec["sources"]["jpg"][-1]["path"]
+        sizes = "(min-width: 52em) 34rem, 100vw" if cls == "ps-lead" else "(min-width: 52em) 17rem, 50vw"
+        return (f'<div class="{cls}"><picture>'
+                f'<source type="image/avif" srcset="{av}" sizes="{sizes}">'
+                f'<source type="image/webp" srcset="{wp}" sizes="{sizes}">'
+                f'<img src="{big}" alt="{e(rec["alt"])}" width="{rec["width"]}" '
+                f'height="{rec["height"]}" loading="lazy" decoding="async">'
+                f'</picture></div>')
+
+    rec = MEDIA["videos"].get(clip)
+    vid = ""
+    if rec:
+        sources = f'<source src="{rec["mp4"]}" type="video/mp4">'
+        if rec.get("webm"):
+            sources = f'<source src="{rec["webm"]}" type="video/webm">' + sources
+        vid = (f'<div class="ps-clip">'
+               f'<video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}" '
+               f'muted loop playsinline preload="none" data-autoloop '
+               f'aria-label="{e(rec["alt"])}">{sources}</video>'
+               f'<button type="button" class="v-toggle" data-toggle '
+               f'aria-label="Play or pause video">Pause</button></div>')
+
+    caption = (rec or {}).get("caption", "")
+    return (f'<figure class="showcase">'
+            f'<div class="showcase-grid">'
+            f'{img(lead, "ps-lead")}'
+            f'{"".join(img(k, "ps-small") for k in pair)}'
+            f'{vid}'
+            f'</div>'
+            f'{f"<figcaption>{e(caption)}</figcaption>" if caption else ""}</figure>')
+
+
 def gallery(lead, rest, caption=""):
     """One large figure on the left, the remaining angles stacked in a column on the right."""
     lead_rec = MEDIA["images"].get(lead)
@@ -600,9 +640,7 @@ def build_home():
 <h2>The platform</h2>
 <div class="prose"><p>A custom quadrotor with a carbon fibre frame and caged propellers, so it can
 fly close to walls indoors. Everything the mapping needs is carried onboard.</p></div>
-{gallery("drone-side", ["drone-top", "drone-angle"])}
-<p class="media-label">In flight</p>
-{video("drone-flight")}
+{platform_showcase("drone-side", ["drone-top", "drone-angle"], "drone-flight")}
 
 <h2>{e(arc['actOne']['label'])}. {e(arc['actOne']['title'])}</h2>
 <p class="section-intro">{e(arc['actOne']['homeLine'])}</p>

@@ -238,11 +238,15 @@
       "maxWidth": 1280,
       "crf": 28,
       "webmCrf": 38,
-      "posterAt": 8,
+      "posterAt": 5,
       "silent": true,
-      "alt": "The custom quadrotor hovering and manoeuvring indoors.",
-      "caption": "The platform in flight. Everything the mapping runs on is carried onboard.",
-      "credit": "Custom drone"
+      "alt": "The custom quadrotor lifting off from the floor of an indoor walkway and flying down it towards the camera, past timber and glass balconies.",
+      "caption": "Take-off and a pass down the corridor. Everything the mapping runs on is carried onboard.",
+      "credit": "Custom drone",
+      "trim": {
+        "start": 0,
+        "duration": 7
+      }
     },
     "humanoid-deployment": {
       "src": "_source/media/work/humanoid-deployment.mov",
