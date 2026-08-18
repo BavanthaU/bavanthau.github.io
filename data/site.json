@@ -41,7 +41,7 @@
   },
   "links": {
     "googleScholar": "https://scholar.google.com/citations?user=qQ5IPg4AAAAJ",
-    "ieeeAuthorPage": "https://ieeexplore.ieee.org/author/37061362800",
+    "ieeeAuthorPage": null,
     "linkedin": "https://www.linkedin.com/in/bavantha-udugama/",
     "github": "https://github.com/BavanthaU",
     "utStaffPage": "https://research.utwente.nl/en/persons/bavantha-udugama",
@@ -49,7 +49,8 @@
     "orcid": null,
     "orcidNote": "Gap G3. Does not exist yet. This is the strongest single sameAs anchor and the largest off-site gap.",
     "youtube": "https://www.youtube.com/@udugamavithanagebavanthala6361",
-    "youtubeNote": "Channel display name is 'Bavantha Udugama' but the handle is the auto-generated @udugamavithanagebavanthala6361. Worth claiming a clean handle, launch checklist."
+    "youtubeNote": "Channel display name is 'Bavantha Udugama' but the handle is the auto-generated @udugamavithanagebavanthala6361. Worth claiming a clean handle, launch checklist.",
+    "ieeeAuthorPageNote": "Removed 2026-08-18. The previously listed id 37061362800 belongs to Sachini Ekanayake, a co-author on the Peradeniya papers, not to Bavantha Udugama. A wrong sameAs entry asserts that two people are the same person, so it is left empty until the correct author id is confirmed while signed in to IEEE Xplore."
   },
   "arc": {
     "statement": "A monocular camera, one that the field assumed needed a depth sensor beside it, builds a hierarchical metric-semantic 3D scene graph in real time. The next question is what a robot does with that structure when it has to decide where to look next.",

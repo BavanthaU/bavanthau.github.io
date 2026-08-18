@@ -81,7 +81,19 @@ already correct.
   fold. YouTube is a high-authority domain that ranks for names, so a video pointing back at the
   site is worth more than one sitting alone.
 
-### 6. Get the missing DOIs into the site
+### 6. Find your real IEEE Xplore author id
+
+The id previously listed here, `37061362800`, belongs to **Sachini Ekanayake**, a co-author on the
+Peradeniya papers, not to you. It has been removed, because a wrong `sameAs` entry tells search
+engines that two different researchers are the same person, which is worse than having no entry.
+
+Sign in to IEEE Xplore, open one of your own papers (M2H at IROS 2025 is the surest), click your
+name in the author list, and copy the id from the URL. Put the full URL into
+`links.ieeeAuthorPage` in `data/site.json` and rebuild. It will rejoin the `sameAs` array on every
+page. While you are there, check that IEEE has not split you across several author ids, which is
+common with initialised names, and merge them if so.
+
+### 7. Get the missing DOIs into the site
 
 Two are absent, and DOIs are strong identifiers for the `ScholarlyArticle` markup:
 
@@ -90,7 +102,7 @@ Two are absent, and DOIs are strong identifiers for the `ScholarlyArticle` marku
 
 Add each to `identifiers.doi` and `links.doi` in `data/publications.json`, rebuild, push.
 
-### 7. Ask for three links
+### 8. Ask for three links
 
 A handful of relevant links from real sites beats any amount of on-page tuning.
 
@@ -105,14 +117,14 @@ Also add the site link to the README of each code repository: `mono_hydra`, `M2H
 
 ## Content that would help
 
-### 8. Fill the two visual gaps
+### 9. Fill the two visual gaps
 
 - **A portrait.** Goes into the `Person` JSON-LD `image` field, which Google uses when building a
   person panel. Set `identity.image` in `data/site.json`.
 - **A photograph of the drone.** The deployment section is currently numbers with no machine
   behind it. This is the most persuasive missing asset on the site, for humans more than crawlers.
 
-### 9. Publish a public CV PDF
+### 10. Publish a public CV PDF
 
 `/cv/` has no download. The current CV carries a personal phone number and home town, so produce a
 version with those removed and drop it in. PDFs get indexed and rank for name queries.
@@ -152,8 +164,9 @@ those exact phrases and the publication pages target them directly.
 
 For reference, so you do not pay anyone to redo it:
 
-- `Person` node with all six name variants in `alternateName` and a six-entry `sameAs` array,
-  linking Scholar, GitHub, LinkedIn, the UT staff page, the IEEE author page, and YouTube.
+- `Person` node with all six name variants in `alternateName` and a five-entry `sameAs` array,
+  linking Scholar, GitHub, LinkedIn, the UT staff page, and YouTube. ORCID and the IEEE author page
+  are pending, see steps 3 and 6.
 - `ProfilePage`, `ScholarlyArticle` on each paper, `SoftwareSourceCode` on each project,
   `VideoObject` on the home page, and `BreadcrumbList` on all 16 pages.
 - Unique title and meta description on every page, all descriptions within display length.

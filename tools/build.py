@@ -1146,13 +1146,14 @@ C++, Python, ROS 1 and ROS 2, Docker, TensorRT, Jetson Orin NX, FP16 inference o
 def build_contact():
     L = SITE["links"]
     email = SITE["contact"]["email"]
-    rows = [("Email", f'<a href="mailto:{e(email)}">{e(email)}</a>') if email else None,
+    rows = [("Email", f'<a href="mailto:{e(email)}">{e(email)}</a>') if email else (None, None),
             ("Google Scholar", f'<a href="{e(L["googleScholar"])}">Google Scholar profile</a>'),
             ("GitHub", f'<a href="{e(L["github"])}">github.com/BavanthaU</a>'),
             ("LinkedIn", f'<a href="{e(L["linkedin"])}">LinkedIn profile</a>'),
             ("University", f'<a href="{e(L["utStaffPage"])}">University of Twente staff page</a>'),
-            ("IEEE", f'<a href="{e(L["ieeeAuthorPage"])}">IEEE author page</a>')]
-    lis = "".join(f"<li><strong>{k}</strong>: {v}</li>" for k, v in rows if v)
+            (("IEEE", f'<a href="{e(L["ieeeAuthorPage"])}">IEEE author page</a>')
+             if L.get("ieeeAuthorPage") else (None, None))]
+    lis = "".join(f"<li><strong>{k}</strong>: {v}</li>" for k, v in rows if k and v)
 
     body = f"""
 <h1>Contact</h1>
