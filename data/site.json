@@ -170,7 +170,7 @@
     "rule": "No number appears on this site unless it appears in results_registry.csv with a source location. Add it there first."
   },
   "verification": {
-    "googleSearchConsole": null,
+    "googleSearchConsole": "LWcJVt2Oa5A7B_dpxRGxcpkIGy-YoHjrJKUzmU_0QO4",
     "googleSearchConsoleNote": "Paste only the content value of the google-site-verification meta tag Search Console gives you, then rebuild. See LAUNCH_CHECKLIST.md step 1.",
     "bingWebmaster": null
   }

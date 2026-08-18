@@ -324,12 +324,22 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
         mark = current if n["href"].strip("/") == path else ""
         nav_bits.append(f'<a href="{e(n["href"])}"{mark}>{e(n["label"])}</a>')
     nav = "".join(nav_bits)
+    def ver_value(v):
+        """Accept the bare token or a whole pasted meta tag, never emit nested markup."""
+        if not v:
+            return None
+        m = re.search(r'content=["\']([^"\']+)["\']', str(v))
+        token = m.group(1) if m else str(v)
+        return token.strip().strip("<>/ ") or None
+
     ver = SITE.get("verification", {})
     vtags = ""
-    if ver.get("googleSearchConsole"):
-        vtags += f'\n<meta name="google-site-verification" content="{e(ver["googleSearchConsole"])}">'
-    if ver.get("bingWebmaster"):
-        vtags += f'\n<meta name="msvalidate.01" content="{e(ver["bingWebmaster"])}">'
+    g = ver_value(ver.get("googleSearchConsole"))
+    if g:
+        vtags += f'\n<meta name="google-site-verification" content="{e(g)}">'
+    b = ver_value(ver.get("bingWebmaster"))
+    if b:
+        vtags += f'\n<meta name="msvalidate.01" content="{e(b)}">'
 
     nodes = list(extra_ld or [])
     bc = breadcrumbs(path, crumb or title.split(" | ")[0])
