@@ -1205,13 +1205,22 @@ def build_cv():
             when = a
         else:
             when = f"{a} to {b}"
+        media = ""
+        if t.get("media"):
+            clips = "".join(video(k) for k in t["media"])
+            if clips:
+                intro = (f'<p class="media-label">{e(t["mediaIntro"])}</p>'
+                         if t.get("mediaIntro") else "")
+                media = f'<div class="tl-media">{intro}{clips}</div>'
+        anchor = f' id="{e(t["anchor"])}"' if t.get("anchor") else ""
         items += f"""
-    <li class="tl-item">
+    <li class="tl-item"{anchor}>
       <div class="tl-when">{e(when)}</div>
       <div class="tl-what">
         <h3>{e(t["title"])}</h3>
         <p class="tl-org">{e(t["org"])}</p>
         <p>{e(t["detail"])}</p>
+        {media}
       </div>
     </li>"""
 

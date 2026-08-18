@@ -1003,3 +1003,14 @@ h3 { margin-top: 2.75rem; }
   max-width: none;
 }
 .media-label + .v-figure { margin-top: 0; }
+
+/* a timeline entry that has footage of the work */
+.tl-media { margin-top: 1.25rem; }
+.tl-media .media-label { margin-top: 0; text-transform: none; letter-spacing: 0.02em;
+  font-size: 0.8125rem; }
+.tl-media .v-figure { margin: 0.9rem 0 0; }
+@media (min-width: 60em) {
+  .tl-media { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; }
+  .tl-media .media-label { grid-column: 1 / -1; }
+  .tl-media .v-figure.is-portrait { max-width: 15rem; }
+}
