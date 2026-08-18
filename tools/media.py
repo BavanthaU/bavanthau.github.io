@@ -143,7 +143,10 @@ def do_videos(man, force):
             print(f"  skip {name}: source missing")
             continue
         d = digest(src, json.dumps(spec, sort_keys=True))
-        if not force and man["videos"].get(name, {}).get("digest") == d:
+        prev = man["videos"].get(name, {})
+        outputs_present = all((ROOT / str(prev.get(k, "x")).lstrip("/")).exists()
+                              for k in ("mp4", "poster") if prev.get(k))
+        if not force and prev.get("digest") == d and outputs_present:
             print(f"  ok   {name} (unchanged)")
             continue
 
@@ -178,11 +181,13 @@ def do_videos(man, force):
         poster = vd / f"{name}-poster.jpg"
         pim.save(poster, quality=82, optimize=True, progressive=True)
 
-        preview = vd / f"{name}-preview.mp4"
-        sh(FFMPEG, "-hide_banner", "-loglevel", "error", *cut, "-i", str(src),
-           "-vf", chain + f"scale={PREVIEW_W}:-2", "-c:v", "libx264", "-crf", "31",
-           "-preset", "slow", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
-           "-an", "-y", str(preview))
+        preview = None
+        if spec.get("preview"):
+            preview = vd / f"{name}-preview.mp4"
+            sh(FFMPEG, "-hide_banner", "-loglevel", "error", *cut, "-i", str(src),
+               "-vf", chain + f"scale={PREVIEW_W}:-2", "-c:v", "libx264", "-crf", "31",
+               "-preset", "slow", "-pix_fmt", "yuv420p", "-movflags", "+faststart",
+               "-an", "-y", str(preview))
 
         if webm.stat().st_size > 0.85 * mp4.stat().st_size:
             webm.unlink()
@@ -193,19 +198,38 @@ def do_videos(man, force):
             "width": pim.size[0], "height": pim.size[1],
             "mp4": f"/media/video/{mp4.name}",
             "webm": (f"/media/video/{webm.name}" if webm else None),
-            "poster": f"/media/video/{poster.name}", "preview": f"/media/video/{preview.name}",
+            "poster": f"/media/video/{poster.name}", "preview": (f"/media/video/{preview.name}" if preview else None),
             "bytes": {p.name: p.stat().st_size for p in (mp4, webm, poster, preview) if p},
             "alt": spec["alt"], "caption": spec.get("caption", ""),
             "credit": spec.get("credit", ""),
-            "clickToLoad": spec.get("clickToLoad", False)
-                           or mp4.stat().st_size > 8 * 1024 * 1024,
+            # a browser fetches one rendition, so gate on the smallest it could pick
+            "clickToLoad": spec.get("clickToLoad", False) or min(
+                [mp4.stat().st_size] + ([webm.stat().st_size] if webm else [])
+            ) > 8 * 1024 * 1024,
         }
         tot = sum(man["videos"][name]["bytes"].values()) / 1024 / 1024
         print(f"  wrote {name}  {pim.size[0]}x{pim.size[1]}  "
               f"mp4 {mp4.stat().st_size/1e6:.1f} MB, "
               f"webm {webm.stat().st_size/1e6:.1f} MB, " if webm else "webm dropped, "
-              f"preview {preview.stat().st_size/1e6:.2f} MB  (total {tot:.1f} MB)"
+              f"(total {tot:.1f} MB)"
               + ("  [click to load]" if man['videos'][name]['clickToLoad'] else ""))
+
+
+def refresh_text(man):
+    """Alt text, captions and labels are metadata, not pixels. Update them on every run so that
+    editing data/media.json does not require a re-encode."""
+    n = 0
+    for key in ("images", "frames", "videos"):
+        for name, spec in CFG.get(key, {}).items():
+            rec = man.get(key, {}).get(name)
+            if not rec:
+                continue
+            for field in ("alt", "caption", "credit", "label"):
+                if field in spec and rec.get(field) != spec[field]:
+                    rec[field] = spec[field]
+                    n += 1
+    if n:
+        print(f"  refreshed {n} text fields")
 
 
 def main():
@@ -217,6 +241,7 @@ def main():
     print("images:");  do_images(man, a.force)
     print("frames:");  do_frames(man, a.force)
     print("videos:");  do_videos(man, a.force)
+    refresh_text(man)
     MANIFEST.write_text(json.dumps(man, indent=2))
     total = sum(p.stat().st_size for p in OUT.rglob("*") if p.is_file()
                 and ".cache" not in p.parts)

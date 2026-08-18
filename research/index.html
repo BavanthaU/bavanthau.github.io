@@ -61,7 +61,7 @@
     "https://www.youtube.com/@udugamavithanagebavanthala6361"
   ],
   "email": "mailto:bavanthaU@eng.pdn.ac.lk",
-  "image": "https://bavanthau.github.io/media/og/home.png"
+  "image": "https://bavanthau.github.io/media/images/portrait-480.jpg"
 }
 </script>
 <script type="application/ld+json">
@@ -107,7 +107,7 @@
 
 <h2>Part I. Structuring the seen</h2>
 <p>Building metric-semantic hierarchical 3D scene graphs from a single camera and an IMU, in real time.</p>
-<figure class=""><picture><source type="image/avif" srcset="/media/images/perception-pipeline-480.avif 480w, /media/images/perception-pipeline-960.avif 960w, /media/images/perception-pipeline-1600.avif 1600w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/perception-pipeline-480.webp 480w, /media/images/perception-pipeline-960.webp 960w, /media/images/perception-pipeline-1600.webp 1600w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/perception-pipeline-1600.jpg" alt="Pipeline diagram. Monocular RGB enters M2H-MX on the GPU, producing depth and semantics. Those feed pose-aware temporal alignment and a CPU-side VIO that uses predicted depth, with IMU input. The result is a metric semantic mesh and a 3D scene graph with building, room, place, object, and mesh layers." width="1822" height="764" loading="lazy" decoding="async"></picture><figcaption>One camera and one IMU in, a layered scene graph out. The two arrows returning from odometry into the perception block are the part that distinguishes this from a feed-forward pipeline: pose stabilises the next prediction rather than only consuming it.</figcaption></figure>
+<figure class=""><picture><source type="image/avif" srcset="/media/images/perception-pipeline-480.avif 480w, /media/images/perception-pipeline-960.avif 960w, /media/images/perception-pipeline-1600.avif 1600w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/perception-pipeline-480.webp 480w, /media/images/perception-pipeline-960.webp 960w, /media/images/perception-pipeline-1600.webp 1600w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/perception-pipeline-1600.jpg" alt="Pipeline diagram. Monocular RGB enters M2H-MX on the GPU, producing depth and semantics. Those feed pose-aware temporal alignment and a CPU-side VIO that uses predicted depth, with IMU input. The result is a metric semantic mesh and a 3D scene graph with building, room, place, object, and mesh layers." width="1822" height="764" loading="lazy" decoding="async"></picture><figcaption>One camera and one IMU in, a layered scene graph out. Two arrows return from odometry into the perception block: the estimated pose is used to align the next dense prediction, not only to build the map.</figcaption></figure>
 
 <h3>One building, four generations</h3>
 <p>One building, four system generations, same measurement. Hardware and input resolution change across rows, so this is a system progression, not a controlled ablation.</p>
@@ -162,9 +162,9 @@ rate. <a href="/publications/m2h/">Read more</a>.</p>
 <p>A better benchmark score is not the same thing as a better map, and dense prediction papers
 usually stop before finding out. M2H-MX is evaluated twice, once as a predictor and once as the
 front end inside an otherwise unchanged SLAM pipeline. Average trajectory error on selected
-ScanNet sequences fell from 17.59 cm to 6.91 cm, which puts a monocular system within reach of the
-RGB-D baselines in the same table. The ablation is blunt about where the gain comes from: the
-backbone matters more than the new decoder blocks.
+ScanNet sequences fell from 17.59 cm to 6.91 cm, which puts a monocular system close to the RGB-D
+baselines in the same table. The ablation attributes most of the gain to the backbone features
+rather than to the new decoder blocks.
 <a href="/publications/m2h-mx/">Read more</a>.</p>
 
 <h3>Mono-Hydra++, under review. Closing the loop backwards</h3>
@@ -174,23 +174,23 @@ keep dynamic regions out of it, and the poses that come back out temporally alig
 predictions. 0.08 m on the ITC second floor, 0.033 m calibrated trajectory error on 7-Scenes.
 <a href="/publications/mono-hydra-plus/">Read more</a>.</p>
 
-<figure class=""><picture><source type="image/avif" srcset="/media/images/scene-graph-itc-480.avif 480w, /media/images/scene-graph-itc-960.avif 960w, /media/images/scene-graph-itc-1600.avif 1600w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/scene-graph-itc-480.webp 480w, /media/images/scene-graph-itc-960.webp 960w, /media/images/scene-graph-itc-1600.webp 1600w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/scene-graph-itc-1600.jpg" alt="A 3D scene graph over the ITC building second floor. A single building node at the top connects down to a room node, then to a dense band of place nodes following the corridor loop, then to object nodes scattered along the walls, and finally to the reconstructed mesh of the floor." width="3826" height="2240" loading="lazy" decoding="async"></picture><figcaption>The layered scene graph over the ITC second floor. Look at the vertical structure: one building node, one room node, 1,349 place nodes tracing the corridor loop, and object nodes hanging off the walls. Counts by category are listed in the legend.</figcaption></figure>
+<figure class=""><picture><source type="image/avif" srcset="/media/images/scene-graph-itc-480.avif 480w, /media/images/scene-graph-itc-960.avif 960w, /media/images/scene-graph-itc-1600.avif 1600w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/scene-graph-itc-480.webp 480w, /media/images/scene-graph-itc-960.webp 960w, /media/images/scene-graph-itc-1600.webp 1600w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/scene-graph-itc-1600.jpg" alt="A 3D scene graph over the ITC building second floor. A single building node at the top connects down to a room node, then to a dense band of place nodes following the corridor loop, then to object nodes scattered along the walls, and finally to the reconstructed mesh of the floor." width="3826" height="2240" loading="lazy" decoding="async"></picture><figcaption>The layered scene graph over the ITC second floor. It runs from one building node down through a room node, a band of place nodes following the corridor loop, and object nodes along the walls. Counts by category are in the legend.</figcaption></figure>
 
 <h2>Part II. Exploring the unseen <span class="tag tag-progress">In progress</span></h2>
-<p>Turning that representation into action: a deterministic planner proposes only certified routes, and a learned model chooses among them.</p>
+<p>A reinforcement learning agent with a learned world model, choosing where to look next in a building it has never seen.</p>
 
 <div class="note">
   <span class="note-label">Status</span>
-  <p>The formulation, the layering contract, and the objective are written up in the thesis. The experiments are not run yet, so there are no results to report. The exploration agent does not currently consume the Mono-Hydra++ scene graph either: it maintains its own topological memory over a 2D occupancy map built from simulated depth and pose. Connecting the two acts is the next step.</p>
+  <p>The formulation, the world model, the objective, and the training setup are written up in the thesis. The experiments are not run yet, so there are no results to report and none are claimed here. The exploration agent also does not consume the Mono-Hydra++ scene graph: it maintains its own topological memory over an occupancy map built from simulated depth and pose. Connecting the two parts is the next step.</p>
 </div>
 
-<p>The robot enters an unmapped indoor space with one forward-facing camera and must cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes verified against the occupancy map the robot has built. The open problem is choice, not motion. The learned layer may re-order the certified options and may abstain, but it may never generate a route of its own.</p>
-<p class="lede">Certification creates, learning selects.</p>
+<p>The robot enters an unmapped indoor space with one forward-facing camera and has to cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes it has verified against the occupancy map the robot has built. The open problem is choice, not motion, so the learned layer decides among certified options and may abstain, but never commands motion itself.</p>
+<p class="lede">Predict consequences, not appearances.</p>
 <p>The learned component sits between two deterministic layers and has no path to the actuators
 except by selecting an option the planner above it has already certified as safe. It may re-order
 those options and it may abstain. It may not invent one. Three requirements follow from the shape
 of the task rather than from the hardware:</p>
-<ul class="limits"><li>Options are judged relative to one another, so that two routes leading through the same opening are not treated as genuine alternatives.</li><li>Actions are temporally extended, because passing through a doorway is locally expensive and locally uninformative and everything of value happens afterwards.</li><li>Branch memory gives the agent a persistent notion of unfinished work, so regions get completed and exhausted ones get abandoned.</li><li>Ensemble disagreement drives abstention, which hands control back to the deterministic layer.</li></ul>
+<ul class="limits"><li>Options are judged against one another, so two routes leading through the same opening are not treated as genuine alternatives.</li><li>Actions are temporally extended, because passing through a doorway is locally expensive and locally uninformative, and everything of value happens afterwards.</li><li>Branch memory gives the agent a persistent notion of unfinished work, so regions get completed and exhausted ones get abandoned on evidence rather than on a timer.</li><li>No learned component is permitted to command motion. It re-orders certified options or refuses them.</li></ul>
 <p><a href="/projects/learned-exploration/">More on the exploration work</a>.</p>
 
 <h2>Thesis</h2>

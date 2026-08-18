@@ -827,3 +827,33 @@ h2 { margin-top: 3.75rem; }
 .cards-next .card h3 { margin-top: 0; }
 .cards-next .card p { margin-bottom: 0; }
 @media (min-width: 44em) { .cards-next { grid-template-columns: 1fr 1fr 1fr; } }
+
+/* method blocks: one idea per block, no numbering, they are not a sequence */
+.method { margin: 1.5rem 0 2rem; }
+.method-item {
+  border-top: 1px solid var(--rule);
+  padding: 1.25rem 0;
+  max-width: none;
+}
+.method-item h3 { margin: 0 0 0.5rem; font-size: 1rem; }
+.method-item p { margin: 0; max-width: 68ch; }
+
+.hypothesis {
+  margin: 1.5rem 0 2rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--surface);
+  border-left: 2px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.hypothesis p { margin: 0; font-size: 1.0625rem; line-height: 1.6; }
+
+/* portrait: small, it introduces the person without dominating */
+.hero .portrait { margin: 0 0 1.1rem; }
+.hero .portrait img {
+  width: 6.5rem;
+  height: 6.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}

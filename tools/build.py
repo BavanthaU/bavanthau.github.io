@@ -139,9 +139,8 @@ def person_node():
     }
     if SITE["contact"].get("email"):
         node["email"] = f"mailto:{SITE['contact']['email']}"
-    node["image"] = f"{ORIGIN}/media/og/home.png"
-    if SITE["identity"].get("image"):
-        node["image"] = SITE["identity"]["image"]
+    img = SITE["identity"].get("image")
+    node["image"] = (ORIGIN + img) if img else f"{ORIGIN}/media/og/home.png"
     return node
 
 
@@ -269,7 +268,8 @@ def _pub_figures():
 
 def _proj_media():
     return {
-        "mono-hydra-plus": picture("scene-graph-itc") + picture("itc-embedded"),
+        "mono-hydra-plus": video("stairs-zupt") + picture("scene-graph-itc")
+                           + picture("itc-embedded"),
         "m2h-mx":          wipe("m2h-mx-indoor") + wipe("m2h-mx-outdoor")
                            + video("icra26") + picture("m2h-mx-architecture"),
         "m2h":             video("itc-loop") + wipe(),
@@ -494,6 +494,14 @@ def build_home():
     nxt = SITE["nextSteps"]
     prog = SITE["headlineProgression"]
 
+    portrait = picture("portrait", cls="portrait", sizes="6.5rem", lazy=False, caption=False)
+
+    onboard_line = ("Perception, odometry, mapping, and scene graph construction all run on the "
+                    "drone. The rate above is the measured perception throughput.")
+    if d.get("status") != "full-stack":
+        onboard_line = ("Perception only. Odometry, mapping, and scene graph construction ran "
+                        "off-board.")
+
     paras = "".join(f"<p>{e(x)}</p>" for x in story["paragraphs"])
     intro_paras = "".join(f"<p>{e(x)}</p>" for x in intro["paragraphs"])
     next_items = "".join(
@@ -512,6 +520,7 @@ def build_home():
     body = f"""
 <div class="hero">
   <div>
+    {portrait}
     <h1>{e(NAME)}</h1>
     <p class="affil mono">{e(SITE['identity']['role'])} &middot;
       {e(SITE['identity']['affiliation']['shortName'])}</p>
@@ -525,8 +534,7 @@ def build_home():
       {e(v['pipeline'])}<br>
       {e(v['inputResolution'])} input, {e(v['gpuCompute'])} GPU compute<br>
       {e(v['device'])}</p>
-    <p class="caveat">Perception only. Odometry, mapping, and scene graph construction ran
-      off-board. Full-suite onboard deployment is in progress.</p>
+    <p class="caveat">{e(onboard_line)}</p>
   </aside>
 </div>
 
@@ -544,6 +552,11 @@ Those two outputs are the entire input to the mapping backend. Indoors is what t
 for; the street scene is the same model on data it was not designed for.</p>
 {wipe("m2h-mx-indoor")}
 {wipe("m2h-mx-outdoor")}
+
+<p class="section-intro">Those predictions then have to hold up inside a running system. Below,
+the whole pipeline on a benchmark scene, and the estimator underneath it running on the drone.</p>
+{video("icra26")}
+{video("stairs-zupt")}
 
 <h2>{e(arc['actTwo']['label'])}. {e(arc['actTwo']['title'])}
   <span class="tag tag-progress">In progress</span></h2>
@@ -648,9 +661,9 @@ rate. <a href="/publications/m2h/">Read more</a>.</p>
 <p>A better benchmark score is not the same thing as a better map, and dense prediction papers
 usually stop before finding out. M2H-MX is evaluated twice, once as a predictor and once as the
 front end inside an otherwise unchanged SLAM pipeline. Average trajectory error on selected
-ScanNet sequences fell from 17.59 cm to 6.91 cm, which puts a monocular system within reach of the
-RGB-D baselines in the same table. The ablation is blunt about where the gain comes from: the
-backbone matters more than the new decoder blocks.
+ScanNet sequences fell from 17.59 cm to 6.91 cm, which puts a monocular system close to the RGB-D
+baselines in the same table. The ablation attributes most of the gain to the backbone features
+rather than to the new decoder blocks.
 <a href="/publications/m2h-mx/">Read more</a>.</p>
 
 <h3>Mono-Hydra++, under review. Closing the loop backwards</h3>
@@ -1068,6 +1081,18 @@ def build_project_pages():
   <p>{e(pr["honesty"])}</p>
 </div>"""
 
+        method = ""
+        if pr.get("method"):
+            blocks = "".join(
+                f'<div class="method-item"><h3>{e(m["title"])}</h3><p>{e(m["text"])}</p></div>'
+                for m in pr["method"]["items"])
+            method = f'<h2>{e(pr["method"]["heading"])}</h2><div class="method">{blocks}</div>'
+
+        hyp = ""
+        if pr.get("hypothesis"):
+            hyp = (f'<h2>What is being tested</h2>'
+                   f'<blockquote class="hypothesis"><p>{e(pr["hypothesis"])}</p></blockquote>')
+
         design = ""
         if pr.get("designPoints"):
             pts = "".join(f"<li>{e(x)}</li>" for x in pr["designPoints"])
@@ -1090,7 +1115,9 @@ def build_project_pages():
 <h2>What it does</h2>
 <p>{e(pr["whatItDoes"])}</p>
 {PROJ_MEDIA.get(pr["slug"], "")}
+{method}
 {design}
+{hyp}
 {nums_block}
 {paper}
 {repos_block}

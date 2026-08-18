@@ -61,7 +61,7 @@
       },
       "digest": "06267b29d4bf620f",
       "alt": "A 3D scene graph over the ITC building second floor. A single building node at the top connects down to a room node, then to a dense band of place nodes following the corridor loop, then to object nodes scattered along the walls, and finally to the reconstructed mesh of the floor.",
-      "caption": "The layered scene graph over the ITC second floor. Look at the vertical structure: one building node, one room node, 1,349 place nodes tracing the corridor loop, and object nodes hanging off the walls. Counts by category are listed in the legend.",
+      "caption": "The layered scene graph over the ITC second floor. It runs from one building node down through a room node, a band of place nodes following the corridor loop, and object nodes along the walls. Counts by category are in the legend.",
       "credit": "Mono-Hydra++"
     },
     "perception-pipeline": {
@@ -125,7 +125,7 @@
       },
       "digest": "b9f728aa5c7e84e0",
       "alt": "Pipeline diagram. Monocular RGB enters M2H-MX on the GPU, producing depth and semantics. Those feed pose-aware temporal alignment and a CPU-side VIO that uses predicted depth, with IMU input. The result is a metric semantic mesh and a 3D scene graph with building, room, place, object, and mesh layers.",
-      "caption": "One camera and one IMU in, a layered scene graph out. The two arrows returning from odometry into the perception block are the part that distinguishes this from a feed-forward pipeline: pose stabilises the next prediction rather than only consuming it.",
+      "caption": "One camera and one IMU in, a layered scene graph out. Two arrows return from odometry into the perception block: the estimated pose is used to align the next dense prediction, not only to build the map.",
       "credit": "Mono-Hydra++"
     },
     "mono-hydra-pp-pipeline": {
@@ -253,7 +253,7 @@
       },
       "digest": "aa9d016168b8ad56",
       "alt": "Three floor plans side by side for ScanNet scene 0054. The first shows ground truth object centres as coloured dots, the second shows predicted object centres as squares, the third overlays them showing matched, missing, and unmatched objects.",
-      "caption": "Object placement on ScanNet scene 0054, scored by radius match at 0.5 m. Green is matched, orange is a ground-truth object the system missed, and a red cross is something it predicted that is not there. The aggregate figure is 42.59 percent, and this is what that number looks like.",
+      "caption": "Object placement on ScanNet scene 0054, scored by radius match at 0.5 m. Green is matched, orange is a ground-truth object the system missed, and a red cross is something predicted that is not there. The aggregate figure for this metric is 42.59 percent.",
       "credit": "Mono-Hydra++"
     },
     "scannet-failure": {
@@ -317,7 +317,7 @@
       },
       "digest": "7da395aa5212c218",
       "alt": "Semantic mesh reconstruction compared against ground truth, showing small object classes absorbed into larger neighbouring surfaces.",
-      "caption": "A failure case. Small classes get absorbed into the dominant surface next to them, which the global mIoU of 44.96 percent does not show on its own.",
+      "caption": "A failure case. Small classes are absorbed into the dominant surface next to them, which the global mIoU of 44.96 percent does not show on its own.",
       "credit": "Mono-Hydra++"
     },
     "uhumans2-loop": {
@@ -445,7 +445,7 @@
       },
       "digest": "ad18def40ddd5931",
       "alt": "Overview of the uHumans2 component ablation, showing trajectory and mapping quality across configurations.",
-      "caption": "The component study. Different configurations win on different metrics, which is why no single one is presented as best.",
+      "caption": "The component study. Different configurations give the best result on different metrics.",
       "credit": "Mono-Hydra++"
     },
     "m2h-mx-architecture": {
@@ -558,7 +558,7 @@
       },
       "digest": "72b14d92d504e72c",
       "alt": "The register-gated Mamba block. A global register vector passes through a linear layer and sigmoid to produce a channel-wise gate that modulates reshaped feature tokens before a Mamba block.",
-      "caption": "One global register vector gates every decoder scale. This is how global scene layout reaches local decoding without paying for full attention.",
+      "caption": "The register-gated Mamba block. One global vector gates every decoder scale, so global scene layout reaches local decoding without the cost of full attention.",
       "credit": "M2H-MX"
     },
     "m2h-mx-ctm-msca": {
@@ -622,7 +622,7 @@
       },
       "digest": "f7187b7dba2b2d81",
       "alt": "Cross-task mixer followed by multi-scale convolutional attention, showing how auxiliary task features modulate a target task before spatial refinement.",
-      "caption": "Cross-task mixing, then spatial refinement. Removing both costs 2.07 mIoU. Swapping the backbone costs 8.81, which is the more interesting number.",
+      "caption": "Cross-task mixing, then spatial refinement. Removing both costs 2.07 mIoU; replacing the backbone costs 8.81.",
       "credit": "M2H-MX"
     },
     "scenegraph-system-design": {
@@ -750,8 +750,72 @@
       },
       "digest": "d71ab39e5cd48c96",
       "alt": "Reconstruction of the ITC second floor produced from the embedded operating point on the Jetson Orin NX at reduced input resolution.",
-      "caption": "The same floor rebuilt from the Jetson operating point at 256x192. Mean error is 0.22 m here against 0.08 m at full resolution, which is the cost of running the perception on the drone.",
+      "caption": "The same floor rebuilt from the Jetson operating point at 256x192. Mean error is 0.22 m here against 0.08 m at full resolution.",
       "credit": "Mono-Hydra++"
+    },
+    "portrait": {
+      "kind": "image",
+      "width": 1254,
+      "height": 1254,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/portrait-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/portrait-960.avif"
+          },
+          {
+            "w": 1254,
+            "path": "/media/images/portrait-1254.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/portrait-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/portrait-960.webp"
+          },
+          {
+            "w": 1254,
+            "path": "/media/images/portrait-1254.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/portrait-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/portrait-960.jpg"
+          },
+          {
+            "w": 1254,
+            "path": "/media/images/portrait-1254.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "portrait-480.avif": 6983,
+        "portrait-480.webp": 11098,
+        "portrait-480.jpg": 22434,
+        "portrait-960.avif": 17443,
+        "portrait-960.webp": 30902,
+        "portrait-960.jpg": 67713,
+        "portrait-1254.avif": 23314,
+        "portrait-1254.webp": 43686,
+        "portrait-1254.jpg": 103086
+      },
+      "digest": "1b2cb1d33b7c11dd",
+      "alt": "Bavantha Udugama, in a dark suit and tie against a plain warm grey background.",
+      "caption": "",
+      "credit": "Portrait"
     }
   },
   "frames": {
@@ -1253,20 +1317,20 @@
       "clickToLoad": false
     },
     "icra26": {
-      "digest": "acc36e9fc6802a6f",
-      "width": 1280,
-      "height": 570,
+      "digest": "6447de3dadac1cb5",
+      "width": 1600,
+      "height": 686,
       "mp4": "/media/video/icra26.mp4",
       "webm": null,
       "poster": "/media/video/icra26-poster.jpg",
       "preview": "/media/video/icra26-preview.mp4",
       "bytes": {
-        "icra26.mp4": 1390353,
-        "icra26-poster.jpg": 50749,
-        "icra26-preview.mp4": 265931
+        "icra26.mp4": 1659513,
+        "icra26-poster.jpg": 74732,
+        "icra26-preview.mp4": 229950
       },
-      "alt": "Short clip of the M2H-MX perception front end driving the mapping pipeline.",
-      "caption": "M2H-MX driving the mapping pipeline.",
+      "alt": "Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right.",
+      "caption": "The whole pipeline on ScanNet scene 0000. M2H-MX predicts depth and semantics from the image stream, Mono-Hydra++ consumes those predictions inside the visual-inertial odometry and the mapping backend, and the hierarchical scene graph is built in real time. Playback is 16x.",
       "credit": "M2H-MX",
       "clickToLoad": false
     },
@@ -1286,6 +1350,24 @@
       "alt": "Simulated indoor exploration run showing the robot's occupancy map growing as it selects routes through the environment.",
       "caption": "Autonomous exploration in simulation. The robot holds an occupancy map it has built itself and commits to one certified route at a time, so the map fills in region by region rather than by wandering. 60 second excerpt.",
       "credit": "Exploration work in progress",
+      "clickToLoad": false
+    },
+    "stairs-zupt": {
+      "digest": "8ed22eed54c21579",
+      "width": 1200,
+      "height": 706,
+      "mp4": "/media/video/stairs-zupt.mp4",
+      "webm": "/media/video/stairs-zupt.webm",
+      "poster": "/media/video/stairs-zupt-poster.jpg",
+      "preview": null,
+      "bytes": {
+        "stairs-zupt.mp4": 7054185,
+        "stairs-zupt.webm": 1295193,
+        "stairs-zupt-poster.jpg": 90205
+      },
+      "alt": "Screen recording on the drone's Jetson. An rviz window shows predicted depth, tracked features, and predicted semantics down the left, and the estimated trajectory climbing a stairwell in the centre, labelled MOVING while the drone is in motion and ZUPT STATIONARY while it is still.",
+      "caption": "Depth-backed visual-inertial odometry running on the drone's Jetson, walked up and down the stairs at home. The label switches between MOVING and ZUPT STATIONARY: when the platform is still, zero-velocity updates pin the estimate so it does not drift while nothing is happening. Predicted depth, tracked features, and predicted semantics are the panels on the left.",
+      "credit": "Mono-Hydra++ VIO",
       "clickToLoad": false
     }
   }

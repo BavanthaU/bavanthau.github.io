@@ -35,7 +35,7 @@
       "hasPage": true,
       "claim": "A single camera and an IMU build a hierarchical metric-semantic 3D scene graph of an indoor building in real time, and the map is accurate to 0.08 m.",
       "context": "Metric-semantic mapping systems that produce usable scene graphs have almost always assumed RGB-D or LiDAR input, because reliable geometry is the hard part and depth sensors supply it directly. That assumption rules out the platforms where mapping is most useful, since payload and power are what limit small drones. Mono-Hydra++ removes the depth sensor and closes the loop between perception and state estimation instead.",
-      "contribution": "Predicted sparse depth is fed back into the VIO as metric anchor factors, semantic masks protect the estimator from dynamic and unreliable regions, and the resulting poses temporally align the dense predictions. Each direction of that loop is ablated separately. The honest limit is that the components are evaluated in-loop, so the system comparison does not prove any single component is independently causal.",
+      "contribution": "Predicted sparse depth is fed back into the VIO as metric anchor factors, semantic masks exclude dynamic and unreliable regions from the estimator, and the estimated poses align the dense predictions in time. Each direction of that loop is ablated separately. The components are measured inside the running system, so the comparison does not isolate what any single one contributes on its own.",
       "headline": [
         {
           "value": "0.08 m",
@@ -103,7 +103,7 @@
       "hasPage": true,
       "claim": "Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score.",
       "context": "Dense prediction papers usually stop at per-frame metrics, which leaves open whether a better model actually produces a better map. M2H-MX is evaluated twice: once as a benchmark predictor, and once as the perception front end inside a running monocular SLAM pipeline that is otherwise unchanged.",
-      "contribution": "A DINOv3 backbone with LoRA adaptation, a register-gated Mamba decoder, and directed cross-task refinement. The ablation is the interesting part and it does not flatter the new modules: replacing DINOv3 with DINOv2-L costs 8.81 mIoU, while removing the cross-task mixer and the spatial attention costs 2.07. Most of the gain comes from backbone feature quality, and the paper says so.",
+      "contribution": "A DINOv3 backbone with LoRA adaptation, a register-gated Mamba decoder, and directed cross-task refinement between depth and semantics. In the ablation, replacing DINOv3 with DINOv2-L costs 8.81 mIoU, while removing the cross-task mixer and the spatial attention costs 2.07. Most of the gain therefore comes from the backbone features rather than from the new decoder blocks.",
       "headline": [
         {
           "value": "65.60 mIoU, 0.3800 RMSE",
@@ -125,8 +125,8 @@
         }
       ],
       "limitations": [
-        "M2H-MX-L (4 heads) is 353.53 M parameters and 491.91 GFLOPs. This is a large model, and the accuracy is bought with compute.",
-        "The gain is dominated by backbone quality rather than by the proposed decoder blocks, which the ablation states directly.",
+        "M2H-MX-L with 4 heads is 353.53 M parameters and 491.91 GFLOPs, which is large for a perception front end.",
+        "The gain comes mostly from backbone quality rather than from the proposed decoder blocks.",
         "The ScanNet comparison uses selected sequences, not the full benchmark.",
         "Monocular ATE is close to the RGB-D baselines but does not beat the best of them."
       ],
@@ -169,7 +169,7 @@
       "hasPage": true,
       "claim": "Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop.",
       "context": "Mono-Hydra ran an independent depth network and an independent semantic network side by side. That duplicates compute and produces two representations that do not agree with each other. M2H replaces both with one multi-task model in which depth, semantics, surface normals, and edges exchange information through window-based cross-task attention.",
-      "contribution": "A window-based cross-task attention module that lets tasks exchange structured features while keeping task-specific detail, on a DINOv2-small backbone. The ablation shows both the local attention and the global fusion module are load-bearing: removing either degrades every task.",
+      "contribution": "A window-based cross-task attention module that lets tasks exchange structured features while keeping task-specific detail, on a DINOv2-small backbone. In the ablation both the local attention and the global fusion module matter: removing either degrades every task.",
       "headline": [
         {
           "value": "61.54 mIoU, 0.4196 RMSE",
@@ -191,7 +191,7 @@
         }
       ],
       "limitations": [
-        "M2H is 81 M parameters and 488 GFLOPs. It is accurate at moderate parameter count but the GFLOP count is high, so it is not a cheap model.",
+        "M2H is 81 M parameters and 488 GFLOPs. The parameter count is moderate but the GFLOP count is high.",
         "M2H-small is far cheaper at 33.7 M parameters and 59 GFLOPs, and gives up 3.49 mIoU (58.05 against 61.54).",
         "Boundary detection on NYUDv2 is the one task where the small variant falls behind prior work, at 74.44 odsF."
       ],
@@ -235,7 +235,7 @@
       "hasPage": true,
       "claim": "A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR.",
       "context": "Scene graphs represent an environment as a layered graph running from mesh geometry up through objects, places, rooms, and buildings. Systems that build them in real time, Hydra and Kimera and S-Graphs+, all assumed RGB-D or 3D LiDAR input. Removing the depth sensor was largely unexplored, and it is exactly what small aerial platforms need.",
-      "contribution": "Learned depth and learned semantics feed a robocentric square-root visual-inertial odometry front end, and the resulting semantic mesh drives the Hydra scene graph layers. The system is the contribution rather than any single network. It was the first demonstration of this construction from monocular input plus IMU.",
+      "contribution": "Learned depth and learned semantics feed a robocentric square-root visual-inertial odometry front end, and the resulting semantic mesh drives the Hydra scene graph layers. The contribution is the system rather than any single network. It was the first demonstration of this construction from a monocular camera and an IMU.",
       "headline": [
         {
           "value": "0.19 m and 0.21 m",
@@ -257,10 +257,10 @@
         }
       ],
       "limitations": [
-        "The semantic quality of the generated 3D semantic mesh was never quantified, so no accuracy measure for it exists. The paper says so directly.",
+        "The semantic quality of the generated 3D semantic mesh was never quantified, so no accuracy measure for it exists.",
         "Hierarchical loop closure, room detection, and temporal consistency of the mesh are all named as unsolved.",
-        "The abstract summarises the mapping result as sub-20 cm, but the 3rd floor measured 0.21 m. This page quotes the table.",
-        "Deployment on embedded hardware needed further network optimisation, which is what the later work went on to do."
+        "The abstract rounds the mapping result to sub-20 cm, though the 3rd floor measured 0.21 m.",
+        "Deployment on embedded hardware needed further network optimisation, which the later work addressed."
       ],
       "datasets": [
         "uHumans2",

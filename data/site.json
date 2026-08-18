@@ -30,8 +30,7 @@
       "George Vosselman",
       "Francesco Nex"
     ],
-    "image": null,
-    "imageNote": "Gap G7. Portrait required for the Person JSON-LD image field."
+    "image": "/media/images/portrait-480.jpg"
   },
   "contact": {
     "email": "bavanthaU@eng.pdn.ac.lk",
@@ -65,13 +64,13 @@
     },
     "actTwo": {
       "title": "Exploring the unseen",
-      "line": "Turning that representation into action: a deterministic planner proposes only certified routes, and a learned model chooses among them.",
+      "line": "A reinforcement learning agent with a learned world model, choosing where to look next in a building it has never seen.",
       "status": "in-progress",
       "honesty": "The formulation and the layering contract are written up. The experiments are not run yet, so there are no results to report.",
-      "commitment": "Certification creates, learning selects.",
+      "commitment": "Predict consequences, not appearances.",
       "label": "Part II",
       "subtitle": "Learning to explore",
-      "homeLine": "A deterministic planner proposes only routes it has already certified as safe. A learned model chooses among them, or refuses and hands control back. The formulation is written; the experiments are not run yet."
+      "homeLine": "The agent predicts what each candidate route would produce, in the quantities the decision uses: new area per second, whether it opens a room, how the structure changes, whether it fails. Not pixels. An ensemble separates genuine randomness from the model's own ignorance, and the agent abstains when the second is high."
     },
     "prologue": "The same question was asked at Peradeniya in 2017: an autonomous exploration planning strategy for a robot mapping an unknown space, using a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.",
     "prologueVideo": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s",
@@ -79,8 +78,8 @@
     "prologueCitation": "https://doi.org/10.1109/ICIINFS.2017.8300386"
   },
   "deployment": {
-    "status": "perception-only",
-    "statusNote": "Upgrade path. Full-suite deployment on the Jetson Orin NX custom drone is planned for August 2026. When it lands, change status to 'full-stack', fill fullStack, and the home page updates without a copy rewrite. Until then nothing beyond verified is stated anywhere on the site.",
+    "status": "full-stack",
+    "statusNote": "Author-confirmed 2026-08-18: the complete pipeline now runs on the drone's Jetson Orin NX. The throughput figure shown is the measured perception number from the journal manuscript (results_registry R038). No measured end-to-end figure for the full onboard stack exists on the site yet; add one here when it is recorded.",
     "verified": {
       "what": "M2H-MX-L depth and semantics inference",
       "device": "Jetson Orin NX 16GB",
@@ -92,13 +91,14 @@
       "mappingErrorFromThisOperatingPoint": "0.22 m mean, ITC 2nd floor",
       "source": "results_registry R037 to R039, Mono-Hydra++ journal manuscript"
     },
-    "notClaimed": [
-      "autonomous flight",
-      "VIO running onboard",
-      "mapping running onboard",
-      "scene graph construction running onboard"
+    "fullStack": null,
+    "onboard": [
+      "perception",
+      "odometry",
+      "mapping",
+      "scene graph construction"
     ],
-    "fullStack": null
+    "caveat": null
   },
   "headlineProgression": {
     "label": "ITC building, 2nd floor mesh mean error",
@@ -182,7 +182,7 @@
     "heading": "What I work on",
     "paragraphs": [
       "A robot inspecting a bridge, counting warehouse stock, or entering a building after an incident needs more than a point cloud. A point cloud says where surfaces are. It does not say that this is a room, that is a doorway, and there is a fire extinguisher on the wall. Planning, search, and spoken instructions all need objects, places, and rooms.",
-      "The sensor is one camera and an IMU: passive, light, inexpensive, information-rich, and geometrically ambiguous, because a single image cannot tell you scale. Every hard problem here follows from choosing not to carry a depth sensor, and the reason to accept that is payload. What a small drone can lift decides what it can do, and for how long."
+      "The sensor is one camera and an IMU: passive, light, inexpensive, information-rich, and geometrically ambiguous, because a single image cannot tell you scale. Every hard problem here follows from choosing not to carry a depth sensor. The reason to accept that is payload, which sets what a small drone can do and how long it can fly."
     ],
     "source": "Adapted from the thesis abstract."
   },
