@@ -720,3 +720,60 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
   .page-content { padding-top: 0; }
   a { color: inherit; }
 }
+
+/* ------------------------------------------------------------------
+   Design pass: narrative beats, compact prediction viewer, motion.
+   ------------------------------------------------------------------ */
+
+/* Reading progress, pinned under the masthead rule */
+.scroll-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, var(--accent), var(--signal)); transform: scaleX(0); transform-origin: 0 50%; will-change: transform; }
+
+/* Reveal on scroll */
+.will-reveal { opacity: 0; transform: translateY(0.9rem); }
+.will-reveal.is-revealed { opacity: 1; transform: none; transition: opacity 620ms cubic-bezier(.2,.7,.2,1), transform 620ms cubic-bezier(.2,.7,.2,1); }
+@media (prefers-reduced-motion: reduce) { .will-reveal { opacity: 1; transform: none; } }
+
+/* Narrative beats: copy beside its clip, alternating side */
+.beats { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; gap: clamp(3rem, 6vw, 5rem); }
+.beat { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center; padding-top: 2rem; border-top: 1px solid var(--rule); }
+.beat-flip .beat-copy { order: 2; }
+.beat-copy > h3 { margin: 0 0 0.8rem; font-size: clamp(1.25rem, 2.2vw, 1.7rem); line-height: 1.18; letter-spacing: -0.015em; }
+.beat-copy > p { margin: 0 0 0.9rem; max-width: 46ch; color: var(--ink-2); }
+.beat-index { margin: 0 0 0.7rem; color: var(--accent); font: 650 0.65rem/1.2 var(--mono); letter-spacing: 0.11em; text-transform: uppercase; }
+.beat-index::before { content: ""; display: inline-block; width: 1.6rem; height: 1px; margin-right: 0.6rem; vertical-align: 0.28em; background: currentColor; }
+.beat-link a { font: 600 0.78rem/1 var(--body); text-decoration: none; border-bottom: 1px solid var(--accent-soft); padding-bottom: 0.15rem; }
+.beat-link a::after { content: " →"; }
+.beat-media { min-width: 0; }
+.beat-media .v-figure { margin: 0; }
+.beat-media .v-figure.is-portrait .v-wrap { max-width: 20rem; }
+.beat-media figcaption { font-size: 0.66rem; }
+
+/* Prediction viewer: two frames on one row, compact, semantics first */
+.wipe-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2rem); align-items: start; margin-top: 1.75rem; }
+.wipe-pair .wipe + .wipe { margin-top: 0; }
+.wipe-compact { margin: 0; padding: 0.9rem; border: 1px solid var(--rule); border-radius: var(--radius-lg); background: var(--surface); }
+.wipe-compact .wipe-title { margin: 0 0 0.6rem; }
+.wipe-compact figcaption { margin-top: 0.6rem; font-size: 0.65rem; line-height: 1.6; }
+.wipe-compact .wipe-pane img { max-height: 15rem; object-fit: cover; }
+
+/* Segmented layer control */
+.wipe-steps { display: flex; gap: 0.3rem; margin-top: 0.8rem; padding: 0.22rem; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface-2); }
+.wipe-step { flex: 1 1 0; min-width: 0; padding: 0.42rem 0.5rem; border: 0; border-radius: 999px; background: transparent; color: var(--ink-2); font: 600 0.6rem/1.1 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; transition: background 160ms ease, color 160ms ease; }
+.wipe-step:hover { color: var(--ink); }
+.wipe-step[aria-pressed="true"] { background: var(--accent); color: var(--paper); }
+:root[data-theme="dark"] .wipe-step[aria-pressed="true"] { color: #04191a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .wipe-step[aria-pressed="true"] { color: #04191a; } }
+.wipe-step:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wipe-compact .wipe-control { margin-top: 0.5rem; }
+.wipe-compact .wipe-control::before { content: "Blend"; }
+.wipe-compact .wipe-control::after { content: ""; }
+.wipe-compact .wipe-control input[type="range"] { height: 1rem; }
+
+/* Publication and project media get room to breathe */
+.pub-figures .wipe-compact, .proj-media .wipe-compact { margin-bottom: 1.5rem; }
+
+@media (max-width: 60em) {
+  .beat, .beat-flip { grid-template-columns: 1fr; }
+  .beat-flip .beat-copy { order: 0; }
+  .wipe-pair { grid-template-columns: 1fr; }
+}

@@ -289,7 +289,8 @@
         "mx-indoor-depth",
         "mx-indoor-semantics"
       ],
-      "caption": "One indoor frame, three ways. M2H-MX predicts metric depth and semantic labels from the single RGB image on the left. The mapping backend consumes these two outputs."
+      "caption": "One indoor frame, three ways. M2H-MX predicts metric depth and semantic labels from the single RGB image on the left. The mapping backend consumes these two outputs.",
+      "captionShort": "Indoor frame, NYUDv2. Metric depth and semantic labels from one RGB image."
     },
     "m2h-mx-outdoor": {
       "title": "Outdoor, Cityscapes",
@@ -298,7 +299,8 @@
         "mx-outdoor-depth",
         "mx-outdoor-semantics"
       ],
-      "caption": "The same model on a street scene. M2H-MX is built for indoor mapping and still reaches 82.28 mIoU on Cityscapes, 3.15 points above the strongest baseline compared."
+      "caption": "The same model on a street scene. M2H-MX is built for indoor mapping and still reaches 82.28 mIoU on Cityscapes, 3.15 points above the strongest baseline compared.",
+      "captionShort": "The same model outdoors, Cityscapes: 82.28 mIoU, 3.15 points over the strongest baseline."
     },
     "itc-corridor": {
       "title": "ITC building corridor",
@@ -307,7 +309,8 @@
         "wipe-depth",
         "wipe-semantics"
       ],
-      "caption": "One frame from the ITC corridor sequence, shown as the camera image, the predicted depth, and the predicted semantic labels."
+      "caption": "One frame from the ITC corridor sequence, shown as the camera image, the predicted depth, and the predicted semantic labels.",
+      "captionShort": "One frame from the ITC corridor sequence: camera image, predicted depth, predicted labels."
     }
   }
 }

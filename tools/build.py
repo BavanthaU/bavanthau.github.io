@@ -207,16 +207,20 @@ def video_ld(key, page_url):
             "embedUrl": page_url}
 
 
-def wipe(set_id="itc-corridor", heading=True):
-    """RGB, predicted depth, predicted semantics on one frame.
-    Without JavaScript this is three frames side by side, which is already the point."""
+def wipe(set_id="itc-corridor", heading=True, compact=False, start=2,
+         sizes="(min-width:56em) 22rem, 92vw"):
+    """One frame, three ways: RGB, predicted depth, predicted semantics.
+
+    `start` picks the layer shown first once JavaScript is running, and defaults to the
+    semantic prediction rather than the raw camera frame. Without JavaScript the three
+    panes sit side by side, which is already the point."""
     spec = MEDIACFG.get("wipeSets", {}).get(set_id)
     if not spec:
         return ""
     keys = spec["panes"]
     if not all(k in MEDIA["frames"] for k in keys):
         return ""
-    panes = ""
+    panes, steps = "", ""
     for i, k in enumerate(keys):
         rec = MEDIA["frames"][k]
         big = rec["sources"]["jpg"][-1]["path"]
@@ -224,20 +228,29 @@ def wipe(set_id="itc-corridor", heading=True):
         wp = ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"]["webp"])
         panes += (f'<div class="wipe-pane" data-pane="{i}">'
                   f'<picture>'
-                  f'<source type="image/avif" srcset="{av}" sizes="(min-width:56em) 22rem, 92vw">'
-                  f'<source type="image/webp" srcset="{wp}" sizes="(min-width:56em) 22rem, 92vw">'
+                  f'<source type="image/avif" srcset="{av}" sizes="{sizes}">'
+                  f'<source type="image/webp" srcset="{wp}" sizes="{sizes}">'
                   f'<img src="{big}" alt="{e(rec["alt"])}" width="{rec["width"]}" '
                   f'height="{rec["height"]}" loading="lazy" decoding="async"></picture>'
                   f'<span class="wipe-label">{e(rec["label"])}</span></div>')
+        steps += (f'<button type="button" class="wipe-step" data-wipe-step="{i}" '
+                  f'aria-pressed="{"true" if i == start else "false"}">{e(rec["label"])}'
+                  f'</button>')
     head = f'<p class="wipe-title">{e(spec["title"])}</p>' if heading else ""
-    return (f'<figure class="wipe" data-wipe>{head}'
+    cap = spec.get("captionShort") if compact else spec["caption"]
+    cap = cap or spec["caption"]
+    cls = "wipe wipe-compact" if compact else "wipe"
+    return (f'<figure class="{cls}" data-wipe>{head}'
             f'<div class="wipe-stage">{panes}</div>'
+            f'<div class="wipe-steps" data-wipe-steps hidden role="group" '
+            f'aria-label="Choose the layer to show">{steps}</div>'
             f'<label class="wipe-control" data-wipe-control hidden>'
             f'<span class="sr-only">Blend between RGB, predicted depth, and predicted semantics'
             f'</span>'
-            f'<input type="range" min="0" max="200" value="0" step="1" data-wipe-input>'
+            f'<input type="range" min="0" max="200" value="{start * 100}" step="1" '
+            f'data-wipe-input>'
             f'</label>'
-            f'<figcaption>{e(spec["caption"])} Drag the slider to blend between them.'
+            f'<figcaption>{e(cap)} Pick a layer, or drag to blend between them.'
             f'</figcaption></figure>')
 
 
@@ -345,27 +358,33 @@ def youtube_facade(video_id, title, thumb):
 
 # which figure belongs to which page
 def _pub_figures():
+    """Per publication: themedia that actually belongs to that paper, best first."""
     return {
-        "mono-hydra-plus": picture("mono-hydra-pp-pipeline") + picture("uhumans2-loop")
-                           + picture("scannet-radius") + picture("scannet-failure"),
-        "m2h-mx":          wipe("m2h-mx-indoor") + wipe("m2h-mx-outdoor")
+        "mono-hydra-plus": video("stairs-zupt") + picture("mono-hydra-pp-pipeline")
+                           + picture("uhumans2-loop") + picture("scannet-radius")
+                           + picture("scannet-failure"),
+        "m2h-mx":          video("icra26")
+                           + wipe("m2h-mx-indoor", compact=True)
+                           + wipe("m2h-mx-outdoor", compact=True)
                            + picture("m2h-mx-architecture") + picture("m2h-mx-rgm")
                            + picture("m2h-mx-ctm-msca"),
-        "m2h":             wipe() + youtube_facade("X2w_AqGwkaY",
+        "m2h":             video("itc-loop") + wipe(compact=True)
+                           + youtube_facade("X2w_AqGwkaY",
                                "Mono Hydra with M2H for Monocular 3D Scene Graph Construction",
                                MEDIA["videos"]["itc-loop"]["poster"]),
-        "mono-hydra":      picture("scenegraph-system-design"),
+        "mono-hydra":      picture("scenegraph-system-design") + picture("scene-graph-itc"),
     }
 
 
 def _proj_media():
     return {
         "mono-hydra-plus": gallery("drone-side", ["drone-top", "drone-angle"])
-                           + video("stairs-zupt") + picture("scene-graph-itc")
-                           + picture("itc-embedded"),
-        "m2h-mx":          wipe("m2h-mx-indoor") + wipe("m2h-mx-outdoor")
-                           + video("icra26") + picture("m2h-mx-architecture"),
-        "m2h":             video("itc-loop") + wipe(),
+                           + video("drone-flight") + video("stairs-zupt")
+                           + picture("scene-graph-itc") + picture("itc-embedded"),
+        "m2h-mx":          video("icra26") + wipe("m2h-mx-indoor", compact=True)
+                           + wipe("m2h-mx-outdoor", compact=True)
+                           + picture("m2h-mx-architecture"),
+        "m2h":             video("itc-loop") + wipe(compact=True),
         "mono-hydra":      picture("scenegraph-system-design"),
         "learned-exploration": video("scope-explorer"),
     }
@@ -474,6 +493,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
 <body class="{page_class}">
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
+  <div class="scroll-progress" data-progress aria-hidden="true"></div>
   <div class="wrap masthead-inner">
     <a class="wordmark" href="/" aria-label="{e(NAME)}, home">
       <span class="wordmark-mark" aria-hidden="true">BU</span>
@@ -690,7 +710,9 @@ def build_home():
       <p class="section-intro">A custom quadrotor with a carbon fibre frame and caged propellers,
       so it can fly close to walls indoors. Everything the mapping needs is carried onboard.</p>
     </div>
-    {platform_showcase("drone-side", ["drone-top", "drone-angle"], "drone-flight")}
+    {gallery("drone-side", ["drone-top", "drone-angle"],
+             "The airframe the whole system has to fit inside: carbon frame, caged props, "
+             "battery and compute stacked in the centre.")}
   </div>
 </section>
 
@@ -702,22 +724,40 @@ def build_home():
       <h2>{e(arc['actOne']['title'])}</h2></div>
       <p class="section-intro">{e(arc['actOne']['homeLine'])}</p>
     </div>
-    <div class="media-feature">{video("itc-loop")}</div>
+
+    <ol class="beats">
+      <li class="beat">
+        <div class="beat-copy">
+          <p class="beat-index">Beat 01 &middot; mapping</p>
+          <h3>The drone flies a corridor and the map builds itself</h3>
+          <p>One loop of the ITC second floor. Nothing is streamed to a workstation: the camera
+          and the IMU go in, and a layered map comes out, mesh first, then objects, then places,
+          then the rooms that contain them. Watch the graph on the left grow while the corridor
+          closes back on itself.</p>
+          <p class="beat-link"><a href="/publications/m2h/">How the mapping works</a></p>
+        </div>
+        <div class="beat-media">{video("itc-loop")}</div>
+      </li>
+      <li class="beat beat-flip">
+        <div class="beat-copy">
+          <p class="beat-index">Beat 02 &middot; control</p>
+          <h3>And the estimate is steady enough to fly on</h3>
+          <p>The same predictions close the loop back into control. Depth-backed visual-inertial
+          odometry runs on the drone's own Jetson, and zero-velocity updates hold the estimate
+          still when the platform is: the label flips between MOVING and ZUPT STATIONARY. An
+          estimate that drifts at a standstill is an estimate nothing can fly on.</p>
+          <p class="beat-link"><a href="/projects/mono-hydra-plus/">The estimator, in detail</a></p>
+        </div>
+        <div class="beat-media">{video("stairs-zupt")}</div>
+      </li>
+    </ol>
 
     <div class="subsection-heading"><span>02.1</span><div><h3>What one frame gives the map</h3>
       <p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic
       labels. The mapping backend consumes those two outputs and nothing else.</p></div></div>
-    <div class="wipe-pair">{wipe("m2h-mx-indoor")}{wipe("m2h-mx-outdoor")}</div>
+    <div class="wipe-pair">{wipe("m2h-mx-indoor", compact=True)}{wipe("m2h-mx-outdoor", compact=True)}</div>
 
-    <div class="subsection-heading"><span>02.2</span><div><h3>The same predictions inside a running system</h3>
-      <p class="section-intro">The predictor is evaluated in the mapping pipeline, not only on
-      isolated benchmark frames.</p></div></div>
-    <div class="media-duo">
-      <div><p class="media-label">On a benchmark scene</p>{video("icra26")}</div>
-      <div><p class="media-label">On the drone, in a stairwell</p>{video("stairs-zupt")}</div>
-    </div>
-
-    <div class="subsection-heading"><span>02.3</span><div><h3>What changed over four years</h3>
+    <div class="subsection-heading"><span>02.2</span><div><h3>What changed over four years</h3>
       <p class="section-intro">Mean mapping error on the second floor of the ITC building,
       measured against a LiDAR ground truth. The embedded point in amber is the model running on
       the drone at reduced resolution, a different trade-off rather than a regression.</p></div></div>

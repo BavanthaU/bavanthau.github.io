@@ -91,15 +91,19 @@
     });
   });
 
-  /* ---- RGB to depth to semantics ---- */
+  /* ---- RGB to depth to semantics: snap buttons plus a continuous blend ---- */
   document.querySelectorAll("[data-wipe]").forEach(function (fig) {
     var panes = fig.querySelectorAll("[data-pane]");
     var control = fig.querySelector("[data-wipe-control]");
     var input = fig.querySelector("[data-wipe-input]");
+    var steps = fig.querySelector("[data-wipe-steps]");
     if (panes.length !== 3 || !input) return;
 
     fig.classList.add("is-interactive");
     control.hidden = false;
+    if (steps) steps.hidden = false;
+
+    var buttons = steps ? Array.prototype.slice.call(steps.querySelectorAll("[data-wipe-step]")) : [];
 
     var apply = function (v) {
       // 0 to 100 blends RGB into depth, 100 to 200 blends depth into semantics
@@ -109,8 +113,18 @@
       panes[0].style.opacity = a;
       panes[1].style.opacity = b;
       panes[2].style.opacity = c;
+      buttons.forEach(function (btn, i) {
+        btn.setAttribute("aria-pressed", v === i * 100 ? "true" : "false");
+      });
     };
+
     input.addEventListener("input", function () { apply(+input.value); });
+    buttons.forEach(function (btn, i) {
+      btn.addEventListener("click", function () {
+        input.value = i * 100;
+        apply(i * 100);
+      });
+    });
     apply(+input.value);
   });
 
@@ -171,4 +185,32 @@
     });
     show(0);
   });
+})();
+
+
+/* Reading progress and section reveal. Both are decoration: nothing depends on them. */
+(function () {
+  "use strict";
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var bar = document.querySelector("[data-progress]");
+  if (bar) {
+    var tick = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, h.scrollTop / max) : 0) + ")";
+    };
+    addEventListener("scroll", tick, { passive: true });
+    addEventListener("resize", tick);
+    tick();
+  }
+
+  var marked = document.querySelectorAll(".home-section, .beat, .card, .cite");
+  if (!marked.length || reduced || !("IntersectionObserver" in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add("is-revealed"); io.unobserve(en.target); }
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+  marked.forEach(function (el) { el.classList.add("will-reveal"); io.observe(el); });
 })();
