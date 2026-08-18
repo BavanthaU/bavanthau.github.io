@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception | Bavantha Udugama</title>
 <meta name="description" content="Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop. Published, IEEE/RSJ IROS 2025.">
 <link rel="canonical" href="https://bavanthau.github.io/publications/m2h/">
@@ -22,6 +23,7 @@
 <meta name="twitter:description" content="Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop. Published, IEEE/RSJ IROS 2025.">
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -91,16 +93,23 @@
 }
 </script>
 </head>
-<body>
+<body class="page page-publications">
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-inner">
-    <a class="wordmark" href="/">Bavantha Udugama</a>
-    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+    <a class="wordmark" href="/" aria-label="Bavantha Udugama, home">
+      <span class="wordmark-mark" aria-hidden="true">BU</span>
+      <span class="wordmark-name">Bavantha Udugama</span>
+    </a>
+    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/" aria-current="page">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+    <button class="theme-toggle" type="button" data-theme-toggle hidden>
+      <span class="theme-toggle-dot" aria-hidden="true"></span>
+      <span data-theme-label>Theme</span>
+    </button>
   </div>
 </header>
-<main id="main">
-<div class="wrap">
+<main id="main" class="site-main">
+<div class="wrap page-content">
 
 <p class="eyebrow"><a href="/publications/">Publications</a></p>
 <h1>M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception</h1>
@@ -117,7 +126,7 @@
 
 <h2>Contribution</h2>
 <p>A window-based cross-task attention module that lets tasks exchange structured features while keeping task-specific detail, on a DINOv2-small backbone. In the ablation both the local attention and the global fusion module matter: removing either degrades every task.</p>
-<figure class="wipe" data-wipe><p class="wipe-title">ITC building corridor</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/wipe-rgb-480.avif 480w, /media/images/wipe-rgb-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-rgb-480.webp 480w, /media/images/wipe-rgb-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-rgb-848.jpg" alt="A corridor in the ITC building seen by the monocular camera: doors on the right, artwork on the walls, an orange floor receding into the distance." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/wipe-depth-480.avif 480w, /media/images/wipe-depth-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-depth-480.webp 480w, /media/images/wipe-depth-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-depth-848.jpg" alt="Predicted depth for the same corridor frame, rendered as a colour field where blue is near and red is the far end of the corridor." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/wipe-semantics-480.avif 480w, /media/images/wipe-semantics-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-semantics-480.webp 480w, /media/images/wipe-semantics-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-semantics-848.jpg" alt="Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="0" step="1" data-wipe-input></label><figcaption>One frame from the ITC corridor sequence, shown as the camera image, the predicted depth, and the predicted semantic labels. Drag the slider to blend between them.</figcaption></figure><figure class="yt" data-yt="X2w_AqGwkaY"><button type="button" class="yt-btn" data-yt-btn><img src="https://i.ytimg.com/vi/X2w_AqGwkaY/hqdefault.jpg" alt="Thumbnail for Mono Hydra with M2H for Monocular 3D Scene Graph Construction" width="480" height="360" loading="lazy" decoding="async"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play Mono Hydra with M2H for Monocular 3D Scene Graph Construction on YouTube</span></button><figcaption>Mono Hydra with M2H for Monocular 3D Scene Graph Construction. The full length version, loaded from YouTube only when you press play.</figcaption></figure>
+<figure class="wipe" data-wipe><p class="wipe-title">ITC building corridor</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/wipe-rgb-480.avif 480w, /media/images/wipe-rgb-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-rgb-480.webp 480w, /media/images/wipe-rgb-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-rgb-848.jpg" alt="A corridor in the ITC building seen by the monocular camera: doors on the right, artwork on the walls, an orange floor receding into the distance." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/wipe-depth-480.avif 480w, /media/images/wipe-depth-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-depth-480.webp 480w, /media/images/wipe-depth-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-depth-848.jpg" alt="Predicted depth for the same corridor frame, rendered as a colour field where blue is near and red is the far end of the corridor." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/wipe-semantics-480.avif 480w, /media/images/wipe-semantics-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-semantics-480.webp 480w, /media/images/wipe-semantics-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-semantics-848.jpg" alt="Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="0" step="1" data-wipe-input></label><figcaption>One frame from the ITC corridor sequence, shown as the camera image, the predicted depth, and the predicted semantic labels. Drag the slider to blend between them.</figcaption></figure><figure class="yt" data-yt="X2w_AqGwkaY"><button type="button" class="yt-btn" data-yt-btn><img src="/media/video/itc-loop-poster.jpg" alt="Thumbnail for Mono Hydra with M2H for Monocular 3D Scene Graph Construction" width="480" height="360" loading="lazy" decoding="async"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play Mono Hydra with M2H for Monocular 3D Scene Graph Construction on YouTube</span></button><figcaption>Mono Hydra with M2H for Monocular 3D Scene Graph Construction. The full length version, loaded from YouTube only when you press play.</figcaption></figure>
 
 <h2>Results</h2>
 <ul class="results">
@@ -147,15 +156,21 @@
 </div>
 </main>
 <footer class="foot">
-  <div class="wrap">
-    <ul>
-      <li><a rel="me" href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
-      <li><a rel="me" href="https://github.com/BavanthaU">GitHub</a></li>
-      <li><a rel="me" href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
-      <li><a rel="me" href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
-      <li><a href="/publications/bibtex/">BibTeX</a></li>
-    </ul>
-    <p>Bavantha Udugama. ITC, University of Twente, Enschede.</p>
+  <div class="wrap foot-inner">
+    <div class="foot-signoff">
+      <span class="wordmark-mark" aria-hidden="true">BU</span>
+      <p><strong>Bavantha Udugama</strong><br>monocular spatial perception and robot exploration.</p>
+    </div>
+    <div>
+      <ul>
+        <li><a rel="me" href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+        <li><a rel="me" href="https://github.com/BavanthaU">GitHub</a></li>
+        <li><a rel="me" href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+        <li><a rel="me" href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+        <li><a href="/publications/bibtex/">BibTeX</a></li>
+      </ul>
+      <p>ITC, University of Twente, Enschede.</p>
+    </div>
   </div>
 </footer>
 <script src="/assets/media.js" defer></script>

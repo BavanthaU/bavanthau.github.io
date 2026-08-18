@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Bavantha Udugama | M2H</title>
 <meta name="description" content="Four dense tasks in one model, replacing two separate networks that did not agree with each other. By Bavantha Udugama, ITC University of Twente.">
 <link rel="canonical" href="https://bavanthau.github.io/projects/m2h/">
@@ -22,6 +23,7 @@
 <meta name="twitter:description" content="Four dense tasks in one model, replacing two separate networks that did not agree with each other. By Bavantha Udugama, ITC University of Twente.">
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -70,16 +72,23 @@
 }
 </script>
 </head>
-<body>
+<body class="page page-projects">
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-inner">
-    <a class="wordmark" href="/">Bavantha Udugama</a>
-    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+    <a class="wordmark" href="/" aria-label="Bavantha Udugama, home">
+      <span class="wordmark-mark" aria-hidden="true">BU</span>
+      <span class="wordmark-name">Bavantha Udugama</span>
+    </a>
+    <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/" aria-current="page">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+    <button class="theme-toggle" type="button" data-theme-toggle hidden>
+      <span class="theme-toggle-dot" aria-hidden="true"></span>
+      <span data-theme-label>Theme</span>
+    </button>
   </div>
 </header>
-<main id="main">
-<div class="wrap">
+<main id="main" class="site-main">
+<div class="wrap page-content">
 
 <p class="eyebrow"><a href="/projects/">Projects</a> &middot; Part I</p>
 <h1>M2H</h1>
@@ -100,15 +109,21 @@
 </div>
 </main>
 <footer class="foot">
-  <div class="wrap">
-    <ul>
-      <li><a rel="me" href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
-      <li><a rel="me" href="https://github.com/BavanthaU">GitHub</a></li>
-      <li><a rel="me" href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
-      <li><a rel="me" href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
-      <li><a href="/publications/bibtex/">BibTeX</a></li>
-    </ul>
-    <p>Bavantha Udugama. ITC, University of Twente, Enschede.</p>
+  <div class="wrap foot-inner">
+    <div class="foot-signoff">
+      <span class="wordmark-mark" aria-hidden="true">BU</span>
+      <p><strong>Bavantha Udugama</strong><br>monocular spatial perception and robot exploration.</p>
+    </div>
+    <div>
+      <ul>
+        <li><a rel="me" href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+        <li><a rel="me" href="https://github.com/BavanthaU">GitHub</a></li>
+        <li><a rel="me" href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+        <li><a rel="me" href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+        <li><a href="/publications/bibtex/">BibTeX</a></li>
+      </ul>
+      <p>ITC, University of Twente, Enschede.</p>
+    </div>
   </div>
 </footer>
 <script src="/assets/media.js" defer></script>

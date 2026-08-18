@@ -4,6 +4,37 @@
 (function () {
   "use strict";
 
+  /* ---- explicit theme control, with the system preference as the default ---- */
+  var themeButton = document.querySelector("[data-theme-toggle]");
+  if (themeButton) {
+    var root = document.documentElement;
+    var label = themeButton.querySelector("[data-theme-label]");
+    var systemDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+    var activeTheme = function () {
+      return root.dataset.theme || (systemDark.matches ? "dark" : "light");
+    };
+    var syncTheme = function () {
+      var current = activeTheme();
+      var next = current === "dark" ? "light" : "dark";
+      if (label) label.textContent = next.charAt(0).toUpperCase() + next.slice(1);
+      themeButton.setAttribute("aria-label", "Switch to " + next + " theme");
+      themeButton.setAttribute("title", "Switch to " + next + " theme");
+    };
+
+    themeButton.hidden = false;
+    syncTheme();
+    themeButton.addEventListener("click", function () {
+      var next = activeTheme() === "dark" ? "light" : "dark";
+      root.dataset.theme = next;
+      try { localStorage.setItem("theme", next); } catch (e) {}
+      syncTheme();
+    });
+    systemDark.addEventListener && systemDark.addEventListener("change", function () {
+      if (!root.dataset.theme) syncTheme();
+    });
+  }
+
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---- autoplay loops only while visible, and never under reduced motion ---- */

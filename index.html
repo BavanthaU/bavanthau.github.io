@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>Bavantha Udugama | 3D scene graphs from a single camera</title>
 <meta name="description" content="Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, with no depth sensor. PhD candidate at ITC, University of Twente.">
 <link rel="canonical" href="https://bavanthau.github.io/">
@@ -22,6 +23,7 @@
 <meta name="twitter:description" content="Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, with no depth sensor. PhD candidate at ITC, University of Twente.">
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -74,7 +76,7 @@
   "mainEntity": {
     "@id": "https://bavanthau.github.io/#person"
   },
-  "dateModified": "2026-08-18"
+  "dateModified": "2026-08-19"
 }
 </script>
 <script type="application/ld+json">
@@ -84,73 +86,119 @@
   "name": "The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback ",
   "description": "Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside.",
   "thumbnailUrl": "https://bavanthau.github.io/media/video/itc-loop-poster.jpg",
-  "uploadDate": "2026-08-18",
+  "uploadDate": "2026-08-19",
   "contentUrl": "https://bavanthau.github.io/media/video/itc-loop.mp4",
   "embedUrl": "https://bavanthau.github.io/"
 }
 </script>
 </head>
-<body>
+<body class="page page-home">
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-inner">
-    <a class="wordmark" href="/">Bavantha Udugama</a>
+    <a class="wordmark" href="/" aria-label="Bavantha Udugama, home">
+      <span class="wordmark-mark" aria-hidden="true">BU</span>
+      <span class="wordmark-name">Bavantha Udugama</span>
+    </a>
     <nav class="nav" aria-label="Primary"><a href="/research/">Research</a><a href="/publications/">Publications</a><a href="/projects/">Projects</a><a href="/cv/">CV</a><a href="/contact/">Contact</a></nav>
+    <button class="theme-toggle" type="button" data-theme-toggle hidden>
+      <span class="theme-toggle-dot" aria-hidden="true"></span>
+      <span data-theme-label>Theme</span>
+    </button>
   </div>
 </header>
-<main id="main">
-<div class="wrap">
+<main id="main" class="site-main">
+<div class="wrap page-content">
 
 <header class="hero">
-  <div class="hero-id">
-    <figure class="portrait"><picture><source type="image/avif" srcset="/media/images/portrait-480.avif 480w, /media/images/portrait-960.avif 960w, /media/images/portrait-1254.avif 1254w" sizes="6.5rem"><source type="image/webp" srcset="/media/images/portrait-480.webp 480w, /media/images/portrait-960.webp 960w, /media/images/portrait-1254.webp 1254w" sizes="6.5rem"><img src="/media/images/portrait-1254.jpg" alt="Bavantha Udugama, in a dark suit and tie against a plain warm grey background." width="1254" height="1254" decoding="async"></picture></figure>
-    <div>
-      <h1>Bavantha Udugama</h1>
-      <p class="affil mono">PhD candidate &middot;
-        ITC, University of Twente</p>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="hero-kicker"><span aria-hidden="true"></span> Monocular spatial perception</p>
+      <h1><span class="hero-name">Bavantha Udugama</span>
+        <span class="hero-pitch">One camera.<br>A map robots can reason with.</span></h1>
+      <p class="lede">I build lightweight perception for aerial robots. One camera, one network predicting depth, semantics, surface normals and edges together, and those predictions drive mapping and autonomous exploration on the drone&#x27;s own compute, in real time.</p>
+      <div class="hero-actions">
+        <a class="action action-primary" href="/research/">Explore the research</a>
+        <a class="action" href="/cv/">View CV</a>
+      </div>
+      <div class="hero-id">
+        <figure class="portrait"><picture><source type="image/avif" srcset="/media/images/portrait-480.avif 480w, /media/images/portrait-960.avif 960w, /media/images/portrait-1254.avif 1254w" sizes="5rem"><source type="image/webp" srcset="/media/images/portrait-480.webp 480w, /media/images/portrait-960.webp 960w, /media/images/portrait-1254.webp 1254w" sizes="5rem"><img src="/media/images/portrait-1254.jpg" alt="Bavantha Udugama, in a dark suit and tie against a plain warm grey background." width="1254" height="1254" decoding="async"></picture></figure>
+        <p><strong>PhD candidate</strong><br>
+          ITC, University of Twente</p>
+      </div>
+    </div>
+    <div class="hero-stage">
+      <div class="hero-stage-head"><span>Live system output</span><span>M2H-MX-L</span></div>
+      <figure class="hero-map"><picture><source type="image/avif" srcset="/media/images/scene-graph-itc-480.avif 480w, /media/images/scene-graph-itc-960.avif 960w, /media/images/scene-graph-itc-1600.avif 1600w" sizes="(min-width: 64em) 36rem, 92vw"><source type="image/webp" srcset="/media/images/scene-graph-itc-480.webp 480w, /media/images/scene-graph-itc-960.webp 960w, /media/images/scene-graph-itc-1600.webp 1600w" sizes="(min-width: 64em) 36rem, 92vw"><img src="/media/images/scene-graph-itc-1600.jpg" alt="A 3D scene graph over the ITC building second floor. A single building node at the top connects down to a room node, then to a dense band of place nodes following the corridor loop, then to object nodes scattered along the walls, and finally to the reconstructed mesh of the floor." width="3826" height="2240" decoding="async"></picture></figure>
+      <div class="hero-layers" aria-label="Scene graph layers">
+        <span>mesh</span><span>objects</span><span>places</span><span>rooms</span><span>building</span>
+      </div>
+      <div class="hero-stage-foot"><span>RGB + IMU</span><span>hierarchical 3D scene graph</span></div>
     </div>
   </div>
-  <p class="lede">I build lightweight perception for aerial robots. One camera, one network predicting depth, semantics, surface normals and edges together, and those predictions drive mapping and autonomous exploration on the drone&#x27;s own compute, in real time.</p>
+
+  <section class="stats" aria-label="Key figures">
+    <dl><div class="stat"><dt>25.53 fps</dt><dd><span class="stat-label">onboard perception</span><span class="stat-detail">M2H-MX-L, ONNX and TensorRT FP16, Jetson Orin NX 16GB</span></dd></div><div class="stat"><dt>4 tasks</dt><dd><span class="stat-label">from one network</span><span class="stat-detail">depth, semantics, surface normals, edges, predicted together</span></dd></div><div class="stat"><dt>0.08 m</dt><dd><span class="stat-label">mapping error</span><span class="stat-detail">ITC second floor, against a LiDAR ground truth</span></dd></div></dl>
+    <p class="stats-note">Perception, odometry, mapping, and scene graph construction all run on the drone. The frame rate is the measured perception throughput.</p>
+  </section>
 </header>
 
-<section class="stats" aria-label="Key figures">
-  <dl><div class="stat"><dt>25.53 fps</dt><dd><span class="stat-label">onboard perception</span><span class="stat-detail">M2H-MX-L, ONNX and TensorRT FP16, Jetson Orin NX 16GB</span></dd></div><div class="stat"><dt>4 tasks</dt><dd><span class="stat-label">from one network</span><span class="stat-detail">depth, semantics, surface normals, edges, predicted together</span></dd></div><div class="stat"><dt>0.08 m</dt><dd><span class="stat-label">mapping error</span><span class="stat-detail">ITC second floor, against a LiDAR ground truth</span></dd></div></dl>
-  <p class="stats-note">Perception, odometry, mapping, and scene graph construction all run on the drone. The frame rate is the measured perception throughput.</p>
+<section class="home-section home-section-intro">
+  <div class="section-index"><span>00</span><span>Trajectory</span></div>
+  <div class="section-content">
+    <div class="prose intro"><p>Small aircraft are the constraint that makes the problem interesting. Payload decides endurance, compute is whatever you can carry, and the answer has to arrive before the next frame. So the work is about getting more out of one passive sensor rather than adding hardware: a single network producing every dense output the downstream system needs, at a frame rate a drone can actually fly on.</p><p>That work is a PhD at ITC in Enschede, finishing in 2026. Before it I shipped robots rather than papers. I joined a Dubai startup as its first robotics engineer and within a year was leading a small team deploying more than 30 humanoid robots across Expo 2020, hospitals, and reception desks. Debugging a navigation stack in front of a paying customer is a good way to find out which parts of a system are real.</p><p>I started at Peradeniya, building a reconnaissance robot that had to map a space nobody had surveyed. That is still the question I work on, now with a learned model and one camera instead of a laser scanner.</p></div>
+    <div class="section-heading">
+      <p class="eyebrow">The problem</p>
+      <h2>What I work on</h2>
+    </div>
+    <div class="prose"><p>A robot inspecting a bridge, counting warehouse stock, or entering a building after an incident needs more than a point cloud. A point cloud says where surfaces are. It does not say that this is a room, that is a doorway, and there is a fire extinguisher on the wall. Planning, search, and spoken instructions all need objects, places, and rooms.</p><p>The sensor is one camera and an IMU: passive, light, inexpensive, information-rich, and geometrically ambiguous, because a single image cannot tell you scale. Every hard problem here follows from choosing not to carry a depth sensor. The reason to accept that is payload, which sets what a small drone can do and how long it can fly.</p></div>
+  </div>
 </section>
 
-<div class="prose intro"><p>Small aircraft are the constraint that makes the problem interesting. Payload decides endurance, compute is whatever you can carry, and the answer has to arrive before the next frame. So the work is about getting more out of one passive sensor rather than adding hardware: a single network producing every dense output the downstream system needs, at a frame rate a drone can actually fly on.</p><p>That work is a PhD at ITC in Enschede, finishing in 2026. Before it I shipped robots rather than papers. I joined a Dubai startup as its first robotics engineer and within a year was leading a small team deploying more than 30 humanoid robots across Expo 2020, hospitals, and reception desks. Debugging a navigation stack in front of a paying customer is a good way to find out which parts of a system are real.</p><p>I started at Peradeniya, building a reconnaissance robot that had to map a space nobody had surveyed. That is still the question I work on, now with a learned model and one camera instead of a laser scanner.</p></div>
+<section class="home-section home-section-platform">
+  <div class="section-index"><span>01</span><span>Platform</span></div>
+  <div class="section-content">
+    <div class="section-heading">
+      <p class="eyebrow">Built for the payload limit</p>
+      <h2>The platform</h2>
+      <p class="section-intro">A custom quadrotor with a carbon fibre frame and caged propellers,
+      so it can fly close to walls indoors. Everything the mapping needs is carried onboard.</p>
+    </div>
+    <figure class="showcase"><div class="showcase-grid"><div class="ps-lead"><picture><source type="image/avif" srcset="/media/images/drone-side-480.avif 480w, /media/images/drone-side-960.avif 960w, /media/images/drone-side-1600.avif 1600w" sizes="(min-width: 52em) 34rem, 100vw"><source type="image/webp" srcset="/media/images/drone-side-480.webp 480w, /media/images/drone-side-960.webp 960w, /media/images/drone-side-1600.webp 1600w" sizes="(min-width: 52em) 34rem, 100vw"><img src="/media/images/drone-side-1600.jpg" alt="The custom quadrotor on a wooden table, seen from the side. A carbon fibre frame with a protective cage around four red propellers, the flight controller and wiring visible on top, and the compute board mounted underneath." width="4032" height="3024" loading="lazy" decoding="async"></picture></div><div class="ps-small"><picture><source type="image/avif" srcset="/media/images/drone-top-480.avif 480w, /media/images/drone-top-960.avif 960w, /media/images/drone-top-1600.avif 1600w" sizes="(min-width: 52em) 17rem, 50vw"><source type="image/webp" srcset="/media/images/drone-top-480.webp 480w, /media/images/drone-top-960.webp 960w, /media/images/drone-top-1600.webp 1600w" sizes="(min-width: 52em) 17rem, 50vw"><img src="/media/images/drone-top-1600.jpg" alt="The same quadrotor from directly above, showing the square carbon frame, four red propellers inside their cage, the orange lithium battery strapped across the centre, and a cooling fan on the compute board." width="4032" height="3024" loading="lazy" decoding="async"></picture></div><div class="ps-small"><picture><source type="image/avif" srcset="/media/images/drone-angle-480.avif 480w, /media/images/drone-angle-960.avif 960w, /media/images/drone-angle-1600.avif 1600w" sizes="(min-width: 52em) 17rem, 50vw"><source type="image/webp" srcset="/media/images/drone-angle-480.webp 480w, /media/images/drone-angle-960.webp 960w, /media/images/drone-angle-1600.webp 1600w" sizes="(min-width: 52em) 17rem, 50vw"><img src="/media/images/drone-angle-1600.jpg" alt="The quadrotor from a three-quarter angle, showing the depth of the carbon frame, the propeller cage, and the battery and electronics stacked in the centre." width="3024" height="4032" loading="lazy" decoding="async"></picture></div><div class="ps-clip"><video poster="/media/video/drone-flight-poster.jpg" width="1080" height="1920" muted loop playsinline preload="none" data-autoloop aria-label="The custom quadrotor lifting off from the floor of an indoor walkway and flying down it towards the camera, past timber and glass balconies."><source src="/media/video/drone-flight.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div></div><figcaption>Take-off and a pass down the corridor. Everything the mapping runs on is carried onboard.</figcaption></figure>
+  </div>
+</section>
 
-<h2>What I work on</h2>
-<div class="prose"><p>A robot inspecting a bridge, counting warehouse stock, or entering a building after an incident needs more than a point cloud. A point cloud says where surfaces are. It does not say that this is a room, that is a doorway, and there is a fire extinguisher on the wall. Planning, search, and spoken instructions all need objects, places, and rooms.</p><p>The sensor is one camera and an IMU: passive, light, inexpensive, information-rich, and geometrically ambiguous, because a single image cannot tell you scale. Every hard problem here follows from choosing not to carry a depth sensor. The reason to accept that is payload, which sets what a small drone can do and how long it can fly.</p></div>
+<section class="home-section research-chapter">
+  <div class="section-index"><span>02</span><span>Research</span></div>
+  <div class="section-content">
+    <div class="chapter-heading">
+      <div><p class="eyebrow">Part I &middot; complete</p>
+      <h2>Structuring the seen</h2></div>
+      <p class="section-intro">Learned depth and semantics feed a visual-inertial estimator, and the map that comes out is layered: mesh, objects, places, rooms, building. Four papers, from showing it was possible to closing the loop back into the estimator.</p>
+    </div>
+    <div class="media-feature"><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/itc-loop-poster.jpg" width="1280" height="570" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside."><source src="/media/video/itc-loop.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback is 10x real time. Live RGB, predicted semantics, and predicted depth run down the right.</figcaption></figure></div>
 
-<h2>The platform</h2>
-<div class="prose"><p>A custom quadrotor with a carbon fibre frame and caged propellers, so it can
-fly close to walls indoors. Everything the mapping needs is carried onboard.</p></div>
-<figure class="showcase"><div class="showcase-grid"><div class="ps-lead"><picture><source type="image/avif" srcset="/media/images/drone-side-480.avif 480w, /media/images/drone-side-960.avif 960w, /media/images/drone-side-1600.avif 1600w" sizes="(min-width: 52em) 34rem, 100vw"><source type="image/webp" srcset="/media/images/drone-side-480.webp 480w, /media/images/drone-side-960.webp 960w, /media/images/drone-side-1600.webp 1600w" sizes="(min-width: 52em) 34rem, 100vw"><img src="/media/images/drone-side-1600.jpg" alt="The custom quadrotor on a wooden table, seen from the side. A carbon fibre frame with a protective cage around four red propellers, the flight controller and wiring visible on top, and the compute board mounted underneath." width="4032" height="3024" loading="lazy" decoding="async"></picture></div><div class="ps-small"><picture><source type="image/avif" srcset="/media/images/drone-top-480.avif 480w, /media/images/drone-top-960.avif 960w, /media/images/drone-top-1600.avif 1600w" sizes="(min-width: 52em) 17rem, 50vw"><source type="image/webp" srcset="/media/images/drone-top-480.webp 480w, /media/images/drone-top-960.webp 960w, /media/images/drone-top-1600.webp 1600w" sizes="(min-width: 52em) 17rem, 50vw"><img src="/media/images/drone-top-1600.jpg" alt="The same quadrotor from directly above, showing the square carbon frame, four red propellers inside their cage, the orange lithium battery strapped across the centre, and a cooling fan on the compute board." width="4032" height="3024" loading="lazy" decoding="async"></picture></div><div class="ps-small"><picture><source type="image/avif" srcset="/media/images/drone-angle-480.avif 480w, /media/images/drone-angle-960.avif 960w, /media/images/drone-angle-1600.avif 1600w" sizes="(min-width: 52em) 17rem, 50vw"><source type="image/webp" srcset="/media/images/drone-angle-480.webp 480w, /media/images/drone-angle-960.webp 960w, /media/images/drone-angle-1600.webp 1600w" sizes="(min-width: 52em) 17rem, 50vw"><img src="/media/images/drone-angle-1600.jpg" alt="The quadrotor from a three-quarter angle, showing the depth of the carbon frame, the propeller cage, and the battery and electronics stacked in the centre." width="3024" height="4032" loading="lazy" decoding="async"></picture></div><div class="ps-clip"><video poster="/media/video/drone-flight-poster.jpg" width="1080" height="1920" muted loop playsinline preload="none" data-autoloop aria-label="The custom quadrotor lifting off from the floor of an indoor walkway and flying down it towards the camera, past timber and glass balconies."><source src="/media/video/drone-flight.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div></div><figcaption>Take-off and a pass down the corridor. Everything the mapping runs on is carried onboard.</figcaption></figure>
+    <div class="subsection-heading"><span>02.1</span><div><h3>What one frame gives the map</h3>
+      <p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic
+      labels. The mapping backend consumes those two outputs and nothing else.</p></div></div>
+    <div class="wipe-pair"><figure class="wipe" data-wipe><p class="wipe-title">Indoor, NYUDv2</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/mx-indoor-rgb-480.avif 480w, /media/images/mx-indoor-rgb-769.avif 769w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-indoor-rgb-480.webp 480w, /media/images/mx-indoor-rgb-769.webp 769w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-indoor-rgb-769.jpg" alt="An indoor living room: a person seated on a patterned sofa, a table lamp, a wooden side table, an armchair, and framed pictures on the wall." width="769" height="572" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/mx-indoor-depth-480.avif 480w, /media/images/mx-indoor-depth-769.avif 769w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-indoor-depth-480.webp 480w, /media/images/mx-indoor-depth-769.webp 769w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-indoor-depth-769.jpg" alt="Predicted depth for the same living room, as a smooth colour field where the near armchair and sofa stand out from the far wall." width="769" height="572" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/mx-indoor-semantics-480.avif 480w, /media/images/mx-indoor-semantics-769.avif 769w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-indoor-semantics-480.webp 480w, /media/images/mx-indoor-semantics-769.webp 769w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-indoor-semantics-769.jpg" alt="Predicted semantic labels for the same living room, with flat colour regions for sofa, chair, lamp, table, floor, wall, and pictures." width="769" height="572" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="0" step="1" data-wipe-input></label><figcaption>One indoor frame, three ways. M2H-MX predicts metric depth and semantic labels from the single RGB image on the left. The mapping backend consumes these two outputs. Drag the slider to blend between them.</figcaption></figure><figure class="wipe" data-wipe><p class="wipe-title">Outdoor, Cityscapes</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/mx-outdoor-rgb-480.avif 480w, /media/images/mx-outdoor-rgb-960.avif 960w, /media/images/mx-outdoor-rgb-1472.avif 1472w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-outdoor-rgb-480.webp 480w, /media/images/mx-outdoor-rgb-960.webp 960w, /media/images/mx-outdoor-rgb-1472.webp 1472w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-outdoor-rgb-1472.jpg" alt="A city street seen from a vehicle: parked and moving cars, a yellow DHL lorry, road markings, traffic signs, trees, and buildings." width="1472" height="573" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/mx-outdoor-depth-480.avif 480w, /media/images/mx-outdoor-depth-960.avif 960w, /media/images/mx-outdoor-depth-1472.avif 1472w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-outdoor-depth-480.webp 480w, /media/images/mx-outdoor-depth-960.webp 960w, /media/images/mx-outdoor-depth-1472.webp 1472w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-outdoor-depth-1472.jpg" alt="Predicted depth for the same street, with the road surface graded from near to far and vehicles resolved as separate depth bodies." width="1472" height="573" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/mx-outdoor-semantics-480.avif 480w, /media/images/mx-outdoor-semantics-960.avif 960w, /media/images/mx-outdoor-semantics-1472.avif 1472w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-outdoor-semantics-480.webp 480w, /media/images/mx-outdoor-semantics-960.webp 960w, /media/images/mx-outdoor-semantics-1472.webp 1472w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-outdoor-semantics-1472.jpg" alt="Predicted semantic labels for the same street, with distinct colours for road, cars, vegetation, buildings, poles, and traffic signs." width="1472" height="573" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="0" step="1" data-wipe-input></label><figcaption>The same model on a street scene. M2H-MX is built for indoor mapping and still reaches 82.28 mIoU on Cityscapes, 3.15 points above the strongest baseline compared. Drag the slider to blend between them.</figcaption></figure></div>
 
-<h2>Part I. Structuring the seen</h2>
-<p class="section-intro">Learned depth and semantics feed a visual-inertial estimator, and the map that comes out is layered: mesh, objects, places, rooms, building. Four papers, from showing it was possible to closing the loop back into the estimator.</p>
-<figure class="v-figure "><div class="v-wrap"><video poster="/media/video/itc-loop-poster.jpg" width="1280" height="570" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside."><source src="/media/video/itc-loop.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback is 10x real time. Live RGB, predicted semantics, and predicted depth run down the right.</figcaption></figure>
+    <div class="subsection-heading"><span>02.2</span><div><h3>The same predictions inside a running system</h3>
+      <p class="section-intro">The predictor is evaluated in the mapping pipeline, not only on
+      isolated benchmark frames.</p></div></div>
+    <div class="media-duo">
+      <div><p class="media-label">On a benchmark scene</p><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/icra26-poster.jpg" width="1600" height="686" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right."><source src="/media/video/icra26.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>The whole pipeline on ScanNet scene 0000. M2H-MX predicts depth and semantics from the image stream, Mono-Hydra++ consumes those predictions inside the visual-inertial odometry and the mapping backend, and the hierarchical scene graph is built in real time. Playback is 16x.</figcaption></figure></div>
+      <div><p class="media-label">On the drone, in a stairwell</p><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/stairs-zupt-poster.jpg" width="1200" height="706" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording on the drone&#x27;s Jetson. An rviz window shows predicted depth, tracked features, and predicted semantics down the left, and the estimated trajectory climbing a stairwell in the centre, labelled MOVING while the drone is in motion and ZUPT STATIONARY while it is still."><source src="/media/video/stairs-zupt.webm" type="video/webm"><source src="/media/video/stairs-zupt.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>Depth-backed visual-inertial odometry on the drone&#x27;s Jetson, walked down and back up the stairs at home. The label switches between MOVING and ZUPT STATIONARY: when the platform is still, zero-velocity updates hold the estimate in place instead of letting it drift. Predicted depth, tracked features, and predicted semantics are the panels on the left.</figcaption></figure></div>
+    </div>
 
-<h3>What one frame gives the map</h3>
-<p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic labels.
-The mapping backend consumes those two outputs and nothing else.</p>
-<figure class="wipe" data-wipe><p class="wipe-title">Indoor, NYUDv2</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/mx-indoor-rgb-480.avif 480w, /media/images/mx-indoor-rgb-769.avif 769w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-indoor-rgb-480.webp 480w, /media/images/mx-indoor-rgb-769.webp 769w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-indoor-rgb-769.jpg" alt="An indoor living room: a person seated on a patterned sofa, a table lamp, a wooden side table, an armchair, and framed pictures on the wall." width="769" height="572" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/mx-indoor-depth-480.avif 480w, /media/images/mx-indoor-depth-769.avif 769w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-indoor-depth-480.webp 480w, /media/images/mx-indoor-depth-769.webp 769w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-indoor-depth-769.jpg" alt="Predicted depth for the same living room, as a smooth colour field where the near armchair and sofa stand out from the far wall." width="769" height="572" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/mx-indoor-semantics-480.avif 480w, /media/images/mx-indoor-semantics-769.avif 769w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-indoor-semantics-480.webp 480w, /media/images/mx-indoor-semantics-769.webp 769w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-indoor-semantics-769.jpg" alt="Predicted semantic labels for the same living room, with flat colour regions for sofa, chair, lamp, table, floor, wall, and pictures." width="769" height="572" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="0" step="1" data-wipe-input></label><figcaption>One indoor frame, three ways. M2H-MX predicts metric depth and semantic labels from the single RGB image on the left. The mapping backend consumes these two outputs. Drag the slider to blend between them.</figcaption></figure>
-<figure class="wipe" data-wipe><p class="wipe-title">Outdoor, Cityscapes</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/mx-outdoor-rgb-480.avif 480w, /media/images/mx-outdoor-rgb-960.avif 960w, /media/images/mx-outdoor-rgb-1472.avif 1472w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-outdoor-rgb-480.webp 480w, /media/images/mx-outdoor-rgb-960.webp 960w, /media/images/mx-outdoor-rgb-1472.webp 1472w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-outdoor-rgb-1472.jpg" alt="A city street seen from a vehicle: parked and moving cars, a yellow DHL lorry, road markings, traffic signs, trees, and buildings." width="1472" height="573" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/mx-outdoor-depth-480.avif 480w, /media/images/mx-outdoor-depth-960.avif 960w, /media/images/mx-outdoor-depth-1472.avif 1472w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-outdoor-depth-480.webp 480w, /media/images/mx-outdoor-depth-960.webp 960w, /media/images/mx-outdoor-depth-1472.webp 1472w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-outdoor-depth-1472.jpg" alt="Predicted depth for the same street, with the road surface graded from near to far and vehicles resolved as separate depth bodies." width="1472" height="573" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/mx-outdoor-semantics-480.avif 480w, /media/images/mx-outdoor-semantics-960.avif 960w, /media/images/mx-outdoor-semantics-1472.avif 1472w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-outdoor-semantics-480.webp 480w, /media/images/mx-outdoor-semantics-960.webp 960w, /media/images/mx-outdoor-semantics-1472.webp 1472w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-outdoor-semantics-1472.jpg" alt="Predicted semantic labels for the same street, with distinct colours for road, cars, vegetation, buildings, poles, and traffic signs." width="1472" height="573" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="0" step="1" data-wipe-input></label><figcaption>The same model on a street scene. M2H-MX is built for indoor mapping and still reaches 82.28 mIoU on Cityscapes, 3.15 points above the strongest baseline compared. Drag the slider to blend between them.</figcaption></figure>
+    <div class="subsection-heading"><span>02.3</span><div><h3>What changed over four years</h3>
+      <p class="section-intro">Mean mapping error on the second floor of the ITC building,
+      measured against a LiDAR ground truth. The embedded point in amber is the model running on
+      the drone at reduced resolution, a different trade-off rather than a regression.</p></div></div>
 
-<h3>The same predictions inside a running system</h3>
-<p class="media-label">On a benchmark scene</p>
-<figure class="v-figure "><div class="v-wrap"><video poster="/media/video/icra26-poster.jpg" width="1600" height="686" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right."><source src="/media/video/icra26.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>The whole pipeline on ScanNet scene 0000. M2H-MX predicts depth and semantics from the image stream, Mono-Hydra++ consumes those predictions inside the visual-inertial odometry and the mapping backend, and the hierarchical scene graph is built in real time. Playback is 16x.</figcaption></figure>
-<p class="media-label">On the drone, in a stairwell</p>
-<figure class="v-figure "><div class="v-wrap"><video poster="/media/video/stairs-zupt-poster.jpg" width="1200" height="706" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording on the drone&#x27;s Jetson. An rviz window shows predicted depth, tracked features, and predicted semantics down the left, and the estimated trajectory climbing a stairwell in the centre, labelled MOVING while the drone is in motion and ZUPT STATIONARY while it is still."><source src="/media/video/stairs-zupt.webm" type="video/webm"><source src="/media/video/stairs-zupt.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>Depth-backed visual-inertial odometry on the drone&#x27;s Jetson, walked down and back up the stairs at home. The label switches between MOVING and ZUPT STATIONARY: when the platform is still, zero-velocity updates hold the estimate in place instead of letting it drift. Predicted depth, tracked features, and predicted semantics are the panels on the left.</figcaption></figure>
-
-<h3>What changed over four years</h3>
-<p class="section-intro">Mean mapping error on the second floor of the ITC building, measured
-against a LiDAR ground truth. The embedded point in amber is the model running on the drone at
-reduced resolution, which is a different trade-off rather than a regression.</p>
-
-<figure class="descent">
-  <div class="descent-figure"><svg viewBox="0 0 720 300" role="img" aria-labelledby="descent-title descent-desc">
+    <figure class="descent">
+      <div class="descent-head"><span>System progression</span><span>mean error / metres</span></div>
+      <div class="descent-figure"><svg viewBox="0 0 720 300" role="img" aria-labelledby="descent-title descent-desc">
 <title id="descent-title">Mean mapping error on the ITC building second floor, across four system generations</title>
 <desc id="descent-desc">Error falls from 0.19 metres for Mono-Hydra in 2023 to 0.08 metres for M2H-MX-L in 2026. A separate embedded operating point on the Jetson Orin NX measures 0.22 metres at reduced input resolution.</desc>
 <line class="axis" x1="78" y1="193.9" x2="640" y2="193.9" stroke-dasharray="2 4" opacity="0.6"/>
@@ -171,24 +219,36 @@ reduced resolution, which is a different trade-off rather than a regression.</p>
 <g class="pt"><a href="/publications/m2h-mx/" aria-label="M2H-MX-L 2026, 0.08 m mean error"><circle class="dot" cx="590.0" cy="168.7" r="5"/><text class="plabel" x="590.0" y="154.7" text-anchor="middle" font-size="12">0.08 m</text><text x="590.0" y="256.0" text-anchor="middle" font-size="11">M2H-MX-L 2026</text></a></g>
 <g class="pt"><path class="dot-embedded" d="M 634 44.833333333333314 L 640 50.833333333333314 L 634 56.833333333333314 L 628 50.833333333333314 Z"/><text class="plabel" x="634" y="36.8" text-anchor="middle" font-size="12" fill="var(--signal)">0.22 m</text><text x="634" y="256.0" text-anchor="middle" font-size="11">embedded</text></g>
 </svg></div>
-  <div class="legend">
-    <span><i class="k-main"></i> laptop or desktop GPU</span>
-    <span><i class="k-emb"></i> Jetson Orin NX, embedded</span>
+      <div class="legend">
+        <span><i class="k-main"></i> laptop or desktop GPU</span>
+        <span><i class="k-emb"></i> Jetson Orin NX, embedded</span>
+      </div>
+      <figcaption>Hardware and input resolution change across the points, so this is a system
+        progression rather than a controlled ablation. <a href="/research/">The full table, and
+        the argument behind it</a>.</figcaption>
+    </figure>
   </div>
-  <figcaption>Hardware and input resolution change across the points, so this is a system
-    progression rather than a controlled ablation. <a href="/research/">The full table, and the
-    argument behind it</a>.</figcaption>
-</figure>
+</section>
 
-<h2>Part II. Exploring the unseen
-  <span class="tag tag-progress">In progress</span></h2>
-<p class="section-intro">The agent predicts what each candidate route would produce, in the quantities the decision uses: new area per second, whether it opens a room, how the structure changes, whether it fails. Not pixels. An ensemble separates genuine randomness from the model&#x27;s own ignorance, and the agent abstains when the second is high.</p>
-<figure class="v-figure "><div class="v-wrap"><video poster="/media/video/scope-explorer-poster.jpg" width="1100" height="892" muted loop playsinline preload="none" data-autoloop aria-label="Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment."><source src="/media/video/scope-explorer.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>Autonomous exploration in simulation. The robot holds an occupancy map it has built itself and commits to one certified route at a time, so the map fills in region by region rather than by wandering. 60 second excerpt.</figcaption></figure>
-<p class="section-intro"><a href="/projects/learned-exploration/">How the exploration system is
-put together</a>.</p>
+<section class="home-section research-chapter research-chapter-next">
+  <div class="section-index"><span>03</span><span>Next</span></div>
+  <div class="section-content">
+    <div class="chapter-heading">
+      <div><p class="eyebrow">Part II &middot; work in progress</p>
+      <h2>Exploring the unseen <span class="tag tag-progress">In progress</span></h2></div>
+      <p class="section-intro">The agent predicts what each candidate route would produce, in the quantities the decision uses: new area per second, whether it opens a room, how the structure changes, whether it fails. Not pixels. An ensemble separates genuine randomness from the model&#x27;s own ignorance, and the agent abstains when the second is high.</p>
+    </div>
+    <div class="media-feature"><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/scope-explorer-poster.jpg" width="1100" height="892" muted loop playsinline preload="none" data-autoloop aria-label="Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment."><source src="/media/video/scope-explorer.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>Autonomous exploration in simulation. The robot holds an occupancy map it has built itself and commits to one certified route at a time, so the map fills in region by region rather than by wandering. 60 second excerpt.</figcaption></figure></div>
+    <p class="section-intro"><a href="/projects/learned-exploration/">How the exploration system
+    is put together</a>.</p>
+  </div>
+</section>
 
-<h2>Selected work</h2>
-<ul class="cards">
+<section class="home-section home-section-work">
+  <div class="section-index"><span>04</span><span>Selected</span></div>
+  <div class="section-content">
+    <div class="section-heading"><p class="eyebrow">Published systems</p><h2>Selected work</h2></div>
+    <ul class="cards">
       <li class="card">
         <p class="eyebrow">ISPRS J. Photogramm. Remote Sens.</p>
         <h3><a href="/publications/mono-hydra-plus/">Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping</a></h3>
@@ -213,21 +273,29 @@ put together</a>.</p>
         <p>A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR.</p>
         <p class="card-meta"><span>Published, ISPRS Annals 2023</span></p>
       </li></ul>
+  </div>
+</section>
 
-<p class="onward"><a href="/research/">Research</a> &middot; <a href="/publications/">Publications</a> &middot; <a href="/projects/">Projects</a> &middot; <a href="/cv/">CV</a> &middot; <a href="/contact/">Contact</a></p>
+<nav class="routes" aria-label="Explore the portfolio"><a class="route" href="/research/"><span>Research</span><small>The full argument, the two parts, and the numbers behind them.</small></a><a class="route" href="/publications/"><span>Publications</span><small>Ten papers, from the 2017 undergraduate work to the journal manuscript under review.</small></a><a class="route" href="/projects/"><span>Projects</span><small>The systems themselves, with links to every repository.</small></a><a class="route" href="/cv/"><span>CV</span><small>Where I have worked, and what I did there.</small></a><a class="route" href="/contact/"><span>Contact</span><small>I am available from August 2026 and open to collaboration.</small></a></nav>
 
 </div>
 </main>
 <footer class="foot">
-  <div class="wrap">
-    <ul>
-      <li><a rel="me" href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
-      <li><a rel="me" href="https://github.com/BavanthaU">GitHub</a></li>
-      <li><a rel="me" href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
-      <li><a rel="me" href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
-      <li><a href="/publications/bibtex/">BibTeX</a></li>
-    </ul>
-    <p>Bavantha Udugama. ITC, University of Twente, Enschede.</p>
+  <div class="wrap foot-inner">
+    <div class="foot-signoff">
+      <span class="wordmark-mark" aria-hidden="true">BU</span>
+      <p><strong>Bavantha Udugama</strong><br>monocular spatial perception and robot exploration.</p>
+    </div>
+    <div>
+      <ul>
+        <li><a rel="me" href="https://scholar.google.com/citations?user=qQ5IPg4AAAAJ">Google Scholar</a></li>
+        <li><a rel="me" href="https://github.com/BavanthaU">GitHub</a></li>
+        <li><a rel="me" href="https://www.linkedin.com/in/bavantha-udugama/">LinkedIn</a></li>
+        <li><a rel="me" href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
+        <li><a href="/publications/bibtex/">BibTeX</a></li>
+      </ul>
+      <p>ITC, University of Twente, Enschede.</p>
+    </div>
   </div>
 </footer>
 <script src="/assets/media.js" defer></script>

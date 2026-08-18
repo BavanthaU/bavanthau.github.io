@@ -48,7 +48,8 @@ list and home page cards update themselves.
   clear of IEEE and Elsevier hosting rules.
 - **Limitations are mandatory** on every publication page.
 - **All content is in the served HTML.** Nothing that matters for search is added by JavaScript.
-  There is no JavaScript on the site at all.
+  A small progressive-enhancement script handles media controls, comparison sliders, and the
+  explicit light/dark theme choice; the site remains readable and navigable without it.
 
 ## Not deployed
 
@@ -56,10 +57,7 @@ list and home page cards update themselves.
 and never published. `_source/AUDIT.md` records what exists, what is missing, and every
 conflict between sources. `_source/DECISIONS.md` records how each was resolved.
 
-## Still to do
+## Current state
 
-- Media pipeline (`tools/media.sh`): video transcoding, poster frames, responsive images.
-- Per-page OpenGraph images at 1200x630.
-- Gate check scripts in `tools/check/` and a GitHub Actions deploy workflow.
-- Assets listed as gaps in `_source/AUDIT.md`: drone photograph, scene-graph overlay still,
-  portrait, public CV PDF.
+Responsive media, local video posters, per-page OpenGraph cards, structured data, and the complete
+visual system are implemented. See `HANDOVER.md` for remaining factual and off-site launch items.

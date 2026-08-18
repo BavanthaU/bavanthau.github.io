@@ -353,7 +353,7 @@ def _pub_figures():
                            + picture("m2h-mx-ctm-msca"),
         "m2h":             wipe() + youtube_facade("X2w_AqGwkaY",
                                "Mono Hydra with M2H for Monocular 3D Scene Graph Construction",
-                               "https://i.ytimg.com/vi/X2w_AqGwkaY/hqdefault.jpg"),
+                               MEDIA["videos"]["itc-loop"]["poster"]),
         "mono-hydra":      picture("scenegraph-system-design"),
     }
 
@@ -414,7 +414,8 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
     current = ' aria-current="page"'
     nav_bits = []
     for n in SITE["nav"]:
-        mark = current if n["href"].strip("/") == path else ""
+        nav_path = n["href"].strip("/")
+        mark = current if path == nav_path or path.startswith(nav_path + "/") else ""
         nav_bits.append(f'<a href="{e(n["href"])}"{mark}>{e(n["label"])}</a>')
     nav = "".join(nav_bits)
     def ver_value(v):
@@ -440,12 +441,15 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
         nodes.append(bc)
     ld = "\n".join(jsonld(o) for o in nodes)
     og = ORIGIN + og_for(path)
+    section = path.split("/", 1)[0] if path else "home"
+    page_class = "page page-" + re.sub(r"[^a-z0-9-]", "-", section.lower())
 
     out = f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
 <title>{e(title)}</title>
 <meta name="description" content="{e(description)}">
 <link rel="canonical" href="{e(canonical)}">{vtags}
@@ -464,31 +468,45 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
 <meta name="twitter:description" content="{e(description)}">
 <link rel="stylesheet" href="{depth_prefix}assets/site.css">
 <link rel="icon" href="{depth_prefix}assets/favicon.svg" type="image/svg+xml">
+<script>try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 {ld}
 </head>
-<body>
+<body class="{page_class}">
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-inner">
-    <a class="wordmark" href="/">{e(NAME)}</a>
+    <a class="wordmark" href="/" aria-label="{e(NAME)}, home">
+      <span class="wordmark-mark" aria-hidden="true">BU</span>
+      <span class="wordmark-name">{e(NAME)}</span>
+    </a>
     <nav class="nav" aria-label="Primary">{nav}</nav>
+    <button class="theme-toggle" type="button" data-theme-toggle hidden>
+      <span class="theme-toggle-dot" aria-hidden="true"></span>
+      <span data-theme-label>Theme</span>
+    </button>
   </div>
 </header>
-<main id="main">
-<div class="wrap">
+<main id="main" class="site-main">
+<div class="wrap page-content">
 {body}
 </div>
 </main>
 <footer class="foot">
-  <div class="wrap">
-    <ul>
-      <li><a rel="me" href="{e(SITE['links']['googleScholar'])}">Google Scholar</a></li>
-      <li><a rel="me" href="{e(SITE['links']['github'])}">GitHub</a></li>
-      <li><a rel="me" href="{e(SITE['links']['linkedin'])}">LinkedIn</a></li>
-      <li><a rel="me" href="{e(SITE['links']['utStaffPage'])}">University of Twente</a></li>
-      <li><a href="/publications/bibtex/">BibTeX</a></li>
-    </ul>
-    <p>{e(NAME)}. {e(SITE['identity']['affiliation']['shortName'])}, Enschede.</p>
+  <div class="wrap foot-inner">
+    <div class="foot-signoff">
+      <span class="wordmark-mark" aria-hidden="true">BU</span>
+      <p><strong>{e(NAME)}</strong><br>{e(SITE['identity']['field'])}.</p>
+    </div>
+    <div>
+      <ul>
+        <li><a rel="me" href="{e(SITE['links']['googleScholar'])}">Google Scholar</a></li>
+        <li><a rel="me" href="{e(SITE['links']['github'])}">GitHub</a></li>
+        <li><a rel="me" href="{e(SITE['links']['linkedin'])}">LinkedIn</a></li>
+        <li><a rel="me" href="{e(SITE['links']['utStaffPage'])}">University of Twente</a></li>
+        <li><a href="/publications/bibtex/">BibTeX</a></li>
+      </ul>
+      <p>{e(SITE['identity']['affiliation']['shortName'])}, Enschede.</p>
+    </div>
   </div>
 </footer>
 <script src="/assets/media.js" defer></script>
@@ -587,7 +605,9 @@ def build_home():
     nxt = SITE["nextSteps"]
     prog = SITE["headlineProgression"]
 
-    portrait = picture("portrait", cls="portrait", sizes="6.5rem", lazy=False, caption=False)
+    portrait = picture("portrait", cls="portrait", sizes="5rem", lazy=False, caption=False)
+    hero_map = picture("scene-graph-itc", cls="hero-map", sizes="(min-width: 64em) 36rem, 92vw",
+                       lazy=False, caption=False)
 
     onboard_line = ("Perception, odometry, mapping, and scene graph construction all run on the "
                     "drone. The rate above is the measured perception throughput.")
@@ -602,8 +622,9 @@ def build_home():
         f'<dd><span class="stat-label">{e(st["label"])}</span>'
         f'<span class="stat-detail">{e(st["detail"])}</span></dd></div>'
         for st in SITE["stats"])
-    next_links = " &middot; ".join(
-        f'<a href="{e(i["href"])}">{e(i["label"])}</a>' for i in nxt["items"])
+    next_links = "".join(
+        f'<a class="route" href="{e(i["href"])}"><span>{e(i["label"])}</span>'
+        f'<small>{e(i["text"])}</small></a>' for i in nxt["items"])
 
     pubs = PUBS["publications"]
     cards = "".join(f"""
@@ -616,75 +637,128 @@ def build_home():
 
     body = f"""
 <header class="hero">
-  <div class="hero-id">
-    {portrait}
-    <div>
-      <h1>{e(NAME)}</h1>
-      <p class="affil mono">{e(SITE['identity']['role'])} &middot;
-        {e(SITE['identity']['affiliation']['shortName'])}</p>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="hero-kicker"><span aria-hidden="true"></span> Monocular spatial perception</p>
+      <h1><span class="hero-name">{e(NAME)}</span>
+        <span class="hero-pitch">One camera.<br>A map robots can reason with.</span></h1>
+      <p class="lede">{e(arc['statement'])}</p>
+      <div class="hero-actions">
+        <a class="action action-primary" href="/research/">Explore the research</a>
+        <a class="action" href="/cv/">View CV</a>
+      </div>
+      <div class="hero-id">
+        {portrait}
+        <p><strong>{e(SITE['identity']['role'])}</strong><br>
+          {e(SITE['identity']['affiliation']['shortName'])}</p>
+      </div>
+    </div>
+    <div class="hero-stage">
+      <div class="hero-stage-head"><span>Live system output</span><span>M2H-MX-L</span></div>
+      {hero_map}
+      <div class="hero-layers" aria-label="Scene graph layers">
+        <span>mesh</span><span>objects</span><span>places</span><span>rooms</span><span>building</span>
+      </div>
+      <div class="hero-stage-foot"><span>RGB + IMU</span><span>hierarchical 3D scene graph</span></div>
     </div>
   </div>
-  <p class="lede">{e(arc['statement'])}</p>
+
+  <section class="stats" aria-label="Key figures">
+    <dl>{stat_items}</dl>
+    <p class="stats-note">{e(SITE['statsFootnote'])}</p>
+  </section>
 </header>
 
-<section class="stats" aria-label="Key figures">
-  <dl>{stat_items}</dl>
-  <p class="stats-note">{e(SITE['statsFootnote'])}</p>
+<section class="home-section home-section-intro">
+  <div class="section-index"><span>00</span><span>Trajectory</span></div>
+  <div class="section-content">
+    <div class="prose intro">{intro_paras}</div>
+    <div class="section-heading">
+      <p class="eyebrow">The problem</p>
+      <h2>{e(story['heading'])}</h2>
+    </div>
+    <div class="prose">{paras}</div>
+  </div>
 </section>
 
-<div class="prose intro">{intro_paras}</div>
-
-<h2>{e(story['heading'])}</h2>
-<div class="prose">{paras}</div>
-
-<h2>The platform</h2>
-<div class="prose"><p>A custom quadrotor with a carbon fibre frame and caged propellers, so it can
-fly close to walls indoors. Everything the mapping needs is carried onboard.</p></div>
-{platform_showcase("drone-side", ["drone-top", "drone-angle"], "drone-flight")}
-
-<h2>{e(arc['actOne']['label'])}. {e(arc['actOne']['title'])}</h2>
-<p class="section-intro">{e(arc['actOne']['homeLine'])}</p>
-{video("itc-loop")}
-
-<h3>What one frame gives the map</h3>
-<p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic labels.
-The mapping backend consumes those two outputs and nothing else.</p>
-{wipe("m2h-mx-indoor")}
-{wipe("m2h-mx-outdoor")}
-
-<h3>The same predictions inside a running system</h3>
-<p class="media-label">On a benchmark scene</p>
-{video("icra26")}
-<p class="media-label">On the drone, in a stairwell</p>
-{video("stairs-zupt")}
-
-<h3>What changed over four years</h3>
-<p class="section-intro">Mean mapping error on the second floor of the ITC building, measured
-against a LiDAR ground truth. The embedded point in amber is the model running on the drone at
-reduced resolution, which is a different trade-off rather than a regression.</p>
-
-<figure class="descent">
-  <div class="descent-figure">{descent_svg()}</div>
-  <div class="legend">
-    <span><i class="k-main"></i> laptop or desktop GPU</span>
-    <span><i class="k-emb"></i> Jetson Orin NX, embedded</span>
+<section class="home-section home-section-platform">
+  <div class="section-index"><span>01</span><span>Platform</span></div>
+  <div class="section-content">
+    <div class="section-heading">
+      <p class="eyebrow">Built for the payload limit</p>
+      <h2>The platform</h2>
+      <p class="section-intro">A custom quadrotor with a carbon fibre frame and caged propellers,
+      so it can fly close to walls indoors. Everything the mapping needs is carried onboard.</p>
+    </div>
+    {platform_showcase("drone-side", ["drone-top", "drone-angle"], "drone-flight")}
   </div>
-  <figcaption>Hardware and input resolution change across the points, so this is a system
-    progression rather than a controlled ablation. <a href="/research/">The full table, and the
-    argument behind it</a>.</figcaption>
-</figure>
+</section>
 
-<h2>{e(arc['actTwo']['label'])}. {e(arc['actTwo']['title'])}
-  <span class="tag tag-progress">In progress</span></h2>
-<p class="section-intro">{e(arc['actTwo']['homeLine'])}</p>
-{video("scope-explorer")}
-<p class="section-intro"><a href="/projects/learned-exploration/">How the exploration system is
-put together</a>.</p>
+<section class="home-section research-chapter">
+  <div class="section-index"><span>02</span><span>Research</span></div>
+  <div class="section-content">
+    <div class="chapter-heading">
+      <div><p class="eyebrow">{e(arc['actOne']['label'])} &middot; complete</p>
+      <h2>{e(arc['actOne']['title'])}</h2></div>
+      <p class="section-intro">{e(arc['actOne']['homeLine'])}</p>
+    </div>
+    <div class="media-feature">{video("itc-loop")}</div>
 
-<h2>Selected work</h2>
-<ul class="cards">{cards}</ul>
+    <div class="subsection-heading"><span>02.1</span><div><h3>What one frame gives the map</h3>
+      <p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic
+      labels. The mapping backend consumes those two outputs and nothing else.</p></div></div>
+    <div class="wipe-pair">{wipe("m2h-mx-indoor")}{wipe("m2h-mx-outdoor")}</div>
 
-<p class="onward">{next_links}</p>
+    <div class="subsection-heading"><span>02.2</span><div><h3>The same predictions inside a running system</h3>
+      <p class="section-intro">The predictor is evaluated in the mapping pipeline, not only on
+      isolated benchmark frames.</p></div></div>
+    <div class="media-duo">
+      <div><p class="media-label">On a benchmark scene</p>{video("icra26")}</div>
+      <div><p class="media-label">On the drone, in a stairwell</p>{video("stairs-zupt")}</div>
+    </div>
+
+    <div class="subsection-heading"><span>02.3</span><div><h3>What changed over four years</h3>
+      <p class="section-intro">Mean mapping error on the second floor of the ITC building,
+      measured against a LiDAR ground truth. The embedded point in amber is the model running on
+      the drone at reduced resolution, a different trade-off rather than a regression.</p></div></div>
+
+    <figure class="descent">
+      <div class="descent-head"><span>System progression</span><span>mean error / metres</span></div>
+      <div class="descent-figure">{descent_svg()}</div>
+      <div class="legend">
+        <span><i class="k-main"></i> laptop or desktop GPU</span>
+        <span><i class="k-emb"></i> Jetson Orin NX, embedded</span>
+      </div>
+      <figcaption>Hardware and input resolution change across the points, so this is a system
+        progression rather than a controlled ablation. <a href="/research/">The full table, and
+        the argument behind it</a>.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="home-section research-chapter research-chapter-next">
+  <div class="section-index"><span>03</span><span>Next</span></div>
+  <div class="section-content">
+    <div class="chapter-heading">
+      <div><p class="eyebrow">{e(arc['actTwo']['label'])} &middot; work in progress</p>
+      <h2>{e(arc['actTwo']['title'])} <span class="tag tag-progress">In progress</span></h2></div>
+      <p class="section-intro">{e(arc['actTwo']['homeLine'])}</p>
+    </div>
+    <div class="media-feature">{video("scope-explorer")}</div>
+    <p class="section-intro"><a href="/projects/learned-exploration/">How the exploration system
+    is put together</a>.</p>
+  </div>
+</section>
+
+<section class="home-section home-section-work">
+  <div class="section-index"><span>04</span><span>Selected</span></div>
+  <div class="section-content">
+    <div class="section-heading"><p class="eyebrow">Published systems</p><h2>Selected work</h2></div>
+    <ul class="cards">{cards}</ul>
+  </div>
+</section>
+
+<nav class="routes" aria-label="Explore the portfolio">{next_links}</nav>
 """
     shell("", f"{NAME} | 3D scene graphs from a single camera",
           "Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, "

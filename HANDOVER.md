@@ -3,8 +3,8 @@
 Personal research site for Bavantha Udugama. Live at <https://bavanthau.github.io>.
 
 This document is for whoever picks the work up next. It covers what exists, the rules the content
-holds itself to, how to change things, and what is still open. The immediate next task is a
-professional visual design pass; the brief for that is at the end.
+holds itself to, how to change things, and what is still open. The professional visual design pass
+described at the end was completed in August 2026; `DESIGN.md` now documents the implemented system.
 
 ---
 
@@ -178,7 +178,10 @@ all variants, but only the upstream pages can actually merge them.
 
 ---
 
-## 6. Brief: the professional design pass
+## 6. Original brief: the professional design pass
+
+**Status: completed in August 2026.** The brief is retained below as the rationale for the pass.
+The current tokens, components, interaction rules, and social-card design are in `DESIGN.md`.
 
 The content, structure, and mechanics are settled. What the site does not yet have is a considered
 visual identity. Current styling is deliberate but minimal, and was written to be replaced.
