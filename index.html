@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bavantha Udugama | Monocular spatial perception for robots</title>
+<title>Bavantha Udugama | 3D scene graphs from a single camera</title>
 <meta name="description" content="Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, with no depth sensor. PhD candidate at ITC, University of Twente.">
 <link rel="canonical" href="https://bavanthau.github.io/">
 <meta name="google-site-verification" content="LWcJVt2Oa5A7B_dpxRGxcpkIGy-YoHjrJKUzmU_0QO4">
 <meta property="og:type" content="profile">
 <meta property="og:site_name" content="Bavantha Udugama">
-<meta property="og:title" content="Bavantha Udugama | Monocular spatial perception for robots">
+<meta property="og:title" content="Bavantha Udugama | 3D scene graphs from a single camera">
 <meta property="og:description" content="Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, with no depth sensor. PhD candidate at ITC, University of Twente.">
 <meta property="og:url" content="https://bavanthau.github.io/">
 <meta property="og:image" content="https://bavanthau.github.io/media/og/home.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Bavantha Udugama | Monocular spatial perception for robots">
+<meta property="og:image:alt" content="Bavantha Udugama | 3D scene graphs from a single camera">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/home.png">
-<meta name="twitter:title" content="Bavantha Udugama | Monocular spatial perception for robots">
+<meta name="twitter:title" content="Bavantha Udugama | 3D scene graphs from a single camera">
 <meta name="twitter:description" content="Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, with no depth sensor. PhD candidate at ITC, University of Twente.">
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -105,9 +105,8 @@
   <div>
     <h1>Bavantha Udugama</h1>
     <p class="affil mono">PhD candidate &middot;
-      ITC, University of Twente &middot;
-      published as U.V.B.L. Udugama</p>
-    <p class="lede">A monocular camera is passive, light, cheap, and geometrically ambiguous. This work makes one build a hierarchical map of a building in real time, and then decide where to look next.</p>
+      ITC, University of Twente</p>
+    <p class="lede">I build perception systems for robots. For the last four years that has meant making one camera do the work the field assumed needed a depth sensor.</p>
   </div>
 
   <aside class="rail" aria-labelledby="rail-h">
@@ -122,10 +121,12 @@
   </aside>
 </div>
 
+<div class="intro"><p>That work is a PhD at ITC in Enschede, finishing in 2026. Before it I shipped robots rather than papers. I joined a Dubai startup as its first robotics engineer and within a year was leading a small team deploying more than 30 humanoid robots across Expo 2020, hospitals, and reception desks. Debugging a navigation stack in front of a paying customer is a good way to find out which parts of a system are real.</p><p>I started at Peradeniya, building a reconnaissance robot that had to map a space nobody had surveyed. That is still the question I work on, now with a learned model and one camera instead of a laser scanner.</p></div>
+
 <figure class="v-figure "><div class="v-wrap"><video poster="/media/video/itc-loop-poster.jpg" width="1280" height="570" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside."><source src="/media/video/itc-loop.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback is 10x real time. Live RGB, predicted semantics, and predicted depth run down the right.</figcaption></figure>
 
-<h2>The problem</h2>
-<p>An aerial robot inspecting a bridge, counting warehouse stock, or entering a building after an incident has to do three things: understand the space, organise what it sees into something it can act on, and work out where to look next.</p><p>The second one is where most systems stop short. A point cloud tells a robot where surfaces are. It does not tell it that this is a room, that is a doorway, and there is a fire extinguisher on the wall. Planning, search, and instructions all need objects, places, and rooms, not raw geometry.</p><p>The sensor here is one camera and an IMU. Passive, light, inexpensive, information-rich, and geometrically ambiguous: a single image cannot tell you scale. Every hard problem in this work follows from choosing not to carry a depth sensor, and the reason to accept that is payload. What a small drone can lift decides what it can do, and for how long.</p>
+<h2>What I work on</h2>
+<p>A robot inspecting a bridge, counting warehouse stock, or entering a building after an incident needs more than a point cloud. A point cloud says where surfaces are. It does not say that this is a room, that is a doorway, and there is a fire extinguisher on the wall. Planning, search, and spoken instructions all need objects, places, and rooms.</p><p>The sensor is one camera and an IMU: passive, light, inexpensive, information-rich, and geometrically ambiguous, because a single image cannot tell you scale. Every hard problem here follows from choosing not to carry a depth sensor, and the reason to accept that is payload. What a small drone can lift decides what it can do, and for how long.</p>
 
 <h2>Part I. Structuring the seen</h2>
 <p class="section-intro">Learned depth and semantics feed a visual-inertial estimator, and the map that comes out is layered: mesh, objects, places, rooms, building. Four papers, from showing it was possible to closing the loop back into the estimator.</p>
@@ -209,7 +210,9 @@ regression.</p>
         <p>A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR.</p>
         <p class="card-meta"><span>Published, ISPRS Annals 2023</span></p>
       </li></ul>
-<p><a href="/publications/">All publications</a> &middot; <a href="/projects/">Projects and code</a></p>
+
+<h2>Where to go next</h2>
+<ul class="cards cards-next"><li class="card"><h3><a href="/research/">Research</a></h3><p>The full argument, the two parts, and the numbers behind them.</p></li><li class="card"><h3><a href="/publications/">Publications</a></h3><p>Ten papers, from the 2017 undergraduate work to the journal manuscript under review.</p></li><li class="card"><h3><a href="/projects/">Projects</a></h3><p>The systems themselves, with links to every repository.</p></li><li class="card"><h3><a href="/cv/">CV</a></h3><p>Where I have worked, and what I did there.</p></li><li class="card"><h3><a href="/contact/">Contact</a></h3><p>I am available from August 2026 and open to collaboration.</p></li></ul>
 
 </div>
 </main>
@@ -222,7 +225,7 @@ regression.</p>
       <li><a rel="me" href="https://research.utwente.nl/en/persons/bavantha-udugama">University of Twente</a></li>
       <li><a href="/publications/bibtex/">BibTeX</a></li>
     </ul>
-    <p>Bavantha Udugama, published as U.V.B.L. Udugama. ITC, University of Twente.</p>
+    <p>Bavantha Udugama. ITC, University of Twente, Enschede.</p>
   </div>
 </footer>
 <script src="/assets/media.js" defer></script>

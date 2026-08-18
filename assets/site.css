@@ -814,3 +814,16 @@ h2 { margin-top: 3.75rem; }
 .wipe + .wipe { margin-top: 2.75rem; }
 .wipe.is-interactive .wipe-stage { max-width: 52rem; }
 .wipe.is-interactive .wipe-control { max-width: 52rem; }
+
+/* introduction: slightly larger than body, this is the first thing read */
+.intro { margin: 0 0 3rem; }
+.intro p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  max-width: 60ch;
+}
+.intro p:first-child { color: var(--ink); }
+
+.cards-next .card h3 { margin-top: 0; }
+.cards-next .card p { margin-bottom: 0; }
+@media (min-width: 44em) { .cards-next { grid-template-columns: 1fr 1fr 1fr; } }

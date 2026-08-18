@@ -96,9 +96,9 @@ def card(slug, kicker, title, meta, figure_key=None, accent=ACCENT):
 def main():
     made = []
     made.append(card("home", "PhD candidate, ITC University of Twente",
-                     "Monocular spatial perception for robots that move",
-                     "3D scene graphs from a single camera and IMU. 0.19 m to 0.08 m mean mapping "
-                     "error across four system generations.",
+                     "3D scene graphs from a single camera",
+                     "Real-time hierarchical mapping from monocular RGB and an IMU, with no depth "
+                     "sensor. 0.19 m to 0.08 m mean error across four generations.",
                      "scene-graph-itc"))
 
     made.append(card("research", "Research",
@@ -117,8 +117,9 @@ def main():
                          accent=SIGNAL if p["status"] == "under review" else ACCENT))
 
     made.append(card("publications", "Publications",
-                     "Peer-reviewed work on monocular 3D scene graphs",
-                     "Mono-Hydra, M2H, M2H-MX, and Mono-Hydra++. Published as U.V.B.L. Udugama."))
+                     "Ten papers on mapping and exploration",
+                     "Mono-Hydra, M2H, M2H-MX, Mono-Hydra++, three review preprints, and the "
+                     "undergraduate work from Peradeniya."))
 
     pfigs = {"mono-hydra-plus": "scene-graph-itc", "m2h-mx": "m2h-mx-architecture",
              "m2h": "wipe-depth", "mono-hydra": "scenegraph-system-design",
@@ -134,8 +135,9 @@ def main():
                      "Mono-Hydra, M2H, M2H-MX, Mono-Hydra++, and ongoing exploration work."))
     made.append(card("cv", "Curriculum vitae", "Bavantha Udugama",
                      "Robotics perception engineer and PhD candidate. Available from August 2026."))
-    made.append(card("contact", "Contact", "Get in touch",
-                     "Collaboration on SLAM, spatial perception, and edge deployment."))
+    made.append(card("contact", "Contact", "Bavantha Udugama",
+                     "Available from August 2026. Open to work on SLAM, spatial perception, and "
+                     "edge deployment."))
 
     total = sum(p.stat().st_size for p in made)
     print(f"wrote {len(made)} cards, {total/1024:.0f} KB total, into media/og/")

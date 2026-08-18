@@ -395,7 +395,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
       <li><a rel="me" href="{e(SITE['links']['utStaffPage'])}">University of Twente</a></li>
       <li><a href="/publications/bibtex/">BibTeX</a></li>
     </ul>
-    <p>{e(NAME)}, published as {e(PUBNAME)}. {e(SITE['identity']['affiliation']['shortName'])}.</p>
+    <p>{e(NAME)}. {e(SITE['identity']['affiliation']['shortName'])}, Enschede.</p>
   </div>
 </footer>
 <script src="/assets/media.js" defer></script>
@@ -490,9 +490,15 @@ def build_home():
     v = d["verified"]
     arc = SITE["arc"]
     story = SITE["story"]
+    intro = SITE["intro"]
+    nxt = SITE["nextSteps"]
     prog = SITE["headlineProgression"]
 
     paras = "".join(f"<p>{e(x)}</p>" for x in story["paragraphs"])
+    intro_paras = "".join(f"<p>{e(x)}</p>" for x in intro["paragraphs"])
+    next_items = "".join(
+        f'<li class="card"><h3><a href="{e(i["href"])}">{e(i["label"])}</a></h3>'
+        f'<p>{e(i["text"])}</p></li>' for i in nxt["items"])
 
     pubs = PUBS["publications"]
     cards = "".join(f"""
@@ -508,8 +514,7 @@ def build_home():
   <div>
     <h1>{e(NAME)}</h1>
     <p class="affil mono">{e(SITE['identity']['role'])} &middot;
-      {e(SITE['identity']['affiliation']['shortName'])} &middot;
-      published as {e(PUBNAME)}</p>
+      {e(SITE['identity']['affiliation']['shortName'])}</p>
     <p class="lede">{e(arc['statement'])}</p>
   </div>
 
@@ -524,6 +529,8 @@ def build_home():
       off-board. Full-suite onboard deployment is in progress.</p>
   </aside>
 </div>
+
+<div class="intro">{intro_paras}</div>
 
 {video("itc-loop")}
 
@@ -568,9 +575,11 @@ regression.</p>
 
 <h2>Selected work</h2>
 <ul class="cards">{cards}</ul>
-<p><a href="/publications/">All publications</a> &middot; <a href="/projects/">Projects and code</a></p>
+
+<h2>{e(nxt['heading'])}</h2>
+<ul class="cards cards-next">{next_items}</ul>
 """
-    shell("", f"{NAME} | Monocular spatial perception for robots",
+    shell("", f"{NAME} | 3D scene graphs from a single camera",
           "Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, "
           "with no depth sensor. PhD candidate at ITC, University of Twente.",
           body, extra_ld=[n for n in (person_node(), profile_page_node(),
@@ -798,7 +807,8 @@ def build_publications_index():
 
     body = f"""
 <h1>Publications</h1>
-<p class="standfirst">Published as {e(PUBNAME)}, and earlier as B. Udugama.</p>
+<p class="standfirst">Papers are indexed under {e(PUBNAME)}, and the earlier ones under
+B. Udugama.</p>
 
 <h2>Peer reviewed</h2>
 <ul class="publist">{items}</ul>
@@ -1128,7 +1138,7 @@ def build_cv():
     body = f"""
 <h1>Curriculum vitae</h1>
 <p class="standfirst">{e(SITE['identity']['role'])} at {e(SITE['identity']['affiliation']['name'])},
-available from {e(humandate(SITE['contact']['availableFrom']))}. Published as {e(PUBNAME)}.</p>
+available from {e(humandate(SITE['contact']['availableFrom']))}.</p>
 
 <h2>Timeline</h2>
 <ul class="timeline">{items}</ul>
