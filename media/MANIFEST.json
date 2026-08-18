@@ -878,7 +878,7 @@
       },
       "digest": "740bf1d63457ee0e",
       "alt": "The custom quadrotor on a wooden table, seen from the side. A carbon fibre frame with a protective cage around four red propellers, the flight controller and wiring visible on top, and the compute board mounted underneath.",
-      "caption": "The platform. Carbon fibre frame, caged propellers, and the Jetson Orin NX underneath that runs the perception, odometry, mapping, and scene graph construction.",
+      "caption": "Carbon fibre frame, caged propellers, and the Jetson Orin NX underneath that runs perception, odometry, mapping, and scene graph construction.",
       "credit": "Custom drone"
     },
     "drone-top": {
@@ -942,7 +942,71 @@
       },
       "digest": "cebba68f2025aa8b",
       "alt": "The same quadrotor from directly above, showing the square carbon frame, four red propellers inside their cage, the orange lithium battery strapped across the centre, and a cooling fan on the compute board.",
-      "caption": "From above: battery across the centre, compute and its cooling fan beneath, and the propeller cage that lets it fly close to walls indoors.",
+      "caption": "From above: battery across the centre, compute and its cooling fan beneath.",
+      "credit": "Custom drone"
+    },
+    "drone-angle": {
+      "kind": "image",
+      "width": 3024,
+      "height": 4032,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/drone-angle-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/drone-angle-960.avif"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/drone-angle-1600.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/drone-angle-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/drone-angle-960.webp"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/drone-angle-1600.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/drone-angle-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/drone-angle-960.jpg"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/drone-angle-1600.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "drone-angle-480.avif": 60651,
+        "drone-angle-480.webp": 82534,
+        "drone-angle-480.jpg": 94985,
+        "drone-angle-960.avif": 200617,
+        "drone-angle-960.webp": 282680,
+        "drone-angle-960.jpg": 345789,
+        "drone-angle-1600.avif": 437522,
+        "drone-angle-1600.webp": 633036,
+        "drone-angle-1600.jpg": 847493
+      },
+      "digest": "45f682da6dca787c",
+      "alt": "The quadrotor from a three-quarter angle, showing the depth of the carbon frame, the propeller cage, and the battery and electronics stacked in the centre.",
+      "caption": "Three-quarter view.",
       "credit": "Custom drone"
     }
   },

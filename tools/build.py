@@ -241,6 +241,37 @@ def wipe(set_id="itc-corridor", heading=True):
             f'</figcaption></figure>')
 
 
+def gallery(lead, rest, caption=""):
+    """One large figure on the left, the remaining angles stacked in a column on the right."""
+    lead_rec = MEDIA["images"].get(lead)
+    if not lead_rec:
+        return ""
+
+    def frame(key, cls):
+        rec = MEDIA["images"].get(key)
+        if not rec:
+            return ""
+        av = ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"]["avif"])
+        wp = ", ".join(f'{v["path"]} {v["w"]}w' for v in rec["sources"]["webp"])
+        big = rec["sources"]["jpg"][-1]["path"]
+        sizes = ("(min-width: 52em) 40rem, 100vw" if cls == "g-lead"
+                 else "(min-width: 52em) 18rem, 50vw")
+        return (f'<div class="{cls}">'
+                f'<picture>'
+                f'<source type="image/avif" srcset="{av}" sizes="{sizes}">'
+                f'<source type="image/webp" srcset="{wp}" sizes="{sizes}">'
+                f'<img src="{big}" alt="{e(rec["alt"])}" width="{rec["width"]}" '
+                f'height="{rec["height"]}" loading="lazy" decoding="async">'
+                f'</picture></div>')
+
+    thumbs = "".join(frame(k, "g-thumb") for k in rest)
+    cap = caption or lead_rec.get("caption", "")
+    return (f'<figure class="gallery">'
+            f'<div class="gallery-grid">{frame(lead, "g-lead")}'
+            f'<div class="gallery-side">{thumbs}</div></div>'
+            f'{f"<figcaption>{e(cap)}</figcaption>" if cap else ""}</figure>')
+
+
 def switcher(sid, panels):
     """panels: list of (label, html). One slot, one visible panel, buttons to change it."""
     panels = [(lab, h) for lab, h in panels if h]
@@ -289,8 +320,7 @@ def _pub_figures():
 
 def _proj_media():
     return {
-        "mono-hydra-plus": switcher("plat2", [("The platform", picture("drone-side")),
-                                              ("From above", picture("drone-top"))])
+        "mono-hydra-plus": gallery("drone-side", ["drone-top", "drone-angle"])
                            + video("stairs-zupt") + picture("scene-graph-itc")
                            + picture("itc-embedded"),
         "m2h-mx":          wipe("m2h-mx-indoor") + wipe("m2h-mx-outdoor")
@@ -564,25 +594,31 @@ def build_home():
 
 <div class="prose intro">{intro_paras}</div>
 
-{switcher("plat", [("The platform", picture("drone-side")),
-                   ("In flight", video("drone-flight")),
-                   ("What it builds", video("itc-loop"))])}
-
 <h2>{e(story['heading'])}</h2>
 <div class="prose">{paras}</div>
 
+<h2>The platform</h2>
+<div class="prose"><p>A custom quadrotor with a carbon fibre frame and caged propellers, so it can
+fly close to walls indoors. Everything the mapping needs is carried onboard.</p></div>
+{gallery("drone-side", ["drone-top", "drone-angle"])}
+<p class="media-label">In flight</p>
+{video("drone-flight")}
+
 <h2>{e(arc['actOne']['label'])}. {e(arc['actOne']['title'])}</h2>
 <p class="section-intro">{e(arc['actOne']['homeLine'])}</p>
+{video("itc-loop")}
 
 <h3>What one frame gives the map</h3>
 <p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic labels.
 The mapping backend consumes those two outputs and nothing else.</p>
-{switcher("perc", [("Indoor", wipe("m2h-mx-indoor", heading=False)),
-                   ("Outdoor", wipe("m2h-mx-outdoor", heading=False))])}
+{wipe("m2h-mx-indoor")}
+{wipe("m2h-mx-outdoor")}
 
 <h3>The same predictions inside a running system</h3>
-{switcher("sys", [("On a benchmark", video("icra26")),
-                  ("On the drone", video("stairs-zupt"))])}
+<p class="media-label">On a benchmark scene</p>
+{video("icra26")}
+<p class="media-label">On the drone, in a stairwell</p>
+{video("stairs-zupt")}
 
 <h3>What changed over four years</h3>
 <p class="section-intro">Mean mapping error on the second floor of the ITC building, measured

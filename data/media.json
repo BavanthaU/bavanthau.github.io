@@ -86,13 +86,19 @@
     "drone-side": {
       "src": "_source/media/drone/drone-side.heic",
       "alt": "The custom quadrotor on a wooden table, seen from the side. A carbon fibre frame with a protective cage around four red propellers, the flight controller and wiring visible on top, and the compute board mounted underneath.",
-      "caption": "The platform. Carbon fibre frame, caged propellers, and the Jetson Orin NX underneath that runs the perception, odometry, mapping, and scene graph construction.",
+      "caption": "Carbon fibre frame, caged propellers, and the Jetson Orin NX underneath that runs perception, odometry, mapping, and scene graph construction.",
       "credit": "Custom drone"
     },
     "drone-top": {
       "src": "_source/media/drone/drone-top.heic",
       "alt": "The same quadrotor from directly above, showing the square carbon frame, four red propellers inside their cage, the orange lithium battery strapped across the centre, and a cooling fan on the compute board.",
-      "caption": "From above: battery across the centre, compute and its cooling fan beneath, and the propeller cage that lets it fly close to walls indoors.",
+      "caption": "From above: battery across the centre, compute and its cooling fan beneath.",
+      "credit": "Custom drone"
+    },
+    "drone-angle": {
+      "src": "_source/media/drone/drone-angle.heic",
+      "alt": "The quadrotor from a three-quarter angle, showing the depth of the carbon frame, the propeller cage, and the battery and electronics stacked in the centre.",
+      "caption": "Three-quarter view.",
       "credit": "Custom drone"
     }
   },
