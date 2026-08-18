@@ -34,7 +34,21 @@ ORIGIN = SITE["origin"].rstrip("/")
 NAME = SITE["identity"]["canonicalName"]
 PUBNAME = SITE["identity"]["publishingName"]
 
-PAGES = []  # (path, priority) collected for sitemap.xml
+PAGES = []  # collected for sitemap.xml
+
+
+def git_lastmod(path):
+    """Last commit date for the data that produced a page, falling back to today."""
+    import subprocess
+    for candidate in (path + "/index.html" if path else "index.html", "data"):
+        try:
+            r = subprocess.run(["git", "log", "-1", "--format=%cs", "--", candidate],
+                               cwd=ROOT, capture_output=True, text=True, timeout=10)
+            if r.returncode == 0 and r.stdout.strip():
+                return r.stdout.strip()
+        except Exception:
+            pass
+    return TODAY
 
 
 MONTHS = ["January", "February", "March", "April", "May", "June",
@@ -72,6 +86,30 @@ def jsonld(obj):
         + json.dumps(obj, indent=2, ensure_ascii=False)
         + "\n</script>"
     )
+
+
+def profile_page_node():
+    return {"@context": "https://schema.org", "@type": "ProfilePage",
+            "@id": f"{ORIGIN}/#profilepage",
+            "url": f"{ORIGIN}/",
+            "name": f"{NAME}, {SITE['identity']['role']}",
+            "mainEntity": {"@id": f"{ORIGIN}/#person"},
+            "dateModified": TODAY}
+
+
+def breadcrumbs(path, title):
+    if not path:
+        return None
+    crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{ORIGIN}/"}]
+    parts = path.split("/")
+    acc = ""
+    for i, seg in enumerate(parts, start=2):
+        acc += seg + "/"
+        label = title if i == len(parts) + 1 else seg.replace("-", " ").title()
+        crumbs.append({"@type": "ListItem", "position": i, "name": label,
+                       "item": f"{ORIGIN}/{acc}"})
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": crumbs}
 
 
 def person_node():
@@ -253,7 +291,22 @@ def og_for(path):
     return f"/media/og/{slug}.png"
 
 
-def shell(path, title, description, body, extra_ld=None, og_type="website"):
+def clamp(text, limit=155):
+    """Trim to a sentence boundary under the limit, else a word boundary."""
+    text = " ".join(str(text).split())
+    if len(text) <= limit:
+        return text
+    cut = text[:limit]
+    for sep in (". ", "? ", "! "):
+        i = cut.rfind(sep)
+        if i > limit * 0.55:
+            return cut[:i + 1].strip()
+    i = cut.rfind(" ")
+    return cut[:i].rstrip(",;:") + "."
+
+
+def shell(path, title, description, body, extra_ld=None, og_type="website", crumb=None):
+    description = clamp(description)
     """path: '' for root, else 'research' or 'publications/m2h' with no slashes at the edges."""
     canonical = f"{ORIGIN}/" if path == "" else f"{ORIGIN}/{path}/"
     depth_prefix = "/"  # absolute paths throughout, the site sits at a domain root
@@ -263,7 +316,18 @@ def shell(path, title, description, body, extra_ld=None, og_type="website"):
         mark = current if n["href"].strip("/") == path else ""
         nav_bits.append(f'<a href="{e(n["href"])}"{mark}>{e(n["label"])}</a>')
     nav = "".join(nav_bits)
-    ld = "\n".join(jsonld(o) for o in (extra_ld or []))
+    ver = SITE.get("verification", {})
+    vtags = ""
+    if ver.get("googleSearchConsole"):
+        vtags += f'\n<meta name="google-site-verification" content="{e(ver["googleSearchConsole"])}">'
+    if ver.get("bingWebmaster"):
+        vtags += f'\n<meta name="msvalidate.01" content="{e(ver["bingWebmaster"])}">'
+
+    nodes = list(extra_ld or [])
+    bc = breadcrumbs(path, crumb or title.split(" | ")[0])
+    if bc:
+        nodes.append(bc)
+    ld = "\n".join(jsonld(o) for o in nodes)
     og = ORIGIN + og_for(path)
 
     out = f"""<!doctype html>
@@ -273,7 +337,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website"):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)}</title>
 <meta name="description" content="{e(description)}">
-<link rel="canonical" href="{e(canonical)}">
+<link rel="canonical" href="{e(canonical)}">{vtags}
 <meta property="og:type" content="{e(og_type)}">
 <meta property="og:site_name" content="{e(NAME)}">
 <meta property="og:title" content="{e(title)}">
@@ -307,10 +371,10 @@ def shell(path, title, description, body, extra_ld=None, og_type="website"):
 <footer class="foot">
   <div class="wrap">
     <ul>
-      <li><a href="{e(SITE['links']['googleScholar'])}">Google Scholar</a></li>
-      <li><a href="{e(SITE['links']['github'])}">GitHub</a></li>
-      <li><a href="{e(SITE['links']['linkedin'])}">LinkedIn</a></li>
-      <li><a href="{e(SITE['links']['utStaffPage'])}">University of Twente</a></li>
+      <li><a rel="me" href="{e(SITE['links']['googleScholar'])}">Google Scholar</a></li>
+      <li><a rel="me" href="{e(SITE['links']['github'])}">GitHub</a></li>
+      <li><a rel="me" href="{e(SITE['links']['linkedin'])}">LinkedIn</a></li>
+      <li><a rel="me" href="{e(SITE['links']['utStaffPage'])}">University of Twente</a></li>
       <li><a href="/publications/bibtex/">BibTeX</a></li>
     </ul>
     <p>{e(NAME)}, published as {e(PUBNAME)}. {e(SITE['identity']['affiliation']['shortName'])}.</p>
@@ -495,11 +559,11 @@ def build_home():
 <ul class="cards">{cards}</ul>
 <p><a href="/publications/">All publications</a> &middot; <a href="/projects/">Projects and code</a></p>
 """
-    shell("", f"{NAME} | PhD candidate, monocular spatial perception and robot exploration",
-          "Bavantha Udugama builds real-time monocular spatial perception for robots: "
-          "3D scene graphs from a single camera and IMU, multi-task dense prediction, and "
-          "learned exploration. PhD candidate at ITC, University of Twente.",
-          body, extra_ld=[n for n in (person_node(), video_ld("itc-loop", f"{ORIGIN}/")) if n],
+    shell("", f"{NAME} | Monocular spatial perception for robots",
+          "Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, "
+          "with no depth sensor. PhD candidate at ITC, University of Twente.",
+          body, extra_ld=[n for n in (person_node(), profile_page_node(),
+                                      video_ld("itc-loop", f"{ORIGIN}/")) if n],
           og_type="profile")
 
 
@@ -584,10 +648,10 @@ of the task rather than from the hardware:</p>
 Faculty ITC, University of Twente, supervised by
 {e(" and ".join(SITE['identity']['supervisors']))}.</p>
 """
-    shell("research", f"{NAME} | Research: monocular scene graphs and learned exploration",
-          "The two-act research arc: building hierarchical metric-semantic 3D scene graphs from a "
+    shell("research", f"{NAME} | Research",
+          "The two-part research arc: building hierarchical metric-semantic 3D scene graphs from a "
           "single camera, then learning to select among certified exploration routes.",
-          body, extra_ld=[person_node()], og_type="article")
+          body, extra_ld=[person_node()], og_type="article", crumb="Research")
 
 
 # ---------------------------------------------------------------- publications
@@ -690,7 +754,7 @@ def build_publications_index():
     shell("publications", f"{NAME} | Publications",
           "Peer-reviewed publications on monocular 3D scene graphs, multi-task dense prediction, "
           "and real-time metric-semantic mapping, by Bavantha Udugama (U.V.B.L. Udugama).",
-          body, extra_ld=[person_node()])
+          body, extra_ld=[person_node()], crumb="Publications")
 
 
 def build_publication_pages():
@@ -745,9 +809,9 @@ def build_publication_pages():
 {linkrow(p)}
 """
         shell(f"publications/{p['slug']}",
-              f"{NAME} | {p['title']}",
+              f"{p['title']} | {NAME}",
               f"{p['claim']} {p['statusLabel']}. By {', '.join(p['authors'])}.",
-              body, extra_ld=[pub_ld(p)], og_type="article")
+              body, extra_ld=[pub_ld(p)], og_type="article", crumb=p["title"])
 
 
 BIBTEX = {
@@ -803,7 +867,7 @@ because it is under review.</p>
     shell("publications/bibtex", f"{NAME} | BibTeX entries for all publications",
           "Copy-ready BibTeX for every publication by Bavantha Udugama (U.V.B.L. Udugama), "
           "including Mono-Hydra, M2H, M2H-MX, and Mono-Hydra++.",
-          body)
+          body, crumb="BibTeX")
 
 
 # ---------------------------------------------------------------- projects
@@ -853,7 +917,7 @@ measures it.</p>
     shell("projects", f"{NAME} | Projects and open-source code",
           "Open-source robotics perception systems: Mono-Hydra, M2H, M2H-MX, Mono-Hydra++, and "
           "ongoing work on learned exploration.",
-          body, extra_ld=[person_node()])
+          body, extra_ld=[person_node()], crumb="Projects")
 
 
 def build_project_pages():
@@ -905,7 +969,7 @@ def build_project_pages():
 """
         shell(f"projects/{pr['slug']}", f"{NAME} | {pr['name']}",
               f"{pr['oneLine']} By Bavantha Udugama, ITC University of Twente.",
-              body, extra_ld=[project_ld(pr)], og_type="article")
+              body, extra_ld=[project_ld(pr)], og_type="article", crumb=pr["name"])
 
 
 # ---------------------------------------------------------------- cv, contact
@@ -963,7 +1027,7 @@ C++, Python, ROS 1 and ROS 2, Docker, TensorRT, Jetson Orin NX, FP16 inference o
     shell("cv", f"{NAME} | Curriculum vitae",
           "Curriculum vitae of Bavantha Udugama: PhD candidate at ITC University of Twente, "
           "robotics perception engineer, available from August 2026.",
-          body, extra_ld=[person_node()])
+          body, extra_ld=[person_node()], crumb="Curriculum vitae")
 
 
 def build_contact():
@@ -992,7 +1056,7 @@ SLAM, spatial perception, and edge deployment. Available from
     shell("contact", f"{NAME} | Contact",
           "Contact Bavantha Udugama, robotics perception researcher, for collaboration on SLAM, "
           "spatial perception, and edge deployment.",
-          body, extra_ld=[person_node()])
+          body, extra_ld=[person_node()], crumb="Contact")
 
 
 def build_404():
@@ -1017,7 +1081,8 @@ def build_sitemap():
     for p in sorted(PAGES):
         loc = f"{ORIGIN}/" if p == "" else f"{ORIGIN}/{p}/"
         pri = "1.0" if p == "" else ("0.8" if p.count("/") == 0 else "0.6")
-        urls += f"  <url><loc>{loc}</loc><lastmod>{TODAY}</lastmod><priority>{pri}</priority></url>\n"
+        urls += (f"  <url><loc>{loc}</loc><lastmod>{git_lastmod(p)}</lastmod>"
+                 f"<priority>{pri}</priority></url>\n")
     (ROOT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n")
