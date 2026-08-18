@@ -25,6 +25,12 @@ from pathlib import Path
 
 from PIL import Image
 
+try:                                    # iPhone stills are HEIC
+    import pillow_heif
+    pillow_heif.register_heif_opener()
+except ImportError:
+    pass
+
 ROOT = Path(__file__).resolve().parent.parent
 CFG = json.loads((ROOT / "data" / "media.json").read_text())
 OUT = ROOT / "media"
@@ -93,6 +99,8 @@ def do_images(man, force):
             print(f"  ok   {name} (unchanged)")
             continue
         im = Image.open(src)
+        if spec.get("rotate"):
+            im = im.rotate(-spec["rotate"], expand=True)
         # flatten transparency onto white, these are figures on white pages
         if im.mode in ("RGBA", "LA", "P"):
             im = im.convert("RGBA")
@@ -119,7 +127,7 @@ def do_frames(man, force):
         if not force and man["frames"].get(name, {}).get("digest") == d:
             print(f"  ok   {name} (unchanged)")
             continue
-        if src.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp"):
+        if src.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp", ".heic"):
             im = Image.open(src)
         else:
             still = tmp / f"{name}.png"
@@ -154,6 +162,10 @@ def do_videos(man, force):
         vd.mkdir(parents=True, exist_ok=True)
         crop = spec.get("crop")
         chain = (f"crop={crop}," if crop else "")
+        if spec.get("tonemap"):
+            chain += ("zscale=t=linear:npl=100,format=gbrpf32le,"
+                      "zscale=p=bt709,tonemap=hable:desat=0,"
+                      "zscale=t=bt709:m=bt709:r=tv,format=yuv420p,")
         maxw = spec.get("maxWidth", MAX_VIDEO_W)
         scale = f"scale='min({maxw},iw)':-2"
         crf = str(spec.get("crf", 23))
@@ -178,8 +190,11 @@ def do_videos(man, force):
         sh(FFMPEG, "-hide_banner", "-loglevel", "error", "-ss", str(spec["posterAt"] + (trim["start"] if trim else 0)),
            "-i", str(src), "-frames:v", "1", "-vf", chain + scale, "-y", str(poster_png))
         pim = Image.open(poster_png).convert("RGB")
+        # the poster only has to look right at display size, not at source width
+        if pim.width > 1200:
+            pim = pim.resize((1200, round(pim.height * 1200 / pim.width)), Image.LANCZOS)
         poster = vd / f"{name}-poster.jpg"
-        pim.save(poster, quality=82, optimize=True, progressive=True)
+        pim.save(poster, quality=74, optimize=True, progressive=True)
 
         preview = None
         if spec.get("preview"):

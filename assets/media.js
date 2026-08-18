@@ -100,3 +100,44 @@
     });
   });
 })();
+
+/* Segmented switcher. Without this the panels simply stack, which is a valid page. */
+(function () {
+  "use strict";
+  document.querySelectorAll("[data-switch]").forEach(function (root) {
+    var tabsBox = root.querySelector("[data-switch-tabs]");
+    var tabs = Array.prototype.slice.call(root.querySelectorAll("[data-switch-tab]"));
+    var panels = Array.prototype.slice.call(root.querySelectorAll("[data-switch-panel]"));
+    if (!tabsBox || tabs.length !== panels.length || tabs.length < 2) return;
+
+    tabsBox.hidden = false;
+    root.classList.add("is-switchable");
+
+    var show = function (i) {
+      tabs.forEach(function (t, n) {
+        t.setAttribute("aria-selected", n === i ? "true" : "false");
+        t.tabIndex = n === i ? 0 : -1;
+      });
+      panels.forEach(function (p, n) {
+        p.hidden = n !== i;
+        if (n !== i) {
+          var v = p.querySelector("video");
+          if (v && !v.paused) v.pause();
+        }
+      });
+    };
+
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { show(i); });
+      t.addEventListener("keydown", function (ev) {
+        var d = ev.key === "ArrowRight" ? 1 : ev.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        ev.preventDefault();
+        var next = (i + d + tabs.length) % tabs.length;
+        show(next);
+        tabs[next].focus();
+      });
+    });
+    show(0);
+  });
+})();

@@ -816,6 +816,134 @@
       "alt": "Bavantha Udugama, in a dark suit and tie against a plain warm grey background.",
       "caption": "",
       "credit": "Portrait"
+    },
+    "drone-side": {
+      "kind": "image",
+      "width": 4032,
+      "height": 3024,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/drone-side-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/drone-side-960.avif"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/drone-side-1600.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/drone-side-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/drone-side-960.webp"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/drone-side-1600.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/drone-side-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/drone-side-960.jpg"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/drone-side-1600.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "drone-side-480.avif": 26964,
+        "drone-side-480.webp": 36570,
+        "drone-side-480.jpg": 46164,
+        "drone-side-960.avif": 81643,
+        "drone-side-960.webp": 115308,
+        "drone-side-960.jpg": 156973,
+        "drone-side-1600.avif": 178006,
+        "drone-side-1600.webp": 261444,
+        "drone-side-1600.jpg": 386086
+      },
+      "digest": "740bf1d63457ee0e",
+      "alt": "The custom quadrotor on a wooden table, seen from the side. A carbon fibre frame with a protective cage around four red propellers, the flight controller and wiring visible on top, and the compute board mounted underneath.",
+      "caption": "The platform. Carbon fibre frame, caged propellers, and the Jetson Orin NX underneath that runs the perception, odometry, mapping, and scene graph construction.",
+      "credit": "Custom drone"
+    },
+    "drone-top": {
+      "kind": "image",
+      "width": 4032,
+      "height": 3024,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/drone-top-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/drone-top-960.avif"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/drone-top-1600.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/drone-top-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/drone-top-960.webp"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/drone-top-1600.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/drone-top-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/drone-top-960.jpg"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/drone-top-1600.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "drone-top-480.avif": 38908,
+        "drone-top-480.webp": 51416,
+        "drone-top-480.jpg": 58634,
+        "drone-top-960.avif": 121283,
+        "drone-top-960.webp": 167880,
+        "drone-top-960.jpg": 203661,
+        "drone-top-1600.avif": 245474,
+        "drone-top-1600.webp": 347956,
+        "drone-top-1600.jpg": 473751
+      },
+      "digest": "cebba68f2025aa8b",
+      "alt": "The same quadrotor from directly above, showing the square carbon frame, four red propellers inside their cage, the orange lithium battery strapped across the centre, and a cooling fan on the compute board.",
+      "caption": "From above: battery across the centre, compute and its cooling fan beneath, and the propeller cage that lets it fly close to walls indoors.",
+      "credit": "Custom drone"
     }
   },
   "frames": {
@@ -1308,7 +1436,7 @@
       "preview": "/media/video/itc-loop-preview.mp4",
       "bytes": {
         "itc-loop.mp4": 4531048,
-        "itc-loop-poster.jpg": 59743,
+        "itc-loop-poster.jpg": 44653,
         "itc-loop-preview.mp4": 725944
       },
       "alt": "Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside.",
@@ -1326,7 +1454,7 @@
       "preview": "/media/video/icra26-preview.mp4",
       "bytes": {
         "icra26.mp4": 1659513,
-        "icra26-poster.jpg": 74732,
+        "icra26-poster.jpg": 41539,
         "icra26-preview.mp4": 229950
       },
       "alt": "Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right.",
@@ -1344,7 +1472,7 @@
       "preview": "/media/video/scope-explorer-preview.mp4",
       "bytes": {
         "scope-explorer.mp4": 1743390,
-        "scope-explorer-poster.jpg": 65369,
+        "scope-explorer-poster.jpg": 55211,
         "scope-explorer-preview.mp4": 458285
       },
       "alt": "Simulated indoor exploration run showing the robot's occupancy map growing as it selects routes through the environment.",
@@ -1353,7 +1481,7 @@
       "clickToLoad": false
     },
     "stairs-zupt": {
-      "digest": "8ed22eed54c21579",
+      "digest": "b559983e26b024f6",
       "width": 1200,
       "height": 706,
       "mp4": "/media/video/stairs-zupt.mp4",
@@ -1361,13 +1489,30 @@
       "poster": "/media/video/stairs-zupt-poster.jpg",
       "preview": null,
       "bytes": {
-        "stairs-zupt.mp4": 7054185,
-        "stairs-zupt.webm": 1295193,
-        "stairs-zupt-poster.jpg": 90205
+        "stairs-zupt.mp4": 11744162,
+        "stairs-zupt.webm": 3220739,
+        "stairs-zupt-poster.jpg": 50657
       },
       "alt": "Screen recording on the drone's Jetson. An rviz window shows predicted depth, tracked features, and predicted semantics down the left, and the estimated trajectory climbing a stairwell in the centre, labelled MOVING while the drone is in motion and ZUPT STATIONARY while it is still.",
-      "caption": "Depth-backed visual-inertial odometry running on the drone's Jetson, walked up and down the stairs at home. The label switches between MOVING and ZUPT STATIONARY: when the platform is still, zero-velocity updates pin the estimate so it does not drift while nothing is happening. Predicted depth, tracked features, and predicted semantics are the panels on the left.",
+      "caption": "Depth-backed visual-inertial odometry on the drone's Jetson, walked down and back up the stairs at home. The label switches between MOVING and ZUPT STATIONARY: when the platform is still, zero-velocity updates hold the estimate in place instead of letting it drift. Predicted depth, tracked features, and predicted semantics are the panels on the left.",
       "credit": "Mono-Hydra++ VIO",
+      "clickToLoad": false
+    },
+    "drone-flight": {
+      "digest": "8425b44521c7c95c",
+      "width": 1080,
+      "height": 1920,
+      "mp4": "/media/video/drone-flight.mp4",
+      "webm": null,
+      "poster": "/media/video/drone-flight-poster.jpg",
+      "preview": null,
+      "bytes": {
+        "drone-flight.mp4": 5890840,
+        "drone-flight-poster.jpg": 144702
+      },
+      "alt": "The custom quadrotor hovering and manoeuvring indoors.",
+      "caption": "The platform in flight. Everything the mapping runs on is carried onboard.",
+      "credit": "Custom drone",
       "clickToLoad": false
     }
   }

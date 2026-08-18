@@ -190,7 +190,8 @@ def video(key, cls="", autoloop=True):
         body = f'<div class="v-wrap">{inner}<button type="button" class="v-toggle" ' \
                f'data-toggle aria-label="Play or pause video">Pause</button></div>'
     cap = f'<figcaption>{e(rec["caption"])}</figcaption>' if rec.get("caption") else ""
-    return f'<figure class="v-figure {cls}">{body}{cap}</figure>'
+    tall = " is-portrait" if rec["height"] > rec["width"] else ""
+    return f'<figure class="v-figure {cls}{tall}">{body}{cap}</figure>'
 
 
 def video_ld(key, page_url):
@@ -240,6 +241,26 @@ def wipe(set_id="itc-corridor", heading=True):
             f'</figcaption></figure>')
 
 
+def switcher(sid, panels):
+    """panels: list of (label, html). One slot, one visible panel, buttons to change it."""
+    panels = [(lab, h) for lab, h in panels if h]
+    if not panels:
+        return ""
+    if len(panels) == 1:
+        return panels[0][1]
+    tabs = "".join(
+        f'<button type="button" role="tab" id="{sid}-t{i}" aria-controls="{sid}-p{i}" '
+        f'aria-selected="{"true" if i == 0 else "false"}" data-switch-tab>{e(lab)}</button>'
+        for i, (lab, _) in enumerate(panels))
+    body = "".join(
+        f'<div class="switch-panel" role="tabpanel" id="{sid}-p{i}" aria-labelledby="{sid}-t{i}" '
+        f'data-switch-panel>{h}</div>'
+        for i, (_, h) in enumerate(panels))
+    return (f'<div class="switch" data-switch>'
+            f'<div class="switch-tabs" role="tablist" hidden data-switch-tabs>{tabs}</div>'
+            f'{body}</div>')
+
+
 def youtube_facade(video_id, title, thumb):
     return (f'<figure class="yt" data-yt="{e(video_id)}">'
             f'<button type="button" class="yt-btn" data-yt-btn>'
@@ -268,7 +289,9 @@ def _pub_figures():
 
 def _proj_media():
     return {
-        "mono-hydra-plus": video("stairs-zupt") + picture("scene-graph-itc")
+        "mono-hydra-plus": switcher("plat2", [("The platform", picture("drone-side")),
+                                              ("From above", picture("drone-top"))])
+                           + video("stairs-zupt") + picture("scene-graph-itc")
                            + picture("itc-embedded"),
         "m2h-mx":          wipe("m2h-mx-indoor") + wipe("m2h-mx-outdoor")
                            + video("icra26") + picture("m2h-mx-architecture"),
@@ -504,9 +527,13 @@ def build_home():
 
     paras = "".join(f"<p>{e(x)}</p>" for x in story["paragraphs"])
     intro_paras = "".join(f"<p>{e(x)}</p>" for x in intro["paragraphs"])
-    next_items = "".join(
-        f'<li class="card"><h3><a href="{e(i["href"])}">{e(i["label"])}</a></h3>'
-        f'<p>{e(i["text"])}</p></li>' for i in nxt["items"])
+    stat_items = "".join(
+        f'<div class="stat"><dt>{e(st["value"])}</dt>'
+        f'<dd><span class="stat-label">{e(st["label"])}</span>'
+        f'<span class="stat-detail">{e(st["detail"])}</span></dd></div>'
+        for st in SITE["stats"])
+    next_links = " &middot; ".join(
+        f'<a href="{e(i["href"])}">{e(i["label"])}</a>' for i in nxt["items"])
 
     pubs = PUBS["publications"]
     cards = "".join(f"""
@@ -518,64 +545,51 @@ def build_home():
       </li>""" for p in pubs)
 
     body = f"""
-<div class="hero">
-  <div>
+<header class="hero">
+  <div class="hero-id">
     {portrait}
-    <h1>{e(NAME)}</h1>
-    <p class="affil mono">{e(SITE['identity']['role'])} &middot;
-      {e(SITE['identity']['affiliation']['shortName'])}</p>
-    <p class="lede">{e(arc['statement'])}</p>
+    <div>
+      <h1>{e(NAME)}</h1>
+      <p class="affil mono">{e(SITE['identity']['role'])} &middot;
+        {e(SITE['identity']['affiliation']['shortName'])}</p>
+    </div>
   </div>
+  <p class="lede">{e(arc['statement'])}</p>
+</header>
 
-  <aside class="rail" aria-labelledby="rail-h">
-    <p class="rail-title" id="rail-h">Running on the drone</p>
-    <p class="metric">{e(v['rate'])}</p>
-    <p class="metric-sub">{e(v['what'])}<br>
-      {e(v['pipeline'])}<br>
-      {e(v['inputResolution'])} input, {e(v['gpuCompute'])} GPU compute<br>
-      {e(v['device'])}</p>
-    <p class="caveat">{e(onboard_line)}</p>
-  </aside>
-</div>
+<section class="stats" aria-label="Key figures">
+  <dl>{stat_items}</dl>
+  <p class="stats-note">{e(SITE['statsFootnote'])}</p>
+</section>
 
-<div class="intro">{intro_paras}</div>
+<div class="prose intro">{intro_paras}</div>
 
-{video("itc-loop")}
+{switcher("plat", [("The platform", picture("drone-side")),
+                   ("In flight", video("drone-flight")),
+                   ("What it builds", video("itc-loop"))])}
 
 <h2>{e(story['heading'])}</h2>
-{paras}
+<div class="prose">{paras}</div>
 
 <h2>{e(arc['actOne']['label'])}. {e(arc['actOne']['title'])}</h2>
 <p class="section-intro">{e(arc['actOne']['homeLine'])}</p>
-<p class="section-intro">M2H-MX turns one RGB frame into metric depth and semantic labels together.
-Those two outputs are the entire input to the mapping backend. Indoors is what the system is built
-for; the street scene is the same model on data it was not designed for.</p>
-{wipe("m2h-mx-indoor")}
-{wipe("m2h-mx-outdoor")}
 
-<p class="section-intro">Those predictions then have to hold up inside a running system. Below,
-the whole pipeline on a benchmark scene, and the estimator underneath it running on the drone.</p>
-{video("icra26")}
-{video("stairs-zupt")}
+<h3>What one frame gives the map</h3>
+<p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic labels.
+The mapping backend consumes those two outputs and nothing else.</p>
+{switcher("perc", [("Indoor", wipe("m2h-mx-indoor", heading=False)),
+                   ("Outdoor", wipe("m2h-mx-outdoor", heading=False))])}
 
-<h2>{e(arc['actTwo']['label'])}. {e(arc['actTwo']['title'])}
-  <span class="tag tag-progress">In progress</span></h2>
-<p class="section-intro">{e(arc['actTwo']['homeLine'])}</p>
-{video("scope-explorer")}
-<p class="section-intro"><a href="/projects/learned-exploration/">How the exploration system is
-put together</a>.</p>
+<h3>The same predictions inside a running system</h3>
+{switcher("sys", [("On a benchmark", video("icra26")),
+                  ("On the drone", video("stairs-zupt"))])}
 
-<h2>What changed over four years</h2>
+<h3>What changed over four years</h3>
 <p class="section-intro">Mean mapping error on the second floor of the ITC building, measured
-against a LiDAR ground truth, across four generations of the system. The embedded point in amber is
-the model running on the drone at reduced resolution, which is a different trade-off rather than a
-regression.</p>
+against a LiDAR ground truth. The embedded point in amber is the model running on the drone at
+reduced resolution, which is a different trade-off rather than a regression.</p>
 
 <figure class="descent">
-  <div class="descent-head">
-    <h3>The descent</h3>
-    <span class="unit">{e(prog['label'])}</span>
-  </div>
   <div class="descent-figure">{descent_svg()}</div>
   <div class="legend">
     <span><i class="k-main"></i> laptop or desktop GPU</span>
@@ -586,11 +600,17 @@ regression.</p>
     argument behind it</a>.</figcaption>
 </figure>
 
+<h2>{e(arc['actTwo']['label'])}. {e(arc['actTwo']['title'])}
+  <span class="tag tag-progress">In progress</span></h2>
+<p class="section-intro">{e(arc['actTwo']['homeLine'])}</p>
+{video("scope-explorer")}
+<p class="section-intro"><a href="/projects/learned-exploration/">How the exploration system is
+put together</a>.</p>
+
 <h2>Selected work</h2>
 <ul class="cards">{cards}</ul>
 
-<h2>{e(nxt['heading'])}</h2>
-<ul class="cards cards-next">{next_items}</ul>
+<p class="onward">{next_links}</p>
 """
     shell("", f"{NAME} | 3D scene graphs from a single camera",
           "Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, "

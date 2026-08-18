@@ -52,7 +52,7 @@
     "ieeeAuthorPageNote": "Removed 2026-08-18. The previously listed id 37061362800 belongs to Sachini Ekanayake, a co-author on the Peradeniya papers, not to Bavantha Udugama. A wrong sameAs entry asserts that two people are the same person, so it is left empty until the correct author id is confirmed while signed in to IEEE Xplore."
   },
   "arc": {
-    "statement": "I build perception systems for robots. For the last four years that has meant making one camera do the work the field assumed needed a depth sensor.",
+    "statement": "I build lightweight perception for aerial robots. One camera, one network predicting depth, semantics, surface normals and edges together, and those predictions drive mapping and autonomous exploration on the drone's own compute, in real time.",
     "wordCount": 44,
     "actOne": {
       "title": "Structuring the seen",
@@ -188,6 +188,7 @@
   },
   "intro": {
     "paragraphs": [
+      "Small aircraft are the constraint that makes the problem interesting. Payload decides endurance, compute is whatever you can carry, and the answer has to arrive before the next frame. So the work is about getting more out of one passive sensor rather than adding hardware: a single network producing every dense output the downstream system needs, at a frame rate a drone can actually fly on.",
       "That work is a PhD at ITC in Enschede, finishing in 2026. Before it I shipped robots rather than papers. I joined a Dubai startup as its first robotics engineer and within a year was leading a small team deploying more than 30 humanoid robots across Expo 2020, hospitals, and reception desks. Debugging a navigation stack in front of a paying customer is a good way to find out which parts of a system are real.",
       "I started at Peradeniya, building a reconnaissance robot that had to map a space nobody had surveyed. That is still the question I work on, now with a learned model and one camera instead of a laser scanner."
     ]
@@ -221,5 +222,23 @@
         "text": "I am available from August 2026 and open to collaboration."
       }
     ]
-  }
+  },
+  "stats": [
+    {
+      "value": "25.53 fps",
+      "label": "onboard perception",
+      "detail": "M2H-MX-L, ONNX and TensorRT FP16, Jetson Orin NX 16GB"
+    },
+    {
+      "value": "4 tasks",
+      "label": "from one network",
+      "detail": "depth, semantics, surface normals, edges, predicted together"
+    },
+    {
+      "value": "0.08 m",
+      "label": "mapping error",
+      "detail": "ITC second floor, against a LiDAR ground truth"
+    }
+  ],
+  "statsFootnote": "Perception, odometry, mapping, and scene graph construction all run on the drone. The frame rate is the measured perception throughput."
 }
