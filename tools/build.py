@@ -39,6 +39,24 @@ PUBNAME = SITE["identity"]["publishingName"]
 PAGES = []  # collected for sitemap.xml
 
 
+def check_media():
+    """Every path the manifest promises has to exist, or a player somewhere shows a poster
+    that never plays."""
+    missing = []
+    for key, rec in MEDIA.get("videos", {}).items():
+        for field in ("mp4", "webm", "poster", "preview"):
+            path = rec.get(field)
+            if path and not (ROOT / path.lstrip("/")).exists():
+                missing.append(f"videos/{key}.{field}: {path}")
+    for group in ("images", "frames"):
+        for key, rec in MEDIA.get(group, {}).items():
+            for ext, variants in rec.get("sources", {}).items():
+                for v in variants:
+                    if not (ROOT / v["path"].lstrip("/")).exists():
+                        missing.append(f"{group}/{key}.{ext}: {v['path']}")
+    return missing
+
+
 def git_lastmod(path):
     """Last commit date for the data that produced a page, falling back to today."""
     import subprocess
@@ -215,11 +233,14 @@ def hero_clip(key):
     rec = MEDIA["videos"].get(key)
     if not rec:
         return ""
-    inline = rec.get("preview") or rec["mp4"]
-    full = f' data-full-src="{rec["mp4"]}"' if rec.get("preview") else ""
+    preview = rec.get("preview")
+    if preview and not (ROOT / preview.lstrip("/")).exists():
+        preview = None          # the encode was never produced; the full clip plays inline
+    inline = preview or rec["mp4"]
+    full = f' data-full-src="{rec["mp4"]}"' if preview else ""
     return (f'<div class="hero-clip v-wrap">'
             f'<video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}" '
-            f'muted loop autoplay playsinline preload="metadata" data-autoloop{full} '
+            f'muted loop autoplay playsinline preload="auto" data-autoloop{full} '
             f'aria-label="{e(rec["alt"])}"><source src="{inline}" type="video/mp4"></video>'
             f'<button type="button" class="v-toggle" data-toggle '
             f'aria-label="Play or pause video">Pause</button>'
@@ -636,7 +657,7 @@ def loop_svg():
     return (
         '<svg viewBox="0 0 716 292" role="img" aria-labelledby="lp-title lp-desc" '
         'fill="none">'
-        '<title id="lp-title">The perception and decision loop, and where my work sits in it</title>'
+        '<title id="lp-title">The loop the PhD closes, and the four stages inside it</title>'
         '<desc id="lp-desc">A camera and IMU feed a deep learning perception stage, which feeds '
         'spatial AI and SLAM, which feeds a reinforcement learning stage that decides where to go '
         'next. An arrow returns from the decision to the sensor, because moving the robot changes '
@@ -782,10 +803,10 @@ def build_home():
 </header>
 
 <section class="home-section home-section-caps">
-  <div class="section-index"><span>01</span><span>What I do</span></div>
+  <div class="section-index"><span>01</span><span>The problem</span></div>
   <div class="section-content">
     <div class="section-heading">
-      <p class="eyebrow">The work</p>
+      <p class="eyebrow">One loop, four stages</p>
       <h2>{e(H['capabilitiesHeading'])}</h2>
       <p class="section-intro">{e(H['capabilitiesIntro'])}</p>
     </div>
@@ -1760,6 +1781,11 @@ def main():
     build_contact()
     build_404()
     build_sitemap()
+    missing = check_media()
+    if missing:
+        print("WARNING: the manifest names files that are not on disk:")
+        for m in missing:
+            print("  " + m)
     print(f"built {len(PAGES)} pages + sitemap.xml, robots.txt, humans.txt, 404.html")
     for p in sorted(PAGES):
         print("  /" + (p + "/" if p else ""))

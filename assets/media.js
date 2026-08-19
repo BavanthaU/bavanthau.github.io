@@ -87,8 +87,10 @@
       else { v.pause(); v.dataset.userPaused = "1"; }
       sync();
     });
-    v.addEventListener("play", sync);
-    v.addEventListener("pause", sync);
+    // autoplay can start before this script binds, so listen wide and sync once more on load
+    ["play", "playing", "pause", "loadeddata"].forEach(function (ev) {
+      v.addEventListener(ev, sync);
+    });
     sync();
   });
 

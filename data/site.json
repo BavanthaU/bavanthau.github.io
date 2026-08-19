@@ -249,8 +249,8 @@
     "lede": "I build the perception and decision layer of robots: deep networks that turn raw images into geometry and meaning, SLAM that keeps them consistent over time, and reinforcement learning that chooses where to go next. Then I take it to the hardware and make it run in real time, most recently on a drone carrying its whole stack on one Jetson, before that on a fleet of service robots working in front of paying customers.",
     "stageLabel": "3D scene graph, built live from one camera",
     "stageClip": "icra26",
-    "capabilitiesHeading": "One loop, four problems",
-    "capabilitiesIntro": "Every robot I have worked on runs the same loop: see, place what it sees on a map, decide where to go, and do all of it on the computer it can carry. I have worked on each stage, and the last one decides whether the other three matter.",
+    "capabilitiesHeading": "The problem the PhD takes on",
+    "capabilitiesIntro": "A robot exploring a building it has never seen has to close one loop: see, place what it sees on a map, decide where to go next, and do all of it on the computer it can carry. The PhD attacks that loop with a single camera. The four blocks below are the stages, and each one links to the work behind it.",
     "capabilities": [
       {
         "index": "01",
@@ -275,10 +275,10 @@
       },
       {
         "index": "04",
-        "title": "Deployment on real hardware",
-        "text": "TensorRT and ROS on Jetson-class hardware, and before the PhD, more than 30 humanoid service robots deployed across Expo 2020 Dubai, healthcare, and reception sites.",
+        "title": "Running it on the robot",
+        "text": "The whole stack exported to ONNX and TensorRT FP16 and run on the drone's Jetson Orin NX. Getting systems onto real hardware is where I started: before the PhD I deployed more than 30 humanoid service robots with a team in Dubai.",
         "href": "/cv/",
-        "linkLabel": "Where I have shipped"
+        "linkLabel": "The deployment, and what came before"
       }
     ],
     "appliedHeading": "Before the drone, a fleet of robots and real customers",
