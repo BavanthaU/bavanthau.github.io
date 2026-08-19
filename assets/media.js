@@ -254,3 +254,81 @@
     if (window.scrollY < 240) mark(sections[0].id);
   }, { passive: true });
 })();
+
+/* Expand a clip into a large frame. Progressive enhancement: without this the Expand
+   button stays hidden and every clip still plays inline where it sits. */
+(function () {
+  "use strict";
+
+  var triggers = document.querySelectorAll("[data-expand]");
+  if (!triggers.length || !window.HTMLDialogElement) return;
+
+  var dialog = document.createElement("dialog");
+  dialog.className = "v-lightbox";
+  dialog.innerHTML =
+    '<button type="button" class="v-close" data-close aria-label="Close the larger view">' +
+    '<span aria-hidden="true">✕</span></button>' +
+    '<figure class="v-lightbox-figure"><div class="v-lightbox-stage" data-stage></div>' +
+    '<figcaption data-lb-cap></figcaption></figure>';
+  document.body.appendChild(dialog);
+
+  var stage = dialog.querySelector("[data-stage]");
+  var cap = dialog.querySelector("[data-lb-cap]");
+  var origin = null;      // the inline video this view was opened from
+  var wasPlaying = false;
+
+  var close = function () { if (dialog.open) dialog.close(); };
+
+  var open = function (btn) {
+    var wrap = btn.closest(".v-wrap");
+    var source = wrap && wrap.querySelector("video");
+    if (!source) return;
+
+    origin = source;
+    wasPlaying = !source.paused;
+    source.pause();
+
+    var big = source.cloneNode(true);
+    big.removeAttribute("data-autoloop");
+    big.controls = true;
+    big.muted = source.muted;
+    big.loop = true;
+    big.preload = "auto";
+    big.className = "v-lightbox-video";
+    if (source.videoHeight > source.videoWidth || source.height > source.width) {
+      big.classList.add("is-portrait");
+    }
+
+    stage.replaceChildren(big);
+    var figure = wrap.closest("figure");
+    var text = figure && figure.querySelector("figcaption");
+    cap.textContent = text ? text.textContent : (source.getAttribute("aria-label") || "");
+    cap.hidden = !cap.textContent;
+
+    dialog.showModal();
+    big.currentTime = source.currentTime || 0;
+    big.play().catch(function () {});
+  };
+
+  triggers.forEach(function (btn) {
+    btn.hidden = false;
+    btn.addEventListener("click", function () { open(btn); });
+  });
+
+  dialog.querySelector("[data-close]").addEventListener("click", close);
+
+  // clicking the backdrop, meaning anywhere that is not the figure itself, closes
+  dialog.addEventListener("click", function (ev) {
+    if (!ev.target.closest(".v-lightbox-figure, .v-close")) close();
+  });
+
+  dialog.addEventListener("close", function () {
+    var big = stage.querySelector("video");
+    if (origin && big) {
+      origin.currentTime = big.currentTime || 0;
+      if (wasPlaying) origin.play().catch(function () {});
+    }
+    stage.replaceChildren();
+    origin = null;
+  });
+})();

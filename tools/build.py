@@ -188,8 +188,12 @@ def video(key, cls="", autoloop=True):
                 f'<span class="v-size">{sum(rec["bytes"].values())/1e6:.1f} MB</span></button>'
                 f'<template data-gate-src>{html.escape(inner)}</template></div>')
     else:
-        body = f'<div class="v-wrap">{inner}<button type="button" class="v-toggle" ' \
-               f'data-toggle aria-label="Play or pause video">Pause</button></div>'
+        body = (f'<div class="v-wrap">{inner}'
+                f'<button type="button" class="v-toggle" data-toggle '
+                f'aria-label="Play or pause video">Pause</button>'
+                f'<button type="button" class="v-expand" data-expand hidden '
+                f'aria-label="Play this clip in a larger frame">'
+                f'<span aria-hidden="true">&#x2921;</span>Expand</button></div>')
     cap = f'<figcaption>{e(rec["caption"])}</figcaption>' if rec.get("caption") else ""
     tall = " is-portrait" if rec["height"] > rec["width"] else ""
     return f'<figure class="v-figure {cls}{tall}">{body}{cap}</figure>'
@@ -278,12 +282,15 @@ def platform_showcase(lead, pair, clip):
         sources = f'<source src="{rec["mp4"]}" type="video/mp4">'
         if rec.get("webm"):
             sources = f'<source src="{rec["webm"]}" type="video/webm">' + sources
-        vid = (f'<div class="ps-clip">'
+        vid = (f'<div class="ps-clip v-wrap">'
                f'<video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}" '
                f'muted loop playsinline preload="none" data-autoloop '
                f'aria-label="{e(rec["alt"])}">{sources}</video>'
                f'<button type="button" class="v-toggle" data-toggle '
-               f'aria-label="Play or pause video">Pause</button></div>')
+               f'aria-label="Play or pause video">Pause</button>'
+               f'<button type="button" class="v-expand" data-expand hidden '
+               f'aria-label="Play this clip in a larger frame">'
+               f'<span aria-hidden="true">&#x2921;</span>Expand</button></div>')
 
     caption = (rec or {}).get("caption", "")
     return (f'<figure class="showcase">'
