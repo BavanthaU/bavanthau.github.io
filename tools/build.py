@@ -209,7 +209,7 @@ def hero_clip(key):
     full = f' data-full-src="{rec["mp4"]}"' if rec.get("preview") else ""
     return (f'<div class="hero-clip v-wrap">'
             f'<video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}" '
-            f'muted loop playsinline preload="metadata" data-autoloop{full} '
+            f'muted loop autoplay playsinline preload="metadata" data-autoloop{full} '
             f'aria-label="{e(rec["alt"])}"><source src="{inline}" type="video/mp4"></video>'
             f'<button type="button" class="v-toggle" data-toggle '
             f'aria-label="Play or pause video">Pause</button>'
@@ -567,6 +567,76 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
     return target
 
 
+# ---------------------------------------------------------------- the loop
+
+def loop_svg():
+    """The four stages of the loop every robot I have built runs, drawn rather than listed.
+
+    Sensor in on the left, three processing stages across, and the hardware plate underneath
+    carrying all of them. The return arrow is the part that makes it a loop: the decision moves
+    the robot, which changes what the camera sees."""
+    caps = SITE["home"]["capabilities"]
+    boxes = [
+        # x, width, title lines, sublabel
+        (146, 168, ["Deep learning", "perception"], "depth · semantics"),
+        (338, 168, ["Spatial AI", "and SLAM"], "VIO · scene graph"),
+        (530, 168, ["Reinforcement", "learning"], "where to go next"),
+    ]
+    parts = []
+    # sensor
+    parts.append('<g class="lp-node lp-sensor">'
+                 '<rect x="18" y="66" width="106" height="92" rx="8"/>'
+                 '<text x="71" y="102" text-anchor="middle" class="lp-title">Camera</text>'
+                 '<text x="71" y="122" text-anchor="middle" class="lp-title">+ IMU</text>'
+                 '<text x="71" y="142" text-anchor="middle" class="lp-sub">passive only</text>'
+                 '</g>')
+    for i, (x, w, lines, sub) in enumerate(boxes):
+        c = caps[i]
+        label = " ".join(lines)
+        parts.append(
+            f'<a href="{e(c["href"])}" aria-label="{e(c["title"])}">'
+            f'<g class="lp-node lp-stage">'
+            f'<rect x="{x}" y="66" width="{w}" height="92" rx="8"/>'
+            f'<text x="{x + 14}" y="90" class="lp-index">{e(c["index"])}</text>'
+            f'<text x="{x + 14}" y="114" class="lp-title">{e(lines[0])}</text>'
+            f'<text x="{x + 14}" y="132" class="lp-title">{e(lines[1])}</text>'
+            f'<text x="{x + 14}" y="150" class="lp-sub">{e(sub)}</text>'
+            f'</g></a>')
+        parts.append(f'<title>{e(label)}</title>')
+    # forward arrows between the four blocks
+    for x1, x2 in ((124, 146), (314, 338), (506, 530)):
+        parts.append(f'<line class="lp-arrow" x1="{x1}" y1="112" x2="{x2 - 7}" y2="112" '
+                     f'marker-end="url(#lp-head)"/>')
+    # the return path: the decision moves the robot, which changes what the sensor sees
+    parts.append('<path class="lp-arrow lp-return" d="M 698 158 L 698 194 L 71 194 L 71 165" '
+                 'marker-end="url(#lp-head)" fill="none"/>')
+    parts.append('<text x="384" y="188" text-anchor="middle" class="lp-sub lp-return-label">'
+                 'the robot moves, and the next frame is different</text>')
+    # the hardware plate under all of it
+    c4 = caps[3]
+    parts.append(f'<a href="{e(c4["href"])}" aria-label="{e(c4["title"])}">'
+                 f'<g class="lp-node lp-plate">'
+                 f'<rect x="18" y="220" width="680" height="56" rx="8"/>'
+                 f'<text x="32" y="242" class="lp-index">{e(c4["index"])}</text>'
+                 f'<text x="32" y="262" class="lp-title">Deployment on real hardware</text>'
+                 f'<text x="684" y="253" text-anchor="end" class="lp-sub">'
+                 f'Jetson · TensorRT · ROS · 30+ robots shipped</text>'
+                 f'</g></a>')
+
+    return (
+        '<svg viewBox="0 0 716 292" role="img" aria-labelledby="lp-title lp-desc">'
+        '<title id="lp-title">The perception and decision loop, and where my work sits in it</title>'
+        '<desc id="lp-desc">A camera and IMU feed a deep learning perception stage, which feeds '
+        'spatial AI and SLAM, which feeds a reinforcement learning stage that decides where to go '
+        'next. An arrow returns from the decision to the sensor, because moving the robot changes '
+        'what it sees. A plate underneath the three stages is deployment on real hardware, which '
+        'carries all of them.</desc>'
+        '<defs><marker id="lp-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" '
+        'markerHeight="6" orient="auto-start-reverse">'
+        '<path d="M 0 1 L 9 5 L 0 9 z" class="lp-headfill"/></marker></defs>'
+        + "".join(parts) + '</svg>')
+
+
 # ---------------------------------------------------------------- the descent
 
 def descent_svg():
@@ -652,7 +722,9 @@ def build_home():
 
     portrait = picture("portrait", cls="portrait", sizes="5rem", lazy=False, caption=False)
 
-    intro_paras = "".join(f"<p>{e(x)}</p>" for x in intro["paragraphs"])
+    TN = H["thenNow"]
+    PERA = PUBS["earlierWork"]["entries"][0]
+    origin_paras = "".join(f"<p>{e(x)}</p>" for x in intro["paragraphs"][1:])
     stat_items = "".join(
         f'<div class="stat"><dt>{e(st["value"])}</dt>'
         f'<dd><span class="stat-label">{e(st["label"])}</span>'
@@ -661,14 +733,6 @@ def build_home():
     next_links = "".join(
         f'<a class="route" href="{e(i["href"])}"><span>{e(i["label"])}</span>'
         f'<small>{e(i["text"])}</small></a>' for i in nxt["items"])
-
-    caps = "".join(f"""
-      <li class="cap">
-        <p class="cap-index">{e(c["index"])}</p>
-        <h3>{e(c["title"])}</h3>
-        <p>{e(c["text"])}</p>
-        <a class="cap-link" href="{e(c["href"])}">{e(c["linkLabel"])}</a>
-      </li>""" for c in H["capabilities"])
 
     pubs = PUBS["publications"]
     cards = "".join(f"""
@@ -697,7 +761,7 @@ def build_home():
           {e(SITE['identity']['affiliation']['shortName'])}</p>
       </div>
     </div>
-    <div class="hero-stage">
+    <div class="hero-stage has-clip">
       <div class="hero-stage-head"><span>Mapping system, running</span><span>M2H-MX + Mono-Hydra++</span></div>
       {hero_clip(H['stageClip'])}
       <div class="hero-stage-foot"><span>RGB + IMU</span><span>{e(H['stageLabel'])}</span></div>
@@ -718,23 +782,16 @@ def build_home():
       <h2>{e(H['capabilitiesHeading'])}</h2>
       <p class="section-intro">{e(H['capabilitiesIntro'])}</p>
     </div>
-    <ol class="caps">{caps}</ol>
-  </div>
-</section>
-
-<section class="home-section home-section-intro">
-  <div class="section-index"><span>02</span><span>Trajectory</span></div>
-  <div class="section-content">
-    <div class="section-heading">
-      <p class="eyebrow">How I got here</p>
-      <h2>{e(intro['heading'])}</h2>
-    </div>
-    <div class="prose intro">{intro_paras}</div>
+    <figure class="loop">
+      <div class="loop-figure">{loop_svg()}</div>
+      <figcaption>Each block links to the work behind it. The three stages are the research; the
+        plate underneath is what makes any of it usable on a robot.</figcaption>
+    </figure>
   </div>
 </section>
 
 <section class="home-section home-section-platform">
-  <div class="section-index"><span>03</span><span>Platform</span></div>
+  <div class="section-index"><span>02</span><span>Platform</span></div>
   <div class="section-content">
     <div class="section-heading">
       <p class="eyebrow">Built for the payload limit</p>
@@ -747,13 +804,43 @@ def build_home():
 </section>
 
 <section class="home-section research-chapter">
-  <div class="section-index"><span>04</span><span>Research</span></div>
+  <div class="section-index"><span>03</span><span>Research</span></div>
   <div class="section-content">
     <div class="chapter-heading">
       <div><p class="eyebrow">{e(arc['actOne']['label'])} &middot; complete</p>
       <h2>{e(arc['actOne']['title'])}</h2></div>
       <p class="section-intro">{e(arc['actOne']['homeLine'])}</p>
     </div>
+
+
+    <div class="subsection-heading"><span>03.1</span><div><h3>{e(TN['heading'])}</h3>
+      <p class="section-intro">{e(intro['paragraphs'][0])}</p></div></div>
+    <div class="prose intro">{origin_paras}</div>
+    <div class="thenow">
+      <article class="thenow-card">
+        <p class="thenow-when">{e(TN['thenTitle'])}</p>
+        <h4>Autonomous exploration planning for a reconnaissance agent</h4>
+        <p>{e(TN['thenText'])}</p>
+        <p class="thenow-play">
+          <a href="{e(PERA['links']['video'])}"><span class="thenow-play-mark" aria-hidden="true">
+          </span>Watch the 2017 project video</a>
+        </p>
+        <p class="thenow-links"><a href="{e(PERA['links']['doi'])}">{e(TN['thenLinkLabel'])}</a></p>
+        <p class="thenow-note">{e(PERA['videoAttribution'])}</p>
+      </article>
+      <article class="thenow-card thenow-now">
+        <p class="thenow-when">{e(TN['nowTitle'])}</p>
+        <h4>Monocular 3D scene graphs, built in real time</h4>
+        <p>{e(TN['nowText'])}</p>
+        {picture("scene-graph-itc", cls="thenow-figure", sizes="(min-width: 56em) 28rem, 92vw",
+                 caption=False)}
+        <p class="thenow-links"><a href="/publications/mono-hydra-plus/">{e(TN['nowLinkLabel'])}</a></p>
+      </article>
+    </div>
+
+    <div class="subsection-heading"><span>03.2</span><div><h3>The system, running</h3>
+      <p class="section-intro">Two views of the same stack: the map it builds, and the state
+      estimate underneath that has to be steady enough to fly on.</p></div></div>
 
     <p class="pull">{e(story['paragraphs'][0])}</p>
 
@@ -784,12 +871,12 @@ def build_home():
       </li>
     </ol>
 
-    <div class="subsection-heading"><span>04.1</span><div><h3>What one frame gives the map</h3>
+    <div class="subsection-heading"><span>03.3</span><div><h3>What one frame gives the map</h3>
       <p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic
       labels. The mapping backend consumes those two outputs and nothing else.</p></div></div>
     <div class="wipe-pair">{wipe("m2h-mx-indoor", compact=True)}{wipe("m2h-mx-outdoor", compact=True)}</div>
 
-    <div class="subsection-heading"><span>04.2</span><div><h3>What changed over four years</h3>
+    <div class="subsection-heading"><span>03.4</span><div><h3>What changed over four years</h3>
       <p class="section-intro">Mean mapping error on the second floor of the ITC building,
       measured against a LiDAR ground truth. The embedded point in amber is the model running on
       the drone at reduced resolution, a different trade-off rather than a regression.</p></div></div>
@@ -809,7 +896,7 @@ def build_home():
 </section>
 
 <section class="home-section research-chapter research-chapter-next">
-  <div class="section-index"><span>05</span><span>Next</span></div>
+  <div class="section-index"><span>04</span><span>Next</span></div>
   <div class="section-content">
     <div class="chapter-heading">
       <div><p class="eyebrow">{e(arc['actTwo']['label'])} &middot; work in progress</p>
@@ -823,7 +910,7 @@ def build_home():
 </section>
 
 <section class="home-section home-section-applied">
-  <div class="section-index"><span>06</span><span>Applied</span></div>
+  <div class="section-index"><span>05</span><span>Applied</span></div>
   <div class="section-content">
     <div class="section-heading">
       <p class="eyebrow">Industry, 2017 to 2022</p>
@@ -838,7 +925,7 @@ def build_home():
 </section>
 
 <section class="home-section home-section-work">
-  <div class="section-index"><span>07</span><span>Selected</span></div>
+  <div class="section-index"><span>06</span><span>Selected</span></div>
   <div class="section-content">
     <div class="section-heading"><p class="eyebrow">Published systems</p><h2>Selected work</h2></div>
     <ul class="cards">{cards}</ul>

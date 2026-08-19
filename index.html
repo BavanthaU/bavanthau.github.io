@@ -116,8 +116,8 @@
     <div class="hero-copy">
       <p class="hero-kicker"><span aria-hidden="true"></span> Perception, learning, deployment</p>
       <h1><span class="hero-name">Bavantha Udugama</span>
-        <span class="hero-pitch">Machines that know where they are.<br>And what to do next.</span></h1>
-      <p class="lede">I build the perception and decision layer of autonomous systems: deep networks that turn raw images into geometry and meaning, SLAM that keeps them consistent over time, and reinforcement learning that chooses where to go next. Then I take it to the hardware and make it run in real time, most recently on a drone carrying its whole stack on one Jetson, before that on a fleet of service robots working in front of paying customers.</p>
+        <span class="hero-pitch">Robots that know where they are.<br>And what to do next.</span></h1>
+      <p class="lede">I build the perception and decision layer of robots: deep networks that turn raw images into geometry and meaning, SLAM that keeps them consistent over time, and reinforcement learning that chooses where to go next. Then I take it to the hardware and make it run in real time, most recently on a drone carrying its whole stack on one Jetson, before that on a fleet of service robots working in front of paying customers.</p>
       <div class="hero-actions">
         <a class="action action-primary" href="/research/">Explore the research</a>
         <a class="action" href="/cv/">View CV</a>
@@ -128,9 +128,9 @@
           ITC, University of Twente</p>
       </div>
     </div>
-    <div class="hero-stage">
+    <div class="hero-stage has-clip">
       <div class="hero-stage-head"><span>Mapping system, running</span><span>M2H-MX + Mono-Hydra++</span></div>
-      <div class="hero-clip v-wrap"><video poster="/media/video/icra26-poster.jpg" width="1600" height="686" muted loop playsinline preload="metadata" data-autoloop data-full-src="/media/video/icra26.mp4" aria-label="Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right."><source src="/media/video/icra26-preview.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div>
+      <div class="hero-clip v-wrap"><video poster="/media/video/icra26-poster.jpg" width="1600" height="686" muted loop autoplay playsinline preload="metadata" data-autoloop data-full-src="/media/video/icra26.mp4" aria-label="Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right."><source src="/media/video/icra26-preview.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div>
       <div class="hero-stage-foot"><span>RGB + IMU</span><span>3D scene graph, built live from one camera</span></div>
     </div>
   </div>
@@ -146,50 +146,19 @@
   <div class="section-content">
     <div class="section-heading">
       <p class="eyebrow">The work</p>
-      <h2>Four things I do</h2>
-      <p class="section-intro">The work spans the model, the map, the decision, and the machine it all has to run on. Most of my systems have needed all four.</p>
+      <h2>One loop, four problems</h2>
+      <p class="section-intro">Every robot I have worked on runs the same loop: see, place what it sees on a map, decide where to go, and do all of it on the computer it can carry. I have worked on each stage, and the last one decides whether the other three matter.</p>
     </div>
-    <ol class="caps">
-      <li class="cap">
-        <p class="cap-index">01</p>
-        <h3>Deep learning for dense perception</h3>
-        <p>One network predicting depth, semantics, surface normals and edges together, trained for the accuracy the map needs at the latency the platform allows. Published at IROS 2025 and accepted at ICRA 2026.</p>
-        <a class="cap-link" href="/publications/m2h-mx/">The perception model</a>
-      </li>
-      <li class="cap">
-        <p class="cap-index">02</p>
-        <h3>Spatial AI and SLAM</h3>
-        <p>Visual-inertial odometry and hierarchical 3D scene graphs, mesh through objects and places to rooms, built in real time from a single camera with no depth sensor.</p>
-        <a class="cap-link" href="/publications/mono-hydra-plus/">The mapping system</a>
-      </li>
-      <li class="cap">
-        <p class="cap-index">03</p>
-        <h3>Reinforcement learning for decisions</h3>
-        <p>A learned policy choosing where to look next in a building it has never seen, trained in simulation over the scene graph the mapper produces. In progress, no results yet.</p>
-        <a class="cap-link" href="/projects/learned-exploration/">How it is set up</a>
-      </li>
-      <li class="cap">
-        <p class="cap-index">04</p>
-        <h3>Deployment on real hardware</h3>
-        <p>TensorRT and ROS on Jetson-class devices, and before the PhD, more than 30 humanoid service robots deployed across Expo 2020 Dubai, healthcare, and reception sites.</p>
-        <a class="cap-link" href="/cv/">Where I have shipped</a>
-      </li></ol>
-  </div>
-</section>
-
-<section class="home-section home-section-intro">
-  <div class="section-index"><span>02</span><span>Trajectory</span></div>
-  <div class="section-content">
-    <div class="section-heading">
-      <p class="eyebrow">How I got here</p>
-      <h2>One question, three machines</h2>
-    </div>
-    <div class="prose intro"><p>The thread through all of it is one question: what is around this machine, and what should it do about it? I have answered it with a laser scanner on a ground robot, with a fleet of humanoids in a crowded exhibition hall, and now with a single camera on a drone that carries its own compute.</p><p>I started at Peradeniya, building a reconnaissance robot that had to map a space nobody had surveyed. Dubai came next, and with it the lesson that a system is only as good as its worst day in front of a customer.</p><p>The PhD at ITC in Enschede, finishing in 2026, is where the learning side got deep: one network doing four dense tasks, feeding a mapping backend, fast enough to run on the drone itself. What comes next is the decision side, an agent that chooses where to go rather than only describing what it sees.</p></div>
+    <figure class="loop">
+      <div class="loop-figure"><svg viewBox="0 0 716 292" role="img" aria-labelledby="lp-title lp-desc"><title id="lp-title">The perception and decision loop, and where my work sits in it</title><desc id="lp-desc">A camera and IMU feed a deep learning perception stage, which feeds spatial AI and SLAM, which feeds a reinforcement learning stage that decides where to go next. An arrow returns from the decision to the sensor, because moving the robot changes what it sees. A plate underneath the three stages is deployment on real hardware, which carries all of them.</desc><defs><marker id="lp-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="lp-headfill"/></marker></defs><g class="lp-node lp-sensor"><rect x="18" y="66" width="106" height="92" rx="8"/><text x="71" y="102" text-anchor="middle" class="lp-title">Camera</text><text x="71" y="122" text-anchor="middle" class="lp-title">+ IMU</text><text x="71" y="142" text-anchor="middle" class="lp-sub">passive only</text></g><a href="/publications/m2h-mx/" aria-label="Deep learning for dense perception"><g class="lp-node lp-stage"><rect x="146" y="66" width="168" height="92" rx="8"/><text x="160" y="90" class="lp-index">01</text><text x="160" y="114" class="lp-title">Deep learning</text><text x="160" y="132" class="lp-title">perception</text><text x="160" y="150" class="lp-sub">depth · semantics</text></g></a><title>Deep learning perception</title><a href="/publications/mono-hydra-plus/" aria-label="Spatial AI and SLAM"><g class="lp-node lp-stage"><rect x="338" y="66" width="168" height="92" rx="8"/><text x="352" y="90" class="lp-index">02</text><text x="352" y="114" class="lp-title">Spatial AI</text><text x="352" y="132" class="lp-title">and SLAM</text><text x="352" y="150" class="lp-sub">VIO · scene graph</text></g></a><title>Spatial AI and SLAM</title><a href="/projects/learned-exploration/" aria-label="Reinforcement learning for decisions"><g class="lp-node lp-stage"><rect x="530" y="66" width="168" height="92" rx="8"/><text x="544" y="90" class="lp-index">03</text><text x="544" y="114" class="lp-title">Reinforcement</text><text x="544" y="132" class="lp-title">learning</text><text x="544" y="150" class="lp-sub">where to go next</text></g></a><title>Reinforcement learning</title><line class="lp-arrow" x1="124" y1="112" x2="139" y2="112" marker-end="url(#lp-head)"/><line class="lp-arrow" x1="314" y1="112" x2="331" y2="112" marker-end="url(#lp-head)"/><line class="lp-arrow" x1="506" y1="112" x2="523" y2="112" marker-end="url(#lp-head)"/><path class="lp-arrow lp-return" d="M 698 158 L 698 194 L 71 194 L 71 165" marker-end="url(#lp-head)" fill="none"/><text x="384" y="188" text-anchor="middle" class="lp-sub lp-return-label">the robot moves, and the next frame is different</text><a href="/cv/" aria-label="Deployment on real hardware"><g class="lp-node lp-plate"><rect x="18" y="220" width="680" height="56" rx="8"/><text x="32" y="242" class="lp-index">04</text><text x="32" y="262" class="lp-title">Deployment on real hardware</text><text x="684" y="253" text-anchor="end" class="lp-sub">Jetson · TensorRT · ROS · 30+ robots shipped</text></g></a></svg></div>
+      <figcaption>Each block links to the work behind it. The three stages are the research; the
+        plate underneath is what makes any of it usable on a robot.</figcaption>
+    </figure>
   </div>
 </section>
 
 <section class="home-section home-section-platform">
-  <div class="section-index"><span>03</span><span>Platform</span></div>
+  <div class="section-index"><span>02</span><span>Platform</span></div>
   <div class="section-content">
     <div class="section-heading">
       <p class="eyebrow">Built for the payload limit</p>
@@ -202,13 +171,42 @@
 </section>
 
 <section class="home-section research-chapter">
-  <div class="section-index"><span>04</span><span>Research</span></div>
+  <div class="section-index"><span>03</span><span>Research</span></div>
   <div class="section-content">
     <div class="chapter-heading">
       <div><p class="eyebrow">Part I &middot; complete</p>
       <h2>Structuring the seen</h2></div>
       <p class="section-intro">Learned depth and semantics feed a visual-inertial estimator, and the map that comes out is layered: mesh, objects, places, rooms, building. Four papers, from showing it was possible to closing the loop back into the estimator.</p>
     </div>
+
+
+    <div class="subsection-heading"><span>03.1</span><div><h3>Then and now, the same question</h3>
+      <p class="section-intro">The thread through all of it is one question: what is around this robot, and what should it do about it? I have answered it with a laser scanner on a ground robot, with a fleet of humanoids in a crowded exhibition hall, and now with a single camera on a drone that carries its own compute.</p></div></div>
+    <div class="prose intro"><p>It started at Peradeniya in 2017, on a reconnaissance robot that had to explore and map a space nobody had surveyed. That work fused a laser range finder with stereo cameras and planned where to go next; it became an ICIIS paper, and I built the SLAM side of it.</p><p>The PhD asks the same question with the sensor taken away. No laser, no depth camera, one passive camera and an IMU, and a learned model doing the work the scanner used to do. What comes next puts the planning back in, this time learned rather than hand-designed.</p></div>
+    <div class="thenow">
+      <article class="thenow-card">
+        <p class="thenow-when">2017 · Peradeniya</p>
+        <h4>Autonomous exploration planning for a reconnaissance agent</h4>
+        <p>An autonomous exploration planning strategy for a reconnaissance robot mapping an unknown space, with a laser range finder fused with stereo cameras. I was the SLAM developer, one of three students on the project.</p>
+        <p class="thenow-play">
+          <a href="https://www.youtube.com/watch?v=csG_hieJj6s&amp;t=59s"><span class="thenow-play-mark" aria-hidden="true">
+          </span>Watch the 2017 project video</a>
+        </p>
+        <p class="thenow-links"><a href="https://doi.org/10.1109/ICIINFS.2017.8300386">The ICIIS 2017 paper</a></p>
+        <p class="thenow-note">Project video on co-author Nilanga Thelasingha&#x27;s channel. The link opens at 0:59, where Bavantha Udugama presents the system.</p>
+      </article>
+      <article class="thenow-card thenow-now">
+        <p class="thenow-when">2026 · ITC, University of Twente</p>
+        <h4>Monocular 3D scene graphs, built in real time</h4>
+        <p>The same job with the scanner removed. One camera and an IMU produce a hierarchical 3D scene graph of the building in real time, and the exploration policy that chooses where to go next is being learned rather than written.</p>
+        <figure class="thenow-figure"><picture><source type="image/avif" srcset="/media/images/scene-graph-itc-480.avif 480w, /media/images/scene-graph-itc-960.avif 960w, /media/images/scene-graph-itc-1600.avif 1600w" sizes="(min-width: 56em) 28rem, 92vw"><source type="image/webp" srcset="/media/images/scene-graph-itc-480.webp 480w, /media/images/scene-graph-itc-960.webp 960w, /media/images/scene-graph-itc-1600.webp 1600w" sizes="(min-width: 56em) 28rem, 92vw"><img src="/media/images/scene-graph-itc-1600.jpg" alt="A 3D scene graph over the ITC building second floor. A single building node at the top connects down to a room node, then to a dense band of place nodes following the corridor loop, then to object nodes scattered along the walls, and finally to the reconstructed mesh of the floor." width="3826" height="2240" loading="lazy" decoding="async"></picture></figure>
+        <p class="thenow-links"><a href="/publications/mono-hydra-plus/">The mapping system</a></p>
+      </article>
+    </div>
+
+    <div class="subsection-heading"><span>03.2</span><div><h3>The system, running</h3>
+      <p class="section-intro">Two views of the same stack: the map it builds, and the state
+      estimate underneath that has to be steady enough to fly on.</p></div></div>
 
     <p class="pull">A robot inspecting a bridge, counting warehouse stock, or entering a building after an incident needs more than a point cloud. A point cloud says where surfaces are. It does not say that this is a room, that is a doorway, and there is a fire extinguisher on the wall. Planning, search, and spoken instructions all need objects, places, and rooms.</p>
 
@@ -239,12 +237,12 @@
       </li>
     </ol>
 
-    <div class="subsection-heading"><span>04.1</span><div><h3>What one frame gives the map</h3>
+    <div class="subsection-heading"><span>03.3</span><div><h3>What one frame gives the map</h3>
       <p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic
       labels. The mapping backend consumes those two outputs and nothing else.</p></div></div>
     <div class="wipe-pair"><figure class="wipe wipe-compact" data-wipe><p class="wipe-title">Indoor, NYUDv2</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/mx-indoor-rgb-480.avif 480w, /media/images/mx-indoor-rgb-769.avif 769w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-indoor-rgb-480.webp 480w, /media/images/mx-indoor-rgb-769.webp 769w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-indoor-rgb-769.jpg" alt="An indoor living room: a person seated on a patterned sofa, a table lamp, a wooden side table, an armchair, and framed pictures on the wall." width="769" height="572" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/mx-indoor-depth-480.avif 480w, /media/images/mx-indoor-depth-769.avif 769w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-indoor-depth-480.webp 480w, /media/images/mx-indoor-depth-769.webp 769w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-indoor-depth-769.jpg" alt="Predicted depth for the same living room, as a smooth colour field where the near armchair and sofa stand out from the far wall." width="769" height="572" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/mx-indoor-semantics-480.avif 480w, /media/images/mx-indoor-semantics-769.avif 769w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-indoor-semantics-480.webp 480w, /media/images/mx-indoor-semantics-769.webp 769w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-indoor-semantics-769.jpg" alt="Predicted semantic labels for the same living room, with flat colour regions for sofa, chair, lamp, table, floor, wall, and pictures." width="769" height="572" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><div class="wipe-steps" data-wipe-steps hidden role="group" aria-label="Choose the layer to show"><button type="button" class="wipe-step" data-wipe-step="0" aria-pressed="false">RGB input</button><button type="button" class="wipe-step" data-wipe-step="1" aria-pressed="false">Predicted depth</button><button type="button" class="wipe-step" data-wipe-step="2" aria-pressed="true">Predicted semantics</button></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="200" step="1" data-wipe-input></label><figcaption>Indoor frame, NYUDv2. Metric depth and semantic labels from one RGB image. Pick a layer, or drag to blend between them.</figcaption></figure><figure class="wipe wipe-compact" data-wipe><p class="wipe-title">Outdoor, Cityscapes</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/mx-outdoor-rgb-480.avif 480w, /media/images/mx-outdoor-rgb-960.avif 960w, /media/images/mx-outdoor-rgb-1472.avif 1472w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-outdoor-rgb-480.webp 480w, /media/images/mx-outdoor-rgb-960.webp 960w, /media/images/mx-outdoor-rgb-1472.webp 1472w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-outdoor-rgb-1472.jpg" alt="A city street seen from a vehicle: parked and moving cars, a yellow DHL lorry, road markings, traffic signs, trees, and buildings." width="1472" height="573" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/mx-outdoor-depth-480.avif 480w, /media/images/mx-outdoor-depth-960.avif 960w, /media/images/mx-outdoor-depth-1472.avif 1472w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-outdoor-depth-480.webp 480w, /media/images/mx-outdoor-depth-960.webp 960w, /media/images/mx-outdoor-depth-1472.webp 1472w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-outdoor-depth-1472.jpg" alt="Predicted depth for the same street, with the road surface graded from near to far and vehicles resolved as separate depth bodies." width="1472" height="573" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/mx-outdoor-semantics-480.avif 480w, /media/images/mx-outdoor-semantics-960.avif 960w, /media/images/mx-outdoor-semantics-1472.avif 1472w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/mx-outdoor-semantics-480.webp 480w, /media/images/mx-outdoor-semantics-960.webp 960w, /media/images/mx-outdoor-semantics-1472.webp 1472w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/mx-outdoor-semantics-1472.jpg" alt="Predicted semantic labels for the same street, with distinct colours for road, cars, vegetation, buildings, poles, and traffic signs." width="1472" height="573" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><div class="wipe-steps" data-wipe-steps hidden role="group" aria-label="Choose the layer to show"><button type="button" class="wipe-step" data-wipe-step="0" aria-pressed="false">RGB input</button><button type="button" class="wipe-step" data-wipe-step="1" aria-pressed="false">Predicted depth</button><button type="button" class="wipe-step" data-wipe-step="2" aria-pressed="true">Predicted semantics</button></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="200" step="1" data-wipe-input></label><figcaption>The same model outdoors, Cityscapes: 82.28 mIoU, 3.15 points over the strongest baseline. Pick a layer, or drag to blend between them.</figcaption></figure></div>
 
-    <div class="subsection-heading"><span>04.2</span><div><h3>What changed over four years</h3>
+    <div class="subsection-heading"><span>03.4</span><div><h3>What changed over four years</h3>
       <p class="section-intro">Mean mapping error on the second floor of the ITC building,
       measured against a LiDAR ground truth. The embedded point in amber is the model running on
       the drone at reduced resolution, a different trade-off rather than a regression.</p></div></div>
@@ -284,7 +282,7 @@
 </section>
 
 <section class="home-section research-chapter research-chapter-next">
-  <div class="section-index"><span>05</span><span>Next</span></div>
+  <div class="section-index"><span>04</span><span>Next</span></div>
   <div class="section-content">
     <div class="chapter-heading">
       <div><p class="eyebrow">Part II &middot; work in progress</p>
@@ -298,7 +296,7 @@
 </section>
 
 <section class="home-section home-section-applied">
-  <div class="section-index"><span>06</span><span>Applied</span></div>
+  <div class="section-index"><span>05</span><span>Applied</span></div>
   <div class="section-content">
     <div class="section-heading">
       <p class="eyebrow">Industry, 2017 to 2022</p>
@@ -313,7 +311,7 @@
 </section>
 
 <section class="home-section home-section-work">
-  <div class="section-index"><span>07</span><span>Selected</span></div>
+  <div class="section-index"><span>06</span><span>Selected</span></div>
   <div class="section-content">
     <div class="section-heading"><p class="eyebrow">Published systems</p><h2>Selected work</h2></div>
     <ul class="cards">

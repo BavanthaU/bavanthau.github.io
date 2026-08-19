@@ -188,11 +188,11 @@
   },
   "intro": {
     "paragraphs": [
-      "The thread through all of it is one question: what is around this machine, and what should it do about it? I have answered it with a laser scanner on a ground robot, with a fleet of humanoids in a crowded exhibition hall, and now with a single camera on a drone that carries its own compute.",
-      "I started at Peradeniya, building a reconnaissance robot that had to map a space nobody had surveyed. Dubai came next, and with it the lesson that a system is only as good as its worst day in front of a customer.",
-      "The PhD at ITC in Enschede, finishing in 2026, is where the learning side got deep: one network doing four dense tasks, feeding a mapping backend, fast enough to run on the drone itself. What comes next is the decision side, an agent that chooses where to go rather than only describing what it sees."
+      "The thread through all of it is one question: what is around this robot, and what should it do about it? I have answered it with a laser scanner on a ground robot, with a fleet of humanoids in a crowded exhibition hall, and now with a single camera on a drone that carries its own compute.",
+      "It started at Peradeniya in 2017, on a reconnaissance robot that had to explore and map a space nobody had surveyed. That work fused a laser range finder with stereo cameras and planned where to go next; it became an ICIIS paper, and I built the SLAM side of it.",
+      "The PhD asks the same question with the sensor taken away. No laser, no depth camera, one passive camera and an IMU, and a learned model doing the work the scanner used to do. What comes next puts the planning back in, this time learned rather than hand-designed."
     ],
-    "heading": "One question, three machines"
+    "heading": "One question, three robots"
   },
   "nextSteps": {
     "heading": "Where to go next",
@@ -244,18 +244,18 @@
   "statsFootnote": "Perception, odometry, mapping, and scene graph construction all run on the drone. The frame rate is the measured perception throughput.",
   "home": {
     "kicker": "Perception, learning, deployment",
-    "pitchLineOne": "Machines that know where they are.",
+    "pitchLineOne": "Robots that know where they are.",
     "pitchLineTwo": "And what to do next.",
-    "lede": "I build the perception and decision layer of autonomous systems: deep networks that turn raw images into geometry and meaning, SLAM that keeps them consistent over time, and reinforcement learning that chooses where to go next. Then I take it to the hardware and make it run in real time, most recently on a drone carrying its whole stack on one Jetson, before that on a fleet of service robots working in front of paying customers.",
+    "lede": "I build the perception and decision layer of robots: deep networks that turn raw images into geometry and meaning, SLAM that keeps them consistent over time, and reinforcement learning that chooses where to go next. Then I take it to the hardware and make it run in real time, most recently on a drone carrying its whole stack on one Jetson, before that on a fleet of service robots working in front of paying customers.",
     "stageLabel": "3D scene graph, built live from one camera",
     "stageClip": "icra26",
-    "capabilitiesHeading": "Four things I do",
-    "capabilitiesIntro": "The work spans the model, the map, the decision, and the machine it all has to run on. Most of my systems have needed all four.",
+    "capabilitiesHeading": "One loop, four problems",
+    "capabilitiesIntro": "Every robot I have worked on runs the same loop: see, place what it sees on a map, decide where to go, and do all of it on the computer it can carry. I have worked on each stage, and the last one decides whether the other three matter.",
     "capabilities": [
       {
         "index": "01",
         "title": "Deep learning for dense perception",
-        "text": "One network predicting depth, semantics, surface normals and edges together, trained for the accuracy the map needs at the latency the platform allows. Published at IROS 2025 and accepted at ICRA 2026.",
+        "text": "One network predicting depth, semantics, surface normals and edges together, trained for the accuracy the map needs at the latency the platform allows.",
         "href": "/publications/m2h-mx/",
         "linkLabel": "The perception model"
       },
@@ -276,12 +276,21 @@
       {
         "index": "04",
         "title": "Deployment on real hardware",
-        "text": "TensorRT and ROS on Jetson-class devices, and before the PhD, more than 30 humanoid service robots deployed across Expo 2020 Dubai, healthcare, and reception sites.",
+        "text": "TensorRT and ROS on Jetson-class hardware, and before the PhD, more than 30 humanoid service robots deployed across Expo 2020 Dubai, healthcare, and reception sites.",
         "href": "/cv/",
         "linkLabel": "Where I have shipped"
       }
     ],
     "appliedHeading": "Before the drone, a fleet of robots and real customers",
-    "appliedIntro": "Two years in Dubai as the founding robotics engineer at a service robotics startup, promoted to lead a team of three within ten months. The stack was ROS navigation with GMapping SLAM; the deployment was more than 30 humanoid robots in front of the public. I also fine-tuned a YOLOv5 detector for grayscale thermal imagery and shipped it on an Intel NUC with a FLIR camera, running live across enterprise sites. Nothing teaches you which parts of a system are real like debugging navigation while a customer watches."
+    "appliedIntro": "Two years in Dubai as the founding robotics engineer at a service robotics startup, promoted to lead a team of three within ten months. The stack was ROS navigation with GMapping SLAM; the deployment was more than 30 humanoid robots in front of the public. I also fine-tuned a YOLOv5 detector for grayscale thermal imagery and shipped it on an Intel NUC with a FLIR camera, running live across enterprise sites. Nothing teaches you which parts of a system are real like debugging navigation while a customer watches.",
+    "thenNow": {
+      "heading": "Then and now, the same question",
+      "thenTitle": "2017 · Peradeniya",
+      "thenText": "An autonomous exploration planning strategy for a reconnaissance robot mapping an unknown space, with a laser range finder fused with stereo cameras. I was the SLAM developer, one of three students on the project.",
+      "thenLinkLabel": "The ICIIS 2017 paper",
+      "nowTitle": "2026 · ITC, University of Twente",
+      "nowText": "The same job with the scanner removed. One camera and an IMU produce a hierarchical 3D scene graph of the building in real time, and the exploration policy that chooses where to go next is being learned rather than written.",
+      "nowLinkLabel": "The mapping system"
+    }
   }
 }
