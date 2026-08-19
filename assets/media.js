@@ -214,3 +214,43 @@
   }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
   marked.forEach(function (el) { el.classList.add("will-reveal"); io.observe(el); });
 })();
+
+/* CV page: print action and a scrollspy for the section rail. Both optional. */
+(function () {
+  "use strict";
+
+  document.querySelectorAll("[data-print]").forEach(function (btn) {
+    btn.hidden = false;
+    btn.addEventListener("click", function () { window.print(); });
+  });
+
+  var rail = document.querySelector("[data-spy]");
+  if (!rail || !("IntersectionObserver" in window)) return;
+  var links = Array.prototype.slice.call(rail.querySelectorAll("[data-spy-link]"));
+  var sections = links
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+  if (!sections.length) return;
+
+  var mark = function (id) {
+    links.forEach(function (a) {
+      a.setAttribute("aria-current", a.getAttribute("href") === "#" + id ? "true" : "false");
+    });
+  };
+
+  var visible = {};
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) { visible[en.target.id] = en.isIntersecting; });
+    for (var i = 0; i < sections.length; i++) {
+      if (visible[sections[i].id]) { mark(sections[i].id); return; }
+    }
+  }, { rootMargin: "-20% 0px -70% 0px", threshold: 0 });
+
+  sections.forEach(function (sec) { io.observe(sec); });
+  mark(sections[0].id);
+
+  // near the top of the page nothing is inside the spy band yet, so hold the first section
+  addEventListener("scroll", function () {
+    if (window.scrollY < 240) mark(sections[0].id);
+  }, { passive: true });
+})();

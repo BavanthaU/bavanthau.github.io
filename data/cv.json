@@ -1,0 +1,132 @@
+{
+  "_comment": "Structured CV content. Source of truth: _source/cv/cv-2026-07-08.pdf and data/timeline.json. Nothing here is invented; every line traces back to one of those. The phone number and home address in the PDF are deliberately not published.",
+  "summary": "Computer vision engineer finishing a PhD in real-time perception and 3D mapping for autonomous systems. I build vision pipelines end to end, from training through optimisation to deployment on edge hardware, across detection, semantic segmentation, and monocular depth. I have shipped a fine-tuned detector inside a live commercial product and taken perception systems from prototype to reliable real-time operation on Jetson-class devices.",
+  "facts": [
+    { "label": "Role", "value": "PhD candidate, robotics and computer vision" },
+    { "label": "Based", "value": "Netherlands" },
+    { "label": "Available", "value": "1 August 2026" },
+    { "label": "Focus", "value": "Monocular spatial perception, SLAM, edge deployment" }
+  ],
+  "glance": [
+    { "value": "8 yrs", "label": "robotics and deployment", "detail": "Synopsys, Premier Genie, Expert Hub Robotics, University of Twente" },
+    { "value": "4", "label": "first-author papers", "detail": "ISPRS Annals, IROS 2025, ICRA 2026 SRRA, ISPRS Journal under review" },
+    { "value": "30+", "label": "robots deployed", "detail": "Humanoid service robots across Expo 2020 Dubai, healthcare, and reception sites" },
+    { "value": "25.53 fps", "label": "on-device perception", "detail": "M2H-MX-L, TensorRT FP16, Jetson Orin NX 16GB" }
+  ],
+  "experience": [
+    {
+      "role": "Doctoral researcher, robotics and computer vision",
+      "org": "Faculty ITC, University of Twente",
+      "place": "Enschede, Netherlands",
+      "period": "August 2022 to August 2026",
+      "note": "PhD project: autonomous real-time UAV mapping with spatial perception for indoor applications. Supervised by George Vosselman and Francesco Nex.",
+      "bullets": [
+        "Built Mono-Hydra++, a real-time monocular RGB and IMU pipeline that constructs hierarchical 3D scene graphs for indoor drone mapping. C++ extensions to the VIO backend add sparse depth factors for metric-aware pose graph estimation, cutting trajectory error by 61% on ScanNet against monocular GO-SLAM while holding 25 to 30 Hz.",
+        "Took the full perception and mapping stack from prototype to deployment on an NVIDIA Jetson Orin NX with TensorRT FP16, ROS integration, and runtime profiling, reaching 25 fps on device under real-time compute limits.",
+        "Developed M2H and M2H-MX, the multi-task perception frontends behind Mono-Hydra++, predicting metric depth and semantic labels jointly from a single image. M2H appeared at IEEE/RSJ IROS 2025; M2H-MX was accepted at the IEEE ICRA 2026 SRRA Workshop, improving NYUDv2 mIoU by 6.6% and depth RMSE by 9.4%.",
+        "Building an indoor UAV exploration system in NVIDIA Isaac Sim, where the drone plans over semantic scene graphs from Mono-Hydra++, with transfer to a custom-built drone for real-world validation."
+      ],
+      "tags": ["C++", "PyTorch", "ROS", "TensorRT", "Jetson"]
+    },
+    {
+      "role": "Senior robotics software engineer and project lead",
+      "org": "Expert Hub Robotics",
+      "place": "Dubai, United Arab Emirates",
+      "period": "October 2020 to June 2022",
+      "note": "Joined as the founding robotics engineer and was promoted within 10 months to lead a team of three.",
+      "bullets": [
+        "Built the core robotics stack from the ground up: a ROS navigation stack with GMapping-based SLAM, obstacle avoidance, and robot SDK integration.",
+        "Led deployment and on-site support for more than 30 humanoid robots across Expo 2020 Dubai, healthcare, and reception sites, delivering customised solutions for over 10 enterprise clients and debugging navigation, sensing, and API integration in live customer environments.",
+        "Fine-tuned a YOLOv5 face detector for grayscale thermal imagery and deployed it on an Intel NUC with a FLIR camera for contactless temperature screening, running live across enterprise sites."
+      ],
+      "tags": ["ROS", "SLAM", "YOLOv5", "deployment"],
+      "media": ["humanoid-deployment", "humanoid-mapping"],
+      "mediaIntro": "The fleet in service, and the map it navigates on."
+    },
+    {
+      "role": "Robotics engineer, STEM and IoT",
+      "org": "Premier Genie",
+      "place": "Dubai, United Arab Emirates",
+      "period": "October 2019 to September 2020",
+      "note": null,
+      "bullets": [
+        "Built robotics and IoT prototypes for Dubai school programmes, combining embedded sensors, robot behaviours, and Android interfaces."
+      ],
+      "tags": ["embedded", "Android"]
+    },
+    {
+      "role": "Corporate applications engineer",
+      "org": "Synopsys Inc.",
+      "place": "Sri Lanka, and Samsung Electronics, South Korea",
+      "period": "November 2017 to June 2019",
+      "note": null,
+      "bullets": [
+        "Selected within the first year for on-site applications support at Samsung Electronics in South Korea, helping reduce clock-domain crossing violations threefold on a production chip."
+      ],
+      "tags": ["verification", "customer-facing"]
+    }
+  ],
+  "education": [
+    {
+      "degree": "PhD, robotics and computer vision",
+      "org": "Faculty ITC, University of Twente",
+      "place": "Enschede, Netherlands",
+      "period": "2022 to 2026",
+      "result": "Expected completion August 2026",
+      "detail": "Thesis: Structuring the Seen, Exploring the Unseen. Autonomous real-time UAV mapping with spatial perception for indoor applications."
+    },
+    {
+      "degree": "MSc Robotics Engineering",
+      "org": "Middlesex University Dubai",
+      "place": "United Arab Emirates",
+      "period": "2019 to 2021",
+      "result": "Distinction",
+      "detail": "Thesis: a heterogeneous swarm robot system with distributed data processing at the edge for collective transportation."
+    },
+    {
+      "degree": "BSc Electrical and Electronic Engineering",
+      "org": "University of Peradeniya",
+      "place": "Sri Lanka",
+      "period": "2014 to 2017",
+      "result": "Second Class Upper Division, GPA 3.55 of 4.00",
+      "detail": "Final-year project: a vision and LiDAR mobile robot for reconnaissance in unknown environments, fusing a laser range finder with stereo cameras."
+    }
+  ],
+  "awards": [
+    { "year": "2017", "title": "Best Undergraduate Project", "org": "Institution of Engineers Sri Lanka" },
+    { "year": "2017", "title": "Best Technical Paper", "org": "IET Sri Lanka" },
+    { "year": "2021", "title": "MSc awarded with Distinction", "org": "Middlesex University Dubai" }
+  ],
+  "skills": [
+    {
+      "group": "Computer vision and machine learning",
+      "years": "4+ years",
+      "items": ["PyTorch", "OpenCV", "semantic segmentation", "monocular depth estimation", "dense multi-task learning", "YOLO detection"]
+    },
+    {
+      "group": "Real-time perception and 3D mapping",
+      "years": "7+ years",
+      "items": ["visual-inertial SLAM", "sensor fusion", "6-DoF state estimation", "pose graph optimisation", "3D reconstruction", "metric-semantic mapping", "autonomous navigation"]
+    },
+    {
+      "group": "Deployment and optimisation",
+      "years": "8+ years",
+      "items": ["C++", "Python", "ROS 1 and ROS 2", "Linux", "Docker", "TensorRT", "Jetson Orin NX", "FP16 inference", "runtime profiling"]
+    },
+    {
+      "group": "Sensors and robot systems",
+      "years": "8+ years",
+      "items": ["monocular, stereo, and 3D vision sensors", "IMUs", "2D LiDAR", "camera and IMU calibration", "robot integration", "real-world validation"]
+    }
+  ],
+  "sections": [
+    { "id": "profile", "label": "Profile" },
+    { "id": "experience", "label": "Experience" },
+    { "id": "education", "label": "Education" },
+    { "id": "publications", "label": "Publications" },
+    { "id": "teaching", "label": "Teaching" },
+    { "id": "awards", "label": "Awards" },
+    { "id": "skills", "label": "Skills" },
+    { "id": "timeline", "label": "Timeline" }
+  ]
+}

@@ -481,7 +481,8 @@ figcaption { max-width: 84ch; margin-top: 0.75rem; color: var(--ink-2); font: 0.
 .ps-clip video { aspect-ratio: 9 / 16; }
 .gallery-grid { display: grid; grid-template-columns: 1fr; gap: 0.7rem; }
 .gallery-side { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-.g-lead img, .g-thumb img { aspect-ratio: 4 / 3; }
+.g-lead, .g-thumb { position: relative; aspect-ratio: 4 / 3; min-height: 0; overflow: hidden; border-radius: var(--radius); }
+.g-lead img, .g-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
 
 /* Descent */
 
@@ -624,10 +625,8 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
   .showcase-grid .ps-small:nth-of-type(3) { grid-column: 2; grid-row: 2; }
   .showcase-grid .ps-clip { grid-column: 3; grid-row: 1 / -1; }
   .ps-clip video { height: 100%; aspect-ratio: auto; }
-  .gallery-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
-  .gallery-side { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
-  .g-thumb { min-height: 0; }
-  .g-thumb img { height: 100%; aspect-ratio: auto; }
+  .gallery-grid { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: stretch; }
+  .gallery-side { grid-template-columns: 1fr; grid-template-rows: auto auto; }
   .tl-media { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; }
   .tl-media .media-label { grid-column: 1 / -1; }
   .tl-media .v-figure.is-portrait { max-width: 15rem; }
@@ -776,4 +775,109 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
   .beat, .beat-flip { grid-template-columns: 1fr; }
   .beat-flip .beat-copy { order: 0; }
   .wipe-pair { grid-template-columns: 1fr; }
+}
+
+/* ------------------------------------------------------------------
+   Curriculum vitae
+   ------------------------------------------------------------------ */
+
+.cv-head { max-width: none; padding-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.cv-head h1 { margin: 0.4rem 0 0; }
+.cv-head .standfirst { max-width: 62ch; font-size: clamp(1.02rem, 0.95rem + 0.45vw, 1.28rem); }
+
+.cv-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem 1.5rem; margin: 2rem 0 0; padding: 1.2rem 0 0; border-top: 1px solid var(--rule); }
+.cv-facts dt { color: var(--ink-2); font: 650 0.6rem/1.3 var(--mono); letter-spacing: 0.11em; text-transform: uppercase; }
+.cv-facts dd { margin: 0.35rem 0 0; font-size: 0.9rem; line-height: 1.5; }
+
+.cv-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.75rem; }
+.cv-actions .action { cursor: pointer; font: inherit; }
+
+.cv-layout { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
+.cv-main { min-width: 0; }
+
+/* Sticky section rail with scrollspy */
+.cv-toc { position: sticky; top: 5.5rem; align-self: start; display: flex; flex-direction: column; gap: 0.1rem; padding-left: 0.9rem; border-left: 1px solid var(--rule); }
+.cv-toc a { position: relative; padding: 0.4rem 0; color: var(--ink-2); font: 600 0.72rem/1.3 var(--body); text-decoration: none; transition: color 160ms ease; }
+.cv-toc a::before { content: ""; position: absolute; left: -0.95rem; top: 50%; width: 2px; height: 0; translate: 0 -50%; background: var(--accent); transition: height 200ms ease; }
+.cv-toc a:hover { color: var(--ink); }
+.cv-toc a[aria-current="true"] { color: var(--accent); }
+.cv-toc a[aria-current="true"]::before { height: 1.1rem; }
+
+.cv-section { padding-top: clamp(2.5rem, 5vw, 3.5rem); scroll-margin-top: 6rem; }
+.cv-section:first-child { padding-top: 0; }
+.cv-section > h2 { margin: 0 0 1.25rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--rule); font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem); }
+.cv-section .section-intro { margin-top: -0.4rem; }
+.stats-flat { margin: 0; border-top: 0; }
+.stats-flat::before { content: "CAREER IN FOUR NUMBERS"; }
+.stats-flat dl { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 68em) { .stats-flat dl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 34em) { .stats-flat dl { grid-template-columns: 1fr; } }
+
+/* Roles and education entries */
+.roles { display: grid; gap: 0; }
+.role { display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: 1.75rem; padding: 1.6rem 0; border-bottom: 1px solid var(--rule); }
+.role:last-child { border-bottom: 0; }
+.role-when span { display: block; position: sticky; top: 6rem; color: var(--ink-2); font: 0.7rem/1.5 var(--mono); font-variant-numeric: tabular-nums; }
+.role-body { min-width: 0; }
+.role-body h3 { margin: 0 0 0.3rem; font-size: 1.08rem; letter-spacing: -0.01em; }
+.role-org { margin: 0 0 0.7rem; color: var(--accent); font: 650 0.72rem/1.5 var(--mono); }
+.role-org span { color: var(--ink-2); font-weight: 400; }
+.role-org span::before { content: " · "; }
+.role-note { margin: 0 0 0.8rem; max-width: 62ch; font-size: 0.88rem; color: var(--ink-2); }
+.role-result { margin: 0 0 0.4rem; font-size: 0.85rem; font-weight: 600; }
+.role-points { margin: 0; padding-left: 1.1rem; max-width: 70ch; }
+.role-points li { margin-bottom: 0.55rem; font-size: 0.89rem; line-height: 1.62; }
+.role-points li::marker { color: var(--accent); }
+.role-edu .role-body p:last-child { margin: 0; font-size: 0.88rem; color: var(--ink-2); max-width: 62ch; }
+
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.9rem; }
+.chips:empty { display: none; }
+.chip { padding: 0.25rem 0.55rem; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); color: var(--ink-2); font: 600 0.62rem/1.3 var(--mono); letter-spacing: 0.03em; }
+
+/* Publications list */
+.cv-pubs { list-style: none; margin: 1.25rem 0 1rem; padding: 0; }
+.cv-pub { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1rem; padding: 0.9rem 0; border-top: 1px solid var(--rule); }
+.cv-pub:first-child { border-top: 0; }
+.cv-pub-year { color: var(--ink-2); font: 0.72rem/1.7 var(--mono); font-variant-numeric: tabular-nums; }
+.cv-pub-body a { font-weight: 600; font-size: 0.92rem; line-height: 1.5; }
+.cv-pub-meta { display: block; margin-top: 0.3rem; color: var(--ink-2); font: 0.7rem/1.6 var(--mono); }
+
+/* Teaching, awards, skills */
+.teach { display: grid; grid-template-columns: 10rem minmax(0, 1fr); gap: 1.75rem; padding: 0.5rem 0; }
+.teach p { margin: 0; max-width: 66ch; font-size: 0.9rem; }
+.teach-when { color: var(--ink-2); font: 0.7rem/1.7 var(--mono); }
+.awards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.8rem; }
+.award { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.6rem; padding: 0.9rem 1rem; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--surface); font-size: 0.85rem; line-height: 1.5; }
+.award-year { color: var(--accent); font: 650 0.72rem/1.5 var(--mono); }
+.skills { display: grid; gap: 1.4rem; }
+.skill-head { margin: 0 0 0.55rem; font: 650 0.78rem/1.4 var(--body); }
+.skill-head span { margin-left: 0.5rem; color: var(--ink-2); font: 0.62rem/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; }
+.skill .chips { margin-top: 0; }
+
+.tl-milestone .tl-what h3::after { content: "milestone"; margin-left: 0.6rem; padding: 0.15rem 0.4rem; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font: 650 0.55rem/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; vertical-align: 0.16em; }
+
+@media (max-width: 62em) {
+  .cv-layout { grid-template-columns: 1fr; }
+  .cv-toc { position: static; flex-direction: row; flex-wrap: wrap; gap: 0.4rem; padding: 0.6rem 0 0; border-left: 0; border-top: 1px solid var(--rule); }
+  .cv-toc a { padding: 0.35rem 0.7rem; border: 1px solid var(--rule); border-radius: 999px; }
+  .cv-toc a::before { display: none; }
+  .cv-toc a[aria-current="true"] { border-color: var(--accent); background: var(--accent-soft); }
+  .role, .teach, .cv-pub { grid-template-columns: 1fr; gap: 0.45rem; }
+  .role-when span { position: static; }
+}
+
+/* Print: a real one-page-per-section CV, no chrome, no video */
+@media print {
+  :root { --paper: #fff; --surface: #fff; --surface-2: #fff; --ink: #000; --ink-2: #333; --accent: #005a56; --rule: #bbb; }
+  .masthead, .site-footer, .routes, .cv-actions, .cv-toc, .theme-toggle, .skip, .v-toggle, .tl-media, .crumbs { display: none !important; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .wrap, .page-content { max-width: none; padding: 0; margin: 0; }
+  .cv-layout { display: block; }
+  .cv-section { padding-top: 1.2rem; break-inside: avoid; }
+  .cv-section > h2 { break-after: avoid; }
+  .role, .cv-pub, .award, .skill { break-inside: avoid; }
+  a { color: #000; text-decoration: none; }
+  .cv-pub-body a::after { content: " (" attr(href) ")"; font-size: 8pt; color: #555; }
+  .will-reveal { opacity: 1 !important; transform: none !important; }
 }

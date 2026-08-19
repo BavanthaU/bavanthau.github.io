@@ -30,6 +30,7 @@ TIMELINE = json.loads((DATA / "timeline.json").read_text())
 _mf = ROOT / "media" / "MANIFEST.json"
 MEDIA = json.loads(_mf.read_text()) if _mf.exists() else {"images": {}, "frames": {}, "videos": {}}
 MEDIACFG = json.loads((DATA / "media.json").read_text())
+CV = json.loads((DATA / "cv.json").read_text())
 
 ORIGIN = SITE["origin"].rstrip("/")
 NAME = SITE["identity"]["canonicalName"]
@@ -1357,44 +1358,154 @@ def build_cv():
             when = a
         else:
             when = f"{a} to {b}"
-        media = ""
-        if t.get("media"):
-            clips = "".join(video(k) for k in t["media"])
-            if clips:
-                intro = (f'<p class="media-label">{e(t["mediaIntro"])}</p>'
-                         if t.get("mediaIntro") else "")
-                media = f'<div class="tl-media">{intro}{clips}</div>'
         anchor = f' id="{e(t["anchor"])}"' if t.get("anchor") else ""
+        kind = " tl-milestone" if "milestone" in t.get("tags", []) else ""
         items += f"""
-    <li class="tl-item"{anchor}>
+    <li class="tl-item{kind}"{anchor}>
       <div class="tl-when">{e(when)}</div>
       <div class="tl-what">
         <h3>{e(t["title"])}</h3>
         <p class="tl-org">{e(t["org"])}</p>
         <p>{e(t["detail"])}</p>
-        {media}
       </div>
     </li>"""
 
-    teaching = "".join(f'<p>{e(x["detail"])} <span class="pub-venue">{e(x["period"])}</span></p>'
-                       for x in TIMELINE["teaching"])
+    facts = "".join(f'<div><dt>{e(f["label"])}</dt><dd>{e(f["value"])}</dd></div>'
+                    for f in CV["facts"])
+
+    glance = "".join(
+        f'<div class="stat"><dt>{e(g["value"])}</dt>'
+        f'<dd><span class="stat-label">{e(g["label"])}</span>'
+        f'<span class="stat-detail">{e(g["detail"])}</span></dd></div>'
+        for g in CV["glance"])
+
+    roles = ""
+    for r in CV["experience"]:
+        bullets = "".join(f"<li>{e(b)}</li>" for b in r["bullets"])
+        tags = "".join(f'<span class="chip">{e(t)}</span>' for t in r.get("tags", []))
+        note = f'<p class="role-note">{e(r["note"])}</p>' if r.get("note") else ""
+        media = ""
+        if r.get("media"):
+            clips = "".join(video(k) for k in r["media"])
+            if clips:
+                intro = (f'<p class="media-label">{e(r["mediaIntro"])}</p>'
+                         if r.get("mediaIntro") else "")
+                media = f'<div class="tl-media">{intro}{clips}</div>'
+        roles += f"""
+    <article class="role">
+      <div class="role-when"><span>{e(r["period"])}</span></div>
+      <div class="role-body">
+        <h3>{e(r["role"])}</h3>
+        <p class="role-org">{e(r["org"])} <span>{e(r["place"])}</span></p>
+        {note}
+        <ul class="role-points">{bullets}</ul>
+        <div class="chips">{tags}</div>
+        {media}
+      </div>
+    </article>"""
+
+    edu = "".join(f"""
+    <article class="role role-edu">
+      <div class="role-when"><span>{e(x["period"])}</span></div>
+      <div class="role-body">
+        <h3>{e(x["degree"])}</h3>
+        <p class="role-org">{e(x["org"])} <span>{e(x["place"])}</span></p>
+        <p class="role-result">{e(x["result"])}</p>
+        <p>{e(x["detail"])}</p>
+      </div>
+    </article>""" for x in CV["education"])
+
+    pub_rows = "".join(f"""
+    <li class="cv-pub">
+      <span class="cv-pub-year">{e(str(p["year"]))}</span>
+      <span class="cv-pub-body">
+        <a href="/publications/{e(p["slug"])}/">{e(p["title"])}</a>
+        <span class="cv-pub-meta">{authors_html(p["authors"])} &middot; {e(p["venue"])}
+          &middot; {e(p["status"])}</span>
+      </span>
+    </li>""" for p in PUBS["publications"])
+
+    teaching = "".join(
+        f'<div class="teach"><p class="teach-when">{e(x["period"])}</p>'
+        f'<p>{e(x["detail"])}</p></div>' for x in TIMELINE["teaching"])
+
+    awards = "".join(
+        f'<li class="award"><span class="award-year">{e(a["year"])}</span>'
+        f'<span><strong>{e(a["title"])}</strong><br>{e(a["org"])}</span></li>'
+        for a in CV["awards"])
+
+    skills = "".join(f"""
+    <div class="skill">
+      <p class="skill-head">{e(k["group"])} <span>{e(k["years"])}</span></p>
+      <div class="chips">{"".join(f'<span class="chip">{e(i)}</span>' for i in k["items"])}</div>
+    </div>""" for k in CV["skills"])
+
+    toc = "".join(f'<a href="#{e(x["id"])}" data-spy-link>{e(x["label"])}</a>'
+                  for x in CV["sections"])
 
     body = f"""
-<h1>Curriculum vitae</h1>
-<p class="standfirst">{e(SITE['identity']['role'])} at {e(SITE['identity']['affiliation']['name'])},
-available from {e(humandate(SITE['contact']['availableFrom']))}.</p>
+<header class="cv-head">
+  <p class="eyebrow">Curriculum vitae</p>
+  <h1>{e(NAME)}</h1>
+  <p class="standfirst">{e(CV["summary"])}</p>
+  <dl class="cv-facts">{facts}</dl>
+  <div class="cv-actions">
+    <button class="action action-primary" type="button" data-print hidden>Print or save as PDF</button>
+    <a class="action" href="mailto:{e(SITE['contact']['email'])}">Email me</a>
+    <a class="action" href="/publications/bibtex/">BibTeX</a>
+  </div>
+</header>
 
-<h2>Timeline</h2>
-<ul class="timeline">{items}</ul>
+<div class="cv-layout">
+  <nav class="cv-toc" aria-label="Sections of this CV" data-spy>{toc}</nav>
+  <div class="cv-main">
 
-<h2>Teaching and supervision</h2>
-{teaching}
+    <section class="cv-section" id="profile">
+      <h2>At a glance</h2>
+      <section class="stats stats-flat" aria-label="Key figures"><dl>{glance}</dl></section>
+    </section>
 
-<h2>Selected skills</h2>
-<p>Real-time perception and 3D mapping: visual-inertial SLAM, sensor fusion, 6-DoF state
-estimation, pose graph optimisation, metric-semantic mapping. Computer vision and machine
-learning: PyTorch, semantic segmentation, monocular depth, dense multi-task learning. Deployment:
-C++, Python, ROS 1 and ROS 2, Docker, TensorRT, Jetson Orin NX, FP16 inference optimisation.</p>
+    <section class="cv-section" id="experience">
+      <h2>Experience</h2>
+      <div class="roles">{roles}</div>
+    </section>
+
+    <section class="cv-section" id="education">
+      <h2>Education</h2>
+      <div class="roles">{edu}</div>
+    </section>
+
+    <section class="cv-section" id="publications">
+      <h2>Publications</h2>
+      <p class="section-intro">Four first-author papers from the PhD. Each links to a page with
+      the claim, the numbers, and the code.</p>
+      <ul class="cv-pubs">{pub_rows}</ul>
+      <p class="beat-link"><a href="/publications/">All publications, with abstracts</a></p>
+    </section>
+
+    <section class="cv-section" id="teaching">
+      <h2>Teaching and supervision</h2>
+      {teaching}
+    </section>
+
+    <section class="cv-section" id="awards">
+      <h2>Awards</h2>
+      <ul class="awards">{awards}</ul>
+    </section>
+
+    <section class="cv-section" id="skills">
+      <h2>Skills</h2>
+      <div class="skills">{skills}</div>
+    </section>
+
+    <section class="cv-section" id="timeline">
+      <h2>Timeline</h2>
+      <p class="section-intro">Every position and every milestone in one column, newest first.</p>
+      <ul class="timeline">{items}</ul>
+    </section>
+
+  </div>
+</div>
 """
     shell("cv", f"{NAME} | Curriculum vitae",
           "Curriculum vitae of Bavantha Udugama: PhD candidate at ITC University of Twente, "

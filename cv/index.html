@@ -106,19 +106,189 @@
 <main id="main" class="site-main">
 <div class="wrap page-content">
 
-<h1>Curriculum vitae</h1>
-<p class="standfirst">PhD candidate at Faculty ITC, University of Twente,
-available from August 2026.</p>
+<header class="cv-head">
+  <p class="eyebrow">Curriculum vitae</p>
+  <h1>Bavantha Udugama</h1>
+  <p class="standfirst">Computer vision engineer finishing a PhD in real-time perception and 3D mapping for autonomous systems. I build vision pipelines end to end, from training through optimisation to deployment on edge hardware, across detection, semantic segmentation, and monocular depth. I have shipped a fine-tuned detector inside a live commercial product and taken perception systems from prototype to reliable real-time operation on Jetson-class devices.</p>
+  <dl class="cv-facts"><div><dt>Role</dt><dd>PhD candidate, robotics and computer vision</dd></div><div><dt>Based</dt><dd>Netherlands</dd></div><div><dt>Available</dt><dd>1 August 2026</dd></div><div><dt>Focus</dt><dd>Monocular spatial perception, SLAM, edge deployment</dd></div></dl>
+  <div class="cv-actions">
+    <button class="action action-primary" type="button" data-print hidden>Print or save as PDF</button>
+    <a class="action" href="mailto:bavanthaU@eng.pdn.ac.lk">Email me</a>
+    <a class="action" href="/publications/bibtex/">BibTeX</a>
+  </div>
+</header>
 
-<h2>Timeline</h2>
-<ul class="timeline">
-    <li class="tl-item">
+<div class="cv-layout">
+  <nav class="cv-toc" aria-label="Sections of this CV" data-spy><a href="#profile" data-spy-link>Profile</a><a href="#experience" data-spy-link>Experience</a><a href="#education" data-spy-link>Education</a><a href="#publications" data-spy-link>Publications</a><a href="#teaching" data-spy-link>Teaching</a><a href="#awards" data-spy-link>Awards</a><a href="#skills" data-spy-link>Skills</a><a href="#timeline" data-spy-link>Timeline</a></nav>
+  <div class="cv-main">
+
+    <section class="cv-section" id="profile">
+      <h2>At a glance</h2>
+      <section class="stats stats-flat" aria-label="Key figures"><dl><div class="stat"><dt>8 yrs</dt><dd><span class="stat-label">robotics and deployment</span><span class="stat-detail">Synopsys, Premier Genie, Expert Hub Robotics, University of Twente</span></dd></div><div class="stat"><dt>4</dt><dd><span class="stat-label">first-author papers</span><span class="stat-detail">ISPRS Annals, IROS 2025, ICRA 2026 SRRA, ISPRS Journal under review</span></dd></div><div class="stat"><dt>30+</dt><dd><span class="stat-label">robots deployed</span><span class="stat-detail">Humanoid service robots across Expo 2020 Dubai, healthcare, and reception sites</span></dd></div><div class="stat"><dt>25.53 fps</dt><dd><span class="stat-label">on-device perception</span><span class="stat-detail">M2H-MX-L, TensorRT FP16, Jetson Orin NX 16GB</span></dd></div></dl></section>
+    </section>
+
+    <section class="cv-section" id="experience">
+      <h2>Experience</h2>
+      <div class="roles">
+    <article class="role">
+      <div class="role-when"><span>August 2022 to August 2026</span></div>
+      <div class="role-body">
+        <h3>Doctoral researcher, robotics and computer vision</h3>
+        <p class="role-org">Faculty ITC, University of Twente <span>Enschede, Netherlands</span></p>
+        <p class="role-note">PhD project: autonomous real-time UAV mapping with spatial perception for indoor applications. Supervised by George Vosselman and Francesco Nex.</p>
+        <ul class="role-points"><li>Built Mono-Hydra++, a real-time monocular RGB and IMU pipeline that constructs hierarchical 3D scene graphs for indoor drone mapping. C++ extensions to the VIO backend add sparse depth factors for metric-aware pose graph estimation, cutting trajectory error by 61% on ScanNet against monocular GO-SLAM while holding 25 to 30 Hz.</li><li>Took the full perception and mapping stack from prototype to deployment on an NVIDIA Jetson Orin NX with TensorRT FP16, ROS integration, and runtime profiling, reaching 25 fps on device under real-time compute limits.</li><li>Developed M2H and M2H-MX, the multi-task perception frontends behind Mono-Hydra++, predicting metric depth and semantic labels jointly from a single image. M2H appeared at IEEE/RSJ IROS 2025; M2H-MX was accepted at the IEEE ICRA 2026 SRRA Workshop, improving NYUDv2 mIoU by 6.6% and depth RMSE by 9.4%.</li><li>Building an indoor UAV exploration system in NVIDIA Isaac Sim, where the drone plans over semantic scene graphs from Mono-Hydra++, with transfer to a custom-built drone for real-world validation.</li></ul>
+        <div class="chips"><span class="chip">C++</span><span class="chip">PyTorch</span><span class="chip">ROS</span><span class="chip">TensorRT</span><span class="chip">Jetson</span></div>
+        
+      </div>
+    </article>
+    <article class="role">
+      <div class="role-when"><span>October 2020 to June 2022</span></div>
+      <div class="role-body">
+        <h3>Senior robotics software engineer and project lead</h3>
+        <p class="role-org">Expert Hub Robotics <span>Dubai, United Arab Emirates</span></p>
+        <p class="role-note">Joined as the founding robotics engineer and was promoted within 10 months to lead a team of three.</p>
+        <ul class="role-points"><li>Built the core robotics stack from the ground up: a ROS navigation stack with GMapping-based SLAM, obstacle avoidance, and robot SDK integration.</li><li>Led deployment and on-site support for more than 30 humanoid robots across Expo 2020 Dubai, healthcare, and reception sites, delivering customised solutions for over 10 enterprise clients and debugging navigation, sensing, and API integration in live customer environments.</li><li>Fine-tuned a YOLOv5 face detector for grayscale thermal imagery and deployed it on an Intel NUC with a FLIR camera for contactless temperature screening, running live across enterprise sites.</li></ul>
+        <div class="chips"><span class="chip">ROS</span><span class="chip">SLAM</span><span class="chip">YOLOv5</span><span class="chip">deployment</span></div>
+        <div class="tl-media"><p class="media-label">The fleet in service, and the map it navigates on.</p><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/humanoid-deployment-poster.jpg" width="1100" height="618" muted loop playsinline preload="none" data-autoloop aria-label="Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture."><source src="/media/video/humanoid-deployment.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>Service humanoids running autonomously at a client event in Dubai, navigating a floor full of people and furniture. Deployment work at Expert Hub Robotics, where I built the navigation stack and led the on-site rollout.</figcaption></figure><figure class="v-figure  is-portrait"><div class="v-wrap"><video poster="/media/video/humanoid-mapping-poster.jpg" width="1000" height="1778" muted loop playsinline preload="none" data-autoloop aria-label="A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot&#x27;s pose marked in red."><source src="/media/video/humanoid-mapping.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>The map behind it. A 2D occupancy grid of the venue built with GMapping-based SLAM while the robot drives, with its estimated pose in red. This is what the navigation stack plans over.</figcaption></figure></div>
+      </div>
+    </article>
+    <article class="role">
+      <div class="role-when"><span>October 2019 to September 2020</span></div>
+      <div class="role-body">
+        <h3>Robotics engineer, STEM and IoT</h3>
+        <p class="role-org">Premier Genie <span>Dubai, United Arab Emirates</span></p>
+        
+        <ul class="role-points"><li>Built robotics and IoT prototypes for Dubai school programmes, combining embedded sensors, robot behaviours, and Android interfaces.</li></ul>
+        <div class="chips"><span class="chip">embedded</span><span class="chip">Android</span></div>
+        
+      </div>
+    </article>
+    <article class="role">
+      <div class="role-when"><span>November 2017 to June 2019</span></div>
+      <div class="role-body">
+        <h3>Corporate applications engineer</h3>
+        <p class="role-org">Synopsys Inc. <span>Sri Lanka, and Samsung Electronics, South Korea</span></p>
+        
+        <ul class="role-points"><li>Selected within the first year for on-site applications support at Samsung Electronics in South Korea, helping reduce clock-domain crossing violations threefold on a production chip.</li></ul>
+        <div class="chips"><span class="chip">verification</span><span class="chip">customer-facing</span></div>
+        
+      </div>
+    </article></div>
+    </section>
+
+    <section class="cv-section" id="education">
+      <h2>Education</h2>
+      <div class="roles">
+    <article class="role role-edu">
+      <div class="role-when"><span>2022 to 2026</span></div>
+      <div class="role-body">
+        <h3>PhD, robotics and computer vision</h3>
+        <p class="role-org">Faculty ITC, University of Twente <span>Enschede, Netherlands</span></p>
+        <p class="role-result">Expected completion August 2026</p>
+        <p>Thesis: Structuring the Seen, Exploring the Unseen. Autonomous real-time UAV mapping with spatial perception for indoor applications.</p>
+      </div>
+    </article>
+    <article class="role role-edu">
+      <div class="role-when"><span>2019 to 2021</span></div>
+      <div class="role-body">
+        <h3>MSc Robotics Engineering</h3>
+        <p class="role-org">Middlesex University Dubai <span>United Arab Emirates</span></p>
+        <p class="role-result">Distinction</p>
+        <p>Thesis: a heterogeneous swarm robot system with distributed data processing at the edge for collective transportation.</p>
+      </div>
+    </article>
+    <article class="role role-edu">
+      <div class="role-when"><span>2014 to 2017</span></div>
+      <div class="role-body">
+        <h3>BSc Electrical and Electronic Engineering</h3>
+        <p class="role-org">University of Peradeniya <span>Sri Lanka</span></p>
+        <p class="role-result">Second Class Upper Division, GPA 3.55 of 4.00</p>
+        <p>Final-year project: a vision and LiDAR mobile robot for reconnaissance in unknown environments, fusing a laser range finder with stereo cameras.</p>
+      </div>
+    </article></div>
+    </section>
+
+    <section class="cv-section" id="publications">
+      <h2>Publications</h2>
+      <p class="section-intro">Four first-author papers from the PhD. Each links to a page with
+      the claim, the numbers, and the code.</p>
+      <ul class="cv-pubs">
+    <li class="cv-pub">
+      <span class="cv-pub-year">2026</span>
+      <span class="cv-pub-body">
+        <a href="/publications/mono-hydra-plus/">Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping</a>
+        <span class="cv-pub-meta"><span class="self">U.V.B.L. Udugama</span>, <span>George Vosselman</span>, <span>Francesco Nex</span> &middot; ISPRS Journal of Photogrammetry and Remote Sensing
+          &middot; under review</span>
+      </span>
+    </li>
+    <li class="cv-pub">
+      <span class="cv-pub-year">2026</span>
+      <span class="cv-pub-body">
+        <a href="/publications/m2h-mx/">M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction</a>
+        <span class="cv-pub-meta"><span class="self">U.V.B.L. Udugama</span>, <span>George Vosselman</span>, <span>Francesco Nex</span> &middot; IEEE International Conference on Robotics and Automation (ICRA) 2026, SRRA Workshop, Vienna
+          &middot; published</span>
+      </span>
+    </li>
+    <li class="cv-pub">
+      <span class="cv-pub-year">2025</span>
+      <span class="cv-pub-body">
+        <a href="/publications/m2h/">M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception</a>
+        <span class="cv-pub-meta"><span class="self">U.V.B.L. Udugama</span>, <span>George Vosselman</span>, <span>Francesco Nex</span> &middot; IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2025
+          &middot; published</span>
+      </span>
+    </li>
+    <li class="cv-pub">
+      <span class="cv-pub-year">2023</span>
+      <span class="cv-pub-body">
+        <a href="/publications/mono-hydra/">Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU</a>
+        <span class="cv-pub-meta"><span class="self">U.V.B.L. Udugama</span>, <span>G. Vosselman</span>, <span>F. Nex</span> &middot; ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, volume 1, pages 439 to 445
+          &middot; published</span>
+      </span>
+    </li></ul>
+      <p class="beat-link"><a href="/publications/">All publications, with abstracts</a></p>
+    </section>
+
+    <section class="cv-section" id="teaching">
+      <h2>Teaching and supervision</h2>
+      <div class="teach"><p class="teach-when">2022 to 2026</p><p>Designed lab exercises on YOLO-based human detection and tracking, and on LiDAR-based SLAM, for the Robotics master&#x27;s courses. Supervised 3 master&#x27;s thesis students.</p></div>
+    </section>
+
+    <section class="cv-section" id="awards">
+      <h2>Awards</h2>
+      <ul class="awards"><li class="award"><span class="award-year">2017</span><span><strong>Best Undergraduate Project</strong><br>Institution of Engineers Sri Lanka</span></li><li class="award"><span class="award-year">2017</span><span><strong>Best Technical Paper</strong><br>IET Sri Lanka</span></li><li class="award"><span class="award-year">2021</span><span><strong>MSc awarded with Distinction</strong><br>Middlesex University Dubai</span></li></ul>
+    </section>
+
+    <section class="cv-section" id="skills">
+      <h2>Skills</h2>
+      <div class="skills">
+    <div class="skill">
+      <p class="skill-head">Computer vision and machine learning <span>4+ years</span></p>
+      <div class="chips"><span class="chip">PyTorch</span><span class="chip">OpenCV</span><span class="chip">semantic segmentation</span><span class="chip">monocular depth estimation</span><span class="chip">dense multi-task learning</span><span class="chip">YOLO detection</span></div>
+    </div>
+    <div class="skill">
+      <p class="skill-head">Real-time perception and 3D mapping <span>7+ years</span></p>
+      <div class="chips"><span class="chip">visual-inertial SLAM</span><span class="chip">sensor fusion</span><span class="chip">6-DoF state estimation</span><span class="chip">pose graph optimisation</span><span class="chip">3D reconstruction</span><span class="chip">metric-semantic mapping</span><span class="chip">autonomous navigation</span></div>
+    </div>
+    <div class="skill">
+      <p class="skill-head">Deployment and optimisation <span>8+ years</span></p>
+      <div class="chips"><span class="chip">C++</span><span class="chip">Python</span><span class="chip">ROS 1 and ROS 2</span><span class="chip">Linux</span><span class="chip">Docker</span><span class="chip">TensorRT</span><span class="chip">Jetson Orin NX</span><span class="chip">FP16 inference</span><span class="chip">runtime profiling</span></div>
+    </div>
+    <div class="skill">
+      <p class="skill-head">Sensors and robot systems <span>8+ years</span></p>
+      <div class="chips"><span class="chip">monocular, stereo, and 3D vision sensors</span><span class="chip">IMUs</span><span class="chip">2D LiDAR</span><span class="chip">camera and IMU calibration</span><span class="chip">robot integration</span><span class="chip">real-world validation</span></div>
+    </div></div>
+    </section>
+
+    <section class="cv-section" id="timeline">
+      <h2>Timeline</h2>
+      <p class="section-intro">Every position and every milestone in one column, newest first.</p>
+      <ul class="timeline">
+    <li class="tl-item tl-milestone">
       <div class="tl-when">2026</div>
       <div class="tl-what">
         <h3>Mono-Hydra++ under review</h3>
         <p class="tl-org">ISPRS Journal of Photogrammetry and Remote Sensing</p>
         <p>The full system. 0.08 m on the ITC 2nd floor, 0.033 m calibrated ATE on 7-Scenes.</p>
-        
       </div>
     </li>
     <li class="tl-item">
@@ -127,25 +297,22 @@ available from August 2026.</p>
         <h3>Learned exploration, in progress</h3>
         <p class="tl-org">University of Twente</p>
         <p>A learned selector over certified routes. Formulation written, experiments not yet run, no results.</p>
-        
       </div>
     </li>
-    <li class="tl-item">
+    <li class="tl-item tl-milestone">
       <div class="tl-when">2026</div>
       <div class="tl-what">
         <h3>M2H-MX accepted</h3>
         <p class="tl-org">ICRA 2026 SRRA Workshop, Vienna</p>
         <p>65.60 mIoU on NYUDv2, and ScanNet average ATE down from 17.59 cm to 6.91 cm inside the mapping loop.</p>
-        
       </div>
     </li>
-    <li class="tl-item">
+    <li class="tl-item tl-milestone">
       <div class="tl-when">2026</div>
       <div class="tl-what">
         <h3>Running on the drone</h3>
         <p class="tl-org">Jetson Orin NX 16GB</p>
         <p>M2H-MX-L exported to ONNX and TensorRT FP16 with CUDA Graphs, 25.53 fps and 39.02 ms mean GPU compute at 256x192 on a Jetson Orin NX 16GB. Perception, odometry, mapping, and scene graph construction all run onboard.</p>
-        
       </div>
     </li>
     <li class="tl-item">
@@ -154,25 +321,22 @@ available from August 2026.</p>
         <h3>PhD candidate, robotics and computer vision</h3>
         <p class="tl-org">Faculty ITC, University of Twente</p>
         <p>Autonomous real-time UAV mapping with spatial perception for indoor applications. Supervised by George Vosselman and Francesco Nex. Thesis: Structuring the Seen, Exploring the Unseen. Expected completion August 2026.</p>
-        
       </div>
     </li>
-    <li class="tl-item">
+    <li class="tl-item tl-milestone">
       <div class="tl-when">2025</div>
       <div class="tl-what">
         <h3>M2H published</h3>
         <p class="tl-org">IEEE/RSJ IROS 2025</p>
         <p>Four dense tasks in one model. ITC mean error drops to 0.11 m and the loop doubles to 30 fps.</p>
-        
       </div>
     </li>
-    <li class="tl-item">
+    <li class="tl-item tl-milestone">
       <div class="tl-when">2023</div>
       <div class="tl-what">
         <h3>Mono-Hydra published</h3>
         <p class="tl-org">ISPRS Annals</p>
         <p>First real-time 3D scene graph from a monocular camera and an IMU. 0.19 m mean error on the ITC 2nd floor at 15 fps.</p>
-        
       </div>
     </li>
     <li class="tl-item" id="expert-hub-robotics">
@@ -181,7 +345,6 @@ available from August 2026.</p>
         <h3>Senior Robotics Software Engineer and Project Lead</h3>
         <p class="tl-org">Expert Hub Robotics, Dubai</p>
         <p>Founding robotics engineer, promoted within 10 months to lead a team of 3. Built the core ROS navigation stack. Led deployment of more than 30 humanoid robots across Expo 2020 Dubai, healthcare, and reception sites. Fine-tuned and shipped a YOLOv5 thermal face detector running live in a commercial product.</p>
-        <div class="tl-media"><p class="media-label">I designed the SLAM and navigation, and deployed the fleet on site. Two clips from a client event:</p><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/humanoid-deployment-poster.jpg" width="1100" height="618" muted loop playsinline preload="none" data-autoloop aria-label="Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture."><source src="/media/video/humanoid-deployment.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>Service humanoids running autonomously at a client event in Dubai, navigating a floor full of people and furniture. Deployment work at Expert Hub Robotics, where I built the navigation stack and led the on-site rollout.</figcaption></figure><figure class="v-figure  is-portrait"><div class="v-wrap"><video poster="/media/video/humanoid-mapping-poster.jpg" width="1000" height="1778" muted loop playsinline preload="none" data-autoloop aria-label="A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot&#x27;s pose marked in red."><source src="/media/video/humanoid-mapping.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button></div><figcaption>The map behind it. A 2D occupancy grid of the venue built with GMapping-based SLAM while the robot drives, with its estimated pose in red. This is what the navigation stack plans over.</figcaption></figure></div>
       </div>
     </li>
     <li class="tl-item">
@@ -190,7 +353,6 @@ available from August 2026.</p>
         <h3>MSc Robotics Engineering</h3>
         <p class="tl-org">Middlesex University Dubai</p>
         <p>Distinction. Thesis on a heterogeneous swarm robot system with distributed data processing at the edge for collective transportation.</p>
-        
       </div>
     </li>
     <li class="tl-item">
@@ -199,7 +361,6 @@ available from August 2026.</p>
         <h3>Robotics Engineer, STEM and IoT</h3>
         <p class="tl-org">Premier Genie, Dubai</p>
         <p>Robotics and IoT prototypes for Dubai school programmes.</p>
-        
       </div>
     </li>
     <li class="tl-item">
@@ -208,7 +369,6 @@ available from August 2026.</p>
         <h3>Corporate Applications Engineer</h3>
         <p class="tl-org">Synopsys Inc., Sri Lanka</p>
         <p>Chip verification support, including on-site work at Samsung Electronics in South Korea within the first year.</p>
-        
       </div>
     </li>
     <li class="tl-item">
@@ -217,18 +377,12 @@ available from August 2026.</p>
         <h3>BSc Electrical and Electronic Engineering</h3>
         <p class="tl-org">University of Peradeniya, Sri Lanka</p>
         <p>Second Class Upper Division, GPA 3.55 of 4.00. Final-year project: autonomous exploration and mapping for a reconnaissance robot, using a laser range finder fused with stereo cameras. Best Undergraduate Project (IESL) and Best Technical Paper (IET Sri Lanka), 2017.</p>
-        
       </div>
     </li></ul>
+    </section>
 
-<h2>Teaching and supervision</h2>
-<p>Designed lab exercises on YOLO-based human detection and tracking, and on LiDAR-based SLAM, for the Robotics master&#x27;s courses. Supervised 3 master&#x27;s thesis students. <span class="pub-venue">2022 to 2026</span></p>
-
-<h2>Selected skills</h2>
-<p>Real-time perception and 3D mapping: visual-inertial SLAM, sensor fusion, 6-DoF state
-estimation, pose graph optimisation, metric-semantic mapping. Computer vision and machine
-learning: PyTorch, semantic segmentation, monocular depth, dense multi-task learning. Deployment:
-C++, Python, ROS 1 and ROS 2, Docker, TensorRT, Jetson Orin NX, FP16 inference optimisation.</p>
+  </div>
+</div>
 
 </div>
 </main>
