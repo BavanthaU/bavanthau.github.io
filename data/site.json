@@ -52,7 +52,7 @@
     "ieeeAuthorPageNote": "Removed 2026-08-18. The previously listed id 37061362800 belongs to Sachini Ekanayake, a co-author on the Peradeniya papers, not to Bavantha Udugama. A wrong sameAs entry asserts that two people are the same person, so it is left empty until the correct author id is confirmed while signed in to IEEE Xplore."
   },
   "arc": {
-    "statement": "I build lightweight perception for aerial robots. One camera, one network predicting depth, semantics, surface normals and edges together, and those predictions drive mapping and autonomous exploration on the drone's own compute, in real time.",
+    "statement": "The PhD is lightweight perception for aerial robots: one camera, one network predicting depth, semantics, surface normals and edges together, and those predictions driving mapping and autonomous exploration on the drone's own compute, in real time.",
     "wordCount": 44,
     "actOne": {
       "title": "Structuring the seen",

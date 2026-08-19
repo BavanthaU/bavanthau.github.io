@@ -145,6 +145,16 @@ def person_node():
     return node
 
 
+def asset_hash(path):
+    """Content-hashed asset URL. GitHub Pages caches by filename, so a redeploy that only
+    changes site.css or media.js would otherwise reach visitors late or not at all."""
+    f = ROOT / path.lstrip("/")
+    if not f.exists():
+        return ""
+    import hashlib
+    return hashlib.sha256(f.read_bytes()).hexdigest()[:10]
+
+
 def picture(key, cls="", sizes="(min-width: 56em) 62rem, 100vw", lazy=True, caption=True):
     """Responsive <picture> from the media manifest. Empty string if the asset is absent."""
     rec = MEDIA["images"].get(key) or MEDIA["frames"].get(key)
@@ -512,7 +522,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
 <meta name="twitter:image" content="{e(og)}">
 <meta name="twitter:title" content="{e(title)}">
 <meta name="twitter:description" content="{e(description)}">
-<link rel="stylesheet" href="{depth_prefix}assets/site.css">
+<link rel="stylesheet" href="{depth_prefix}assets/site.css?v={asset_hash("/assets/site.css")}">
 <link rel="icon" href="{depth_prefix}assets/favicon.svg" type="image/svg+xml">
 <script>try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 {ld}
@@ -556,7 +566,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
     </div>
   </div>
 </footer>
-<script src="/assets/media.js" defer></script>
+<script src="{depth_prefix}assets/media.js?v={asset_hash("/assets/media.js")}" defer></script>
 </body>
 </html>
 """
@@ -585,10 +595,10 @@ def loop_svg():
     parts = []
     # sensor
     parts.append('<g class="lp-node lp-sensor">'
-                 '<rect x="18" y="66" width="106" height="92" rx="8"/>'
-                 '<text x="71" y="102" text-anchor="middle" class="lp-title">Camera</text>'
-                 '<text x="71" y="122" text-anchor="middle" class="lp-title">+ IMU</text>'
-                 '<text x="71" y="142" text-anchor="middle" class="lp-sub">passive only</text>'
+                 '<rect x="18" y="66" width="106" height="92" rx="8" fill="none" stroke="currentColor"/>'
+                 '<text x="71" y="102" text-anchor="middle" fill="currentColor" class="lp-title">Camera</text>'
+                 '<text x="71" y="122" text-anchor="middle" fill="currentColor" class="lp-title">+ IMU</text>'
+                 '<text x="71" y="142" text-anchor="middle" fill="currentColor" class="lp-sub">passive only</text>'
                  '</g>')
     for i, (x, w, lines, sub) in enumerate(boxes):
         c = caps[i]
@@ -596,35 +606,36 @@ def loop_svg():
         parts.append(
             f'<a href="{e(c["href"])}" aria-label="{e(c["title"])}">'
             f'<g class="lp-node lp-stage">'
-            f'<rect x="{x}" y="66" width="{w}" height="92" rx="8"/>'
-            f'<text x="{x + 14}" y="90" class="lp-index">{e(c["index"])}</text>'
-            f'<text x="{x + 14}" y="114" class="lp-title">{e(lines[0])}</text>'
-            f'<text x="{x + 14}" y="132" class="lp-title">{e(lines[1])}</text>'
-            f'<text x="{x + 14}" y="150" class="lp-sub">{e(sub)}</text>'
+            f'<rect x="{x}" y="66" width="{w}" height="92" rx="8" fill="none" stroke="currentColor"/>'
+            f'<text x="{x + 14}" y="90" fill="currentColor" class="lp-index">{e(c["index"])}</text>'
+            f'<text x="{x + 14}" y="114" fill="currentColor" class="lp-title">{e(lines[0])}</text>'
+            f'<text x="{x + 14}" y="132" fill="currentColor" class="lp-title">{e(lines[1])}</text>'
+            f'<text x="{x + 14}" y="150" fill="currentColor" class="lp-sub">{e(sub)}</text>'
             f'</g></a>')
         parts.append(f'<title>{e(label)}</title>')
     # forward arrows between the four blocks
     for x1, x2 in ((124, 146), (314, 338), (506, 530)):
-        parts.append(f'<line class="lp-arrow" x1="{x1}" y1="112" x2="{x2 - 7}" y2="112" '
+        parts.append(f'<line stroke="currentColor" class="lp-arrow" x1="{x1}" y1="112" x2="{x2 - 7}" y2="112" '
                      f'marker-end="url(#lp-head)"/>')
     # the return path: the decision moves the robot, which changes what the sensor sees
-    parts.append('<path class="lp-arrow lp-return" d="M 698 158 L 698 194 L 71 194 L 71 165" '
+    parts.append('<path stroke="currentColor" class="lp-arrow lp-return" d="M 698 158 L 698 194 L 71 194 L 71 165" '
                  'marker-end="url(#lp-head)" fill="none"/>')
-    parts.append('<text x="384" y="188" text-anchor="middle" class="lp-sub lp-return-label">'
+    parts.append('<text x="384" y="188" text-anchor="middle" fill="currentColor" class="lp-sub lp-return-label">'
                  'the robot moves, and the next frame is different</text>')
     # the hardware plate under all of it
     c4 = caps[3]
     parts.append(f'<a href="{e(c4["href"])}" aria-label="{e(c4["title"])}">'
                  f'<g class="lp-node lp-plate">'
-                 f'<rect x="18" y="220" width="680" height="56" rx="8"/>'
-                 f'<text x="32" y="242" class="lp-index">{e(c4["index"])}</text>'
-                 f'<text x="32" y="262" class="lp-title">Deployment on real hardware</text>'
-                 f'<text x="684" y="253" text-anchor="end" class="lp-sub">'
+                 f'<rect x="18" y="220" width="680" height="56" rx="8" fill="none" stroke="currentColor"/>'
+                 f'<text x="32" y="242" fill="currentColor" class="lp-index">{e(c4["index"])}</text>'
+                 f'<text x="32" y="262" fill="currentColor" class="lp-title">Deployment on real hardware</text>'
+                 f'<text x="684" y="253" text-anchor="end" fill="currentColor" class="lp-sub">'
                  f'Jetson · TensorRT · ROS · 30+ robots shipped</text>'
                  f'</g></a>')
 
     return (
-        '<svg viewBox="0 0 716 292" role="img" aria-labelledby="lp-title lp-desc">'
+        '<svg viewBox="0 0 716 292" role="img" aria-labelledby="lp-title lp-desc" '
+        'fill="none">'
         '<title id="lp-title">The perception and decision loop, and where my work sits in it</title>'
         '<desc id="lp-desc">A camera and IMU feed a deep learning perception stage, which feeds '
         'spatial AI and SLAM, which feeds a reinforcement learning stage that decides where to go '
@@ -633,7 +644,7 @@ def loop_svg():
         'carries all of them.</desc>'
         '<defs><marker id="lp-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" '
         'markerHeight="6" orient="auto-start-reverse">'
-        '<path d="M 0 1 L 9 5 L 0 9 z" class="lp-headfill"/></marker></defs>'
+        '<path d="M 0 1 L 9 5 L 0 9 z" fill="currentColor" class="lp-headfill"/></marker></defs>'
         + "".join(parts) + '</svg>')
 
 
@@ -716,15 +727,11 @@ def descent_svg():
 def build_home():
     arc = SITE["arc"]
     story = SITE["story"]
-    intro = SITE["intro"]
     H = SITE["home"]
     nxt = SITE["nextSteps"]
 
     portrait = picture("portrait", cls="portrait", sizes="5rem", lazy=False, caption=False)
 
-    TN = H["thenNow"]
-    PERA = PUBS["earlierWork"]["entries"][0]
-    origin_paras = "".join(f"<p>{e(x)}</p>" for x in intro["paragraphs"][1:])
     stat_items = "".join(
         f'<div class="stat"><dt>{e(st["value"])}</dt>'
         f'<dd><span class="stat-label">{e(st["label"])}</span>'
@@ -813,35 +820,6 @@ def build_home():
     </div>
 
 
-    <div class="subsection-heading"><span>03.1</span><div><h3>{e(TN['heading'])}</h3>
-      <p class="section-intro">{e(intro['paragraphs'][0])}</p></div></div>
-    <div class="prose intro">{origin_paras}</div>
-    <div class="thenow">
-      <article class="thenow-card">
-        <p class="thenow-when">{e(TN['thenTitle'])}</p>
-        <h4>Autonomous exploration planning for a reconnaissance agent</h4>
-        <p>{e(TN['thenText'])}</p>
-        <p class="thenow-play">
-          <a href="{e(PERA['links']['video'])}"><span class="thenow-play-mark" aria-hidden="true">
-          </span>Watch the 2017 project video</a>
-        </p>
-        <p class="thenow-links"><a href="{e(PERA['links']['doi'])}">{e(TN['thenLinkLabel'])}</a></p>
-        <p class="thenow-note">{e(PERA['videoAttribution'])}</p>
-      </article>
-      <article class="thenow-card thenow-now">
-        <p class="thenow-when">{e(TN['nowTitle'])}</p>
-        <h4>Monocular 3D scene graphs, built in real time</h4>
-        <p>{e(TN['nowText'])}</p>
-        {picture("scene-graph-itc", cls="thenow-figure", sizes="(min-width: 56em) 28rem, 92vw",
-                 caption=False)}
-        <p class="thenow-links"><a href="/publications/mono-hydra-plus/">{e(TN['nowLinkLabel'])}</a></p>
-      </article>
-    </div>
-
-    <div class="subsection-heading"><span>03.2</span><div><h3>The system, running</h3>
-      <p class="section-intro">Two views of the same stack: the map it builds, and the state
-      estimate underneath that has to be steady enough to fly on.</p></div></div>
-
     <p class="pull">{e(story['paragraphs'][0])}</p>
 
     <ol class="beats">
@@ -871,12 +849,12 @@ def build_home():
       </li>
     </ol>
 
-    <div class="subsection-heading"><span>03.3</span><div><h3>What one frame gives the map</h3>
+    <div class="subsection-heading"><span>03.1</span><div><h3>What one frame gives the map</h3>
       <p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic
       labels. The mapping backend consumes those two outputs and nothing else.</p></div></div>
     <div class="wipe-pair">{wipe("m2h-mx-indoor", compact=True)}{wipe("m2h-mx-outdoor", compact=True)}</div>
 
-    <div class="subsection-heading"><span>03.4</span><div><h3>What changed over four years</h3>
+    <div class="subsection-heading"><span>03.2</span><div><h3>What changed over four years</h3>
       <p class="section-intro">Mean mapping error on the second floor of the ITC building,
       measured against a LiDAR ground truth. The embedded point in amber is the model running on
       the drone at reduced resolution, a different trade-off rather than a regression.</p></div></div>
@@ -945,6 +923,36 @@ def build_home():
 
 # ---------------------------------------------------------------- research
 
+def thenow_pair():
+    """The 2017 question beside the 2026 one. Peradeniya video stays a link out: it lives on a
+    co-author's channel, per the media policy in publications.json."""
+    TN = SITE["home"]["thenNow"]
+    PERA = PUBS["earlierWork"]["entries"][0]
+    return f"""
+<div class="thenow">
+  <article class="thenow-card">
+    <p class="thenow-when">{e(TN['thenTitle'])}</p>
+    <h4>Autonomous exploration planning for a reconnaissance agent</h4>
+    <p>{e(TN['thenText'])}</p>
+    <p class="thenow-play">
+      <a href="{e(PERA['links']['video'])}"><span class="thenow-play-mark" aria-hidden="true">
+      </span>Watch the 2017 project video</a>
+    </p>
+    <p class="thenow-links"><a href="{e(PERA['links']['doi'])}">{e(TN['thenLinkLabel'])}</a></p>
+    <p class="thenow-note">{e(PERA['videoAttribution'])}</p>
+  </article>
+  <article class="thenow-card thenow-now">
+    <p class="thenow-when">{e(TN['nowTitle'])}</p>
+    <h4>Monocular 3D scene graphs, built in real time</h4>
+    <p>{e(TN['nowText'])}</p>
+    {picture("scene-graph-itc", cls="thenow-figure", sizes="(min-width: 56em) 28rem, 92vw",
+             caption=False)}
+    <p class="thenow-links"><a href="/publications/mono-hydra-plus/">{e(TN['nowLinkLabel'])}</a></p>
+  </article>
+</div>
+"""
+
+
 def build_research():
     arc = SITE["arc"]
     prog = SITE["headlineProgression"]
@@ -961,11 +969,9 @@ def build_research():
 <h1>Research</h1>
 <p class="standfirst">{e(arc['statement'])}</p>
 
-<div class="note">
-  <span class="note-label">Prologue</span>
-  <p>{e(arc['prologue'])} <a href="{e(arc['prologueCitation'])}">That paper</a> is still on IEEE
-     Xplore and <a href="{e(arc['prologueVideo'])}">the project video</a> is still online.</p>
-</div>
+<h2 class="prologue-heading">Prologue. The same question, ten years earlier</h2>
+<p>{e(arc['prologue'])}</p>
+{thenow_pair()}
 
 <h2>{e(arc['actOne']['label'])}. {e(arc['actOne']['title'])}</h2>
 <p>{e(arc['actOne']['line'])}</p>
@@ -1480,8 +1486,9 @@ def build_cv():
         return (int(parts[0]), int(parts[1]) if len(parts) > 1 else default_month)
 
     def sortkey(t):
-        # newest first, by when it ended; ongoing roles lead, then by start
-        return (ym(t["end"], 12), ym(t["start"], 1))
+        # reverse chronological by start, which is the order a reader expects on a CV;
+        # ties fall back to the end date so a milestone sits above the role it happened in
+        return (ym(t["start"], 1), ym(t["end"], 12))
 
     items = ""
     for t in sorted(TIMELINE["timeline"], key=sortkey, reverse=True):

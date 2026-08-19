@@ -39,18 +39,38 @@
 
   /* ---- autoplay loops only while visible, and never under reduced motion ---- */
   var loops = document.querySelectorAll("video[data-autoloop]");
-  if (loops.length && !reduced && "IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        var v = en.target;
-        if (en.intersectionRatio >= 0.4) {
-          if (v.paused && !v.dataset.userPaused) v.play().catch(function () {});
-        } else if (!v.paused) {
-          v.pause();
-        }
+  if (loops.length && !reduced) {
+    // some browsers refuse the first play() until the page has been interacted with, so a
+    // rejected attempt is retried once on the next gesture rather than left as a still poster
+    var pending = [];
+    var retry = function () {
+      pending.splice(0).forEach(function (v) {
+        if (v.paused && !v.dataset.userPaused) v.play().catch(function () {});
       });
-    }, { threshold: [0, 0.4, 1] });
-    loops.forEach(function (v) { io.observe(v); });
+    };
+    ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (ev) {
+      addEventListener(ev, retry, { once: true, passive: true });
+    });
+
+    var start = function (v) {
+      if (!v.paused || v.dataset.userPaused) return;
+      var p = v.play();
+      if (p && p.catch) {
+        p.catch(function () { if (pending.indexOf(v) < 0) pending.push(v); });
+      }
+    };
+
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.intersectionRatio >= 0.4) start(en.target);
+          else if (!en.target.paused) en.target.pause();
+        });
+      }, { threshold: [0, 0.4, 1] });
+      loops.forEach(function (v) { io.observe(v); });
+    } else {
+      loops.forEach(start);
+    }
   }
 
   /* ---- visible play and pause control, keyboard reachable ---- */

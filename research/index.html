@@ -21,7 +21,7 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/research.png">
 <meta name="twitter:title" content="Bavantha Udugama | Research">
 <meta name="twitter:description" content="The two-part research arc: building hierarchical metric-semantic 3D scene graphs from a single camera, then learning to select among certified exploration.">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v=477344d4df">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <script type="application/ld+json">
@@ -107,13 +107,32 @@
 <div class="wrap page-content">
 
 <h1>Research</h1>
-<p class="standfirst">I build lightweight perception for aerial robots. One camera, one network predicting depth, semantics, surface normals and edges together, and those predictions drive mapping and autonomous exploration on the drone&#x27;s own compute, in real time.</p>
+<p class="standfirst">The PhD is lightweight perception for aerial robots: one camera, one network predicting depth, semantics, surface normals and edges together, and those predictions driving mapping and autonomous exploration on the drone&#x27;s own compute, in real time.</p>
 
-<div class="note">
-  <span class="note-label">Prologue</span>
-  <p>The same question was asked at Peradeniya in 2017: an autonomous exploration planning strategy for a robot mapping an unknown space, using a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera. <a href="https://doi.org/10.1109/ICIINFS.2017.8300386">That paper</a> is still on IEEE
-     Xplore and <a href="https://www.youtube.com/watch?v=csG_hieJj6s&amp;t=59s">the project video</a> is still online.</p>
+<h2 class="prologue-heading">Prologue. The same question, ten years earlier</h2>
+<p>The same question was asked at Peradeniya in 2017: an autonomous exploration planning strategy for a robot mapping an unknown space, using a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.</p>
+
+<div class="thenow">
+  <article class="thenow-card">
+    <p class="thenow-when">2017 · Peradeniya</p>
+    <h4>Autonomous exploration planning for a reconnaissance agent</h4>
+    <p>An autonomous exploration planning strategy for a reconnaissance robot mapping an unknown space, with a laser range finder fused with stereo cameras. I was the SLAM developer, one of three students on the project.</p>
+    <p class="thenow-play">
+      <a href="https://www.youtube.com/watch?v=csG_hieJj6s&amp;t=59s"><span class="thenow-play-mark" aria-hidden="true">
+      </span>Watch the 2017 project video</a>
+    </p>
+    <p class="thenow-links"><a href="https://doi.org/10.1109/ICIINFS.2017.8300386">The ICIIS 2017 paper</a></p>
+    <p class="thenow-note">Project video on co-author Nilanga Thelasingha&#x27;s channel. The link opens at 0:59, where Bavantha Udugama presents the system.</p>
+  </article>
+  <article class="thenow-card thenow-now">
+    <p class="thenow-when">2026 · ITC, University of Twente</p>
+    <h4>Monocular 3D scene graphs, built in real time</h4>
+    <p>The same job with the scanner removed. One camera and an IMU produce a hierarchical 3D scene graph of the building in real time, and the exploration policy that chooses where to go next is being learned rather than written.</p>
+    <figure class="thenow-figure"><picture><source type="image/avif" srcset="/media/images/scene-graph-itc-480.avif 480w, /media/images/scene-graph-itc-960.avif 960w, /media/images/scene-graph-itc-1600.avif 1600w" sizes="(min-width: 56em) 28rem, 92vw"><source type="image/webp" srcset="/media/images/scene-graph-itc-480.webp 480w, /media/images/scene-graph-itc-960.webp 960w, /media/images/scene-graph-itc-1600.webp 1600w" sizes="(min-width: 56em) 28rem, 92vw"><img src="/media/images/scene-graph-itc-1600.jpg" alt="A 3D scene graph over the ITC building second floor. A single building node at the top connects down to a room node, then to a dense band of place nodes following the corridor loop, then to object nodes scattered along the walls, and finally to the reconstructed mesh of the floor." width="3826" height="2240" loading="lazy" decoding="async"></picture></figure>
+    <p class="thenow-links"><a href="/publications/mono-hydra-plus/">The mapping system</a></p>
+  </article>
 </div>
+
 
 <h2>Part I. Structuring the seen</h2>
 <p>Building metric-semantic hierarchical 3D scene graphs from a single camera and an IMU, in real time.</p>
@@ -229,6 +248,6 @@ George Vosselman and Francesco Nex.</p>
     </div>
   </div>
 </footer>
-<script src="/assets/media.js" defer></script>
+<script src="/assets/media.js?v=4249e92071" defer></script>
 </body>
 </html>
