@@ -711,9 +711,7 @@ def build_home():
       <p class="section-intro">A custom quadrotor with a carbon fibre frame and caged propellers,
       so it can fly close to walls indoors. Everything the mapping needs is carried onboard.</p>
     </div>
-    {gallery("drone-side", ["drone-top", "drone-angle"],
-             "The airframe the whole system has to fit inside: carbon frame, caged props, "
-             "battery and compute stacked in the centre.")}
+    {platform_showcase("drone-side", ["drone-top", "drone-angle"], "drone-flight")}
   </div>
 </section>
 
