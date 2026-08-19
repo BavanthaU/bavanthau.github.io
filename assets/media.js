@@ -290,6 +290,12 @@
 
     var big = source.cloneNode(true);
     big.removeAttribute("data-autoloop");
+    // a stage clip plays a light preview inline and keeps the full encode for this view
+    var full = source.getAttribute("data-full-src");
+    if (full) {
+      big.replaceChildren();
+      big.src = full;
+    }
     big.controls = true;
     big.muted = source.muted;
     big.loop = true;
@@ -306,7 +312,7 @@
     cap.hidden = !cap.textContent;
 
     dialog.showModal();
-    big.currentTime = source.currentTime || 0;
+    if (!full) big.currentTime = source.currentTime || 0;
     big.play().catch(function () {});
   };
 

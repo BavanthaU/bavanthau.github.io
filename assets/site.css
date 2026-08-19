@@ -387,9 +387,9 @@ a:hover { color: var(--accent-hover); }
 .section-heading h2 { margin-top: 0; }
 .section-heading .section-intro { margin-top: 1.2rem; }
 
-.home-section-intro .section-content { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr); gap: 3rem 5rem; }
-.home-section-intro .intro { grid-column: 1; }
-.home-section-intro .section-heading { grid-column: 2; align-self: end; margin: 0; }
+.home-section-intro .section-content { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 0.6fr); gap: 2rem 5rem; align-items: start; }
+.home-section-intro .intro { grid-column: 1; grid-row: 1; }
+.home-section-intro .section-heading { grid-column: 2; grid-row: 1; align-self: start; margin: 0; }
 .home-section-intro .section-heading h2 { font-size: clamp(2rem, 3.8vw, 3.5rem); }
 .home-section-intro .prose:last-child { grid-column: 1; }
 .intro p:first-child { color: var(--ink); font-size: clamp(1.2rem, 1rem + 0.55vw, 1.48rem); line-height: 1.65; }
@@ -921,3 +921,29 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
 }
 
 @media print { .v-lightbox, .v-expand { display: none !important; } }
+
+/* ------------------------------------------------------------------
+   Home: stage clip, capability cards, pull quote
+   ------------------------------------------------------------------ */
+
+.hero-clip { border-radius: var(--radius); overflow: hidden; }
+.hero-clip video { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--stage); }
+.hero-clip .v-toggle, .hero-clip .v-expand { bottom: 0.6rem; }
+
+.caps { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--radius-lg); overflow: hidden; }
+.cap { display: flex; flex-direction: column; gap: 0.55rem; padding: 1.6rem 1.5rem 1.4rem; background: var(--paper); transition: background 200ms ease; }
+.cap:hover { background: var(--surface); }
+.cap-index { margin: 0; color: var(--accent); font: 650 0.62rem/1 var(--mono); letter-spacing: 0.12em; }
+.cap h3 { margin: 0; font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.22rem); letter-spacing: -0.01em; }
+.cap > p:not(.cap-index) { margin: 0; max-width: 46ch; color: var(--ink-2); font-size: 0.88rem; line-height: 1.65; }
+.cap-link { margin-top: auto; padding-top: 0.7rem; font: 600 0.74rem/1 var(--body); text-decoration: none; }
+.cap-link::after { content: " →"; }
+
+.pull { max-width: 60ch; margin: 2.25rem 0 0; padding-left: 1.2rem; border-left: 2px solid var(--accent); color: var(--ink); font-size: clamp(1rem, 0.95rem + 0.45vw, 1.22rem); line-height: 1.6; }
+
+.home-section-applied .media-duo { grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.55fr); }
+
+@media (max-width: 52em) {
+  .caps { grid-template-columns: 1fr; }
+  .home-section-applied .media-duo { grid-template-columns: 1fr; }
+}

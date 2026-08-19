@@ -199,6 +199,25 @@ def video(key, cls="", autoloop=True):
     return f'<figure class="v-figure {cls}{tall}">{body}{cap}</figure>'
 
 
+def hero_clip(key):
+    """The stage clip on the home page. The inline loop is the small preview encode, so the
+    landing page stays light; Expand loads the full clip in the lightbox."""
+    rec = MEDIA["videos"].get(key)
+    if not rec:
+        return ""
+    inline = rec.get("preview") or rec["mp4"]
+    full = f' data-full-src="{rec["mp4"]}"' if rec.get("preview") else ""
+    return (f'<div class="hero-clip v-wrap">'
+            f'<video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}" '
+            f'muted loop playsinline preload="metadata" data-autoloop{full} '
+            f'aria-label="{e(rec["alt"])}"><source src="{inline}" type="video/mp4"></video>'
+            f'<button type="button" class="v-toggle" data-toggle '
+            f'aria-label="Play or pause video">Pause</button>'
+            f'<button type="button" class="v-expand" data-expand hidden '
+            f'aria-label="Play this clip in a larger frame">'
+            f'<span aria-hidden="true">&#x2921;</span>Expand</button></div>')
+
+
 def video_ld(key, page_url):
     rec = MEDIA["videos"].get(key)
     if not rec:
@@ -625,25 +644,14 @@ def descent_svg():
 # ---------------------------------------------------------------- home
 
 def build_home():
-    d = SITE["deployment"]
-    v = d["verified"]
     arc = SITE["arc"]
     story = SITE["story"]
     intro = SITE["intro"]
+    H = SITE["home"]
     nxt = SITE["nextSteps"]
-    prog = SITE["headlineProgression"]
 
     portrait = picture("portrait", cls="portrait", sizes="5rem", lazy=False, caption=False)
-    hero_map = picture("scene-graph-itc", cls="hero-map", sizes="(min-width: 64em) 36rem, 92vw",
-                       lazy=False, caption=False)
 
-    onboard_line = ("Perception, odometry, mapping, and scene graph construction all run on the "
-                    "drone. The rate above is the measured perception throughput.")
-    if d.get("status") != "full-stack":
-        onboard_line = ("Perception only. Odometry, mapping, and scene graph construction ran "
-                        "off-board.")
-
-    paras = "".join(f"<p>{e(x)}</p>" for x in story["paragraphs"])
     intro_paras = "".join(f"<p>{e(x)}</p>" for x in intro["paragraphs"])
     stat_items = "".join(
         f'<div class="stat"><dt>{e(st["value"])}</dt>'
@@ -653,6 +661,14 @@ def build_home():
     next_links = "".join(
         f'<a class="route" href="{e(i["href"])}"><span>{e(i["label"])}</span>'
         f'<small>{e(i["text"])}</small></a>' for i in nxt["items"])
+
+    caps = "".join(f"""
+      <li class="cap">
+        <p class="cap-index">{e(c["index"])}</p>
+        <h3>{e(c["title"])}</h3>
+        <p>{e(c["text"])}</p>
+        <a class="cap-link" href="{e(c["href"])}">{e(c["linkLabel"])}</a>
+      </li>""" for c in H["capabilities"])
 
     pubs = PUBS["publications"]
     cards = "".join(f"""
@@ -667,10 +683,10 @@ def build_home():
 <header class="hero">
   <div class="hero-grid">
     <div class="hero-copy">
-      <p class="hero-kicker"><span aria-hidden="true"></span> Monocular spatial perception</p>
+      <p class="hero-kicker"><span aria-hidden="true"></span> {e(H['kicker'])}</p>
       <h1><span class="hero-name">{e(NAME)}</span>
-        <span class="hero-pitch">One camera.<br>A map robots can reason with.</span></h1>
-      <p class="lede">{e(arc['statement'])}</p>
+        <span class="hero-pitch">{e(H['pitchLineOne'])}<br>{e(H['pitchLineTwo'])}</span></h1>
+      <p class="lede">{e(H['lede'])}</p>
       <div class="hero-actions">
         <a class="action action-primary" href="/research/">Explore the research</a>
         <a class="action" href="/cv/">View CV</a>
@@ -682,12 +698,9 @@ def build_home():
       </div>
     </div>
     <div class="hero-stage">
-      <div class="hero-stage-head"><span>Live system output</span><span>M2H-MX-L</span></div>
-      {hero_map}
-      <div class="hero-layers" aria-label="Scene graph layers">
-        <span>mesh</span><span>objects</span><span>places</span><span>rooms</span><span>building</span>
-      </div>
-      <div class="hero-stage-foot"><span>RGB + IMU</span><span>hierarchical 3D scene graph</span></div>
+      <div class="hero-stage-head"><span>Mapping system, running</span><span>M2H-MX + Mono-Hydra++</span></div>
+      {hero_clip(H['stageClip'])}
+      <div class="hero-stage-foot"><span>RGB + IMU</span><span>{e(H['stageLabel'])}</span></div>
     </div>
   </div>
 
@@ -697,24 +710,35 @@ def build_home():
   </section>
 </header>
 
-<section class="home-section home-section-intro">
-  <div class="section-index"><span>00</span><span>Trajectory</span></div>
+<section class="home-section home-section-caps">
+  <div class="section-index"><span>01</span><span>What I do</span></div>
   <div class="section-content">
-    <div class="prose intro">{intro_paras}</div>
     <div class="section-heading">
-      <p class="eyebrow">The problem</p>
-      <h2>{e(story['heading'])}</h2>
+      <p class="eyebrow">The work</p>
+      <h2>{e(H['capabilitiesHeading'])}</h2>
+      <p class="section-intro">{e(H['capabilitiesIntro'])}</p>
     </div>
-    <div class="prose">{paras}</div>
+    <ol class="caps">{caps}</ol>
+  </div>
+</section>
+
+<section class="home-section home-section-intro">
+  <div class="section-index"><span>02</span><span>Trajectory</span></div>
+  <div class="section-content">
+    <div class="section-heading">
+      <p class="eyebrow">How I got here</p>
+      <h2>{e(intro['heading'])}</h2>
+    </div>
+    <div class="prose intro">{intro_paras}</div>
   </div>
 </section>
 
 <section class="home-section home-section-platform">
-  <div class="section-index"><span>01</span><span>Platform</span></div>
+  <div class="section-index"><span>03</span><span>Platform</span></div>
   <div class="section-content">
     <div class="section-heading">
       <p class="eyebrow">Built for the payload limit</p>
-      <h2>The platform</h2>
+      <h2>The drone the PhD runs on</h2>
       <p class="section-intro">A custom quadrotor with a carbon fibre frame and caged propellers,
       so it can fly close to walls indoors. Everything the mapping needs is carried onboard.</p>
     </div>
@@ -723,13 +747,15 @@ def build_home():
 </section>
 
 <section class="home-section research-chapter">
-  <div class="section-index"><span>02</span><span>Research</span></div>
+  <div class="section-index"><span>04</span><span>Research</span></div>
   <div class="section-content">
     <div class="chapter-heading">
       <div><p class="eyebrow">{e(arc['actOne']['label'])} &middot; complete</p>
       <h2>{e(arc['actOne']['title'])}</h2></div>
       <p class="section-intro">{e(arc['actOne']['homeLine'])}</p>
     </div>
+
+    <p class="pull">{e(story['paragraphs'][0])}</p>
 
     <ol class="beats">
       <li class="beat">
@@ -758,12 +784,12 @@ def build_home():
       </li>
     </ol>
 
-    <div class="subsection-heading"><span>02.1</span><div><h3>What one frame gives the map</h3>
+    <div class="subsection-heading"><span>04.1</span><div><h3>What one frame gives the map</h3>
       <p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic
       labels. The mapping backend consumes those two outputs and nothing else.</p></div></div>
     <div class="wipe-pair">{wipe("m2h-mx-indoor", compact=True)}{wipe("m2h-mx-outdoor", compact=True)}</div>
 
-    <div class="subsection-heading"><span>02.2</span><div><h3>What changed over four years</h3>
+    <div class="subsection-heading"><span>04.2</span><div><h3>What changed over four years</h3>
       <p class="section-intro">Mean mapping error on the second floor of the ITC building,
       measured against a LiDAR ground truth. The embedded point in amber is the model running on
       the drone at reduced resolution, a different trade-off rather than a regression.</p></div></div>
@@ -783,7 +809,7 @@ def build_home():
 </section>
 
 <section class="home-section research-chapter research-chapter-next">
-  <div class="section-index"><span>03</span><span>Next</span></div>
+  <div class="section-index"><span>05</span><span>Next</span></div>
   <div class="section-content">
     <div class="chapter-heading">
       <div><p class="eyebrow">{e(arc['actTwo']['label'])} &middot; work in progress</p>
@@ -796,8 +822,23 @@ def build_home():
   </div>
 </section>
 
+<section class="home-section home-section-applied">
+  <div class="section-index"><span>06</span><span>Applied</span></div>
+  <div class="section-content">
+    <div class="section-heading">
+      <p class="eyebrow">Industry, 2017 to 2022</p>
+      <h2>{e(H['appliedHeading'])}</h2>
+      <p class="section-intro">{e(H['appliedIntro'])}</p>
+    </div>
+    <div class="media-duo">
+      <div><p class="media-label">The fleet in service</p>{video("humanoid-deployment")}</div>
+      <div><p class="media-label">The map it plans over</p>{video("humanoid-mapping")}</div>
+    </div>
+  </div>
+</section>
+
 <section class="home-section home-section-work">
-  <div class="section-index"><span>04</span><span>Selected</span></div>
+  <div class="section-index"><span>07</span><span>Selected</span></div>
   <div class="section-content">
     <div class="section-heading"><p class="eyebrow">Published systems</p><h2>Selected work</h2></div>
     <ul class="cards">{cards}</ul>
@@ -806,11 +847,12 @@ def build_home():
 
 <nav class="routes" aria-label="Explore the portfolio">{next_links}</nav>
 """
-    shell("", f"{NAME} | 3D scene graphs from a single camera",
-          "Bavantha Udugama builds real-time 3D scene graphs from a single camera and IMU, "
-          "with no depth sensor. PhD candidate at ITC, University of Twente.",
+    shell("", f"{NAME} | Perception, learning, and deployment for autonomous systems",
+          "Bavantha Udugama builds perception and decision systems for robots: deep multi-task "
+          "networks, real-time monocular SLAM and 3D scene graphs, and reinforcement-learned "
+          "exploration, deployed on edge hardware.",
           body, extra_ld=[n for n in (person_node(), profile_page_node(),
-                                      video_ld("itc-loop", f"{ORIGIN}/")) if n],
+                                      video_ld("icra26", f"{ORIGIN}/")) if n],
           og_type="profile")
 
 
