@@ -45,8 +45,8 @@
     "github": "https://github.com/BavanthaU",
     "utStaffPage": "https://research.utwente.nl/en/persons/bavantha-udugama",
     "uavCentre": "https://www.itc.nl/about-itc/centres-of-expertise/uav-centre/",
-    "orcid": null,
-    "orcidNote": "Gap G3. Does not exist yet. This is the strongest single sameAs anchor and the largest off-site gap.",
+    "orcid": "https://orcid.org/0000-0002-1932-692X",
+    "orcidNote": "Gap G3 closed 2026-08-20. Checksum verified (ISO 7064 MOD 11-2) and resolved against pub.orcid.org: the record reads 'Bavantha Lakshan Udugama Udugama Vithanage' and already lists this site under researcher-urls, so the sameAs link is reciprocal in both directions.",
     "youtube": "https://www.youtube.com/@udugamavithanagebavanthala6361",
     "youtubeNote": "Channel display name is 'Bavantha Udugama' but the handle is the auto-generated @udugamavithanagebavanthala6361. Worth claiming a clean handle, launch checklist.",
     "ieeeAuthorPageNote": "Removed 2026-08-18. The previously listed id 37061362800 belongs to Sachini Ekanayake, a co-author on the Peradeniya papers, not to Bavantha Udugama. A wrong sameAs entry asserts that two people are the same person, so it is left empty until the correct author id is confirmed while signed in to IEEE Xplore."

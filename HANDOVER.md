@@ -138,7 +138,7 @@ BibTeX endpoint; social cards; Google Search Console verified.
 
 **Not done, and worth more than anything above.** The site has almost no inbound links. The
 highest-value actions are all off-site and need the site owner: point the Google Scholar homepage
-field at the site, register an ORCID, and get the UT and UAV Centre pages to link it.
+field at the site and get the UT and UAV Centre pages to link it. The ORCID is now done.
 
 **Name fragmentation is the underlying problem.** Papers are published as *U.V.B.L. Udugama*,
 profiles say *Bavantha Udugama*, university pages say *B.L.U. Udugama Vithanage*. The site declares
@@ -158,7 +158,8 @@ all variants, but only the upstream pages can actually merge them.
 - **IEEE author id.** The previously listed id belonged to a co-author and was removed. A wrong
   `sameAs` asserts two researchers are one person, which is worse than an absent one. Needs a
   signed-in Xplore session. Check also whether Xplore has split the record across several ids.
-- **ORCID.** Does not exist. Strongest single `sameAs` anchor.
+- **ORCID.** `0000-0002-1932-692X`, added 2026-08-20. Checksum verified and resolved against
+  pub.orcid.org before it went in. Leads `sameAs`; the record links back to this site.
 
 ### 5.2 Content gaps
 

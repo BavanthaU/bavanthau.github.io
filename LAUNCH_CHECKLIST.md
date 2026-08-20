@@ -41,12 +41,14 @@ one person.
 | **UT Pure page** | Personal website field on `research.utwente.nl`. A `.utwente.nl` link carries real institutional authority. |
 | **ResearchGate** | Profile, add the site under your web links. |
 
-### 3. Get an ORCID (30 minutes)
+### 3. Get an ORCID (done 2026-08-20)
 
-You do not have one, and it is the single strongest `sameAs` anchor because it is an identifier
-rather than a page. Register at [orcid.org](https://orcid.org), add all four publications, add the
-site as a website, then put the ORCID into `data/site.json` under `links.orcid`, rebuild, and push.
-It will appear in the `sameAs` array on every page automatically.
+`0000-0002-1932-692X`, set in `data/site.json` under `links.orcid`. It renders in the masthead,
+the footer and the contact page, and leads the `sameAs` array on all 17 pages. The record already
+lists this site under researcher-urls, so the link is reciprocal.
+
+Remaining: add all four publications to the ORCID record itself. That is off-site work and cannot
+be done from the repo.
 
 ---
 

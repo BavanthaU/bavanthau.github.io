@@ -7,3 +7,6 @@ media/.cache/
 # OS noise
 .DS_Store
 Thumbs.db
+
+# Python bytecode from tools/
+__pycache__/

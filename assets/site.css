@@ -171,6 +171,27 @@ img, video { max-width: 100%; }
   letter-spacing: -0.08em;
 }
 
+.masthead-id {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.6rem, 1.6vw, 1.1rem);
+  min-width: 0;
+}
+.orcid {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: none;
+  color: var(--ink-2);
+  font: 500 0.68rem/1 var(--mono);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.orcid:hover { color: var(--accent); }
+.orcid:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.orcid-glyph { width: 0.95rem; height: 0.95rem; flex: none; }
+
 .nav {
   justify-self: end;
   display: flex;
@@ -675,6 +696,7 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
   .page-content { padding-top: 2.75rem; }
   .nav { gap: 0.7rem; font-size: 0.61rem; }
   .wordmark-name { display: none; }
+  .orcid-num { display: none; }
   .theme-toggle [data-theme-label] { display: none; }
   .theme-toggle { width: 2rem; justify-content: center; padding-inline: 0; }
   .hero-grid { padding-block: 0 2.5rem; }
@@ -795,16 +817,45 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
 .cv-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.75rem; }
 .cv-actions .action { cursor: pointer; font: inherit; }
 
-.cv-layout { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
+.cv-layout { display: grid; grid-template-columns: clamp(12rem, 15vw, 16rem) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
 .cv-main { min-width: 0; }
 
 /* Sticky section rail with scrollspy */
-.cv-toc { position: sticky; top: 5.5rem; align-self: start; display: flex; flex-direction: column; gap: 0.1rem; padding-left: 0.9rem; border-left: 1px solid var(--rule); }
-.cv-toc a { position: relative; padding: 0.4rem 0; color: var(--ink-2); font: 600 0.72rem/1.3 var(--body); text-decoration: none; transition: color 160ms ease; }
+.cv-toc { position: sticky; top: 5.5rem; align-self: start; display: flex; flex-direction: column; gap: 0.15rem; padding-left: 1.1rem; border-left: 1px solid var(--rule); }
+.cv-toc a { position: relative; padding: 0.5rem 0; color: var(--ink-2); font: 600 0.82rem/1.35 var(--body); text-decoration: none; transition: color 160ms ease; }
 .cv-toc a::before { content: ""; position: absolute; left: -0.95rem; top: 50%; width: 2px; height: 0; translate: 0 -50%; background: var(--accent); transition: height 200ms ease; }
 .cv-toc a:hover { color: var(--ink); }
 .cv-toc a[aria-current="true"] { color: var(--accent); }
 .cv-toc a[aria-current="true"]::before { height: 1.1rem; }
+
+/* The loop from the front page, retold as clips on the CV. */
+.loopstrip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.5rem);
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.loopstrip-item { display: flex; flex-direction: column; gap: 0.45rem; min-width: 0; }
+.loopstrip-index {
+  margin: 0;
+  color: var(--accent);
+  font: 650 0.6rem/1 var(--mono);
+  letter-spacing: 0.11em;
+}
+.loopstrip-item h3 { margin: 0; font-size: 0.95rem; line-height: 1.25; }
+.loopstrip-note { margin: 0; color: var(--ink-2); font-size: 0.78rem; line-height: 1.5; }
+/* Uniform frames: the drone clip is portrait and the rest are wide, so crop to one ratio. */
+.loopstrip .v-figure { margin: 0; max-width: none; }
+.loopstrip .v-figure figcaption { display: none; }
+.loopstrip .v-wrap { aspect-ratio: 4 / 3; }
+.loopstrip .v-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+@media (max-width: 78em) { .loopstrip { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 52em) { .loopstrip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 34em) { .loopstrip { grid-template-columns: 1fr; } }
+@media print { .loopstrip { display: none; } }
 
 .cv-section { padding-top: clamp(2.5rem, 5vw, 3.5rem); scroll-margin-top: 6rem; }
 .cv-section:first-child { padding-top: 0; }

@@ -8,7 +8,7 @@
     { "label": "Focus", "value": "Monocular spatial perception, SLAM, edge deployment" }
   ],
   "glance": [
-    { "value": "8 yrs", "label": "robotics and deployment", "detail": "Synopsys, Premier Genie, Expert Hub Robotics, University of Twente" },
+    { "value": "7 yrs", "label": "robotics and deployment", "detail": "Premier Genie, Expert Hub Robotics, University of Twente" },
     { "value": "4", "label": "first-author papers", "detail": "ISPRS Annals, IROS 2025, ICRA 2026 SRRA, ISPRS Journal under review" },
     { "value": "30+", "label": "robots deployed", "detail": "Humanoid service robots across Expo 2020 Dubai, healthcare, and reception sites" },
     { "value": "25.53 fps", "label": "on-device perception", "detail": "M2H-MX-L, TensorRT FP16, Jetson Orin NX 16GB" }
@@ -121,6 +121,7 @@
   ],
   "sections": [
     { "id": "profile", "label": "Profile" },
+    { "id": "pipeline", "label": "The work" },
     { "id": "experience", "label": "Experience" },
     { "id": "education", "label": "Education" },
     { "id": "publications", "label": "Publications" },

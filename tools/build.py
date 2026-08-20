@@ -36,6 +36,35 @@ ORIGIN = SITE["origin"].rstrip("/")
 NAME = SITE["identity"]["canonicalName"]
 PUBNAME = SITE["identity"]["publishingName"]
 
+ORCID_URL = SITE["links"].get("orcid")
+
+
+def _orcid_id(url):
+    """Bare iD from the canonical URL, checksum-verified.
+
+    A wrong ORCID asserts that two different people are the same person, which is the exact
+    mistake the ieeeAuthorPageNote in site.json records. Fail the build rather than publish
+    an identifier that does not check out.
+    """
+    if not url:
+        return None
+    m = re.fullmatch(r"https://orcid\.org/(\d{4}-\d{4}-\d{4}-\d{3}[\dX])", url)
+    if not m:
+        raise SystemExit(f"links.orcid is not a canonical ORCID URL: {url!r}")
+    ident = m.group(1)
+    digits = ident.replace("-", "")
+    total = 0
+    for d in digits[:15]:
+        total = (total + int(d)) * 2
+    expect = (12 - total % 11) % 11
+    expect = "X" if expect == 10 else str(expect)
+    if expect != digits[15]:
+        raise SystemExit(f"ORCID checksum fails for {ident}: check digit should be {expect}")
+    return ident
+
+
+ORCID_ID = _orcid_id(ORCID_URL)
+
 PAGES = []  # collected for sitemap.xml
 
 
@@ -483,6 +512,36 @@ def clamp(text, limit=155):
     return cut[:i].rstrip(",;:") + "."
 
 
+def orcid_mark():
+    """The iD beside the wordmark, on every page. Empty when no ORCID is set.
+
+    rel="me" so the link is machine-readable as an identity claim, matching the footer
+    profile links. The mark is inline SVG because the site ships no external assets.
+    """
+    if not ORCID_ID:
+        return ""
+    return (
+        f'<a class="orcid" rel="me noopener" target="_blank" href="{e(ORCID_URL)}"'
+        f' aria-label="ORCID iD {e(ORCID_ID)}, opens orcid.org in a new tab">'
+        '<svg class="orcid-glyph" viewBox="0 0 256 256" aria-hidden="true" focusable="false">'
+        '<circle cx="128" cy="128" r="128" fill="#A6CE39"/>'
+        '<path fill="#fff" d="M86.3 186.2H70.9V79.1h15.4v107.1z"/>'
+        '<path fill="#fff" d="M108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6'
+        'h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7 0-21.5-13.7-39.7-43.7-39.7h-23.7'
+        'v79.4z"/>'
+        '<circle cx="78.6" cy="56.8" r="10.1" fill="#fff"/>'
+        '</svg>'
+        f'<span class="orcid-num">{e(ORCID_ID)}</span></a>'
+    )
+
+
+def orcid_foot():
+    """ORCID in the footer profile list, first because it is the canonical scholarly id."""
+    if not ORCID_URL:
+        return ""
+    return f'<li><a rel="me" href="{e(ORCID_URL)}">ORCID</a></li>'
+
+
 def shell(path, title, description, body, extra_ld=None, og_type="website", crumb=None):
     description = clamp(description)
     """path: '' for root, else 'research' or 'publications/m2h' with no slashes at the edges."""
@@ -544,7 +603,9 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
 <meta name="twitter:title" content="{e(title)}">
 <meta name="twitter:description" content="{e(description)}">
 <link rel="stylesheet" href="{depth_prefix}assets/site.css?v={asset_hash("/assets/site.css")}">
-<link rel="icon" href="{depth_prefix}assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{depth_prefix}assets/favicon.svg?v={asset_hash('/assets/favicon.svg')}" type="image/svg+xml">
+<link rel="icon" href="{depth_prefix}assets/favicon-32.png?v={asset_hash('/assets/favicon-32.png')}" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{depth_prefix}assets/favicon-180.png?v={asset_hash('/assets/favicon-180.png')}">
 <script>try{{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 {ld}
 </head>
@@ -553,10 +614,13 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
 <header class="masthead">
   <div class="scroll-progress" data-progress aria-hidden="true"></div>
   <div class="wrap masthead-inner">
-    <a class="wordmark" href="/" aria-label="{e(NAME)}, home">
-      <span class="wordmark-mark" aria-hidden="true">BU</span>
-      <span class="wordmark-name">{e(NAME)}</span>
-    </a>
+    <div class="masthead-id">
+      <a class="wordmark" href="/" aria-label="{e(NAME)}, home">
+        <span class="wordmark-mark" aria-hidden="true">BU</span>
+        <span class="wordmark-name">{e(NAME)}</span>
+      </a>
+      {orcid_mark()}
+    </div>
     <nav class="nav" aria-label="Primary">{nav}</nav>
     <button class="theme-toggle" type="button" data-theme-toggle hidden>
       <span class="theme-toggle-dot" aria-hidden="true"></span>
@@ -577,6 +641,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
     </div>
     <div>
       <ul>
+        {orcid_foot()}
         <li><a rel="me" href="{e(SITE['links']['googleScholar'])}">Google Scholar</a></li>
         <li><a rel="me" href="{e(SITE['links']['github'])}">GitHub</a></li>
         <li><a rel="me" href="{e(SITE['links']['linkedin'])}">LinkedIn</a></li>
@@ -1499,6 +1564,50 @@ def build_project_pages():
 
 # ---------------------------------------------------------------- cv, contact
 
+LOOP_CLIPS = [
+    ("01", "Perception", "icra26", True,
+     "One camera in. M2H-MX predicts metric depth and semantics together, in a single pass."),
+    ("02", "Algorithm", "itc-loop", True,
+     "Those predictions become a hierarchical 3D scene graph, built live over one building loop."),
+    ("03", "Image stream", "stairs-zupt", False,
+     "Depth-backed visual-inertial odometry holding pose steady, running on the drone's Jetson."),
+    ("04", "The drone", "drone-flight", True,
+     "The platform that carries the whole stack, computing everything onboard."),
+    ("05", "Exploration", "scope-explorer", True,
+     "The map it built decides where to look next, one certified route at a time."),
+]
+
+
+def cv_loop_strip():
+    """The homepage loop diagram, retold as clips.
+
+    stairs-zupt is the one clip left off autoplay: at 15 MB it is larger than the other four
+    put together, and preload="none" means the poster is all that loads until asked.
+    """
+    cells = []
+    for idx, title, key, autoloop, note in LOOP_CLIPS:
+        clip = video(key, cls="loopstrip-clip", autoloop=autoloop)
+        if not clip:
+            continue
+        cells.append(
+            f'<li class="loopstrip-item">'
+            f'<p class="loopstrip-index">{idx}</p>'
+            f'<h3>{e(title)}</h3>'
+            f'{clip}'
+            f'<p class="loopstrip-note">{e(note)}</p>'
+            f'</li>')
+    if not cells:
+        return ""
+    return (
+        '<section class="cv-section" id="pipeline">'
+        '<h2>The work, end to end</h2>'
+        '<p class="section-intro">The same loop the front page draws, with the real footage '
+        'behind each stage. One camera and an IMU go in; depth, semantics, a scene graph and a '
+        'route come out, all of it on the hardware the drone carries.</p>'
+        f'<ol class="loopstrip">{"".join(cells)}</ol>'
+        '</section>')
+
+
 def build_cv():
     def ym(v, default_month):
         if v is None:
@@ -1627,6 +1736,8 @@ def build_cv():
       <section class="stats stats-flat" aria-label="Key figures"><dl>{glance}</dl></section>
     </section>
 
+    {cv_loop_strip()}
+
     <section class="cv-section" id="experience">
       <h2>Experience</h2>
       <div class="roles">{roles}</div>
@@ -1679,6 +1790,8 @@ def build_contact():
     L = SITE["links"]
     email = SITE["contact"]["email"]
     rows = [("Email", f'<a href="mailto:{e(email)}">{e(email)}</a>') if email else (None, None),
+            (("ORCID", f'<a rel="me" href="{e(ORCID_URL)}">{e(ORCID_ID)}</a>')
+             if ORCID_URL else (None, None)),
             ("Google Scholar", f'<a href="{e(L["googleScholar"])}">Google Scholar profile</a>'),
             ("GitHub", f'<a href="{e(L["github"])}">github.com/BavanthaU</a>'),
             ("LinkedIn", f'<a href="{e(L["linkedin"])}">LinkedIn profile</a>'),
@@ -1741,6 +1854,7 @@ Name: {NAME}
 Publishes as: {PUBNAME}
 Role: {SITE['identity']['role']}, {SITE['identity']['affiliation']['name']}
 Contact: {SITE['contact'].get('email') or 'see /contact/'}
+ORCID: {ORCID_URL or 'none'}
 Scholar: {SITE['links']['googleScholar']}
 GitHub: {SITE['links']['github']}
 
@@ -1752,17 +1866,34 @@ Source of truth: data/*.json, rendered by tools/build.py
 """)
 
 
+MONO_STACK = "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+
+
+def _bu_svg(radius, size=32):
+    """The BU mark on the brand accent. Shared by the tab icon and the PNG rasteriser.
+
+    radius 4 for the tab icon; 0 for apple-touch, because iOS applies its own mask and a
+    pre-rounded source shows corner fringing under it.
+    """
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" '
+        f'width="{size}" height="{size}">'
+        f'<rect width="32" height="32" rx="{radius}" fill="#006f6b"/>'
+        '<text x="16" y="16" text-anchor="middle" dominant-baseline="central" '
+        f"font-family='{MONO_STACK}' font-size=\"13\" font-weight=\"700\" "
+        'letter-spacing="-1" fill="#eef3f2">BU</text>'
+        "</svg>"
+    )
+
+
 def build_favicon():
     (ROOT / "assets").mkdir(exist_ok=True)
-    (ROOT / "assets" / "favicon.svg").write_text(
-        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">'
-        '<rect width="32" height="32" rx="4" fill="#14181F"/>'
-        '<circle cx="9" cy="10" r="2.6" fill="#4FB3AC"/>'
-        '<circle cx="23" cy="8" r="2.6" fill="#4FB3AC"/>'
-        '<circle cx="16" cy="22" r="2.6" fill="#E0AC3B"/>'
-        '<path d="M9 10 L23 8 M9 10 L16 22 M23 8 L16 22" stroke="#4FB3AC" '
-        'stroke-width="1.4" fill="none" opacity="0.75"/>'
-        "</svg>\n")
+    (ROOT / "assets" / "favicon.svg").write_text(_bu_svg(4) + "\n")
+    missing = [n for n in ("favicon-32.png", "favicon-180.png")
+               if not (ROOT / "assets" / n).exists()]
+    if missing:
+        print("NOTE: raster fallbacks missing: " + ", ".join(missing))
+        print("      regenerate with: python3 tools/favicon_png.py")
 
 
 def main():
