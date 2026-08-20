@@ -171,7 +171,7 @@ def person_node():
         "@id": f"{ORIGIN}/#person",
         "name": NAME,
         "alternateName": SITE["identity"]["alternateNames"],
-        "jobTitle": SITE["identity"]["role"],
+        "jobTitle": SITE["identity"].get("headline") or SITE["identity"]["role"],
         "url": f"{ORIGIN}/",
         "affiliation": {
             "@type": "Organization",
@@ -998,10 +998,9 @@ def build_home():
 
 <nav class="routes" aria-label="Explore the portfolio">{next_links}</nav>
 """
-    shell("", f"{NAME} | Perception, learning, and deployment for autonomous systems",
-          "Bavantha Udugama builds perception and decision systems for robots: deep multi-task "
-          "networks, real-time monocular SLAM and 3D scene graphs, and reinforcement-learned "
-          "exploration, deployed on edge hardware.",
+    shell("", f"{NAME} | Robotics and computer vision engineer",
+          "Robotics engineer working at the perception end: multi-task depth and semantics, "
+          "real-time monocular SLAM and 3D scene graphs, deployed on edge hardware.",
           body, extra_ld=[n for n in (person_node(), profile_page_node(),
                                       video_ld("icra26", f"{ORIGIN}/")) if n],
           og_type="profile")
@@ -1564,48 +1563,30 @@ def build_project_pages():
 
 # ---------------------------------------------------------------- cv, contact
 
-LOOP_CLIPS = [
-    ("01", "Perception", "icra26", True,
-     "One camera in. M2H-MX predicts metric depth and semantics together, in a single pass."),
-    ("02", "Algorithm", "itc-loop", True,
-     "Those predictions become a hierarchical 3D scene graph, built live over one building loop."),
-    ("03", "Image stream", "stairs-zupt", False,
-     "Depth-backed visual-inertial odometry holding pose steady, running on the drone's Jetson."),
-    ("04", "The drone", "drone-flight", True,
-     "The platform that carries the whole stack, computing everything onboard."),
-    ("05", "Exploration", "scope-explorer", True,
-     "The map it built decides where to look next, one certified route at a time."),
-]
+def role_loop(role):
+    """The stages of a role's work as clips, laid out as a strip inside the role itself.
 
-
-def cv_loop_strip():
-    """The homepage loop diagram, retold as clips.
-
-    stairs-zupt is the one clip left off autoplay: at 15 MB it is larger than the other four
-    put together, and preload="none" means the poster is all that loads until asked.
+    Data lives in cv.json so the sequence is editable without touching markup. autoplay is
+    per clip: stairs-zupt is 15 MB, larger than the rest together, so it stays poster-only
+    until asked for.
     """
     cells = []
-    for idx, title, key, autoloop, note in LOOP_CLIPS:
-        clip = video(key, cls="loopstrip-clip", autoloop=autoloop)
+    for c in role.get("loop", []):
+        clip = video(c["clip"], cls="loopstrip-clip", autoloop=c.get("autoplay", True))
         if not clip:
             continue
         cells.append(
             f'<li class="loopstrip-item">'
-            f'<p class="loopstrip-index">{idx}</p>'
-            f'<h3>{e(title)}</h3>'
+            f'<p class="loopstrip-index">{e(c["index"])}</p>'
+            f'<h4>{e(c["title"])}</h4>'
             f'{clip}'
-            f'<p class="loopstrip-note">{e(note)}</p>'
+            f'<p class="loopstrip-note">{e(c["note"])}</p>'
             f'</li>')
     if not cells:
         return ""
-    return (
-        '<section class="cv-section" id="pipeline">'
-        '<h2>The work, end to end</h2>'
-        '<p class="section-intro">The same loop the front page draws, with the real footage '
-        'behind each stage. One camera and an IMU go in; depth, semantics, a scene graph and a '
-        'route come out, all of it on the hardware the drone carries.</p>'
-        f'<ol class="loopstrip">{"".join(cells)}</ol>'
-        '</section>')
+    intro = (f'<p class="media-label">{e(role["loopIntro"])}</p>'
+             if role.get("loopIntro") else "")
+    return f'<div class="role-loop">{intro}<ol class="loopstrip">{"".join(cells)}</ol></div>'
 
 
 def build_cv():
@@ -1655,6 +1636,7 @@ def build_cv():
         bullets = "".join(f"<li>{e(b)}</li>" for b in r["bullets"])
         tags = "".join(f'<span class="chip">{e(t)}</span>' for t in r.get("tags", []))
         note = f'<p class="role-note">{e(r["note"])}</p>' if r.get("note") else ""
+        loop = role_loop(r)
         media = ""
         if r.get("media"):
             clips = "".join(video(k) for k in r["media"])
@@ -1671,6 +1653,7 @@ def build_cv():
         {note}
         <ul class="role-points">{bullets}</ul>
         <div class="chips">{tags}</div>
+        {loop}
         {media}
       </div>
     </article>"""
@@ -1735,8 +1718,6 @@ def build_cv():
       <h2>At a glance</h2>
       <section class="stats stats-flat" aria-label="Key figures"><dl>{glance}</dl></section>
     </section>
-
-    {cv_loop_strip()}
 
     <section class="cv-section" id="experience">
       <h2>Experience</h2>

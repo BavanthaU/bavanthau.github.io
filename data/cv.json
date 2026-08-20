@@ -1,6 +1,6 @@
 {
   "_comment": "Structured CV content. Source of truth: _source/cv/cv-2026-07-08.pdf and data/timeline.json. Nothing here is invented; every line traces back to one of those. The phone number and home address in the PDF are deliberately not published.",
-  "summary": "Computer vision engineer finishing a PhD in real-time perception and 3D mapping for autonomous systems. I build vision pipelines end to end, from training through optimisation to deployment on edge hardware, across detection, semantic segmentation, and monocular depth. I have shipped a fine-tuned detector inside a live commercial product and taken perception systems from prototype to reliable real-time operation on Jetson-class devices.",
+  "summary": "Robotics engineer working at the perception end. I build the layer that turns raw camera images into geometry, meaning and decisions for robots, then take it to the hardware and make it run in real time. Finishing a PhD in real-time monocular perception and 3D mapping for autonomous UAVs, across detection, semantic segmentation and monocular depth, from training through optimisation to deployment on Jetson-class devices. Before that I shipped a fine-tuned detector inside a live commercial product and built the navigation stack behind a fleet of more than 30 service robots.",
   "facts": [
     { "label": "Role", "value": "PhD candidate, robotics and computer vision" },
     { "label": "Based", "value": "Netherlands" },
@@ -26,7 +26,38 @@
         "Developed M2H and M2H-MX, the multi-task perception frontends behind Mono-Hydra++, predicting metric depth and semantic labels jointly from a single image. M2H appeared at IEEE/RSJ IROS 2025; M2H-MX was accepted at the IEEE ICRA 2026 SRRA Workshop, improving NYUDv2 mIoU by 6.6% and depth RMSE by 9.4%.",
         "Building an indoor UAV exploration system in NVIDIA Isaac Sim, where the drone plans over semantic scene graphs from Mono-Hydra++, with transfer to a custom-built drone for real-world validation."
       ],
-      "tags": ["C++", "PyTorch", "ROS", "TensorRT", "Jetson"]
+      "tags": ["C++", "PyTorch", "ROS", "TensorRT", "Jetson"],
+      "loopIntro": "The loop this PhD closes, in four clips.",
+      "loop": [
+        {
+          "index": "01",
+          "title": "Perception and scene graph",
+          "clip": "icra26",
+          "autoplay": true,
+          "note": "M2H-MX predicts metric depth and semantics in a single pass, and Mono-Hydra++ turns them into a hierarchical 3D scene graph. The same stack, run across different environments."
+        },
+        {
+          "index": "02",
+          "title": "Robustness on device",
+          "clip": "stairs-zupt",
+          "autoplay": false,
+          "note": "The VIO running on a Jetson Orin with a ZED X One, holding pose down the stairs and back up. This is the robustness test for the algorithm."
+        },
+        {
+          "index": "03",
+          "title": "The drone",
+          "clip": "drone-flight",
+          "autoplay": true,
+          "note": "The quadrotor built to deploy this stack, carrying and computing all of it onboard."
+        },
+        {
+          "index": "04",
+          "title": "Exploration",
+          "clip": "scope-explorer",
+          "autoplay": true,
+          "note": "Still at simulation level, in NVIDIA Isaac Sim and the lab: the map it built decides where to look next. Deployment on the drone comes next."
+        }
+      ]
     },
     {
       "role": "Senior robotics software engineer and project lead",
@@ -121,7 +152,6 @@
   ],
   "sections": [
     { "id": "profile", "label": "Profile" },
-    { "id": "pipeline", "label": "The work" },
     { "id": "experience", "label": "Experience" },
     { "id": "education", "label": "Education" },
     { "id": "publications", "label": "Publications" },

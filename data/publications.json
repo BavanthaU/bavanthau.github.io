@@ -233,7 +233,7 @@
       "rights": "link-only",
       "rightsReason": "ISPRS Annals is open access, so the published version could be hosted, but the site hosts no PDFs. Links to arXiv and, once recorded, the ISPRS DOI.",
       "hasPage": true,
-      "claim": "A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, which the field had only done with depth sensors or LiDAR.",
+      "claim": "A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, without a depth sensor or LiDAR.",
       "context": "Scene graphs represent an environment as a layered graph running from mesh geometry up through objects, places, rooms, and buildings. Systems that build them in real time, Hydra and Kimera and S-Graphs+, all assumed RGB-D or 3D LiDAR input. Removing the depth sensor was largely unexplored, and it is exactly what small aerial platforms need.",
       "contribution": "Learned depth and learned semantics feed a robocentric square-root visual-inertial odometry front end, and the resulting semantic mesh drives the Hydra scene graph layers. The contribution is the system rather than any single network. It was the first demonstration of this construction from a monocular camera and an IMU.",
       "headline": [

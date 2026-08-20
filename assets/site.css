@@ -828,12 +828,14 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
 .cv-toc a[aria-current="true"] { color: var(--accent); }
 .cv-toc a[aria-current="true"]::before { height: 1.1rem; }
 
-/* The loop from the front page, retold as clips on the CV. */
+/* The loop this PhD closes, as clips inside the role itself. Two up, because the role
+   body is narrower than the page and four across leaves the frames unreadable. */
+.role-loop { margin-top: 1.5rem; }
 .loopstrip {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: clamp(0.9rem, 1.6vw, 1.5rem);
-  margin: 1.75rem 0 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+  margin: 0.6rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -844,7 +846,7 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
   font: 650 0.6rem/1 var(--mono);
   letter-spacing: 0.11em;
 }
-.loopstrip-item h3 { margin: 0; font-size: 0.95rem; line-height: 1.25; }
+.loopstrip-item h4 { margin: 0; font-size: 0.92rem; line-height: 1.25; }
 .loopstrip-note { margin: 0; color: var(--ink-2); font-size: 0.78rem; line-height: 1.5; }
 /* Uniform frames: the drone clip is portrait and the rest are wide, so crop to one ratio. */
 .loopstrip .v-figure { margin: 0; max-width: none; }
@@ -852,10 +854,8 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
 .loopstrip .v-wrap { aspect-ratio: 4 / 3; }
 .loopstrip .v-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-@media (max-width: 78em) { .loopstrip { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 52em) { .loopstrip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 34em) { .loopstrip { grid-template-columns: 1fr; } }
-@media print { .loopstrip { display: none; } }
+@media (max-width: 46em) { .loopstrip { grid-template-columns: 1fr; } }
+@media print { .role-loop { display: none; } }
 
 .cv-section { padding-top: clamp(2.5rem, 5vw, 3.5rem); scroll-margin-top: 6rem; }
 .cv-section:first-child { padding-top: 0; }

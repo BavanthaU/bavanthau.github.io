@@ -14,6 +14,8 @@
     "publishingNameNote": "All four PhD papers are published under this form. It is listed so that a search for the publishing name resolves to this site.",
     "role": "PhD candidate",
     "roleUntil": "2026-08-01",
+    "headline": ["Robotics engineer", "Computer vision engineer", "Perception and spatial AI"],
+    "headlineNote": "What the work is, as opposed to the academic post. Used for schema.org jobTitle, which accepts a list, so the entity resolves for both robotics and computer vision searches. The role field stays the academic one because it is paired with the affiliation.",
     "field": "monocular spatial perception and robot exploration",
     "affiliation": {
       "name": "Faculty ITC, University of Twente",
