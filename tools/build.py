@@ -16,6 +16,7 @@ import json
 import os
 import re
 import shutil
+import struct
 from datetime import date
 from pathlib import Path
 
@@ -97,6 +98,22 @@ def git_lastmod(path):
                 return r.stdout.strip()
         except Exception:
             pass
+    return TODAY
+
+
+def git_filedate(relpath):
+    """Last commit date for one file, so a VideoObject uploadDate stays put across builds.
+
+    TODAY would move every time the site is rebuilt, which reads to a crawler as a video
+    that is republished daily."""
+    import subprocess
+    try:
+        r = subprocess.run(["git", "log", "-1", "--format=%cs", "--", relpath.lstrip("/")],
+                           cwd=ROOT, capture_output=True, text=True, timeout=10)
+        if r.returncode == 0 and r.stdout.strip():
+            return r.stdout.strip()
+    except Exception:
+        pass
     return TODAY
 
 
@@ -187,9 +204,33 @@ def person_node():
     }
     if SITE["contact"].get("email"):
         node["email"] = f"mailto:{SITE['contact']['email']}"
-    img = SITE["identity"].get("image")
-    node["image"] = (ORIGIN + img) if img else f"{ORIGIN}/media/og/home.png"
+    node["image"] = portrait_node()
     return node
+
+
+def portrait_node():
+    """The portrait as a full ImageObject at its largest encode.
+
+    A knowledge panel or a person card picks the biggest usable copy, so point at the
+    1254px original rather than the 480px one the page happens to lay out."""
+    img = SITE["identity"].get("image") or "/media/og/home.png"
+    rec = MEDIA.get("images", {}).get("portrait")
+    if rec:
+        jpg = [x for x in rec.get("sources", {}).get("jpg", []) if x.get("path")]
+        if jpg:
+            best = max(jpg, key=lambda x: x["w"])
+            return {
+                "@type": "ImageObject",
+                "@id": f"{ORIGIN}/#portrait",
+                "url": ORIGIN + best["path"],
+                "contentUrl": ORIGIN + best["path"],
+                "width": best["w"],
+                "height": round(best["w"] * rec["height"] / rec["width"]),
+                "caption": f"{NAME}, {SITE['identity']['role']}",
+                "creditText": NAME,
+                "copyrightHolder": {"@id": f"{ORIGIN}/#person"},
+            }
+    return ORIGIN + img
 
 
 def asset_hash(path):
@@ -278,17 +319,116 @@ def hero_clip(key):
             f'<span aria-hidden="true">&#x2921;</span>Expand</button></div>')
 
 
+def mp4_duration(path):
+    """Clip length in seconds, read from the MP4 mvhd atom.
+
+    Google wants a duration on a VideoObject and there is no ffprobe in the build, so walk
+    the top-level boxes to moov and read the header the file already carries. Returns None
+    if anything is not where the spec says it should be."""
+    f = ROOT / path.lstrip("/")
+    if not f.exists():
+        return None
+    try:
+        end = f.stat().st_size
+        with f.open("rb") as fh:
+            pos = 0
+            while pos < end:
+                fh.seek(pos)
+                head = fh.read(8)
+                if len(head) < 8:
+                    return None
+                size, kind = struct.unpack(">I4s", head)
+                if size == 1:
+                    size = struct.unpack(">Q", fh.read(8))[0]
+                elif size == 0:
+                    size = end - pos
+                if size < 8:
+                    return None
+                if kind == b"moov":
+                    box = fh.read(min(size, 1 << 20))
+                    i = box.find(b"mvhd")
+                    if i < 0:
+                        return None
+                    if box[i + 4] == 0:
+                        scale, ticks = struct.unpack(">II", box[i + 16:i + 24])
+                    else:
+                        scale, ticks = struct.unpack(">IQ", box[i + 24:i + 36])
+                    return round(ticks / scale) if scale else None
+                pos += size
+    except Exception:
+        return None
+    return None
+
+
+def iso_duration(secs):
+    """Seconds -> ISO 8601, the only duration format Google reads."""
+    if not secs:
+        return None
+    m, sec = divmod(int(secs), 60)
+    h, m = divmod(m, 60)
+    return "PT" + (f"{h}H" if h else "") + (f"{m}M" if m else "") + (f"{sec}S" if sec else "")
+
+
+def video_title(key, rec):
+    """A whole sentence for the VideoObject name, never a cut mid-word.
+
+    The name is what Google prints under the thumbnail in a video result, so it has to
+    read as a title rather than as the first 110 bytes of a caption."""
+    text = (rec.get("caption") or rec.get("alt") or "").strip()
+    if not text:
+        return f"{NAME} | {key.replace('-', ' ')}"
+    first = re.split(r"(?<=[.!?])\s", text)[0].strip().rstrip(".")
+    if len(first) > 100:
+        first = first[:100].rsplit(" ", 1)[0].rstrip(",;:")
+    return first
+
+
 def video_ld(key, page_url):
     rec = MEDIA["videos"].get(key)
     if not rec:
         return None
-    return {"@context": "https://schema.org", "@type": "VideoObject",
-            "name": rec.get("caption", "")[:110] or NAME,
-            "description": rec["alt"],
-            "thumbnailUrl": ORIGIN + rec["poster"],
-            "uploadDate": TODAY,
-            "contentUrl": ORIGIN + rec["mp4"],
-            "embedUrl": page_url}
+    node = {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "@id": f"{page_url}#video-{key}",
+        "name": video_title(key, rec),
+        "description": rec["alt"],
+        "thumbnailUrl": ORIGIN + rec["poster"],
+        "uploadDate": git_filedate(rec["mp4"]),
+        "contentUrl": ORIGIN + rec["mp4"],
+        "width": rec["width"],
+        "height": rec["height"],
+        "inLanguage": "en",
+        "isFamilyFriendly": True,
+        "creator": {"@id": f"{ORIGIN}/#person", "@type": "Person", "name": NAME},
+        "copyrightHolder": {"@id": f"{ORIGIN}/#person", "@type": "Person", "name": NAME},
+        "mainEntityOfPage": page_url,
+    }
+    # contentUrl is the file itself, so no embedUrl: there is no third-party player here
+    # and pointing embedUrl at the page describes a player that does not exist.
+    d = iso_duration(mp4_duration(rec["mp4"]))
+    if d:
+        node["duration"] = d
+    return node
+
+
+# Every path a clip can appear under in the markup, back to its media key. The preview
+# encode counts: on the home page that is the file the inline <source> points at.
+VIDEO_BY_PATH = {}
+for _k, _r in MEDIA.get("videos", {}).items():
+    for _f in (_r.get("mp4"), _r.get("preview")):
+        if _f:
+            VIDEO_BY_PATH[_f] = _k
+
+
+def videos_in(body):
+    """Media keys for the clips this page actually carries, in the order they appear."""
+    found = []
+    for path in re.findall(r"/media/video/[A-Za-z0-9_.-]+\.mp4", body):
+        k = VIDEO_BY_PATH.get(path)
+        if k and k not in found:
+            found.append(k)
+    return found
 
 
 def wipe(set_id="itc-corridor", heading=True, compact=False, start=2,
@@ -572,6 +712,12 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
         vtags += f'\n<meta name="msvalidate.01" content="{e(b)}">'
 
     nodes = list(extra_ld or [])
+    have = {n.get("@id") for n in nodes}
+    for key in videos_in(body):
+        n = video_ld(key, canonical)
+        if n and n["@id"] not in have:
+            nodes.append(n)
+            have.add(n["@id"])
     bc = breadcrumbs(path, crumb or title.split(" | ")[0])
     if bc:
         nodes.append(bc)
@@ -588,6 +734,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
 <meta name="color-scheme" content="light dark">
 <title>{e(title)}</title>
 <meta name="description" content="{e(description)}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <link rel="canonical" href="{e(canonical)}">{vtags}
 <meta property="og:type" content="{e(og_type)}">
 <meta property="og:site_name" content="{e(NAME)}">
@@ -1001,8 +1148,7 @@ def build_home():
     shell("", f"{NAME} | Robotics and computer vision engineer",
           "Robotics engineer working at the perception end: multi-task depth and semantics, "
           "real-time monocular SLAM and 3D scene graphs, deployed on edge hardware.",
-          body, extra_ld=[n for n in (person_node(), profile_page_node(),
-                                      video_ld("icra26", f"{ORIGIN}/")) if n],
+          body, extra_ld=[person_node(), profile_page_node()],
           og_type="profile")
 
 
@@ -1816,16 +1962,53 @@ def build_404():
 
 # ---------------------------------------------------------------- site files
 
+def _page_images(markup):
+    """Every distinct image the rendered page shows, largest encode first per source set.
+
+    Read back out of the HTML that was just written rather than tracked while building, so
+    a figure added anywhere reaches the sitemap without a second place to remember."""
+    seen = []
+    for src in re.findall(r'<img[^>]+src="(/[^"]+)"', markup):
+        if src not in seen:
+            seen.append(src)
+    for poster in re.findall(r'<video[^>]+poster="(/[^"]+)"', markup):
+        if poster not in seen:
+            seen.append(poster)
+    return seen
+
+
 def build_sitemap():
     urls = ""
     for p in sorted(PAGES):
         loc = f"{ORIGIN}/" if p == "" else f"{ORIGIN}/{p}/"
         pri = "1.0" if p == "" else ("0.8" if p.count("/") == 0 else "0.6")
-        urls += (f"  <url><loc>{loc}</loc><lastmod>{git_lastmod(p)}</lastmod>"
-                 f"<priority>{pri}</priority></url>\n")
+        f = ROOT / (("index.html" if p == "" else p + "/index.html"))
+        markup = f.read_text() if f.exists() else ""
+        extra = ""
+        for src in _page_images(markup):
+            extra += f"\n    <image:image><image:loc>{ORIGIN}{src}</image:loc></image:image>"
+        for key in videos_in(markup):
+            rec = MEDIA["videos"][key]
+            dur = mp4_duration(rec["mp4"])
+            extra += (
+                "\n    <video:video>"
+                f"\n      <video:thumbnail_loc>{ORIGIN}{rec['poster']}</video:thumbnail_loc>"
+                f"\n      <video:title>{e(video_title(key, rec))}</video:title>"
+                f"\n      <video:description>{e(rec['alt'][:2040])}</video:description>"
+                f"\n      <video:content_loc>{ORIGIN}{rec['mp4']}</video:content_loc>"
+                + (f"\n      <video:duration>{dur}</video:duration>" if dur else "")
+                + f"\n      <video:publication_date>{git_filedate(rec['mp4'])}</video:publication_date>"
+                "\n      <video:family_friendly>yes</video:family_friendly>"
+                "\n      <video:live>no</video:live>"
+                "\n    </video:video>")
+        urls += (f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{git_lastmod(p)}</lastmod>"
+                 f"\n    <priority>{pri}</priority>{extra}\n  </url>\n")
     (ROOT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n")
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+        '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"\n'
+        '        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">\n'
+        + urls + "</urlset>\n")
 
     (ROOT / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\n\nSitemap: {ORIGIN}/sitemap.xml\n")
