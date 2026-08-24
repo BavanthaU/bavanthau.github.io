@@ -32,12 +32,24 @@ _mf = ROOT / "media" / "MANIFEST.json"
 MEDIA = json.loads(_mf.read_text()) if _mf.exists() else {"images": {}, "frames": {}, "videos": {}}
 MEDIACFG = json.loads((DATA / "media.json").read_text())
 CV = json.loads((DATA / "cv.json").read_text())
+VIDEOPAGES = json.loads((DATA / "videos.json").read_text())["pages"]
 
 ORIGIN = SITE["origin"].rstrip("/")
 NAME = SITE["identity"]["canonicalName"]
 PUBNAME = SITE["identity"]["publishingName"]
 
 ORCID_URL = SITE["links"].get("orcid")
+
+# media key -> its watch page. A clip with an entry here has one page whose only subject is
+# that clip, and every mention of it anywhere else on the site points back at that page.
+WATCH = {w["key"]: w for w in VIDEOPAGES}
+
+
+def watch_url(key, absolute=False):
+    w = WATCH.get(key)
+    if not w:
+        return ""
+    return (ORIGIN if absolute else "") + f"/videos/{w['slug']}/"
 
 
 def _orcid_id(url):
@@ -163,10 +175,17 @@ def profile_page_node():
             "dateModified": TODAY}
 
 
-def breadcrumbs(path, title):
+def breadcrumbs(path, title, flat=False):
+    """flat: Home then this page, skipping the path segments in between. Used where a
+    directory in the URL is only a container and has no page of its own to link to."""
     if not path:
         return None
     crumbs = [{"@type": "ListItem", "position": 1, "name": "Home", "item": f"{ORIGIN}/"}]
+    if flat:
+        crumbs.append({"@type": "ListItem", "position": 2, "name": title,
+                       "item": f"{ORIGIN}/{path}/"})
+        return {"@context": "https://schema.org", "@type": "BreadcrumbList",
+                "itemListElement": crumbs}
     parts = path.split("/")
     acc = ""
     for i, seg in enumerate(parts, start=2):
@@ -264,8 +283,11 @@ def picture(key, cls="", sizes="(min-width: 56em) 62rem, 100vw", lazy=True, capt
     return f'<figure class="{cls}">{img}</figure>' if cls else img
 
 
-def video(key, cls="", autoloop=True):
-    """Poster-first video. Autoplay is handled by media.js only when in view."""
+def video(key, cls="", autoloop=True, watch_link=True):
+    """Poster-first video. Autoplay is handled by media.js only when in view.
+
+    A clip that has a watch page gets a link to it in the caption, so the page Google is
+    meant to rank for that video is reachable from every page the clip appears on."""
     rec = MEDIA["videos"].get(key)
     if not rec:
         return ""
@@ -292,7 +314,10 @@ def video(key, cls="", autoloop=True):
                 f'<button type="button" class="v-expand" data-expand hidden '
                 f'aria-label="Play this clip in a larger frame">'
                 f'<span aria-hidden="true">&#x2921;</span>Expand</button></div>')
-    cap = f'<figcaption>{e(rec["caption"])}</figcaption>' if rec.get("caption") else ""
+    link = (f'<a class="watch-link" href="{watch_url(key)}">Watch the full clip</a>'
+            if watch_link and key in WATCH else "")
+    text = e(rec["caption"]) if rec.get("caption") else ""
+    cap = f'<figcaption>{text}{link}</figcaption>' if (text or link) else ""
     tall = " is-portrait" if rec["height"] > rec["width"] else ""
     return f'<figure class="v-figure {cls}{tall}">{body}{cap}</figure>'
 
@@ -384,14 +409,21 @@ def video_title(key, rec):
 
 
 def video_ld(key, page_url):
+    """One VideoObject for one clip.
+
+    A clip with a watch page is described against that page wherever it appears: the same
+    @id, the same mainEntityOfPage, and a url pointing at it. The alternative is one node
+    per embedding page, which asks Google to choose which of six pages a video belongs to."""
     rec = MEDIA["videos"].get(key)
     if not rec:
         return None
+    w = WATCH.get(key)
+    home = watch_url(key, absolute=True) if w else page_url
     node = {
         "@context": "https://schema.org",
         "@type": "VideoObject",
-        "@id": f"{page_url}#video-{key}",
-        "name": video_title(key, rec),
+        "@id": f"{home}#video-{key}",
+        "name": w["title"] if w else video_title(key, rec),
         "description": rec["alt"],
         "thumbnailUrl": ORIGIN + rec["poster"],
         "uploadDate": git_filedate(rec["mp4"]),
@@ -402,13 +434,26 @@ def video_ld(key, page_url):
         "isFamilyFriendly": True,
         "creator": {"@id": f"{ORIGIN}/#person", "@type": "Person", "name": NAME},
         "copyrightHolder": {"@id": f"{ORIGIN}/#person", "@type": "Person", "name": NAME},
-        "mainEntityOfPage": page_url,
+        "mainEntityOfPage": home,
     }
     # contentUrl is the file itself, so no embedUrl: there is no third-party player here
     # and pointing embedUrl at the page describes a player that does not exist.
     d = iso_duration(mp4_duration(rec["mp4"]))
     if d:
         node["duration"] = d
+    if w:
+        node["url"] = home
+        node["description"] = w["description"] + " " + rec["alt"]
+        if w.get("chapters"):
+            # Key moments. Each url carries a media fragment the watch page seeks to, so a
+            # result that lands on a chapter starts where the chapter starts.
+            node["hasPart"] = [{
+                "@type": "Clip",
+                "name": c["name"],
+                "startOffset": c["start"],
+                "endOffset": c["end"],
+                "url": f"{home}#t={c['start']}",
+            } for c in w["chapters"]]
     return node
 
 
@@ -629,6 +674,8 @@ def og_for(path):
         slug = "pub-" + path.split("/", 1)[1]
     elif path.startswith("projects/"):
         slug = "proj-" + path.split("/", 1)[1]
+    elif path.startswith("videos/"):
+        slug = "video-" + path.split("/", 1)[1]
     elif path == "publications/bibtex":
         slug = "publications"
     else:
@@ -682,7 +729,8 @@ def orcid_foot():
     return f'<li><a rel="me" href="{e(ORCID_URL)}">ORCID</a></li>'
 
 
-def shell(path, title, description, body, extra_ld=None, og_type="website", crumb=None):
+def shell(path, title, description, body, extra_ld=None, og_type="website", crumb=None,
+          flat_crumbs=False, extra_head=""):
     description = clamp(description)
     """path: '' for root, else 'research' or 'publications/m2h' with no slashes at the edges."""
     canonical = f"{ORIGIN}/" if path == "" else f"{ORIGIN}/{path}/"
@@ -718,7 +766,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
         if n and n["@id"] not in have:
             nodes.append(n)
             have.add(n["@id"])
-    bc = breadcrumbs(path, crumb or title.split(" | ")[0])
+    bc = breadcrumbs(path, crumb or title.split(" | ")[0], flat=flat_crumbs)
     if bc:
         nodes.append(bc)
     ld = "\n".join(jsonld(o) for o in nodes)
@@ -748,7 +796,7 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{e(og)}">
 <meta name="twitter:title" content="{e(title)}">
-<meta name="twitter:description" content="{e(description)}">
+<meta name="twitter:description" content="{e(description)}">{extra_head}
 <link rel="stylesheet" href="{depth_prefix}assets/site.css?v={asset_hash("/assets/site.css")}">
 <link rel="icon" href="{depth_prefix}assets/favicon.svg?v={asset_hash('/assets/favicon.svg')}" type="image/svg+xml">
 <link rel="icon" href="{depth_prefix}assets/favicon-32.png?v={asset_hash('/assets/favicon-32.png')}" sizes="32x32" type="image/png">
@@ -1707,7 +1755,167 @@ def build_project_pages():
               body, extra_ld=[project_ld(pr)], og_type="article", crumb=pr["name"])
 
 
+# ---------------------------------------------------------------- watch pages
+
+def mmss(secs):
+    m, s = divmod(int(secs or 0), 60)
+    return f"{m}:{s:02d}"
+
+
+def watch_player(key, w):
+    """The clip, as the subject of the page rather than a figure inside an argument.
+
+    Native controls, because this is the one page where scrubbing is the point, and the
+    chapter list seeks through them. Autoplay still follows the site rule: media.js starts
+    it only when it is in view, and never under reduced motion."""
+    rec = MEDIA["videos"][key]
+    sources = f'<source src="{rec["mp4"]}" type="video/mp4">'
+    if rec.get("webm"):
+        sources = f'<source src="{rec["webm"]}" type="video/webm">' + sources
+    return f"""
+<div class="watch-stage">
+  <div class="watch-stage-head"><span>{e(w["stageHead"])}</span><span>{e(w["stageFoot"])}</span></div>
+  <div class="watch-player">
+    <video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}"
+      controls muted loop playsinline preload="metadata" data-autoloop data-watch
+      aria-label="{e(rec["alt"])}">{sources}</video>
+  </div>
+</div>"""
+
+
+def build_video_pages():
+    """One page per clip in data/videos.json, whose single subject is that clip.
+
+    Google will not consider a video for video results unless some page exists whose main
+    purpose is watching it. The clips also stay where they are on the home, publication and
+    project pages; those embeds now link here, and their markup points here too."""
+    pub_by_slug = {p["slug"]: p for p in PUBS["publications"]}
+    proj_by_slug = {pr["slug"]: pr for pr in PROJECTS["projects"]}
+
+    for w in VIDEOPAGES:
+        key = w["key"]
+        rec = MEDIA["videos"].get(key)
+        if not rec:
+            print(f"NOTE: no media for watch page {w['slug']}, skipped")
+            continue
+        secs = mp4_duration(rec["mp4"])
+
+        notes = "".join(f'<div class="watch-note"><h3>{e(s["heading"])}</h3>'
+                        f'<p>{e(s["text"])}</p></div>' for s in w["sections"])
+
+        chapters = ""
+        if w.get("chapters"):
+            # the row is a span here and media.js swaps it for a button that seeks. Without
+            # JavaScript this stays a list of times against what happens at them, which is
+            # still the whole point of a chapter list.
+            items = "".join(
+                f'<li data-seek="{c["start"]}"><span class="chapter-row">'
+                f'<span class="chapter-time">{mmss(c["start"])}</span>'
+                f'<span class="chapter-name">{e(c["name"])}</span></span></li>'
+                for c in w["chapters"])
+            chapters = (f'<h2 id="key-moments">Key moments</h2>'
+                        f'<ol class="chapters" data-chapters>{items}</ol>')
+
+        facts = list(w["specs"])
+        mb = rec["bytes"].get(Path(rec["mp4"]).name)
+        facts += [
+            {"label": "Length", "value": f"{mmss(secs)} ({secs} seconds)" if secs else "unknown"},
+            {"label": "Frame", "value": f'{rec["width"]} x {rec["height"]} pixels'},
+            {"label": "File", "value": f"MP4, H.264, {mb / 1e6:.1f} MB" if mb else "MP4, H.264"},
+            {"label": "Published", "value": humandate(git_filedate(rec["mp4"])[:7])},
+        ]
+        specs = "".join(f'<div><dt>{e(f["label"])}</dt><dd>{e(f["value"])}</dd></div>'
+                        for f in facts)
+
+        work = ""
+        pub = pub_by_slug.get(w.get("paper"))
+        if pub:
+            wanted = set(w.get("resultIds", []))
+            res = [h for h in pub.get("headline", []) if h["registryId"] in wanted]
+            res_html = ""
+            if res:
+                res_html = ('<ul class="results is-single">' + "".join(
+                    f'<li class="result"><span class="value">{e(h["value"])}</span>'
+                    f'<span class="what">{e(h["what"])}</span>'
+                    f'<span class="conditions">{e(h["conditions"])}</span></li>'
+                    for h in res) + "</ul>")
+            links = [f'<li><a href="/publications/{e(pub["slug"])}/">The paper, in full</a>'
+                     f' <span class="pub-venue">{e(pub["statusLabel"])}</span></li>']
+            pr = proj_by_slug.get(w.get("project"))
+            if pr:
+                links.append(f'<li><a href="/projects/{e(pr["slug"])}/">{e(pr["name"])}</a>'
+                             f' <span class="pub-venue">how the system is put together</span></li>')
+            if pub["links"].get("arxiv"):
+                links.append(f'<li><a href="{e(pub["links"]["arxiv"])}">Preprint on arXiv</a></li>')
+            if pub["links"].get("code"):
+                links.append(f'<li><a href="{e(pub["links"]["code"])}">Code on GitHub</a></li>')
+            work = f"""
+<h2 id="the-work">The work behind it</h2>
+<p>{e(pub["claim"])}</p>
+{res_html}
+<ul class="limits">{"".join(links)}</ul>"""
+
+        more = ""
+        if w.get("related"):
+            cards = "".join(
+                f'<li class="card"><p class="eyebrow">Watch next</p>'
+                f'<h3><a href="{e(r["href"])}">{e(r["label"])}</a></h3>'
+                f'<p>{e(r["text"])}</p></li>' for r in w["related"])
+            single = " is-single" if len(w["related"]) == 1 else ""
+            more = f'<h2 id="more">Another clip</h2><ul class="cards{single}">{cards}</ul>'
+
+        body = f"""
+<p class="eyebrow">{e(w["eyebrow"])}</p>
+<h1>{e(w["title"])}</h1>
+<p class="standfirst">{e(w["standfirst"])}</p>
+{watch_player(key, w)}
+<p class="watch-caption">{e(rec["caption"])}</p>
+{chapters}
+<h2 id="what-you-are-seeing">What you are seeing</h2>
+<div class="watch-notes">{notes}</div>
+<h2 id="details">Recording details</h2>
+<dl class="specs">{specs}</dl>
+{work}
+{more}
+"""
+        # og:video lets a share of this page carry the clip itself, not only the card.
+        og_video = (f'\n<meta property="og:video" content="{ORIGIN}{rec["mp4"]}">'
+                    f'\n<meta property="og:video:secure_url" content="{ORIGIN}{rec["mp4"]}">'
+                    f'\n<meta property="og:video:type" content="video/mp4">'
+                    f'\n<meta property="og:video:width" content="{rec["width"]}">'
+                    f'\n<meta property="og:video:height" content="{rec["height"]}">'
+                    + (f'\n<meta property="video:duration" content="{secs}">' if secs else ""))
+
+        shell(f"videos/{w['slug']}", f"{NAME} | {w['metaTitle']}", w["description"], body,
+              extra_ld=[watch_page_ld(w, key)], og_type="video.other",
+              crumb=w["metaTitle"], flat_crumbs=True, extra_head=og_video)
+
+
+def watch_page_ld(w, key):
+    """The page node, saying in as many words that this page exists to show this video."""
+    url = watch_url(key, absolute=True)
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": f"{url}#webpage",
+        "url": url,
+        "name": w["title"],
+        "description": w["description"],
+        "inLanguage": "en",
+        "isPartOf": {"@id": f"{ORIGIN}/#profilepage"},
+        "primaryImageOfPage": ORIGIN + MEDIA["videos"][key]["poster"],
+        "mainEntity": {"@id": f"{url}#video-{key}"},
+        "author": {"@id": f"{ORIGIN}/#person", "@type": "Person", "name": NAME},
+    }
+
+
 # ---------------------------------------------------------------- cv, contact
+
+def watch_title_link(key, title):
+    """A clip title, linked to its watch page where it has one."""
+    url = watch_url(key)
+    return f'<a href="{url}">{e(title)}</a>' if url else e(title)
+
 
 def role_loop(role):
     """The stages of a role's work as clips, laid out as a strip inside the role itself.
@@ -1718,13 +1926,16 @@ def role_loop(role):
     """
     cells = []
     for c in role.get("loop", []):
-        clip = video(c["clip"], cls="loopstrip-clip", autoloop=c.get("autoplay", True))
+        # captions are hidden in this strip, so the watch-page link would be too: link the
+        # clip from its title instead of emitting a link nobody can see.
+        clip = video(c["clip"], cls="loopstrip-clip", autoloop=c.get("autoplay", True),
+                     watch_link=False)
         if not clip:
             continue
         cells.append(
             f'<li class="loopstrip-item">'
             f'<p class="loopstrip-index">{e(c["index"])}</p>'
-            f'<h4>{e(c["title"])}</h4>'
+            f'<h4>{watch_title_link(c["clip"], c["title"])}</h4>'
             f'{clip}'
             f'<p class="loopstrip-note">{e(c["note"])}</p>'
             f'</li>')
@@ -1988,13 +2199,18 @@ def build_sitemap():
         for src in _page_images(markup):
             extra += f"\n    <image:image><image:loc>{ORIGIN}{src}</image:loc></image:image>"
         for key in videos_in(markup):
+            # A clip with a watch page is listed against that page only. Listing the same
+            # content_loc under six URLs invites Google to rank one of the six that is not
+            # the page built for watching it.
+            if key in WATCH and p != f"videos/{WATCH[key]['slug']}":
+                continue
             rec = MEDIA["videos"][key]
             dur = mp4_duration(rec["mp4"])
             extra += (
                 "\n    <video:video>"
                 f"\n      <video:thumbnail_loc>{ORIGIN}{rec['poster']}</video:thumbnail_loc>"
-                f"\n      <video:title>{e(video_title(key, rec))}</video:title>"
-                f"\n      <video:description>{e(rec['alt'][:2040])}</video:description>"
+                f"\n      <video:title>{e(WATCH[key]['title'] if key in WATCH else video_title(key, rec))}</video:title>"
+                f"\n      <video:description>{e(((WATCH[key]['description'] + ' ' + rec['alt']) if key in WATCH else rec['alt'])[:2040])}</video:description>"
                 f"\n      <video:content_loc>{ORIGIN}{rec['mp4']}</video:content_loc>"
                 + (f"\n      <video:duration>{dur}</video:duration>" if dur else "")
                 + f"\n      <video:publication_date>{git_filedate(rec['mp4'])}</video:publication_date>"
@@ -2072,6 +2288,7 @@ def main():
     build_bibtex()
     build_projects_index()
     build_project_pages()
+    build_video_pages()
     build_cv()
     build_contact()
     build_404()

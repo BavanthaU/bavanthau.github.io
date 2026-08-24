@@ -360,3 +360,80 @@
     origin = null;
   });
 })();
+
+/* Watch pages: chapter seeking and #t=SS deep links.
+
+   Progressive enhancement, as everywhere else here. Without this the chapter list is still
+   a list of times against what happens at them, and the clip still plays on its own
+   controls; the difference is that a chapter becomes clickable and a link that arrives
+   with a time fragment starts there. */
+(function () {
+  "use strict";
+
+  var v = document.querySelector("video[data-watch]");
+  if (!v) return;
+
+  var seek = function (t, play) {
+    var go = function () {
+      try { v.currentTime = t; } catch (e) { return; }
+      if (play) v.play().catch(function () {});
+    };
+    if (v.readyState >= 1) go();
+    else v.addEventListener("loadedmetadata", go, { once: true });
+  };
+
+  /* the native controls are the seek bar here, so a pause is the reader's decision and the
+     visibility observer should not undo it. A pause fired while the clip is off screen is
+     that observer's own, and does not count. */
+  v.addEventListener("pause", function () {
+    if (v.ended) return;
+    var r = v.getBoundingClientRect();
+    if (r.bottom > window.innerHeight * 0.2 && r.top < window.innerHeight * 0.8) {
+      v.dataset.userPaused = "1";
+    }
+  });
+  v.addEventListener("play", function () { delete v.dataset.userPaused; });
+
+  var list = document.querySelector("[data-chapters]");
+  var buttons = [], starts = [];
+  if (list) {
+    Array.prototype.forEach.call(list.querySelectorAll("li[data-seek]"), function (li) {
+      var row = li.querySelector(".chapter-row");
+      if (!row) return;
+      var at = parseFloat(li.getAttribute("data-seek"));
+      var time = row.querySelector(".chapter-time");
+      var name = row.querySelector(".chapter-name");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chapter-row";
+      b.innerHTML = row.innerHTML;
+      b.setAttribute("aria-label", "Play from " + (time ? time.textContent : at + " seconds") +
+        (name ? ", " + name.textContent : ""));
+      li.replaceChild(b, row);
+      b.addEventListener("click", function () { seek(at, true); });
+      buttons.push(b);
+      starts.push(at);
+    });
+  }
+
+  if (buttons.length) {
+    var mark = function () {
+      var t = v.currentTime, idx = 0;
+      for (var i = 0; i < starts.length; i++) { if (t >= starts[i]) idx = i; }
+      buttons.forEach(function (b, i) {
+        b.setAttribute("aria-current", i === idx ? "true" : "false");
+      });
+    };
+    // seeked as well as timeupdate, so a chapter clicked while the clip is paused still
+    // marks itself as the one being shown
+    ["timeupdate", "seeked"].forEach(function (ev) { v.addEventListener(ev, mark); });
+    mark();
+  }
+
+  var fromHash = function () {
+    var m = /^#t=(\d+(?:\.\d+)?)$/.exec(window.location.hash || "");
+    if (m) seek(parseFloat(m[1]), true);
+  };
+  fromHash();
+  window.addEventListener("hashchange", fromHash);
+})();

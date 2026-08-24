@@ -18,6 +18,7 @@ OUT = ROOT / "media" / "og"
 SITE = json.loads((ROOT / "data" / "site.json").read_text())
 PUBS = json.loads((ROOT / "data" / "publications.json").read_text())
 PROJECTS = json.loads((ROOT / "data" / "projects.json").read_text())
+VIDEOPAGES = json.loads((ROOT / "data" / "videos.json").read_text())["pages"]
 _mf = ROOT / "media" / "MANIFEST.json"
 MEDIA = json.loads(_mf.read_text()) if _mf.exists() else {"images": {}, "videos": {}}
 
@@ -145,6 +146,11 @@ def main():
 
     made.append(card("projects", "Projects", "Systems and open-source code",
                      "Mono-Hydra, M2H, M2H-MX, Mono-Hydra++, and ongoing exploration work."))
+    # watch pages: the card carries a frame of the clip it is about
+    for w in VIDEOPAGES:
+        key = w["key"] if w["key"] in MEDIA.get("videos", {}) else None
+        made.append(card(f"video-{w['slug']}", "Video", w["title"], w["description"], key))
+
     made.append(card("cv", "Curriculum vitae", "Bavantha Udugama",
                      "Robotics perception engineer and PhD candidate. Available from August 2026."))
     made.append(card("contact", "Contact", "Bavantha Udugama",

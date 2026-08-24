@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/pub-m2h.png">
 <meta name="twitter:title" content="M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception | Bavantha Udugama">
 <meta name="twitter:description" content="Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop. Published, IEEE/RSJ IROS 2025.">
-<link rel="stylesheet" href="/assets/site.css?v=0330b79871">
+<link rel="stylesheet" href="/assets/site.css?v=c9c735a38c">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -73,9 +73,9 @@
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "@id": "https://bavanthau.github.io/publications/m2h/#video-itc-loop",
-  "name": "The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure",
-  "description": "Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside.",
+  "@id": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#video-itc-loop",
+  "name": "A drone flies one corridor loop and the 3D scene graph builds itself",
+  "description": "M2H with Mono-Hydra builds a hierarchical 3D scene graph from one camera and an IMU while a drone flies a loop of the ITC building second floor. Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside.",
   "thumbnailUrl": "https://bavanthau.github.io/media/video/itc-loop-poster.jpg",
   "uploadDate": "2026-08-18",
   "contentUrl": "https://bavanthau.github.io/media/video/itc-loop.mp4",
@@ -93,8 +93,46 @@
     "@type": "Person",
     "name": "Bavantha Udugama"
   },
-  "mainEntityOfPage": "https://bavanthau.github.io/publications/m2h/",
-  "duration": "PT42S"
+  "mainEntityOfPage": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/",
+  "duration": "PT42S",
+  "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/",
+  "hasPart": [
+    {
+      "@type": "Clip",
+      "name": "Title card, then the first stretch of corridor",
+      "startOffset": 0,
+      "endOffset": 8,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=0"
+    },
+    {
+      "@type": "Clip",
+      "name": "The five layers labelled: building, rooms, places, objects, mesh",
+      "startOffset": 8,
+      "endOffset": 16,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=8"
+    },
+    {
+      "@type": "Clip",
+      "name": "The first turn, and room nodes appear under the building node",
+      "startOffset": 16,
+      "endOffset": 24,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=16"
+    },
+    {
+      "@type": "Clip",
+      "name": "Three sides of the circuit mapped",
+      "startOffset": 24,
+      "endOffset": 36,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=24"
+    },
+    {
+      "@type": "Clip",
+      "name": "Loop closure, seen from above",
+      "startOffset": 36,
+      "endOffset": 42,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=36"
+    }
+  ]
 }
 </script>
 <script type="application/ld+json">
@@ -161,7 +199,7 @@
 
 <h2>Contribution</h2>
 <p>A window-based cross-task attention module that lets tasks exchange structured features while keeping task-specific detail, on a DINOv2-small backbone. In the ablation both the local attention and the global fusion module matter: removing either degrades every task.</p>
-<figure class="v-figure "><div class="v-wrap"><video poster="/media/video/itc-loop-poster.jpg" width="1280" height="570" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside."><source src="/media/video/itc-loop.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback is 10x real time. Live RGB, predicted semantics, and predicted depth run down the right.</figcaption></figure><figure class="wipe wipe-compact" data-wipe><p class="wipe-title">ITC building corridor</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/wipe-rgb-480.avif 480w, /media/images/wipe-rgb-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-rgb-480.webp 480w, /media/images/wipe-rgb-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-rgb-848.jpg" alt="A corridor in the ITC building seen by the monocular camera: doors on the right, artwork on the walls, an orange floor receding into the distance." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/wipe-depth-480.avif 480w, /media/images/wipe-depth-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-depth-480.webp 480w, /media/images/wipe-depth-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-depth-848.jpg" alt="Predicted depth for the same corridor frame, rendered as a colour field where blue is near and red is the far end of the corridor." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/wipe-semantics-480.avif 480w, /media/images/wipe-semantics-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-semantics-480.webp 480w, /media/images/wipe-semantics-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-semantics-848.jpg" alt="Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><div class="wipe-steps" data-wipe-steps hidden role="group" aria-label="Choose the layer to show"><button type="button" class="wipe-step" data-wipe-step="0" aria-pressed="false">RGB input</button><button type="button" class="wipe-step" data-wipe-step="1" aria-pressed="false">Predicted depth</button><button type="button" class="wipe-step" data-wipe-step="2" aria-pressed="true">Predicted semantics</button></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="200" step="1" data-wipe-input></label><figcaption>One frame from the ITC corridor sequence: camera image, predicted depth, predicted labels. Pick a layer, or drag to blend between them.</figcaption></figure><figure class="yt" data-yt="X2w_AqGwkaY"><button type="button" class="yt-btn" data-yt-btn><img src="/media/video/itc-loop-poster.jpg" alt="Thumbnail for Mono Hydra with M2H for Monocular 3D Scene Graph Construction" width="480" height="360" loading="lazy" decoding="async"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play Mono Hydra with M2H for Monocular 3D Scene Graph Construction on YouTube</span></button><figcaption>Mono Hydra with M2H for Monocular 3D Scene Graph Construction. The full length version, loaded from YouTube only when you press play.</figcaption></figure>
+<figure class="v-figure "><div class="v-wrap"><video poster="/media/video/itc-loop-poster.jpg" width="1280" height="570" muted loop playsinline preload="none" data-autoloop aria-label="Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside."><source src="/media/video/itc-loop.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback is 10x real time. Live RGB, predicted semantics, and predicted depth run down the right.<a class="watch-link" href="/videos/scene-graph-drone-corridor-loop/">Watch the full clip</a></figcaption></figure><figure class="wipe wipe-compact" data-wipe><p class="wipe-title">ITC building corridor</p><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/wipe-rgb-480.avif 480w, /media/images/wipe-rgb-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-rgb-480.webp 480w, /media/images/wipe-rgb-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-rgb-848.jpg" alt="A corridor in the ITC building seen by the monocular camera: doors on the right, artwork on the walls, an orange floor receding into the distance." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/wipe-depth-480.avif 480w, /media/images/wipe-depth-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-depth-480.webp 480w, /media/images/wipe-depth-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-depth-848.jpg" alt="Predicted depth for the same corridor frame, rendered as a colour field where blue is near and red is the far end of the corridor." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/wipe-semantics-480.avif 480w, /media/images/wipe-semantics-848.avif 848w" sizes="(min-width:56em) 22rem, 92vw"><source type="image/webp" srcset="/media/images/wipe-semantics-480.webp 480w, /media/images/wipe-semantics-848.webp 848w" sizes="(min-width:56em) 22rem, 92vw"><img src="/media/images/wipe-semantics-848.jpg" alt="Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><div class="wipe-steps" data-wipe-steps hidden role="group" aria-label="Choose the layer to show"><button type="button" class="wipe-step" data-wipe-step="0" aria-pressed="false">RGB input</button><button type="button" class="wipe-step" data-wipe-step="1" aria-pressed="false">Predicted depth</button><button type="button" class="wipe-step" data-wipe-step="2" aria-pressed="true">Predicted semantics</button></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="200" step="1" data-wipe-input></label><figcaption>One frame from the ITC corridor sequence: camera image, predicted depth, predicted labels. Pick a layer, or drag to blend between them.</figcaption></figure><figure class="yt" data-yt="X2w_AqGwkaY"><button type="button" class="yt-btn" data-yt-btn><img src="/media/video/itc-loop-poster.jpg" alt="Thumbnail for Mono Hydra with M2H for Monocular 3D Scene Graph Construction" width="480" height="360" loading="lazy" decoding="async"><span class="yt-play" aria-hidden="true"></span><span class="sr-only">Play Mono Hydra with M2H for Monocular 3D Scene Graph Construction on YouTube</span></button><figcaption>Mono Hydra with M2H for Monocular 3D Scene Graph Construction. The full length version, loaded from YouTube only when you press play.</figcaption></figure>
 
 <h2>Results</h2>
 <ul class="results">
@@ -209,6 +247,6 @@
     </div>
   </div>
 </footer>
-<script src="/assets/media.js?v=85aa3962b3" defer></script>
+<script src="/assets/media.js?v=7ae0e82d2d" defer></script>
 </body>
 </html>

@@ -1,0 +1,98 @@
+{
+  "_comment": "Watch pages. One entry renders one page at /videos/<slug>/ whose only subject is one clip, which is what Google asks for before a video is eligible for video results, Video mode and key moments. `key` is the media key in data/media.json, so the clip itself, its poster, its dimensions and its duration are never restated here. Adding an entry is all it takes to give another clip a watch page: build.py picks it up, the VideoObject on every other page that embeds the clip is repointed at it, and the video sitemap entry moves with it. `chapters` are read off the recording frame by frame; do not add one that has not been checked against the footage.",
+
+  "pages": [
+    {
+      "key": "icra26",
+      "slug": "monocular-3d-scene-graph-scannet",
+      "eyebrow": "Research clip",
+      "title": "A 3D scene graph built live from one RGB camera, ScanNet scene 0000",
+      "metaTitle": "3D scene graph from one camera, ScanNet scene 0000",
+      "description": "M2H-MX predicts depth and semantics from a single RGB stream while Mono-Hydra++ builds a hierarchical 3D scene graph of ScanNet scene 0000 in real time.",
+      "standfirst": "Ten seconds of screen recording at sixteen times real time. One image stream goes in, and a layered map of a whole apartment comes out, with no depth sensor and no LiDAR anywhere in the loop.",
+      "stageHead": "M2H-MX + Mono-Hydra++",
+      "stageFoot": "ScanNet scene 0000",
+      "sections": [
+        {
+          "heading": "The input is one image stream",
+          "text": "Three views run down the right of the frame: the raw RGB frame from ScanNet scene 0000, the semantic labels M2H-MX predicts from it, and the depth M2H-MX predicts from the same frame. Those predictions are everything the map is built from. No depth camera and no LiDAR appear anywhere in this recording."
+        },
+        {
+          "heading": "The map is a graph, not a point cloud",
+          "text": "The structure on the left hangs from a single building node. A room node sits under it, a layer of place nodes under that marking the free space the camera has moved through, and below those the object boxes, labelled bed, cabinet, desk and table, standing on the reconstructed RGB mesh. Every layer is attached to the one above it, so a query can go from a room to the objects inside it without searching the mesh."
+        },
+        {
+          "heading": "It is built while the camera moves",
+          "text": "Mono-Hydra++ takes the two predictions into its visual-inertial odometry and its mapping backend as they arrive, so the graph in the recording is the state of the map at that instant rather than a reconstruction assembled afterwards. Playback is sixteen times real time."
+        }
+      ],
+      "specs": [
+        { "label": "System", "value": "M2H-MX front end, Mono-Hydra++ backend" },
+        { "label": "Input", "value": "Monocular RGB, ScanNet scene 0000" },
+        { "label": "Sensors", "value": "No depth sensor, no LiDAR" },
+        { "label": "Playback", "value": "16x real time" },
+        { "label": "Audio", "value": "None. Screen recording" }
+      ],
+      "paper": "m2h-mx",
+      "resultIds": ["R021, R022"],
+      "project": "m2h-mx",
+      "related": [
+        {
+          "href": "/videos/scene-graph-drone-corridor-loop/",
+          "label": "The same idea on a flying platform",
+          "text": "One loop of a real building, mapped from the air."
+        }
+      ]
+    },
+
+    {
+      "key": "itc-loop",
+      "slug": "scene-graph-drone-corridor-loop",
+      "eyebrow": "Research clip",
+      "title": "A drone flies one corridor loop and the 3D scene graph builds itself",
+      "metaTitle": "3D scene graph over one drone corridor loop, ITC building",
+      "description": "M2H with Mono-Hydra builds a hierarchical 3D scene graph from one camera and an IMU while a drone flies a loop of the ITC building second floor.",
+      "standfirst": "Forty-two seconds at ten times real time, from the first frame to loop closure. A camera and an IMU go in; a mesh, objects, places and rooms come out, and the corridor circuit closes on itself.",
+      "stageHead": "Mono-Hydra + M2H",
+      "stageFoot": "ITC building, 2nd floor",
+      "sections": [
+        {
+          "heading": "One loop of a real building",
+          "text": "The recording follows a drone through a single circuit of the second floor of the ITC building at the University of Twente. The camera stream, the semantic labels M2H predicts from it, and the predicted depth run down the right of the frame throughout, and the map on the left is built from those predictions alone."
+        },
+        {
+          "heading": "Five layers, built together",
+          "text": "Eight seconds in, the recording labels the layers: the building node at the top, the room nodes under it, a layer of semantic places, the object boxes below those, and the 3D RGB mesh at the bottom. The mesh extends along each corridor as the drone passes down it, and room nodes appear under the building node as the circuit turns."
+        },
+        {
+          "heading": "Loop closure",
+          "text": "In the last seconds the view turns top down and the circuit meets itself. The two ends of the corridor join, and the graph is corrected into one consistent floor instead of a drifting chain of corridors."
+        }
+      ],
+      "chapters": [
+        { "start": 0, "end": 8, "name": "Title card, then the first stretch of corridor" },
+        { "start": 8, "end": 16, "name": "The five layers labelled: building, rooms, places, objects, mesh" },
+        { "start": 16, "end": 24, "name": "The first turn, and room nodes appear under the building node" },
+        { "start": 24, "end": 36, "name": "Three sides of the circuit mapped" },
+        { "start": 36, "end": 42, "name": "Loop closure, seen from above" }
+      ],
+      "specs": [
+        { "label": "System", "value": "M2H front end, Mono-Hydra backend" },
+        { "label": "Input", "value": "Monocular RGB and IMU, carried on the drone" },
+        { "label": "Place", "value": "ITC building 2nd floor, University of Twente" },
+        { "label": "Playback", "value": "10x real time" },
+        { "label": "Audio", "value": "None. Screen recording" }
+      ],
+      "paper": "m2h",
+      "resultIds": ["R009"],
+      "project": "m2h",
+      "related": [
+        {
+          "href": "/videos/monocular-3d-scene-graph-scannet/",
+          "label": "The same pipeline on a public dataset",
+          "text": "M2H-MX and Mono-Hydra++ on ScanNet scene 0000."
+        }
+      ]
+    }
+  ]
+}

@@ -10,7 +10,7 @@ described at the end was completed in August 2026; `DESIGN.md` now documents the
 
 ## 1. What this is
 
-A static site, 17 pages, no framework and no runtime dependency. GitHub Pages serves plain files
+A static site, 19 pages, no framework and no runtime dependency. GitHub Pages serves plain files
 that were never touched by a build step at request time. There is one small JavaScript file for
 progressive enhancement, and the site is fully readable with it disabled.
 
@@ -32,6 +32,7 @@ progressive enhancement, and the site is fully readable with it disabled.
 /publications/bibtex/      every BibTeX entry as plain text
 /projects/                 list
 /projects/<slug>/          one page per system (5)
+/videos/<slug>/            one watch page per clip that has one (2)
 /cv/                       timeline, newest first, with media on one entry
 /contact/
 404.html  sitemap.xml  robots.txt  humans.txt
@@ -49,8 +50,8 @@ it will be overwritten.**
 ```bash
 python3 tools/build.py      # render all pages from data/
 python3 tools/media.py      # process source media into media/
-python3 tools/og.py         # regenerate the 15 social cards
-python3 -m http.server 8000 # preview
+python3 tools/og.py         # regenerate the 17 social cards
+python3 tools/serve.py 8000 # preview, with Range support so video seeking works
 ```
 
 ### Data files
@@ -62,6 +63,7 @@ python3 -m http.server 8000 # preview
 | `data/projects.json` | 5 systems, with repositories, method blocks, media assignments |
 | `data/timeline.json` | CV timeline and teaching, optionally with attached media |
 | `data/media.json` | every source asset, its alt text, caption, and processing settings |
+| `data/videos.json` | watch pages: which clips get one, and the copy, chapters and specs for each |
 
 ### Generators
 
@@ -84,12 +86,17 @@ canonical URLs, breadcrumbs, and the nav.
 
 **`tools/og.py`** draws 1200x630 social cards from the palette, one per page.
 
+**`tools/serve.py`** is the preview server. It exists because `python3 -m http.server` ignores
+the Range header, which makes every seek on a watch page snap back to zero and look like a bug
+in the chapter list. GitHub Pages serves ranges; this makes local preview match it.
+
 ### Components
 
 | Component | Behaviour without JavaScript |
 | --- | --- |
 | `picture()` | responsive `<picture>`, explicit width and height |
-| `video()` | poster shows, autoplay only when 40 percent visible and never under reduced motion, keyboard pause control, click-to-load gate above 8 MB |
+| `video()` | poster shows, autoplay only when 40 percent visible and never under reduced motion, keyboard pause control, click-to-load gate above 8 MB. A clip with a watch page gets a link to it in the caption |
+| `watch_player()` | the clip as the subject of its own page: native controls, and a chapter list that seeks through them once JavaScript is running |
 | `wipe()` | three aligned frames side by side; JavaScript adds a blend slider |
 | `gallery()` | one lead image with the other angles stacked beside it |
 | `switcher()` | all panels stack; JavaScript adds a segmented control. **Currently unused, see 5.3** |
@@ -135,6 +142,16 @@ and never deployed. **Read both before changing any factual claim.**
 `BreadcrumbList` on all pages; unique titles and descriptions within display length; one `h1` per
 page; absolute canonicals; `rel="me"`; sitemap with git-derived `lastmod`; robots; humans.txt;
 BibTeX endpoint; social cards; Google Search Console verified.
+
+**Watch pages, added August 2026.** Google will not consider a video for video results, Video mode
+or key moments unless a page exists whose main purpose is watching it. `/videos/<slug>/` is that
+page for the two pipeline clips: one clip, its own title and description, a chapter list, what the
+recording shows in text, the recording conditions, and the paper behind it. The clips stay where
+they were on the home, publication, project and CV pages; those embeds link here, their
+`VideoObject` markup is declared against this page rather than against six competing ones, and the
+video sitemap lists each clip once, under its watch page. Adding another is one entry in
+`data/videos.json`. Chapter times are read off the footage frame by frame; do not add one that has
+not been checked against the recording.
 
 **Not done, and worth more than anything above.** The site has almost no inbound links. The
 highest-value actions are all off-site and need the site owner: point the Google Scholar homepage

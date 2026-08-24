@@ -1050,3 +1050,64 @@ tr.embedded td { color: var(--signal); background: var(--signal-soft); }
 .thenow-play-mark { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--accent); }
 .thenow-play-mark::before { content: ""; border-style: solid; border-width: 0.3rem 0 0.3rem 0.5rem; border-color: transparent transparent transparent var(--paper); margin-left: 0.12rem; }
 .thenow-play a::after { content: "↗"; color: var(--ink-2); }
+
+/* ------------------------------------------------------------------
+   Watch pages: one clip, its chapters, and what it shows
+   ------------------------------------------------------------------ */
+
+/* The clip is the reason the page exists, so the heading is sized to get out of its way
+   rather than to the display scale the argument pages use. */
+.page-videos .page-content { padding-top: clamp(2.25rem, 5vw, 4rem); }
+.page-videos .page-content > h1 { max-width: 24ch; font-size: clamp(1.95rem, 4.2vw, 3.4rem); line-height: 1.06; }
+.page-videos .standfirst { max-width: 60ch; font-size: clamp(1.02rem, 0.95rem + 0.45vw, 1.28rem); }
+.page-videos h2 { margin-top: clamp(2.75rem, 5vw, 4.25rem); font-size: clamp(1.5rem, 2.6vw, 2.3rem); }
+
+.watch-stage { position: relative; isolation: isolate; margin: clamp(1.6rem, 4vw, 2.6rem) 0 0; padding: 0.85rem; border: 1px solid #213337; border-radius: var(--radius-lg); background: var(--stage); color: var(--stage-ink); box-shadow: var(--shadow); overflow: hidden; }
+.watch-stage::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(rgba(90, 209, 202, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(90, 209, 202, 0.05) 1px, transparent 1px); background-size: 2rem 2rem; }
+.watch-stage-head { display: flex; justify-content: space-between; gap: 1rem; padding: 0.35rem 0.25rem 0.6rem; color: var(--stage-muted); font: 600 0.6rem/1.2 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.watch-stage-head span:first-child::before { content: ""; display: inline-block; width: 0.42rem; height: 0.42rem; margin-right: 0.45rem; border-radius: 50%; background: #5ad1ca; box-shadow: 0 0 0 0.24rem rgba(90, 209, 202, 0.12); }
+.watch-player { border-radius: var(--radius); overflow: hidden; background: #000; }
+.watch-player video { display: block; width: 100%; height: auto; }
+.watch-caption { max-width: 84ch; margin: 0.9rem 0 0; color: var(--ink-2); font: 0.72rem/1.7 var(--mono); }
+
+.chapters { max-width: 54rem; margin: 1.4rem 0 0; padding: 0; border-top: 1px solid var(--rule); list-style: none; }
+.chapters li { max-width: none; border-bottom: 1px solid var(--rule); }
+.chapter-row { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: 1rem; align-items: baseline; width: 100%; padding: 0.85rem 0.7rem 0.85rem 0; text-align: left; }
+button.chapter-row { border: 0; border-radius: var(--radius); background: none; color: inherit; font: inherit; cursor: pointer; transition: background 140ms ease, color 140ms ease; }
+button.chapter-row:hover { background: var(--accent-soft); color: var(--accent); }
+button.chapter-row[aria-current="true"] { background: var(--accent-soft); }
+.chapter-time { color: var(--accent); font: 650 0.72rem/1.6 var(--mono); font-variant-numeric: tabular-nums; }
+.chapter-name { font-size: 0.94rem; line-height: 1.5; }
+
+.watch-notes { max-width: 54rem; margin: 1.4rem 0 0; border-top: 1px solid var(--rule); }
+.watch-note { display: grid; grid-template-columns: minmax(9rem, 0.55fr) minmax(0, 1.45fr); gap: 1.5rem; max-width: none; padding: 1.4rem 0; border-bottom: 1px solid var(--rule); }
+.watch-note h3 { margin: 0; font-size: 1.05rem; }
+.watch-note p { margin: 0; }
+
+.specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 62rem; margin: 1.4rem 0 0; border-top: 1px solid var(--rule); }
+.specs > div { display: grid; grid-template-columns: minmax(6rem, 0.5fr) minmax(0, 1fr); gap: 1rem; padding: 0.8rem 1.4rem 0.8rem 0; border-bottom: 1px solid var(--rule); }
+.specs dt { color: var(--ink-2); font: 650 0.6rem/1.75 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.specs dd { margin: 0; color: var(--ink); font: 0.8rem/1.65 var(--mono); font-variant-numeric: tabular-nums; }
+
+/* One measured result beside its conditions, not a third of a three-up row */
+.results.is-single { grid-template-columns: minmax(0, 38rem); }
+
+/* The link back to the watch page, wherever the clip is embedded */
+.watch-link { display: inline-block; margin-left: 0.45rem; color: var(--accent); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+.watch-link::after { content: " →"; }
+.watch-link:hover { border-bottom-color: currentColor; }
+
+@media (max-width: 52em) {
+  .watch-note { grid-template-columns: 1fr; gap: 0.6rem; }
+  .specs { grid-template-columns: 1fr; }
+  .chapter-row { grid-template-columns: 3.6rem minmax(0, 1fr); gap: 0.8rem; }
+}
+
+@media print {
+  .watch-stage, .chapters { display: none !important; }
+}
+.cards.is-single { grid-template-columns: minmax(0, 38rem); }
+
+/* The CV loop strip hides its captions, so the clip's title carries the watch-page link */
+.loopstrip-item h4 a { color: var(--ink); text-decoration-color: var(--rule-strong); text-underline-offset: 0.22em; }
+.loopstrip-item h4 a:hover { color: var(--accent); }

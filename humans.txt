@@ -10,5 +10,5 @@ GitHub: https://github.com/BavanthaU
 /* SITE */
 Standards: HTML5, CSS3
 Components: none. Hand-written, no framework, no runtime dependency.
-Built: 2026-08-20
+Built: 2026-08-24
 Source of truth: data/*.json, rendered by tools/build.py

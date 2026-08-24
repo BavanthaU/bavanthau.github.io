@@ -5,8 +5,12 @@ No framework, no npm, no runtime dependency, no external requests.
 
 ## Preview locally
 
-    python3 -m http.server 8000
+    python3 tools/serve.py 8000
     # open http://localhost:8000
+
+`python3 -m http.server` also works for reading, but it ignores Range requests, so video
+seeking is broken under it: chapter links and `#t=` deep links on the watch pages snap back to
+the start. `tools/serve.py` answers ranges the way GitHub Pages does.
 
 ## How to change anything
 
@@ -23,6 +27,7 @@ Python 3 standard library only. No install step.
 | `data/publications.json` | one entry per paper: claim, context, contribution, results, limitations |
 | `data/projects.json` | one entry per system, with repositories and media |
 | `data/timeline.json` | CV timeline and teaching |
+| `data/videos.json` | one entry per clip that gets its own watch page at `/videos/<slug>/` |
 
 ## How to add a publication
 
@@ -35,6 +40,25 @@ Python 3 standard library only. No install step.
 
 A page appears at `/publications/<slug>/`, the sitemap picks it up, and the publications
 list and home page cards update themselves.
+
+## How to add a watch page for a clip
+
+Google only considers a video for video results, Video mode and key moments if some page exists
+whose main purpose is watching it. `/videos/<slug>/` is that page.
+
+1. Add an entry to `data/videos.json`. Required: `key` (the media key in `data/media.json`),
+   `slug`, `title`, `metaTitle`, `description`, `standfirst`, `stageHead`, `stageFoot`,
+   `sections`, `specs`. Optional: `chapters`, `paper`, `resultIds`, `project`, `related`.
+2. Chapters are key moments, and each one has to be checked against the footage before it is
+   written down:
+
+       ffmpeg -ss 16 -i media/video/<clip>.mp4 -frames:v 1 /tmp/at16.jpg
+
+3. Run `python3 tools/og.py` for the social card, then `python3 tools/build.py`.
+
+The page, its `VideoObject` with chapters, its breadcrumb and its sitemap entry follow. Every other
+page that embeds the clip picks up a link to it, and points its markup at it rather than declaring
+a competing copy.
 
 ## Rules this site holds itself to
 

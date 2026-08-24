@@ -170,7 +170,12 @@ For reference, so you do not pay anyone to redo it:
   linking Scholar, GitHub, LinkedIn, the UT staff page, and YouTube. ORCID and the IEEE author page
   are pending, see steps 3 and 6.
 - `ProfilePage`, `ScholarlyArticle` on each paper, `SoftwareSourceCode` on each project,
-  `VideoObject` on the home page, and `BreadcrumbList` on all 16 pages.
+  `VideoObject` wherever a clip appears, and `BreadcrumbList` on all pages.
+- A watch page at `/videos/<slug>/` for each of the two pipeline clips, which is what Google asks
+  for before a video is eligible for video results, Video mode, key moments and the rest. Each one
+  has its own title and description, a chapter list marked up as `Clip` key moments, the recording
+  conditions, and the paper behind it. The `VideoObject` for those clips is declared against the
+  watch page everywhere it appears, and the video sitemap lists each clip once, under that page.
 - Unique title and meta description on every page, all descriptions within display length.
 - One `<h1>` per page, absolute self-referencing canonical URLs, `rel="me"` on the profile links.
 - `sitemap.xml` with git-derived `lastmod`, `robots.txt`, `humans.txt`, and a BibTeX endpoint.
