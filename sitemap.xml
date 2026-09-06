@@ -147,7 +147,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/learned-exploration/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</image:loc></image:image>
     <video:video>
@@ -286,9 +286,9 @@
     <loc>https://bavanthau.github.io/research/</loc>
     <lastmod>2026-09-06</lastmod>
     <priority>0.8</priority>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/perception-pipeline-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/</loc>

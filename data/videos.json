@@ -53,8 +53,7 @@
         "text": "The project became an ICIIS 2017 paper, and it is the question the PhD asks again ten years later with a learned model and a single camera.",
         "links": [
           { "href": "https://doi.org/10.1109/ICIINFS.2017.8300386", "label": "Autonomous exploration planning strategy for a reconnaissance agent", "note": "ICIIS 2017" },
-          { "href": "/research/", "label": "The same question, ten years later", "note": "the research arc" },
-          { "href": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s", "label": "The same video on the project channel", "note": "YouTube" }
+          { "href": "/research/", "label": "The same question, ten years later", "note": "the research arc" }
         ]
       },
       "related": [

@@ -302,7 +302,9 @@ def video(key, cls="", autoloop=True, watch_link=True):
     sources = f'<source src="{rec["mp4"]}" type="video/mp4">'
     if rec.get("webm"):
         sources = f'<source src="{rec["webm"]}" type="video/webm">' + sources
-    gated = rec.get("clickToLoad")
+    # a clip with its own controls costs nothing until the reader presses play, so it goes
+    # straight into the page; the size gate is for the ones that start themselves
+    gated = rec.get("clickToLoad") and not rec.get("audio")
     if rec.get("audio"):
         # narrated clip: it is watched once with the sound on, not looped as wallpaper
         attrs = 'controls playsinline preload="none"'
@@ -319,6 +321,9 @@ def video(key, cls="", autoloop=True, watch_link=True):
                 f'<button type="button" class="v-play" data-gate-btn>Load video '
                 f'<span class="v-size">{gate_size(rec):.1f} MB</span></button>'
                 f'<template data-gate-src>{html.escape(inner)}</template></div>')
+    elif rec.get("audio"):
+        # the native controls are the play button, so no overlay of our own
+        body = f'<div class="v-wrap">{inner}</div>'
     else:
         body = (f'<div class="v-wrap">{inner}'
                 f'<button type="button" class="v-toggle" data-toggle '
@@ -1225,10 +1230,6 @@ def thenow_pair():
     <h4>Autonomous exploration planning for a reconnaissance agent</h4>
     <p>{e(TN['thenText'])}</p>
     {video("peradeniya-2017", cls="thenow-figure")}
-    <p class="thenow-play">
-      <a href="{e(PERA['links']['video'])}"><span class="thenow-play-mark" aria-hidden="true">
-      </span>The same video on the project channel</a>
-    </p>
     <p class="thenow-links"><a href="{e(PERA['links']['doi'])}">{e(TN['thenLinkLabel'])}</a></p>
   </article>
   <article class="thenow-card thenow-now">
