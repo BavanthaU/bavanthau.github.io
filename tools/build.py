@@ -1215,11 +1215,7 @@ def build_home():
 # ---------------------------------------------------------------- research
 
 def thenow_pair():
-    """The 2017 question beside the 2026 one.
-
-    The Peradeniya project video is Bavantha Udugama's own work, cut for the project and
-    published on the project channel, so it is served from here rather than only linked;
-    the channel link stays under it as the attribution."""
+    """The 2017 question beside the 2026 one."""
     TN = SITE["home"]["thenNow"]
     PERA = PUBS["earlierWork"]["entries"][0]
     return f"""
@@ -1234,7 +1230,6 @@ def thenow_pair():
       </span>The same video on the project channel</a>
     </p>
     <p class="thenow-links"><a href="{e(PERA['links']['doi'])}">{e(TN['thenLinkLabel'])}</a></p>
-    <p class="thenow-note">{e(PERA['videoAttribution'])}</p>
   </article>
   <article class="thenow-card thenow-now">
     <p class="thenow-when">{e(TN['nowTitle'])}</p>
@@ -1840,9 +1835,7 @@ def build_video_pages():
             {"label": "Length", "value": f"{mmss(secs)} ({secs} seconds)" if secs else "unknown"},
             {"label": "Frame", "value": f'{rec["width"]} x {rec["height"]} pixels'},
             {"label": "File", "value": f"MP4, H.264, {mb / 1e6:.1f} MB" if mb else "MP4, H.264"},
-            # "here", because a clip can be a recording of something much older than the
-            # month this site started serving the file
-            {"label": "Published here", "value": humandate(git_filedate(rec["mp4"])[:7])},
+            {"label": "Published", "value": humandate(git_filedate(rec["mp4"])[:7])},
         ]
         specs = "".join(f'<div><dt>{e(f["label"])}</dt><dd>{e(f["value"])}</dd></div>'
                         for f in facts)

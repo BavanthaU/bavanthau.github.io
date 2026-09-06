@@ -9,7 +9,7 @@
       "title": "A reconnaissance robot explores and maps a maze it has never seen",
       "metaTitle": "Autonomous exploration and mapping with LiDAR, Peradeniya 2017",
       "description": "The undergraduate project video for the 2017 Peradeniya reconnaissance robot: a holonomic platform with a laser range finder and stereo cameras explores an unknown plywood maze, builds the occupancy map as it goes, and reconstructs the space in 3D.",
-      "standfirst": "Three minutes on the question this site keeps asking, filmed ten years before the rest of it. A robot is put into a maze nobody has surveyed, decides for itself where to go next, and comes out with a map.",
+      "standfirst": "A robot is put into a maze nobody has surveyed, with a laser range finder, two cameras and no map. It decides for itself where to go next, and comes out with the floor plan it drew on the way.",
       "stageHead": "Laser range finder + stereo vision",
       "stageFoot": "University of Peradeniya, 2017",
       "sections": [

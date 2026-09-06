@@ -127,7 +127,7 @@
 
 <div class="note">
   <span class="note-label">Status</span>
-  <p>The formulation, the world model, the objective, and the training setup are written up in the thesis. The experiments are not run yet, so there are no results to report and none are claimed here. The exploration agent also does not consume the Mono-Hydra++ scene graph: it maintains its own topological memory over an occupancy map built from simulated depth and pose. Connecting the two parts is the next step.</p>
+  <p>The formulation, the world model, the objective, and the training setup are written up in the thesis. The experiments are not run yet. The exploration agent also does not consume the Mono-Hydra++ scene graph: it maintains its own topological memory over an occupancy map built from simulated depth and pose. Connecting the two parts is the next step.</p>
 </div>
 <h2>What it does</h2>
 <p>The robot enters an unmapped indoor space with one forward-facing camera and has to cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes it has verified against the occupancy map the robot has built. The open problem is choice, not motion, so the learned layer decides among certified options and may abstain, but never commands motion itself.</p>

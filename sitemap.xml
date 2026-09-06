@@ -4,7 +4,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://bavanthau.github.io/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <priority>1.0</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/portrait-1254.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/drone-side-1600.jpg</image:loc></image:image>
@@ -223,7 +223,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -284,7 +284,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/research/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <priority>0.8</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
@@ -292,7 +292,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
     <video:video>
@@ -308,7 +308,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/videos/monocular-3d-scene-graph-scannet/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/icra26-poster.jpg</image:loc></image:image>
     <video:video>
@@ -324,7 +324,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/</loc>
-    <lastmod>2026-08-24</lastmod>
+    <lastmod>2026-09-06</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/itc-loop-poster.jpg</image:loc></image:image>
     <video:video>
