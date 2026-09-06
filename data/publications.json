@@ -297,7 +297,7 @@
           "video": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s"
         },
         "role": "SLAM developer, one of 3 students on the project",
-        "videoAttribution": "Project video on co-author Nilanga Thelasingha's channel. The link opens at 0:59, where Bavantha Udugama presents the system.",
+        "videoAttribution": "Project video cut by Bavantha Udugama and published on co-author Nilanga Thelasingha's channel.",
         "relevance": "Autonomous exploration planning for a robot mapping an unknown space. The same question the current work asks, 10 years earlier.",
         "hasPage": false
       },
@@ -374,13 +374,14 @@
       "youtubeId": "csG_hieJj6s",
       "title": "Intelligent System for Autonomous Exploration & Mapping with lidar| University of Peradeniya",
       "channel": "Neelanga Thelasingha",
-      "channelNote": "Hosted on a co-author's channel, not owned by this site. Link out only, never claim.",
+      "channelNote": "Cut by Bavantha Udugama, published on a co-author's channel. The file is served from this site as his own work; the channel link stays as the attribution.",
       "thumbnail": "https://i.ytimg.com/vi/csG_hieJj6s/hqdefault.jpg",
       "startAt": 59,
       "usedBy": [
         "earlier-work"
       ],
-      "startAtNote": "Opens where Bavantha Udugama presents the system."
+      "startAtNote": "Opens where Bavantha Udugama presents the system.",
+      "watchPage": "/videos/lidar-exploration-mapping-peradeniya/"
     }
   },
   "preprints": {

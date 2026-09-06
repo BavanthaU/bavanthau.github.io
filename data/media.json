@@ -189,6 +189,19 @@
       "crf": 28,
       "webmCrf": 40
     },
+    "peradeniya-2017": {
+      "src": "_source/media/peradeniya-exploration-2017.mp4",
+      "posterAt": 62,
+      "silent": false,
+      "clickToLoad": true,
+      "alt": "Project video for the 2017 Peradeniya reconnaissance robot. A holonomic robot carrying a laser range finder and stereo cameras drives itself through a plywood maze while an inset occupancy map of the maze fills in, and the three student developers are named on camera beside their parts of the system.",
+      "caption": "The 2017 Peradeniya project video. A holonomic robot with a laser range finder and stereo cameras explores a plywood maze it has never seen, builds the occupancy map in the inset, and finishes with the stitched 3D reconstruction of the arena. The localisation and control segment, which was mine, starts at 0:59.",
+      "credit": "Peradeniya reconnaissance robot, ICIIS 2017",
+      "maxWidth": 1280,
+      "crf": 28,
+      "webmCrf": 40
+    },
+
     "icra26": {
       "src": "_source/media/icra26-teaser.mp4",
       "posterAt": 7,

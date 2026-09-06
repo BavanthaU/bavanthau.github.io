@@ -4,7 +4,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://bavanthau.github.io/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>1.0</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/portrait-1254.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/drone-side-1600.jpg</image:loc></image:image>
@@ -76,12 +76,12 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/contact/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bavanthau.github.io/cv/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.8</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/icra26-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/stairs-zupt-poster.jpg</image:loc></image:image>
@@ -142,12 +142,12 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/learned-exploration/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</image:loc></image:image>
     <video:video>
@@ -163,7 +163,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/m2h/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/wipe-rgb-848.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/wipe-depth-848.jpg</image:loc></image:image>
@@ -172,7 +172,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/m2h-mx/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-rgb-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-depth-769.jpg</image:loc></image:image>
@@ -185,13 +185,13 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/mono-hydra/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scenegraph-system-design-1354.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/mono-hydra-plus/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/drone-side-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/drone-top-1600.jpg</image:loc></image:image>
@@ -223,17 +223,17 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/bibtex/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/m2h/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/wipe-rgb-848.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/wipe-depth-848.jpg</image:loc></image:image>
@@ -242,7 +242,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/m2h-mx/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-rgb-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-depth-769.jpg</image:loc></image:image>
@@ -257,14 +257,14 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/mono-hydra/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scenegraph-system-design-1354.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/mono-hydra-plus/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mono-hydra-pp-pipeline-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/uhumans2-loop-1600.jpg</image:loc></image:image>
@@ -284,14 +284,31 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/research/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/perception-pipeline-1600.jpg</image:loc></image:image>
   </url>
   <url>
+    <loc>https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/</loc>
+    <lastmod>2026-08-24</lastmod>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
+    <video:video>
+      <video:thumbnail_loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</video:thumbnail_loc>
+      <video:title>A reconnaissance robot explores and maps a maze it has never seen</video:title>
+      <video:description>The undergraduate project video for the 2017 Peradeniya reconnaissance robot: a holonomic platform with a laser range finder and stereo cameras explores an unknown plywood maze, builds the occupancy map as it goes, and reconstructs the space in 3D. Project video for the 2017 Peradeniya reconnaissance robot. A holonomic robot carrying a laser range finder and stereo cameras drives itself through a plywood maze while an inset occupancy map of the maze fills in, and the three student developers are named on camera beside their parts of the system.</video:description>
+      <video:content_loc>https://bavanthau.github.io/media/video/peradeniya-2017.mp4</video:content_loc>
+      <video:duration>184</video:duration>
+      <video:publication_date>2026-09-06</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:live>no</video:live>
+    </video:video>
+  </url>
+  <url>
     <loc>https://bavanthau.github.io/videos/monocular-3d-scene-graph-scannet/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/icra26-poster.jpg</image:loc></image:image>
     <video:video>
@@ -307,7 +324,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/</loc>
-    <lastmod>2026-08-20</lastmod>
+    <lastmod>2026-08-24</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/itc-loop-poster.jpg</image:loc></image:image>
     <video:video>

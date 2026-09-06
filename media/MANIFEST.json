@@ -1506,7 +1506,8 @@
       "alt": "Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside.",
       "caption": "The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback is 10x real time. Live RGB, predicted semantics, and predicted depth run down the right.",
       "credit": "Mono-Hydra with M2H",
-      "clickToLoad": false
+      "clickToLoad": false,
+      "audio": false
     },
     "icra26": {
       "digest": "6447de3dadac1cb5",
@@ -1524,7 +1525,8 @@
       "alt": "Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right.",
       "caption": "The whole pipeline on ScanNet scene 0000. M2H-MX predicts depth and semantics from the image stream, Mono-Hydra++ consumes those predictions inside the visual-inertial odometry and the mapping backend, and the hierarchical scene graph is built in real time. Playback is 16x.",
       "credit": "M2H-MX",
-      "clickToLoad": false
+      "clickToLoad": false,
+      "audio": false
     },
     "scope-explorer": {
       "digest": "9c436c9be993137e",
@@ -1542,7 +1544,8 @@
       "alt": "Simulated indoor exploration run showing the robot's occupancy map growing as it selects routes through the environment.",
       "caption": "Autonomous exploration in simulation. The robot holds an occupancy map it has built itself and commits to one certified route at a time, so the map fills in region by region rather than by wandering. 60 second excerpt.",
       "credit": "Exploration work in progress",
-      "clickToLoad": false
+      "clickToLoad": false,
+      "audio": false
     },
     "stairs-zupt": {
       "digest": "b559983e26b024f6",
@@ -1560,7 +1563,8 @@
       "alt": "Screen recording on the drone's Jetson. An rviz window shows predicted depth, tracked features, and predicted semantics down the left, and the estimated trajectory climbing a stairwell in the centre, labelled MOVING while the drone is in motion and ZUPT STATIONARY while it is still.",
       "caption": "Depth-backed visual-inertial odometry on the drone's Jetson, walked down and back up the stairs at home. The label switches between MOVING and ZUPT STATIONARY: when the platform is still, zero-velocity updates hold the estimate in place instead of letting it drift. Predicted depth, tracked features, and predicted semantics are the panels on the left.",
       "credit": "Mono-Hydra++ VIO",
-      "clickToLoad": false
+      "clickToLoad": false,
+      "audio": false
     },
     "drone-flight": {
       "digest": "e400094132b201e2",
@@ -1577,7 +1581,8 @@
       "alt": "The custom quadrotor lifting off from the floor of an indoor walkway and flying down it towards the camera, past timber and glass balconies.",
       "caption": "Take-off and a pass down the corridor. Everything the mapping runs on is carried onboard.",
       "credit": "Custom drone",
-      "clickToLoad": false
+      "clickToLoad": false,
+      "audio": false
     },
     "humanoid-deployment": {
       "digest": "70f8370d084a9491",
@@ -1594,7 +1599,8 @@
       "alt": "Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture.",
       "caption": "Service humanoids running autonomously at a client event in Dubai, navigating a floor full of people and furniture. Deployment work at Expert Hub Robotics, where I built the navigation stack and led the on-site rollout.",
       "credit": "Expert Hub Robotics",
-      "clickToLoad": false
+      "clickToLoad": false,
+      "audio": false
     },
     "humanoid-mapping": {
       "digest": "2b1e16fc7101abaa",
@@ -1611,7 +1617,27 @@
       "alt": "A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot's pose marked in red.",
       "caption": "The map behind it. A 2D occupancy grid of the venue built with GMapping-based SLAM while the robot drives, with its estimated pose in red. This is what the navigation stack plans over.",
       "credit": "Expert Hub Robotics",
-      "clickToLoad": false
+      "clickToLoad": false,
+      "audio": false
+    },
+    "peradeniya-2017": {
+      "digest": "1f8eb1405a08754a",
+      "width": 1280,
+      "height": 720,
+      "mp4": "/media/video/peradeniya-2017.mp4",
+      "webm": "/media/video/peradeniya-2017.webm",
+      "poster": "/media/video/peradeniya-2017-poster.jpg",
+      "preview": null,
+      "bytes": {
+        "peradeniya-2017.mp4": 11589898,
+        "peradeniya-2017.webm": 9723812,
+        "peradeniya-2017-poster.jpg": 53135
+      },
+      "alt": "Project video for the 2017 Peradeniya reconnaissance robot. A holonomic robot carrying a laser range finder and stereo cameras drives itself through a plywood maze while an inset occupancy map of the maze fills in, and the three student developers are named on camera beside their parts of the system.",
+      "caption": "The 2017 Peradeniya project video. A holonomic robot with a laser range finder and stereo cameras explores a plywood maze it has never seen, builds the occupancy map in the inset, and finishes with the stitched 3D reconstruction of the arena. The localisation and control segment, which was mine, starts at 0:59.",
+      "credit": "Peradeniya reconnaissance robot, ICIIS 2017",
+      "audio": true,
+      "clickToLoad": true
     }
   }
 }

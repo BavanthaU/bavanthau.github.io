@@ -3,6 +3,70 @@
 
   "pages": [
     {
+      "key": "peradeniya-2017",
+      "slug": "lidar-exploration-mapping-peradeniya",
+      "eyebrow": "Project video, 2017",
+      "title": "A reconnaissance robot explores and maps a maze it has never seen",
+      "metaTitle": "Autonomous exploration and mapping with LiDAR, Peradeniya 2017",
+      "description": "The undergraduate project video for the 2017 Peradeniya reconnaissance robot: a holonomic platform with a laser range finder and stereo cameras explores an unknown plywood maze, builds the occupancy map as it goes, and reconstructs the space in 3D.",
+      "standfirst": "Three minutes on the question this site keeps asking, filmed ten years before the rest of it. A robot is put into a maze nobody has surveyed, decides for itself where to go next, and comes out with a map.",
+      "stageHead": "Laser range finder + stereo vision",
+      "stageFoot": "University of Peradeniya, 2017",
+      "sections": [
+        {
+          "heading": "The sensing half is stereo, not depth hardware",
+          "text": "From 0:32 the video follows the vision pipeline: camera calibration against a checkerboard, disparity maps computed from the stereo pair, depth extracted from those, and the per-view point clouds stitched into one cloud of the arena. A laser range finder supplies the metric ranges the vision is fused with. Sachini Ekanayake built this part."
+        },
+        {
+          "heading": "The planning half decides where to go next",
+          "text": "From 0:44 the exploration planning system is shown on the occupancy grid it plans over: the unknown environment as the robot sees it, the smallest gap first rule, adaptive stepping, and the neighbour search that produces the next candidate. Nilanga Thelasingha built this part."
+        },
+        {
+          "heading": "Localisation and control, the part I built",
+          "text": "From 0:59 the segment is mine. A particle filter localises the robot in the map it is building, and the video shows the particle cloud collapsing onto a single hypothesis and the recovered trajectory over the arena loop. I was the SLAM and control developer on the project, one of three students."
+        },
+        {
+          "heading": "Then it is put in the maze",
+          "text": "The plywood arena is built on camera, and from 1:24 the run is filmed from above with the occupancy map inset in the corner. The map fills in corridor by corridor as the robot commits to one frontier at a time, and the video closes on the stitched 3D reconstruction of the whole arena."
+        }
+      ],
+      "chapters": [
+        { "start": 0, "end": 16, "name": "Where a robot has to go instead of a person" },
+        { "start": 16, "end": 24, "name": "Title, and the department behind it" },
+        { "start": 24, "end": 32, "name": "The system: holonomic platform, RGB-D and laser range finder, planner" },
+        { "start": 32, "end": 44, "name": "Stereo vision: calibration, disparity, depth, point cloud stitching" },
+        { "start": 44, "end": 58, "name": "Exploration planning: smallest gap first, adaptive stepping, neighbours" },
+        { "start": 58, "end": 72, "name": "Monte Carlo localisation and the recovered trajectory" },
+        { "start": 72, "end": 84, "name": "Building the plywood arena" },
+        { "start": 84, "end": 155, "name": "The exploration run, with the occupancy map filling in" },
+        { "start": 155, "end": 176, "name": "The stitched 3D map of the arena" },
+        { "start": 176, "end": 184, "name": "Supervisors and credits" }
+      ],
+      "specs": [
+        { "label": "System", "value": "Laser range finder fused with stereo cameras, holonomic platform" },
+        { "label": "Mapping", "value": "Occupancy grid with particle filter localisation" },
+        { "label": "Place", "value": "Department of Electrical and Electronic Engineering, University of Peradeniya" },
+        { "label": "My role", "value": "SLAM and control developer, one of 3 students" },
+        { "label": "Audio", "value": "Narrated, with the original soundtrack" }
+      ],
+      "work": {
+        "text": "The project became an ICIIS 2017 paper, and it is the question the PhD asks again ten years later with a learned model and a single camera.",
+        "links": [
+          { "href": "https://doi.org/10.1109/ICIINFS.2017.8300386", "label": "Autonomous exploration planning strategy for a reconnaissance agent", "note": "ICIIS 2017" },
+          { "href": "/research/", "label": "The same question, ten years later", "note": "the research arc" },
+          { "href": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s", "label": "The same video on the project channel", "note": "YouTube" }
+        ]
+      },
+      "related": [
+        {
+          "href": "/videos/scene-graph-drone-corridor-loop/",
+          "label": "The same job, ten years on, from the air",
+          "text": "One camera, one IMU, and a scene graph built over a corridor loop."
+        }
+      ]
+    },
+
+    {
       "key": "icra26",
       "slug": "monocular-3d-scene-graph-scannet",
       "eyebrow": "Research clip",
@@ -91,6 +155,11 @@
           "href": "/videos/monocular-3d-scene-graph-scannet/",
           "label": "The same pipeline on a public dataset",
           "text": "M2H-MX and Mono-Hydra++ on ScanNet scene 0000."
+        },
+        {
+          "href": "/videos/lidar-exploration-mapping-peradeniya/",
+          "label": "The same question, ten years earlier",
+          "text": "A ground robot explores an unknown maze with a laser range finder and stereo cameras."
         }
       ]
     }

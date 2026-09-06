@@ -190,6 +190,9 @@ def do_videos(man, force):
         sh(FFMPEG, "-hide_banner", "-loglevel", "error", "-ss", str(spec["posterAt"] + (trim["start"] if trim else 0)),
            "-i", str(src), "-frames:v", "1", "-vf", chain + scale, "-y", str(poster_png))
         pim = Image.open(poster_png).convert("RGB")
+        # the poster frame comes out of the same filter chain as the encode, so its size
+        # before this downscale is the size of the video itself
+        vw, vh = pim.size
         # the poster only has to look right at display size, not at source width
         if pim.width > 1200:
             pim = pim.resize((1200, round(pim.height * 1200 / pim.width)), Image.LANCZOS)
@@ -210,20 +213,22 @@ def do_videos(man, force):
 
         man["videos"][name] = {
             "digest": d,
-            "width": pim.size[0], "height": pim.size[1],
+            "width": vw, "height": vh,
             "mp4": f"/media/video/{mp4.name}",
             "webm": (f"/media/video/{webm.name}" if webm else None),
             "poster": f"/media/video/{poster.name}", "preview": (f"/media/video/{preview.name}" if preview else None),
             "bytes": {p.name: p.stat().st_size for p in (mp4, webm, poster, preview) if p},
             "alt": spec["alt"], "caption": spec.get("caption", ""),
             "credit": spec.get("credit", ""),
+            # a clip that kept its soundtrack is played, not looped silently in a corner
+            "audio": not spec.get("silent", True),
             # a browser fetches one rendition, so gate on the smallest it could pick
             "clickToLoad": spec.get("clickToLoad", False) or min(
                 [mp4.stat().st_size] + ([webm.stat().st_size] if webm else [])
             ) > 8 * 1024 * 1024,
         }
         tot = sum(man["videos"][name]["bytes"].values()) / 1024 / 1024
-        print(f"  wrote {name}  {pim.size[0]}x{pim.size[1]}  "
+        print(f"  wrote {name}  {vw}x{vh}  "
               f"mp4 {mp4.stat().st_size/1e6:.1f} MB, "
               f"webm {webm.stat().st_size/1e6:.1f} MB, " if webm else "webm dropped, "
               f"(total {tot:.1f} MB)"
@@ -242,6 +247,11 @@ def refresh_text(man):
             for field in ("alt", "caption", "credit", "label"):
                 if field in spec and rec.get(field) != spec[field]:
                     rec[field] = spec[field]
+                    n += 1
+            if key == "videos":
+                audio = not spec.get("silent", True)
+                if rec.get("audio") != audio:
+                    rec["audio"] = audio
                     n += 1
     if n:
         print(f"  refreshed {n} text fields")

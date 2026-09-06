@@ -136,7 +136,7 @@
   <div class="watch-stage-head"><span>M2H-MX + Mono-Hydra++</span><span>ScanNet scene 0000</span></div>
   <div class="watch-player">
     <video poster="/media/video/icra26-poster.jpg" width="1600" height="686"
-      controls muted loop playsinline preload="metadata" data-autoloop data-watch
+      controls playsinline preload="metadata" data-watch muted loop data-autoloop
       aria-label="Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right."><source src="/media/video/icra26.mp4" type="video/mp4"></video>
   </div>
 </div>
@@ -145,7 +145,7 @@
 <h2 id="what-you-are-seeing">What you are seeing</h2>
 <div class="watch-notes"><div class="watch-note"><h3>The input is one image stream</h3><p>Three views run down the right of the frame: the raw RGB frame from ScanNet scene 0000, the semantic labels M2H-MX predicts from it, and the depth M2H-MX predicts from the same frame. Those predictions are everything the map is built from. No depth camera and no LiDAR appear anywhere in this recording.</p></div><div class="watch-note"><h3>The map is a graph, not a point cloud</h3><p>The structure on the left hangs from a single building node. A room node sits under it, a layer of place nodes under that marking the free space the camera has moved through, and below those the object boxes, labelled bed, cabinet, desk and table, standing on the reconstructed RGB mesh. Every layer is attached to the one above it, so a query can go from a room to the objects inside it without searching the mesh.</p></div><div class="watch-note"><h3>It is built while the camera moves</h3><p>Mono-Hydra++ takes the two predictions into its visual-inertial odometry and its mapping backend as they arrive, so the graph in the recording is the state of the map at that instant rather than a reconstruction assembled afterwards. Playback is sixteen times real time.</p></div></div>
 <h2 id="details">Recording details</h2>
-<dl class="specs"><div><dt>System</dt><dd>M2H-MX front end, Mono-Hydra++ backend</dd></div><div><dt>Input</dt><dd>Monocular RGB, ScanNet scene 0000</dd></div><div><dt>Sensors</dt><dd>No depth sensor, no LiDAR</dd></div><div><dt>Playback</dt><dd>16x real time</dd></div><div><dt>Audio</dt><dd>None. Screen recording</dd></div><div><dt>Length</dt><dd>0:10 (10 seconds)</dd></div><div><dt>Frame</dt><dd>1600 x 686 pixels</dd></div><div><dt>File</dt><dd>MP4, H.264, 1.7 MB</dd></div><div><dt>Published</dt><dd>August 2026</dd></div></dl>
+<dl class="specs"><div><dt>System</dt><dd>M2H-MX front end, Mono-Hydra++ backend</dd></div><div><dt>Input</dt><dd>Monocular RGB, ScanNet scene 0000</dd></div><div><dt>Sensors</dt><dd>No depth sensor, no LiDAR</dd></div><div><dt>Playback</dt><dd>16x real time</dd></div><div><dt>Audio</dt><dd>None. Screen recording</dd></div><div><dt>Length</dt><dd>0:10 (10 seconds)</dd></div><div><dt>Frame</dt><dd>1600 x 686 pixels</dd></div><div><dt>File</dt><dd>MP4, H.264, 1.7 MB</dd></div><div><dt>Published here</dt><dd>August 2026</dd></div></dl>
 
 <h2 id="the-work">The work behind it</h2>
 <p>Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score.</p>

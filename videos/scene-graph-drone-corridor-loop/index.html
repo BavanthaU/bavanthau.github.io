@@ -173,7 +173,7 @@
   <div class="watch-stage-head"><span>Mono-Hydra + M2H</span><span>ITC building, 2nd floor</span></div>
   <div class="watch-player">
     <video poster="/media/video/itc-loop-poster.jpg" width="1280" height="570"
-      controls muted loop playsinline preload="metadata" data-autoloop data-watch
+      controls playsinline preload="metadata" data-watch muted loop data-autoloop
       aria-label="Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside."><source src="/media/video/itc-loop.mp4" type="video/mp4"></video>
   </div>
 </div>
@@ -182,13 +182,13 @@
 <h2 id="what-you-are-seeing">What you are seeing</h2>
 <div class="watch-notes"><div class="watch-note"><h3>One loop of a real building</h3><p>The recording follows a drone through a single circuit of the second floor of the ITC building at the University of Twente. The camera stream, the semantic labels M2H predicts from it, and the predicted depth run down the right of the frame throughout, and the map on the left is built from those predictions alone.</p></div><div class="watch-note"><h3>Five layers, built together</h3><p>Eight seconds in, the recording labels the layers: the building node at the top, the room nodes under it, a layer of semantic places, the object boxes below those, and the 3D RGB mesh at the bottom. The mesh extends along each corridor as the drone passes down it, and room nodes appear under the building node as the circuit turns.</p></div><div class="watch-note"><h3>Loop closure</h3><p>In the last seconds the view turns top down and the circuit meets itself. The two ends of the corridor join, and the graph is corrected into one consistent floor instead of a drifting chain of corridors.</p></div></div>
 <h2 id="details">Recording details</h2>
-<dl class="specs"><div><dt>System</dt><dd>M2H front end, Mono-Hydra backend</dd></div><div><dt>Input</dt><dd>Monocular RGB and IMU, carried on the drone</dd></div><div><dt>Place</dt><dd>ITC building 2nd floor, University of Twente</dd></div><div><dt>Playback</dt><dd>10x real time</dd></div><div><dt>Audio</dt><dd>None. Screen recording</dd></div><div><dt>Length</dt><dd>0:42 (42 seconds)</dd></div><div><dt>Frame</dt><dd>1280 x 570 pixels</dd></div><div><dt>File</dt><dd>MP4, H.264, 4.5 MB</dd></div><div><dt>Published</dt><dd>August 2026</dd></div></dl>
+<dl class="specs"><div><dt>System</dt><dd>M2H front end, Mono-Hydra backend</dd></div><div><dt>Input</dt><dd>Monocular RGB and IMU, carried on the drone</dd></div><div><dt>Place</dt><dd>ITC building 2nd floor, University of Twente</dd></div><div><dt>Playback</dt><dd>10x real time</dd></div><div><dt>Audio</dt><dd>None. Screen recording</dd></div><div><dt>Length</dt><dd>0:42 (42 seconds)</dd></div><div><dt>Frame</dt><dd>1280 x 570 pixels</dd></div><div><dt>File</dt><dd>MP4, H.264, 4.5 MB</dd></div><div><dt>Published here</dt><dd>August 2026</dd></div></dl>
 
 <h2 id="the-work">The work behind it</h2>
 <p>Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop.</p>
 <ul class="results is-single"><li class="result"><span class="value">0.11 m at 30 fps</span><span class="what">ITC building 2nd floor mesh mean error, in the Mono-Hydra loop</span><span class="conditions">224x224, RTX 3080 laptop. The Mono-Hydra baseline with separate networks reached 0.19 m at 15 fps.</span></li></ul>
 <ul class="limits"><li><a href="/publications/m2h/">The paper, in full</a> <span class="pub-venue">Published, IEEE/RSJ IROS 2025</span></li><li><a href="/projects/m2h/">M2H</a> <span class="pub-venue">how the system is put together</span></li><li><a href="https://arxiv.org/abs/2510.17363">Preprint on arXiv</a></li><li><a href="https://github.com/UAV-Centre-ITC/M2H">Code on GitHub</a></li></ul>
-<h2 id="more">Another clip</h2><ul class="cards is-single"><li class="card"><p class="eyebrow">Watch next</p><h3><a href="/videos/monocular-3d-scene-graph-scannet/">The same pipeline on a public dataset</a></h3><p>M2H-MX and Mono-Hydra++ on ScanNet scene 0000.</p></li></ul>
+<h2 id="more">More clips</h2><ul class="cards"><li class="card"><p class="eyebrow">Watch next</p><h3><a href="/videos/monocular-3d-scene-graph-scannet/">The same pipeline on a public dataset</a></h3><p>M2H-MX and Mono-Hydra++ on ScanNet scene 0000.</p></li><li class="card"><p class="eyebrow">Watch next</p><h3><a href="/videos/lidar-exploration-mapping-peradeniya/">The same question, ten years earlier</a></h3><p>A ground robot explores an unknown maze with a laser range finder and stereo cameras.</p></li></ul>
 
 </div>
 </main>

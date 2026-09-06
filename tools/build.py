@@ -283,6 +283,14 @@ def picture(key, cls="", sizes="(min-width: 56em) 62rem, 100vw", lazy=True, capt
     return f'<figure class="{cls}">{img}</figure>' if cls else img
 
 
+def gate_size(rec):
+    """What the click actually costs, in MB. A browser fetches one rendition, so this is the
+    smallest of them and not the sum of every file the encode produced."""
+    sizes = [rec["bytes"][Path(rec[k]).name] for k in ("mp4", "webm")
+             if rec.get(k) and rec["bytes"].get(Path(rec[k]).name)]
+    return min(sizes) / 1e6 if sizes else 0.0
+
+
 def video(key, cls="", autoloop=True, watch_link=True):
     """Poster-first video. Autoplay is handled by media.js only when in view.
 
@@ -295,9 +303,13 @@ def video(key, cls="", autoloop=True, watch_link=True):
     if rec.get("webm"):
         sources = f'<source src="{rec["webm"]}" type="video/webm">' + sources
     gated = rec.get("clickToLoad")
-    attrs = 'muted loop playsinline preload="none"'
-    if autoloop and not gated:
-        attrs += ' data-autoloop'
+    if rec.get("audio"):
+        # narrated clip: it is watched once with the sound on, not looped as wallpaper
+        attrs = 'controls playsinline preload="none"'
+    else:
+        attrs = 'muted loop playsinline preload="none"'
+        if autoloop and not gated:
+            attrs += ' data-autoloop'
     inner = (f'<video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}" '
              f'{attrs} aria-label="{e(rec["alt"])}">{sources}</video>')
     if gated:
@@ -305,7 +317,7 @@ def video(key, cls="", autoloop=True, watch_link=True):
                 f'<img src="{rec["poster"]}" alt="{e(rec["alt"])}" width="{rec["width"]}" '
                 f'height="{rec["height"]}" loading="lazy" decoding="async">'
                 f'<button type="button" class="v-play" data-gate-btn>Load video '
-                f'<span class="v-size">{sum(rec["bytes"].values())/1e6:.1f} MB</span></button>'
+                f'<span class="v-size">{gate_size(rec):.1f} MB</span></button>'
                 f'<template data-gate-src>{html.escape(inner)}</template></div>')
     else:
         body = (f'<div class="v-wrap">{inner}'
@@ -1203,8 +1215,11 @@ def build_home():
 # ---------------------------------------------------------------- research
 
 def thenow_pair():
-    """The 2017 question beside the 2026 one. Peradeniya video stays a link out: it lives on a
-    co-author's channel, per the media policy in publications.json."""
+    """The 2017 question beside the 2026 one.
+
+    The Peradeniya project video is Bavantha Udugama's own work, cut for the project and
+    published on the project channel, so it is served from here rather than only linked;
+    the channel link stays under it as the attribution."""
     TN = SITE["home"]["thenNow"]
     PERA = PUBS["earlierWork"]["entries"][0]
     return f"""
@@ -1213,9 +1228,10 @@ def thenow_pair():
     <p class="thenow-when">{e(TN['thenTitle'])}</p>
     <h4>Autonomous exploration planning for a reconnaissance agent</h4>
     <p>{e(TN['thenText'])}</p>
+    {video("peradeniya-2017", cls="thenow-figure")}
     <p class="thenow-play">
       <a href="{e(PERA['links']['video'])}"><span class="thenow-play-mark" aria-hidden="true">
-      </span>Watch the 2017 project video</a>
+      </span>The same video on the project channel</a>
     </p>
     <p class="thenow-links"><a href="{e(PERA['links']['doi'])}">{e(TN['thenLinkLabel'])}</a></p>
     <p class="thenow-note">{e(PERA['videoAttribution'])}</p>
@@ -1772,12 +1788,14 @@ def watch_player(key, w):
     sources = f'<source src="{rec["mp4"]}" type="video/mp4">'
     if rec.get("webm"):
         sources = f'<source src="{rec["webm"]}" type="video/webm">' + sources
+    # a narrated clip is started by the viewer, with its sound, and stops at the end
+    loop_attrs = "" if rec.get("audio") else 'muted loop data-autoloop'
     return f"""
 <div class="watch-stage">
   <div class="watch-stage-head"><span>{e(w["stageHead"])}</span><span>{e(w["stageFoot"])}</span></div>
   <div class="watch-player">
     <video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}"
-      controls muted loop playsinline preload="metadata" data-autoloop data-watch
+      controls playsinline preload="metadata" data-watch {loop_attrs}
       aria-label="{e(rec["alt"])}">{sources}</video>
   </div>
 </div>"""
@@ -1822,7 +1840,9 @@ def build_video_pages():
             {"label": "Length", "value": f"{mmss(secs)} ({secs} seconds)" if secs else "unknown"},
             {"label": "Frame", "value": f'{rec["width"]} x {rec["height"]} pixels'},
             {"label": "File", "value": f"MP4, H.264, {mb / 1e6:.1f} MB" if mb else "MP4, H.264"},
-            {"label": "Published", "value": humandate(git_filedate(rec["mp4"])[:7])},
+            # "here", because a clip can be a recording of something much older than the
+            # month this site started serving the file
+            {"label": "Published here", "value": humandate(git_filedate(rec["mp4"])[:7])},
         ]
         specs = "".join(f'<div><dt>{e(f["label"])}</dt><dd>{e(f["value"])}</dd></div>'
                         for f in facts)
@@ -1854,6 +1874,17 @@ def build_video_pages():
 <p>{e(pub["claim"])}</p>
 {res_html}
 <ul class="limits">{"".join(links)}</ul>"""
+        elif w.get("work"):
+            # A clip whose paper is not one of the numbered publications, so there is no
+            # slug to look up. The entry states the links itself.
+            items = "".join(
+                f'<li><a href="{e(l["href"])}">{e(l["label"])}</a>'
+                + (f' <span class="pub-venue">{e(l["note"])}</span>' if l.get("note") else "")
+                + '</li>' for l in w["work"]["links"])
+            work = f"""
+<h2 id="the-work">The work behind it</h2>
+<p>{e(w["work"]["text"])}</p>
+<ul class="limits">{items}</ul>"""
 
         more = ""
         if w.get("related"):
@@ -1862,7 +1893,8 @@ def build_video_pages():
                 f'<h3><a href="{e(r["href"])}">{e(r["label"])}</a></h3>'
                 f'<p>{e(r["text"])}</p></li>' for r in w["related"])
             single = " is-single" if len(w["related"]) == 1 else ""
-            more = f'<h2 id="more">Another clip</h2><ul class="cards{single}">{cards}</ul>'
+            head = "Another clip" if len(w["related"]) == 1 else "More clips"
+            more = f'<h2 id="more">{head}</h2><ul class="cards{single}">{cards}</ul>'
 
         body = f"""
 <p class="eyebrow">{e(w["eyebrow"])}</p>
