@@ -273,7 +273,7 @@
       "posterAt": 12,
       "silent": true,
       "alt": "Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture.",
-      "caption": "Service humanoids running autonomously at a client event in Dubai, navigating a floor full of people and furniture. Deployment work at Expert Hub Robotics, where I built the navigation stack and led the on-site rollout.",
+      "caption": "Service humanoids running autonomously on the Exness stand in Dubai, navigating a floor full of people and furniture. Deployment work at Expert Hub Robotics, where I built the navigation stack and led the on-site rollout.",
       "credit": "Expert Hub Robotics"
     },
     "humanoid-mapping": {

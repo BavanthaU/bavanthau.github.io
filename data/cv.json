@@ -2,16 +2,44 @@
   "_comment": "Structured CV content. Source of truth: _source/cv/cv-2026-07-08.pdf and data/timeline.json. Nothing here is invented; every line traces back to one of those. The phone number and home address in the PDF are deliberately not published.",
   "summary": "Robotics engineer working at the perception end. I build the layer that turns raw camera images into geometry, meaning and decisions for robots, then take it to the hardware and make it run in real time. Finishing a PhD in real-time monocular perception and 3D mapping for autonomous UAVs, across detection, semantic segmentation and monocular depth, from training through optimisation to deployment on Jetson-class devices. Before that I shipped a fine-tuned detector inside a live commercial product and built the navigation stack behind a fleet of more than 30 service robots.",
   "facts": [
-    { "label": "Role", "value": "PhD candidate, robotics and computer vision" },
-    { "label": "Based", "value": "Netherlands" },
-    { "label": "Available", "value": "1 August 2026" },
-    { "label": "Focus", "value": "Monocular spatial perception, SLAM, edge deployment" }
+    {
+      "label": "Role",
+      "value": "PhD candidate, robotics and computer vision"
+    },
+    {
+      "label": "Based",
+      "value": "Netherlands"
+    },
+    {
+      "label": "Available",
+      "value": "1 August 2026"
+    },
+    {
+      "label": "Focus",
+      "value": "Monocular spatial perception, SLAM, edge deployment"
+    }
   ],
   "glance": [
-    { "value": "7 yrs", "label": "robotics and deployment", "detail": "Premier Genie, Expert Hub Robotics, University of Twente" },
-    { "value": "4", "label": "first-author papers", "detail": "ISPRS Annals, IROS 2025, ICRA 2026 SRRA, ISPRS Journal under review" },
-    { "value": "30+", "label": "robots deployed", "detail": "Humanoid service robots across Expo 2020 Dubai, healthcare, and reception sites" },
-    { "value": "25.53 fps", "label": "on-device perception", "detail": "M2H-MX-L, TensorRT FP16, Jetson Orin NX 16GB" }
+    {
+      "value": "7 yrs",
+      "label": "robotics and deployment",
+      "detail": "Premier Genie, Expert Hub Robotics, University of Twente"
+    },
+    {
+      "value": "4",
+      "label": "first-author papers",
+      "detail": "ISPRS Annals, IROS 2025, ICRA 2026 SRRA, ISPRS Journal under review"
+    },
+    {
+      "value": "30+",
+      "label": "robots deployed",
+      "detail": "Humanoid service robots across Expo 2020 Dubai, exhibition stands, healthcare, and reception sites"
+    },
+    {
+      "value": "25.53 fps",
+      "label": "on-device perception",
+      "detail": "M2H-MX-L, TensorRT FP16, Jetson Orin NX 16GB"
+    }
   ],
   "experience": [
     {
@@ -26,7 +54,13 @@
         "Developed M2H and M2H-MX, the multi-task perception frontends behind Mono-Hydra++, predicting metric depth and semantic labels jointly from a single image. M2H appeared at IEEE/RSJ IROS 2025; M2H-MX was accepted at the IEEE ICRA 2026 SRRA Workshop, improving NYUDv2 mIoU by 6.6% and depth RMSE by 9.4%.",
         "Building an indoor UAV exploration system in NVIDIA Isaac Sim, where the drone plans over semantic scene graphs from Mono-Hydra++, with transfer to a custom-built drone for real-world validation."
       ],
-      "tags": ["C++", "PyTorch", "ROS", "TensorRT", "Jetson"],
+      "tags": [
+        "C++",
+        "PyTorch",
+        "ROS",
+        "TensorRT",
+        "Jetson"
+      ],
       "loopIntro": "The loop this PhD closes, in four clips.",
       "loop": [
         {
@@ -67,12 +101,37 @@
       "note": "Joined as the founding robotics engineer and was promoted within 10 months to lead a team of three.",
       "bullets": [
         "Built the core robotics stack from the ground up: a ROS navigation stack with GMapping-based SLAM, obstacle avoidance, and robot SDK integration.",
-        "Led deployment and on-site support for more than 30 humanoid robots across Expo 2020 Dubai, healthcare, and reception sites, delivering customised solutions for over 10 enterprise clients and debugging navigation, sensing, and API integration in live customer environments.",
+        "Led deployment and on-site support for more than 30 humanoid robots across Expo 2020 Dubai, exhibition and trade-show stands, healthcare, and reception sites, delivering customised solutions for over 10 enterprise clients and debugging navigation, sensing, and API integration in live customer environments.",
         "Fine-tuned a YOLOv5 face detector for grayscale thermal imagery and deployed it on an Intel NUC with a FLIR camera for contactless temperature screening, running live across enterprise sites."
       ],
-      "tags": ["ROS", "SLAM", "YOLOv5", "deployment"],
-      "media": ["humanoid-deployment", "humanoid-mapping"],
-      "mediaIntro": "The fleet in service, and the map it navigates on."
+      "tags": [
+        "ROS",
+        "SLAM",
+        "YOLOv5",
+        "deployment"
+      ],
+      "media": [
+        "humanoid-deployment",
+        "humanoid-mapping"
+      ],
+      "mediaIntro": "The fleet in service, and the map it navigates on.",
+      "press": [
+        {
+          "title": "Have you met Ahmed and Hamda at Expo 2020 Dubai?",
+          "outlet": "Gulf News",
+          "date": "November 2021",
+          "href": "https://gulfnews.com/expo-2020/have-you-met-ahmed-and-hamda-at-expo-2020-dubai-1.83856690",
+          "note": "The Dubai Police Transport Security Department robots on the Expo 2020 site."
+        },
+        {
+          "title": "Pandemic boosts use of AI and robotics: Exness employs robots at Dubai Expo",
+          "outlet": "LeapRate",
+          "date": "December 2020",
+          "href": "https://www.leaprate.com/broker/exclusive-pandemic-boosts-use-of-ai-and-robotics-exness-employs-robots-at-dubai-expo/",
+          "note": "Three Sanbot Max robots greeting visitors and guiding them to the Exness stand at the Dubai Forex Expo."
+        }
+      ],
+      "pressLabel": "The deployments in the press"
     },
     {
       "role": "Robotics engineer, STEM and IoT",
@@ -83,7 +142,10 @@
       "bullets": [
         "Built robotics and IoT prototypes for Dubai school programmes, combining embedded sensors, robot behaviours, and Android interfaces."
       ],
-      "tags": ["embedded", "Android"]
+      "tags": [
+        "embedded",
+        "Android"
+      ]
     },
     {
       "role": "Corporate applications engineer",
@@ -94,7 +156,10 @@
       "bullets": [
         "Selected within the first year for on-site applications support at Samsung Electronics in South Korea, helping reduce clock-domain crossing violations threefold on a production chip."
       ],
-      "tags": ["verification", "customer-facing"]
+      "tags": [
+        "verification",
+        "customer-facing"
+      ]
     }
   ],
   "education": [
@@ -124,40 +189,108 @@
     }
   ],
   "awards": [
-    { "year": "2017", "title": "Best Undergraduate Project", "org": "Institution of Engineers Sri Lanka" },
-    { "year": "2017", "title": "Best Technical Paper", "org": "IET Sri Lanka" },
-    { "year": "2021", "title": "MSc awarded with Distinction", "org": "Middlesex University Dubai" }
+    {
+      "year": "2017",
+      "title": "Best Undergraduate Project",
+      "org": "Institution of Engineers Sri Lanka"
+    },
+    {
+      "year": "2017",
+      "title": "Best Technical Paper",
+      "org": "IET Sri Lanka"
+    },
+    {
+      "year": "2021",
+      "title": "MSc awarded with Distinction",
+      "org": "Middlesex University Dubai"
+    }
   ],
   "skills": [
     {
       "group": "Computer vision and machine learning",
       "years": "4+ years",
-      "items": ["PyTorch", "OpenCV", "semantic segmentation", "monocular depth estimation", "dense multi-task learning", "YOLO detection"]
+      "items": [
+        "PyTorch",
+        "OpenCV",
+        "semantic segmentation",
+        "monocular depth estimation",
+        "dense multi-task learning",
+        "YOLO detection"
+      ]
     },
     {
       "group": "Real-time perception and 3D mapping",
       "years": "7+ years",
-      "items": ["visual-inertial SLAM", "sensor fusion", "6-DoF state estimation", "pose graph optimisation", "3D reconstruction", "metric-semantic mapping", "autonomous navigation"]
+      "items": [
+        "visual-inertial SLAM",
+        "sensor fusion",
+        "6-DoF state estimation",
+        "pose graph optimisation",
+        "3D reconstruction",
+        "metric-semantic mapping",
+        "autonomous navigation"
+      ]
     },
     {
       "group": "Deployment and optimisation",
       "years": "8+ years",
-      "items": ["C++", "Python", "ROS 1 and ROS 2", "Linux", "Docker", "TensorRT", "Jetson Orin NX", "FP16 inference", "runtime profiling"]
+      "items": [
+        "C++",
+        "Python",
+        "ROS 1 and ROS 2",
+        "Linux",
+        "Docker",
+        "TensorRT",
+        "Jetson Orin NX",
+        "FP16 inference",
+        "runtime profiling"
+      ]
     },
     {
       "group": "Sensors and robot systems",
       "years": "8+ years",
-      "items": ["monocular, stereo, and 3D vision sensors", "IMUs", "2D LiDAR", "camera and IMU calibration", "robot integration", "real-world validation"]
+      "items": [
+        "monocular, stereo, and 3D vision sensors",
+        "IMUs",
+        "2D LiDAR",
+        "camera and IMU calibration",
+        "robot integration",
+        "real-world validation"
+      ]
     }
   ],
   "sections": [
-    { "id": "profile", "label": "Profile" },
-    { "id": "experience", "label": "Experience" },
-    { "id": "education", "label": "Education" },
-    { "id": "publications", "label": "Publications" },
-    { "id": "teaching", "label": "Teaching" },
-    { "id": "awards", "label": "Awards" },
-    { "id": "skills", "label": "Skills" },
-    { "id": "timeline", "label": "Timeline" }
+    {
+      "id": "profile",
+      "label": "Profile"
+    },
+    {
+      "id": "experience",
+      "label": "Experience"
+    },
+    {
+      "id": "education",
+      "label": "Education"
+    },
+    {
+      "id": "publications",
+      "label": "Publications"
+    },
+    {
+      "id": "teaching",
+      "label": "Teaching"
+    },
+    {
+      "id": "awards",
+      "label": "Awards"
+    },
+    {
+      "id": "skills",
+      "label": "Skills"
+    },
+    {
+      "id": "timeline",
+      "label": "Timeline"
+    }
   ]
 }

@@ -1197,6 +1197,7 @@ def build_home():
       <div><p class="media-label">The fleet in service</p>{video("humanoid-deployment")}</div>
       <div><p class="media-label">The map it plans over</p>{video("humanoid-mapping")}</div>
     </div>
+    {applied_press()}
   </div>
 </section>
 
@@ -1218,6 +1219,18 @@ def build_home():
 
 
 # ---------------------------------------------------------------- research
+
+def applied_press():
+    """The press the Dubai deployments were covered in, listed once from the CV role."""
+    role = next((r for r in CV["experience"] if r.get("press")), None)
+    if not role:
+        return ""
+    rows = "".join(f'<li><a href="{e(x["href"])}">{e(x["title"])}</a>'
+                   f' <span class="pub-venue">{e(x["outlet"])}, {e(x["date"])}</span></li>'
+                   for x in role["press"])
+    return (f'<p class="media-label">{e(role.get("pressLabel", "In the press"))}</p>'
+            f'<ul class="limits role-press">{rows}</ul>')
+
 
 def thenow_pair():
     """The 2017 question beside the 2026 one."""
@@ -2019,6 +2032,15 @@ def build_cv():
         bullets = "".join(f"<li>{e(b)}</li>" for b in r["bullets"])
         tags = "".join(f'<span class="chip">{e(t)}</span>' for t in r.get("tags", []))
         note = f'<p class="role-note">{e(r["note"])}</p>' if r.get("note") else ""
+        press = ""
+        if r.get("press"):
+            rows = "".join(
+                f'<li><a href="{e(x["href"])}">{e(x["title"])}</a>'
+                f' <span class="pub-venue">{e(x["outlet"])}, {e(x["date"])}</span>'
+                + (f'<span class="press-note">{e(x["note"])}</span>' if x.get("note") else "")
+                + '</li>' for x in r["press"])
+            press = (f'<p class="media-label">{e(r.get("pressLabel", "In the press"))}</p>'
+                     f'<ul class="limits role-press">{rows}</ul>')
         loop = role_loop(r)
         media = ""
         if r.get("media"):
@@ -2035,6 +2057,7 @@ def build_cv():
         <p class="role-org">{e(r["org"])} <span>{e(r["place"])}</span></p>
         {note}
         <ul class="role-points">{bullets}</ul>
+        {press}
         <div class="chips">{tags}</div>
         {loop}
         {media}

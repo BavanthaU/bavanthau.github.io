@@ -588,6 +588,9 @@ figcaption { max-width: 84ch; margin-top: 0.75rem; color: var(--ink-2); font: 0.
 .limits { max-width: 48rem; padding-left: 1.2rem; margin: 0 0 1.75rem; }
 .limits li { margin-bottom: 0.7rem; padding-left: 0.25rem; }
 .limits li::marker { color: var(--accent); }
+.role-press { margin-top: 0; }
+.role-press li { font-size: 0.89rem; line-height: 1.62; }
+.role-press .press-note { display: block; margin-top: 0.15rem; color: var(--ink-2); font-size: 0.84rem; }
 
 .note { max-width: 53rem; margin: 2rem 0; padding: 1.2rem 1.3rem; border-left: 2px solid var(--accent); background: var(--accent-soft); }
 .note p { margin: 0; font-size: 0.9rem; }
