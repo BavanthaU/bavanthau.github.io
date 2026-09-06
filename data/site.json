@@ -14,7 +14,11 @@
     "publishingNameNote": "All four PhD papers are published under this form. It is listed so that a search for the publishing name resolves to this site.",
     "role": "PhD candidate",
     "roleUntil": "2026-08-01",
-    "headline": ["Robotics engineer", "Computer vision engineer", "Perception and spatial AI"],
+    "headline": [
+      "Robotics engineer",
+      "Computer vision engineer",
+      "Perception and spatial AI"
+    ],
     "headlineNote": "What the work is, as opposed to the academic post. Used for schema.org jobTitle, which accepts a list, so the entity resolves for both robotics and computer vision searches. The role field stays the academic one because it is paired with the affiliation.",
     "field": "monocular spatial perception and robot exploration",
     "affiliation": {
@@ -66,13 +70,13 @@
     },
     "actTwo": {
       "title": "Exploring the unseen",
-      "line": "A reinforcement learning agent with a learned world model, choosing where to look next in a building it has never seen.",
+      "line": "A learned agent over a persistent belief graph of places, open ends and unfinished obligations, choosing where to look next in a building it has never seen.",
       "status": "in-progress",
-      "honesty": "The formulation and the layering contract are written up. The experiments are not run yet, so there are no results to report.",
+      "honesty": "The formulation and the layering contract are written up. The experiments are not run yet.",
       "commitment": "Predict consequences, not appearances.",
       "label": "Part II",
       "subtitle": "Learning to explore",
-      "homeLine": "The agent predicts what each candidate route would produce, in the quantities the decision uses: new area per second, whether it opens a room, how the structure changes, whether it fails. Not pixels. An ensemble separates genuine randomness from the model's own ignorance, and the agent abstains when the second is high."
+      "homeLine": "The agent's state is a belief graph, not a snapshot of the map: places it has been, open ends where its knowledge stops, and obligations it has not yet discharged, with every edge keyed to a route that has been certified. A transformer proposes up to eight options over that graph and scores each one by a distributional model of what it would produce. Certification stays outside the network, so the learned layer re-orders admitted options and never commands motion."
     },
     "prologue": "The same question was asked at Peradeniya in 2017: an autonomous exploration planning strategy for a robot mapping an unknown space, using a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.",
     "prologueVideo": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s",

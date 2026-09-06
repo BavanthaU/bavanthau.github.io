@@ -1340,8 +1340,8 @@ predictions. 0.08 m on the ITC second floor, 0.033 m calibrated trajectory error
 <p class="lede">{e(a2['commitment'])}</p>
 <p>The learned component sits between two deterministic layers and has no path to the actuators
 except by selecting an option the planner above it has already certified as safe. It may re-order
-those options and it may abstain. It may not invent one. Three requirements follow from the shape
-of the task rather than from the hardware:</p>
+those options and it may abstain. It may not invent one. The requirements that follow come from
+the shape of the task rather than from the hardware:</p>
 <ul class="limits">{points}</ul>
 <p><a href="/projects/learned-exploration/">More on the exploration work</a>.</p>
 
@@ -1761,7 +1761,7 @@ def build_project_pages():
 <p class="eyebrow"><a href="/projects/">Projects</a> &middot; {e(pr["partLabel"])}</p>
 <h1>{e(pr["name"])}</h1>
 <p class="standfirst">{e(pr["oneLine"])}</p>
-<p class="pub-venue">{e(pr["years"])} &middot;
+<p class="pub-venue">{e(pr["systemName"]) + " &middot; " if pr.get("systemName") else ""}{e(pr["years"])} &middot;
   {'<span class="tag tag-progress">' + e(pr.get("statusLabel", pr["status"])) + '</span>'
    if pr["status"] == "in progress" else e(pr.get("statusLabel", pr["status"]))}</p>
 {honesty}

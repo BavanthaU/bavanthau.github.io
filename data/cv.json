@@ -52,7 +52,7 @@
         "Built Mono-Hydra++, a real-time monocular RGB and IMU pipeline that constructs hierarchical 3D scene graphs for indoor drone mapping. C++ extensions to the VIO backend add sparse depth factors for metric-aware pose graph estimation, cutting trajectory error by 61% on ScanNet against monocular GO-SLAM while holding 25 to 30 Hz.",
         "Took the full perception and mapping stack from prototype to deployment on an NVIDIA Jetson Orin NX with TensorRT FP16, ROS integration, and runtime profiling, reaching 25 fps on device under real-time compute limits.",
         "Developed M2H and M2H-MX, the multi-task perception frontends behind Mono-Hydra++, predicting metric depth and semantic labels jointly from a single image. M2H appeared at IEEE/RSJ IROS 2025; M2H-MX was accepted at the IEEE ICRA 2026 SRRA Workshop, improving NYUDv2 mIoU by 6.6% and depth RMSE by 9.4%.",
-        "Building an indoor UAV exploration system in NVIDIA Isaac Sim, where the drone plans over semantic scene graphs from Mono-Hydra++, with transfer to a custom-built drone for real-world validation."
+        "Building ATLAS V11, an indoor UAV exploration agent in NVIDIA Isaac Sim: a persistent belief graph of places, open ends and obligations, read by a GNN and a transformer that proposes and ranks up to eight routes per decision, trained by behaviour cloning against a certified classical teacher, with route certification and collision authority kept outside the network. Transfer to a custom-built drone for real-world validation."
       ],
       "tags": [
         "C++",
