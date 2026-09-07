@@ -11,6 +11,7 @@ Every page it writes contains its full text in the served HTML. Nothing that mat
 search is injected by JavaScript.
 """
 
+import argparse
 import html
 import json
 import os
@@ -291,7 +292,7 @@ def gate_size(rec):
     return min(sizes) / 1e6 if sizes else 0.0
 
 
-def video(key, cls="", autoloop=True, watch_link=True):
+def video(key, cls="", autoloop=True, watch_link=True, caption=None):
     """Poster-first video. Autoplay is handled by media.js only when in view.
 
     A clip that has a watch page gets a link to it in the caption, so the page Google is
@@ -333,7 +334,7 @@ def video(key, cls="", autoloop=True, watch_link=True):
                 f'<span aria-hidden="true">&#x2921;</span>Expand</button></div>')
     link = (f'<a class="watch-link" href="{watch_url(key)}">Watch the full clip</a>'
             if watch_link and key in WATCH else "")
-    text = e(rec["caption"]) if rec.get("caption") else ""
+    text = e(caption if caption is not None else rec.get("caption", ""))
     cap = f'<figcaption>{text}{link}</figcaption>' if (text or link) else ""
     tall = " is-portrait" if rec["height"] > rec["width"] else ""
     return f'<figure class="v-figure {cls}{tall}">{body}{cap}</figure>'
@@ -352,7 +353,7 @@ def hero_clip(key):
     full = f' data-full-src="{rec["mp4"]}"' if preview else ""
     return (f'<div class="hero-clip v-wrap">'
             f'<video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}" '
-            f'muted loop autoplay playsinline preload="auto" data-autoloop{full} '
+            f'muted loop playsinline preload="metadata" data-autoloop{full} '
             f'aria-label="{e(rec["alt"])}"><source src="{inline}" type="video/mp4"></video>'
             f'<button type="button" class="v-toggle" data-toggle '
             f'aria-label="Play or pause video">Pause</button>'
@@ -1023,199 +1024,152 @@ def descent_svg():
 # ---------------------------------------------------------------- home
 
 def build_home():
-    arc = SITE["arc"]
-    story = SITE["story"]
     H = SITE["home"]
-    nxt = SITE["nextSteps"]
+
+    def home_video(key, **kwargs):
+        return video(key, caption=H["videoCaptions"][key], **kwargs)
 
     portrait = picture("portrait", cls="portrait", sizes="5rem", lazy=False, caption=False)
-
-    stat_items = "".join(
-        f'<div class="stat"><dt>{e(st["value"])}</dt>'
-        f'<dd><span class="stat-label">{e(st["label"])}</span>'
-        f'<span class="stat-detail">{e(st["detail"])}</span></dd></div>'
-        for st in SITE["stats"])
-    next_links = "".join(
-        f'<a class="route" href="{e(i["href"])}"><span>{e(i["label"])}</span>'
-        f'<small>{e(i["text"])}</small></a>' for i in nxt["items"])
-
-    pubs = PUBS["publications"]
-    cards = "".join(f"""
-      <li class="card">
-        <p class="eyebrow">{e(p["venueShort"])}</p>
-        <h3><a href="/publications/{e(p["slug"])}/">{e(p["title"])}</a></h3>
-        <p>{e(p["claim"])}</p>
-        <p class="card-meta"><span>{e(p["statusLabel"])}</span></p>
-      </li>""" for p in pubs)
-
+    proof = "".join(
+        f'<div class="home-proof-item"><dt>{e(x["value"])}</dt><dd>'
+        f'<a href="{e(x["href"])}">{e(x["label"])}</a>'
+        f'<span>{e(x["detail"])}</span></dd></div>' for x in H["proof"])
+    capabilities = "".join(
+        f'<li class="home-capability"><p class="eyebrow">{e(x["index"])} / {e(x["tools"])}</p>'
+        f'<h3>{e(x["title"])}'
+        + (f' <span class="tag tag-progress">{e(x["status"])}</span>' if x.get("status") else "")
+        + f'</h3><p>{e(x["text"])}</p><a href="{e(x["href"])}">{e(x["linkLabel"])} <span aria-hidden="true">↗</span></a></li>'
+        for x in H["capabilities"])
+    pubs = {p["slug"]: p for p in PUBS["publications"]}
+    cards = "".join(
+        f'<li class="card home-work-card"><p class="eyebrow">{e(pubs[x["slug"]]["venueShort"])}</p>'
+        f'<h3><a href="/publications/{e(x["slug"])}/">{e(x["name"])} <span aria-hidden="true">↗</span></a></h3>'
+        f'<p>{e(x["text"])}</p><p class="card-meta">{e(pubs[x["slug"]]["statusLabel"])}</p></li>'
+        for x in H["selected"])
     body = f"""
 <header class="hero">
   <div class="hero-grid">
     <div class="hero-copy">
-      <p class="hero-kicker"><span aria-hidden="true"></span> {e(H['kicker'])}</p>
+      <p class="hero-kicker"><span aria-hidden="true"></span>{e(H['kicker'])}</p>
       <h1><span class="hero-name">{e(NAME)}</span>
-        <span class="hero-pitch">{e(H['pitchLineOne'])}<br>{e(H['pitchLineTwo'])}</span></h1>
+        <span class="hero-pitch">{e(H['pitchLineOne'])}<br><em>{e(H['pitchLineTwo'])}</em></span></h1>
       <p class="lede">{e(H['lede'])}</p>
+      <p class="home-summary">{e(H['summary'])}</p>
       <div class="hero-actions">
-        <a class="action action-primary" href="/research/">Explore the research</a>
+        <a class="action action-primary" href="#selected-work">See my work <span aria-hidden="true">↗</span></a>
         <a class="action" href="/cv/">View CV</a>
+        <a class="home-contact-link" href="/contact/">Get in touch</a>
       </div>
-      <div class="hero-id">
-        {portrait}
-        <p><strong>{e(SITE['identity']['role'])}</strong><br>
-          {e(SITE['identity']['affiliation']['shortName'])}</p>
-      </div>
+      <div class="hero-id">{portrait}<p><strong>{e(SITE['identity']['role'])}</strong><br>
+        {e(SITE['identity']['affiliation']['shortName'])} · {e(SITE['contact']['location'])}</p></div>
     </div>
-    <div class="hero-stage has-clip">
-      <div class="hero-stage-head"><span>Mapping system, running</span><span>M2H-MX + Mono-Hydra++</span></div>
-      {hero_clip(H['stageClip'])}
-      <div class="hero-stage-foot"><span>RGB + IMU</span><span>{e(H['stageLabel'])}</span></div>
+    <div class="home-visual">
+      <div class="hero-stage has-clip">
+        <div class="hero-stage-head"><span>Monocular 3D mapping</span><span>Research demo</span></div>
+        {hero_clip(H['stageClip'])}
+        <div class="hero-stage-foot"><span>RGB + IMU</span><span>M2H-MX + Mono-Hydra++</span></div>
+      </div>
+      <div class="home-demo-caption"><p>One camera. Geometry, objects, rooms.</p>
+        <a href="/videos/monocular-3d-scene-graph-scannet/">Watch the demo <span aria-hidden="true">↗</span></a></div>
+      <div class="home-focus"><span>Perception</span><span>SLAM</span><span>Robot learning</span><span>Deployment</span></div>
     </div>
   </div>
-
-  <section class="stats" aria-label="Key figures">
-    <dl>{stat_items}</dl>
-    <p class="stats-note">{e(SITE['statsFootnote'])}</p>
-  </section>
+  <dl class="home-proof" aria-label="Research and industry experience">{proof}</dl>
 </header>
 
-<section class="home-section home-section-caps">
-  <div class="section-index"><span>01</span><span>The problem</span></div>
+<section class="home-section home-section-caps" id="expertise">
+  <div class="section-index"><span>01</span><span>Expertise</span></div>
   <div class="section-content">
-    <div class="section-heading">
-      <p class="eyebrow">One loop, four stages</p>
-      <h2>{e(H['capabilitiesHeading'])}</h2>
-      <p class="section-intro">{e(H['capabilitiesIntro'])}</p>
-    </div>
-    <figure class="loop">
-      <div class="loop-figure">{loop_svg()}</div>
-      <figcaption>Each block links to the work behind it. The three stages are the research; the
-        plate underneath is what makes any of it usable on a robot.</figcaption>
-    </figure>
+    <div class="section-heading"><p class="eyebrow">Research & engineering</p>
+      <h2>{e(H['capabilitiesHeading'])}</h2><p class="section-intro">{e(H['capabilitiesIntro'])}</p></div>
+    <figure class="loop"><div class="loop-figure">{loop_svg()}</div>
+      <figcaption>Perception and mapping run onboard. Learned exploration is in progress in simulation;
+      its connection to the scene graph is future work.</figcaption></figure>
+    <ul class="home-capabilities">{capabilities}</ul>
   </div>
 </section>
 
-<section class="home-section home-section-platform">
-  <div class="section-index"><span>02</span><span>Platform</span></div>
+<section class="home-section home-section-work" id="selected-work">
+  <div class="section-index"><span>02</span><span>Research</span></div>
   <div class="section-content">
-    <div class="section-heading">
-      <p class="eyebrow">Built for the payload limit</p>
-      <h2>The drone the PhD runs on</h2>
-      <p class="section-intro">A custom quadrotor with a carbon fibre frame and caged propellers,
-      so it can fly close to walls indoors. Everything the mapping needs is carried onboard.</p>
-    </div>
-    {platform_showcase("drone-side", ["drone-top", "drone-angle"], "drone-flight")}
-  </div>
-</section>
-
-<section class="home-section research-chapter">
-  <div class="section-index"><span>03</span><span>Research</span></div>
-  <div class="section-content">
-    <div class="chapter-heading">
-      <div><p class="eyebrow">{e(arc['actOne']['label'])} &middot; complete</p>
-      <h2>{e(arc['actOne']['title'])}</h2></div>
-      <p class="section-intro">{e(arc['actOne']['homeLine'])}</p>
-    </div>
-
-
-    <p class="pull">{e(story['paragraphs'][0])}</p>
-
-    <ol class="beats">
-      <li class="beat">
-        <div class="beat-copy">
-          <p class="beat-index">Beat 01 &middot; mapping</p>
-          <h3>The drone flies a corridor and the map builds itself</h3>
-          <p>One loop of the ITC second floor. Nothing is streamed to a workstation: the camera
-          and the IMU go in, and a layered map comes out, mesh first, then objects, then places,
-          then the rooms that contain them. Watch the graph on the left grow while the corridor
-          closes back on itself.</p>
-          <p class="beat-link"><a href="/publications/m2h/">How the mapping works</a></p>
-        </div>
-        <div class="beat-media">{video("itc-loop")}</div>
-      </li>
-      <li class="beat beat-flip">
-        <div class="beat-copy">
-          <p class="beat-index">Beat 02 &middot; control</p>
-          <h3>And the estimate is steady enough to fly on</h3>
-          <p>The same predictions close the loop back into control. Depth-backed visual-inertial
-          odometry runs on the drone's own Jetson, and zero-velocity updates hold the estimate
-          still when the platform is: the label flips between MOVING and ZUPT STATIONARY. An
-          estimate that drifts at a standstill is an estimate nothing can fly on.</p>
-          <p class="beat-link"><a href="/projects/mono-hydra-plus/">The estimator, in detail</a></p>
-        </div>
-        <div class="beat-media">{video("stairs-zupt")}</div>
-      </li>
-    </ol>
-
-    <div class="subsection-heading"><span>03.1</span><div><h3>What one frame gives the map</h3>
-      <p class="section-intro">M2H-MX turns a single RGB frame into metric depth and semantic
-      labels. The mapping backend consumes those two outputs and nothing else.</p></div></div>
-    <div class="wipe-pair">{wipe("m2h-mx-indoor", compact=True)}{wipe("m2h-mx-outdoor", compact=True)}</div>
-
-    <div class="subsection-heading"><span>03.2</span><div><h3>What changed over four years</h3>
-      <p class="section-intro">Mean mapping error on the second floor of the ITC building,
-      measured against a LiDAR ground truth. The embedded point in amber is the model running on
-      the drone at reduced resolution, a different trade-off rather than a regression.</p></div></div>
-
-    <figure class="descent">
-      <div class="descent-head"><span>System progression</span><span>mean error / metres</span></div>
-      <div class="descent-figure">{descent_svg()}</div>
-      <div class="legend">
-        <span><i class="k-main"></i> laptop or desktop GPU</span>
-        <span><i class="k-emb"></i> Jetson Orin NX, embedded</span>
-      </div>
-      <figcaption>Hardware and input resolution change across the points, so this is a system
-        progression rather than a controlled ablation. <a href="/research/">The full table, and
-        the argument behind it</a>.</figcaption>
-    </figure>
-  </div>
-</section>
-
-<section class="home-section research-chapter research-chapter-next">
-  <div class="section-index"><span>04</span><span>Next</span></div>
-  <div class="section-content">
-    <div class="chapter-heading">
-      <div><p class="eyebrow">{e(arc['actTwo']['label'])} &middot; work in progress</p>
-      <h2>{e(arc['actTwo']['title'])} <span class="tag tag-progress">In progress</span></h2></div>
-      <p class="section-intro">{e(arc['actTwo']['homeLine'])}</p>
-    </div>
-    <div class="media-feature">{video("scope-explorer")}</div>
-    <p class="section-intro"><a href="/projects/learned-exploration/">How the exploration system
-    is put together</a>.</p>
-  </div>
-</section>
-
-<section class="home-section home-section-applied">
-  <div class="section-index"><span>05</span><span>Applied</span></div>
-  <div class="section-content">
-    <div class="section-heading">
-      <p class="eyebrow">Industry, 2017 to 2022</p>
-      <h2>{e(H['appliedHeading'])}</h2>
-      <p class="section-intro">{e(H['appliedIntro'])}</p>
-    </div>
-    <div class="media-duo">
-      <div><p class="media-label">The fleet in service</p>{video("humanoid-deployment")}</div>
-      <div><p class="media-label">The map it plans over</p>{video("humanoid-mapping")}</div>
-    </div>
-    {applied_press()}
-  </div>
-</section>
-
-<section class="home-section home-section-work">
-  <div class="section-index"><span>06</span><span>Selected</span></div>
-  <div class="section-content">
-    <div class="section-heading"><p class="eyebrow">Published systems</p><h2>Selected work</h2></div>
+    <div class="home-heading-row"><div class="section-heading"><p class="eyebrow">2023–2026</p>
+      <h2>Selected work</h2></div><a href="/publications/">All publications <span aria-hidden="true">↗</span></a></div>
     <ul class="cards">{cards}</ul>
+    <figure class="descent">
+      <div class="descent-head"><span>Four generations of monocular mapping</span><span>mean error / metres</span></div>
+      <div class="descent-figure">{descent_svg()}</div>
+      <div class="legend"><span><i class="k-main"></i> laptop or desktop GPU</span>
+        <span><i class="k-emb"></i> Jetson Orin NX, embedded</span></div>
+      <figcaption>ITC second floor, measured against LiDAR ground truth. Hardware and resolution differ
+        across systems. <a href="/research/">Full results and conditions</a>.</figcaption>
+    </figure>
   </div>
 </section>
 
-<nav class="routes" aria-label="Explore the portfolio">{next_links}</nav>
+<section class="home-section home-section-platform" id="onboard">
+  <div class="section-index"><span>03</span><span>On the robot</span></div>
+  <div class="section-content">
+    <div class="section-heading"><p class="eyebrow">Mono-Hydra++</p>
+      <h2>{e(H['featuredHeading'])}</h2><p class="section-intro">{e(H['featuredText'])}</p></div>
+    {platform_showcase("drone-side", ["drone-top", "drone-angle"], "drone-flight")}
+    <ol class="beats">
+      <li class="beat"><div class="beat-copy"><p class="eyebrow">Mapping</p>
+        <h3>From a corridor to a scene graph</h3>
+        <p>A flight around the ITC second floor, reconstructed as surfaces, objects, places and rooms.</p>
+        <p><a href="/publications/m2h/">The mapping method ↗</a></p></div>
+        <div class="beat-media">{home_video("itc-loop")}</div></li>
+      <li class="beat beat-flip"><div class="beat-copy"><p class="eyebrow">Visual-inertial estimation</p>
+        <h3>Keeping track through a stairwell</h3>
+        <p>Depth-backed odometry running on the Jetson, tested while carrying the drone down and up the stairs.
+        Zero-velocity updates stabilise the estimate when it stops.</p>
+        <p><a href="/projects/mono-hydra-plus/">Inside Mono-Hydra++ ↗</a></p></div>
+        <div class="beat-media">{home_video("stairs-zupt", autoloop=False)}</div></li>
+    </ol>
+    <details class="home-perception"><summary>See what the perception model predicts</summary>
+      <p>RGB, predicted depth and semantic labels, indoors and outdoors.</p>
+      <div class="wipe-pair">{wipe("m2h-mx-indoor", compact=True)}{wipe("m2h-mx-outdoor", compact=True)}</div>
+    </details>
+  </div>
+</section>
+
+<section class="home-section home-section-applied" id="industry">
+  <div class="section-index"><span>04</span><span>Industry</span></div>
+  <div class="section-content">
+    <div class="section-heading"><p class="eyebrow">Expert Hub Robotics · Dubai · 2020–2022</p>
+      <h2>{e(H['appliedHeading'])}</h2><p class="section-intro">{e(H['appliedIntro'])}</p>
+      <p class="section-intro">{e(H['appliedDetail'])}</p></div>
+    <div class="media-duo">
+      <div><p class="media-label">The fleet in service</p>{home_video("humanoid-deployment")}</div>
+      <div><p class="media-label">Navigation in a client environment</p>{home_video("humanoid-mapping")}</div>
+    </div>
+    <p class="home-background">{e(H['background'])}</p>
+    <p><a href="/cv/">Experience, teaching and technical skills ↗</a></p>
+  </div>
+</section>
+
+<section class="home-section research-chapter-next" id="exploration">
+  <div class="section-index"><span>05</span><span>Next</span></div>
+  <div class="section-content">
+    <div class="section-heading"><p class="eyebrow">Robot learning <span class="tag tag-progress">In progress</span></p>
+      <h2>{e(H['explorationHeading'])}</h2><p class="section-intro">{e(H['explorationText'])}</p></div>
+    <div class="media-feature">{home_video("scope-explorer", autoloop=False)}</div>
+    <p class="home-research-note">{e(H['explorationNote'])}</p>
+    <p><a href="/projects/learned-exploration/">The exploration project ↗</a></p>
+  </div>
+</section>
+
+<section class="home-outro" aria-labelledby="home-contact-title">
+  <div><p class="eyebrow">Based in the Netherlands</p><h2 id="home-contact-title">{e(H['contactHeading'])}</h2>
+    <p>{e(H['contactText'])}</p></div>
+  <div class="hero-actions"><a class="action action-primary" href="/contact/">Get in touch ↗</a>
+    <a class="action" href="{e(SITE['links']['github'])}">GitHub</a></div>
+</section>
 """
     shell("", f"{NAME} | Robotics and computer vision engineer",
-          "Robotics engineer working at the perception end: multi-task depth and semantics, "
-          "real-time monocular SLAM and 3D scene graphs, deployed on edge hardware.",
-          body, extra_ld=[person_node(), profile_page_node()],
-          og_type="profile")
+          "Robotics engineer working across computer vision, SLAM and embedded systems. "
+          "Monocular 3D mapping, Jetson deployment and real-world service robotics.",
+          body, extra_ld=[person_node(), profile_page_node()], og_type="profile",
+          extra_head=f'\n<link rel="stylesheet" href="/assets/home.css?v={asset_hash("/assets/home.css")}">')
 
 
 # ---------------------------------------------------------------- research
@@ -2326,6 +2280,15 @@ def build_favicon():
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--home-only", action="store_true",
+                        help="Render only the homepage, preserving all other generated pages")
+    args = parser.parse_args()
+    if args.home_only:
+        build_home()
+        print("built homepage only")
+        return
+
     global PUB_FIGURE, PROJ_MEDIA
     PUB_FIGURE = _pub_figures()
     PROJ_MEDIA = _proj_media()

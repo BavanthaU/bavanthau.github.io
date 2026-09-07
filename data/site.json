@@ -249,46 +249,51 @@
   ],
   "statsFootnote": "Perception, odometry, mapping, and scene graph construction all run on the drone. The frame rate is the measured perception throughput.",
   "home": {
-    "kicker": "Perception, learning, deployment",
-    "pitchLineOne": "Robots that know where they are.",
-    "pitchLineTwo": "And what to do next.",
-    "lede": "I build the perception and decision layer of robots: deep networks that turn raw images into geometry and meaning, SLAM that keeps them consistent over time, and reinforcement learning that chooses where to go next. Then I take it to the hardware and make it run in real time, most recently on a drone carrying its whole stack on one Jetson, before that on a fleet of service robots working in front of paying customers.",
+    "kicker": "Robotics · Computer vision · Spatial AI",
+    "pitchLineOne": "From camera pixels",
+    "pitchLineTwo": "to capable robots.",
+    "lede": "I’m Bavantha, a robotics engineer working across computer vision, SLAM and embedded systems. I build models that help robots understand their surroundings, and take them from research code to real hardware.",
     "stageLabel": "3D scene graph, built live from one camera",
     "stageClip": "icra26",
-    "capabilitiesHeading": "The problem the PhD takes on",
-    "capabilitiesIntro": "A robot exploring a building it has never seen has to close one loop: see, place what it sees on a map, decide where to go next, and do all of it on the computer it can carry. The PhD attacks that loop with a single camera. The four blocks below are the stages, and each one links to the work behind it.",
+    "capabilitiesHeading": "From the model to the robot",
+    "capabilitiesIntro": "I work across the parts that need to work together: learning, localisation, mapping and deployment.",
     "capabilities": [
       {
         "index": "01",
-        "title": "Deep learning for dense perception",
-        "text": "One network predicting depth, semantics, surface normals and edges together, trained for the accuracy the map needs at the latency the platform allows.",
-        "href": "/publications/m2h-mx/",
-        "linkLabel": "The perception model"
+        "title": "Visual perception",
+        "text": "I develop multi-task networks that predict depth, semantics, surface normals and edges from one image. M2H and M2H-MX are the perception models behind my mapping work.",
+        "href": "/projects/m2h-mx/",
+        "linkLabel": "M2H-MX",
+        "tools": "PyTorch · Multi-task learning"
       },
       {
         "index": "02",
-        "title": "Spatial AI and SLAM",
-        "text": "Visual-inertial odometry and hierarchical 3D scene graphs, mesh through objects and places to rooms, built in real time from a single camera with no depth sensor.",
-        "href": "/publications/mono-hydra-plus/",
-        "linkLabel": "The mapping system"
+        "title": "SLAM & spatial understanding",
+        "text": "I build visual-inertial systems that turn a camera stream into a map of surfaces, objects and rooms. Mono-Hydra++ connects learned depth with pose estimation and 3D scene graphs.",
+        "href": "/projects/mono-hydra-plus/",
+        "linkLabel": "Mono-Hydra++",
+        "tools": "C++ · VIO · 3D scene graphs"
       },
       {
         "index": "03",
-        "title": "Reinforcement learning for decisions",
-        "text": "A learned policy choosing where to look next in a building it has never seen, trained in simulation over the scene graph the mapper produces. In progress, no results yet.",
+        "title": "Learning to explore",
+        "text": "I’m developing policies that choose where a robot should look next. The work combines imitation and reinforcement learning with a planner that checks routes before they can be selected.",
         "href": "/projects/learned-exploration/",
-        "linkLabel": "How it is set up"
+        "linkLabel": "Exploration research",
+        "tools": "PyTorch · Isaac Sim",
+        "status": "In progress"
       },
       {
         "index": "04",
-        "title": "Running it on the robot",
-        "text": "The whole stack exported to ONNX and TensorRT FP16 and run on the drone's Jetson Orin NX. Getting systems onto real hardware is where I started: before the PhD I deployed more than 30 humanoid service robots with a team in Dubai.",
-        "href": "/cv/",
-        "linkLabel": "The deployment, and what came before"
+        "title": "Embedded robotics",
+        "text": "I integrate and profile the software on the robot. That includes ROS, Jetson deployment and optimising the perception model with ONNX and TensorRT.",
+        "href": "/projects/m2h-mx/",
+        "linkLabel": "Onboard deployment",
+        "tools": "ROS · Jetson · TensorRT"
       }
     ],
-    "appliedHeading": "Before the drone, a fleet of robots and real customers",
-    "appliedIntro": "Two years in Dubai as the founding robotics engineer at a service robotics startup, promoted to lead a team of three within ten months. The stack was ROS navigation with GMapping SLAM; the deployment was more than 30 humanoid robots in front of the public. I also fine-tuned a YOLOv5 detector for grayscale thermal imagery and shipped it on an Intel NUC with a FLIR camera, running live across enterprise sites. Nothing teaches you which parts of a system are real like debugging navigation while a customer watches.",
+    "appliedHeading": "Robotics beyond the lab",
+    "appliedIntro": "Before my PhD, I was the founding robotics engineer at Expert Hub Robotics in Dubai. I built the ROS navigation stack and led deployments of more than 30 humanoid robots across Expo 2020, healthcare and reception sites.",
     "thenNow": {
       "heading": "Then and now, the same question",
       "thenTitle": "2017 · Peradeniya",
@@ -297,6 +302,65 @@
       "nowTitle": "2026 · ITC, University of Twente",
       "nowText": "The same job with the scanner removed. One camera and an IMU produce a hierarchical 3D scene graph of the building in real time, and the exploration policy that chooses where to go next is being learned rather than written.",
       "nowLinkLabel": "The mapping system"
+    },
+    "summary": "My work spans monocular 3D mapping on a drone and navigation for a fleet of service robots. I’m now exploring how robots can learn where to go next.",
+    "appliedDetail": "I was promoted to lead a team of three within ten months. Alongside navigation, I fine-tuned a thermal face detector and deployed it in a commercial product using a FLIR camera and an Intel NUC.",
+    "background": "Earlier, I worked in chip verification at Synopsys, including on-site support at Samsung Electronics. At Twente, I’ve also designed robotics labs and supervised three master’s thesis students.",
+    "featuredHeading": "A camera, an IMU, a map of the building.",
+    "featuredText": "My PhD at the University of Twente focuses on indoor mapping for small drones. Mono-Hydra++ builds a layered 3D map from a single camera and an IMU, with perception, odometry and mapping running on the drone’s Jetson.",
+    "explorationHeading": "Where should the robot go next?",
+    "explorationText": "Mapping is one part of the problem. I’m now working on how a robot chooses its next route through an unfamiliar building, remembers unexplored areas and returns to unfinished work.",
+    "explorationNote": "This work is in simulation, with no reported evaluation results yet. It uses its own occupancy map and belief graph; connecting it to Mono-Hydra++ is a next step.",
+    "contactHeading": "Let’s build useful robots.",
+    "contactText": "For research collaborations or engineering opportunities in perception, SLAM and robotics, get in touch.",
+    "selected": [
+      {
+        "slug": "mono-hydra-plus",
+        "name": "Mono-Hydra++",
+        "text": "Bringing learned depth and visual-inertial estimation together for monocular 3D scene graphs."
+      },
+      {
+        "slug": "m2h-mx",
+        "name": "M2H-MX",
+        "text": "Semantic and geometric perception, evaluated inside a running mapping system and deployed on Jetson."
+      },
+      {
+        "slug": "m2h",
+        "name": "M2H",
+        "text": "Four dense prediction tasks in one model, with cross-task attention to share what each task learns."
+      },
+      {
+        "slug": "mono-hydra",
+        "name": "Mono-Hydra",
+        "text": "The starting point: real-time hierarchical 3D scene graphs from a monocular camera and an IMU."
+      }
+    ],
+    "proof": [
+      {
+        "value": "30+",
+        "label": "robots deployed",
+        "detail": "Led fleet deployments with the team at Expert Hub Robotics.",
+        "href": "/cv/#experience"
+      },
+      {
+        "value": "4",
+        "label": "first-author research papers",
+        "detail": "ISPRS Annals, IROS, ICRA workshop and a journal manuscript under review.",
+        "href": "/publications/"
+      },
+      {
+        "value": "25.53 fps",
+        "label": "onboard perception",
+        "detail": "M2H-MX-L · 256 × 192 · Jetson Orin NX 16GB · TensorRT FP16. Perception throughput.",
+        "href": "/projects/m2h-mx/"
+      }
+    ],
+    "videoCaptions": {
+      "itc-loop": "ITC second floor. Scene graph construction shown at 10× real time.",
+      "stairs-zupt": "Onboard odometry during a stairwell test. MOVING and ZUPT STATIONARY indicate motion and zero-velocity updates.",
+      "scope-explorer": "An exploration run in simulation, shown as a 60-second excerpt.",
+      "humanoid-deployment": "Service robots navigating the Exness stand in Dubai. Expert Hub Robotics.",
+      "humanoid-mapping": "A venue map built with GMapping SLAM, with the robot’s estimated pose shown in red."
     }
   }
 }

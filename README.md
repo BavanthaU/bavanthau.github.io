@@ -19,6 +19,12 @@ re-render, never edit an `index.html` by hand (it will be overwritten):
 
     python3 tools/build.py
 
+For homepage-only content or design changes, preserve all other generated pages with:
+
+    python3 tools/build.py --home-only
+
+Homepage styles live in `assets/home.css` and load only on `/`.
+
 Python 3 standard library only. No install step.
 
 | File | Holds |
