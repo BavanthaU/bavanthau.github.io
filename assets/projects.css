@@ -23,7 +23,8 @@
 .projects-overview .project-history { margin: 1.4rem 0; color: var(--ink-2); font-size: 0.83rem; max-width: none; }
 .projects-overview .project-platform { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); align-items: center; gap: clamp(1.3rem, 4vw, 3rem); padding: 1.3rem; margin-top: 2rem; border: 1px solid var(--rule); border-radius: 0.65rem; background: var(--surface); }
 .projects-overview .project-platform figure { margin: 0; }
-.projects-overview .project-platform img { aspect-ratio: 4 / 3; object-fit: cover; }
+.projects-overview .project-platform > picture { display: block; min-width: 0; }
+.projects-overview .project-platform img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
 .projects-overview .project-platform h3 { margin: 0.7rem 0; font-size: 1.5rem; }
 .projects-overview .project-platform p:not(.eyebrow):not(.platform-rate):not(.platform-conditions) { color: var(--ink-2); font-size: 0.92rem; line-height: 1.8; }
 .projects-overview .platform-rate { font-size: 0.78rem; margin: 1.2rem 0 0.5rem; }
