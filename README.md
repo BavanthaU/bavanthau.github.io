@@ -25,6 +25,13 @@ For homepage-only content or design changes, preserve all other generated pages 
 
 Homepage styles live in `assets/home.css` and load only on `/`.
 
+For the Projects overview, edit `data/projects.json` → `overview`, then run:
+
+    python3 tools/build.py --projects-only
+
+This updates `/projects/` only. Its styles live in `assets/projects.css`; existing project
+detail pages and their URLs are preserved.
+
 Python 3 standard library only. No install step.
 
 | File | Holds |

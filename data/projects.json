@@ -279,5 +279,180 @@
     "deploymentStatus": "Perception deployed and measured. Full-suite onboard deployment planned for August 2026.",
     "media": null,
     "mediaNote": "Gap G4. No photograph of the platform and no verified hardware specification sheet exist. The thesis records the same gap."
+  },
+  "overview": {
+    "sourceNote": "Updated from Bavantha_CV.pdf, Saxion application, 7 September 2026. This overview reflects the current CV; detailed project pages retain their existing technical descriptions.",
+    "intro": "I build perception, mapping and navigation systems for robots, from the first model to deployment. These projects span my PhD research, commercial robotics and the work that got me started.",
+    "groups": [
+      {
+        "id": "thesis",
+        "label": "01 / Thesis research",
+        "title": "Structuring the Seen, Exploring the Unseen",
+        "meta": "University of Twente · 2022–2026",
+        "intro": "Monocular perception, 3D mapping and learned exploration, brought together on a custom drone.",
+        "items": [
+          {
+            "name": "Mono-Hydra++",
+            "focus": "Spatial understanding",
+            "status": "2026 manuscript · Under review",
+            "text": "I built a monocular scene-graph mapping system that combines learned perception with visual-inertial estimation. Sparse predicted-depth factors anchor the pose estimate, while predictions are aligned across frames before fusion. The ROS 2 stack runs on the drone’s Jetson Orin NX with a ZED X One camera.",
+            "tags": [
+              "C++",
+              "ROS 2",
+              "Factor graphs",
+              "Jetson Orin NX"
+            ],
+            "links": [
+              {
+                "label": "Project & demos",
+                "href": "/projects/mono-hydra-plus/"
+              },
+              {
+                "label": "Code",
+                "href": "https://github.com/BavanthaU/mono-hydra-pp"
+              },
+              {
+                "label": "Manuscript",
+                "href": "/publications/mono-hydra-plus/"
+              }
+            ]
+          },
+          {
+            "name": "M2H / M2H-MX",
+            "focus": "Multi-task perception",
+            "status": "IROS 2025 · ICRA 2026 workshop",
+            "text": "I designed how depth, semantics, surface normals and edges share information in one network. M2H uses DINOv2 with windowed cross-task attention; M2H-MX adds LoRA-adapted DINOv3 features and register-gated Mamba context. They provide the perception front end for Mono-Hydra++.",
+            "tags": [
+              "PyTorch",
+              "DINOv2 / DINOv3",
+              "Multi-task learning",
+              "TensorRT"
+            ],
+            "links": [
+              {
+                "label": "M2H project",
+                "href": "/projects/m2h/"
+              },
+              {
+                "label": "M2H-MX project",
+                "href": "/projects/m2h-mx/"
+              },
+              {
+                "label": "M2H code",
+                "href": "https://github.com/UAV-Centre-ITC/M2H"
+              },
+              {
+                "label": "M2H-MX code",
+                "href": "https://github.com/BavanthaU/m2h_mx"
+              }
+            ]
+          },
+          {
+            "name": "ATLAS",
+            "focus": "Belief-graph based indoor exploration",
+            "status": "2025–present · Tested on the drone",
+            "text": "I developed ATLAS to choose exploration goals using a compact belief graph of places and open ends. It learns first from a classical expert, then through reinforcement learning. Built in PyTorch and tested in Isaac Sim and Isaac Lab, it is integrated over ROS 2 with Mono-Hydra++ maps and has been tested on my custom drone.",
+            "tags": [
+              "Reinforcement learning",
+              "Belief graphs",
+              "Isaac Sim / Isaac Lab",
+              "ROS 2"
+            ],
+            "links": [
+              {
+                "label": "Exploration overview & video",
+                "href": "/projects/learned-exploration/"
+              }
+            ]
+          }
+        ],
+        "note": "The earlier Mono-Hydra system established the monocular mapping pipeline in 2023.",
+        "related": {
+          "label": "Mono-Hydra project",
+          "href": "/projects/mono-hydra/"
+        }
+      },
+      {
+        "id": "commercial",
+        "label": "02 / Commercial robotics",
+        "title": "Humanoid visitor guidance & interaction",
+        "meta": "Expert Hub Robotics · 2020–2022",
+        "intro": "I built the navigation software and led deployments of more than 30 robots for over 10 enterprise clients, including Expo 2020 Dubai.",
+        "items": [
+          {
+            "name": "Robots working with the public",
+            "focus": "Navigation, sensing & interaction",
+            "status": "2020–2021 deployments",
+            "text": "I integrated ROS and GMapping navigation, LiDAR and 3D obstacle sensing with robot SDKs and voice assistance. As the founding robotics engineer and later a three-engineer team lead, I worked on site to get the robots navigating and interacting reliably around visitors.",
+            "tags": [
+              "ROS",
+              "GMapping",
+              "LiDAR",
+              "Robot SDKs"
+            ],
+            "links": [
+              {
+                "label": "Deployment videos & my role",
+                "href": "/cv/#expert-hub-robotics"
+              }
+            ]
+          }
+        ],
+        "press": [
+          {
+            "label": "Exness deployment · LeapRate, 2020",
+            "href": "https://www.leaprate.com/broker/exclusive-pandemic-boosts-use-of-ai-and-robotics-exness-employs-robots-at-dubai-expo/"
+          },
+          {
+            "label": "Expo 2020 Dubai · Gulf News, 2021",
+            "href": "https://gulfnews.com/expo-2020/have-you-met-ahmed-and-hamda-at-expo-2020-dubai-1.83856690"
+          }
+        ]
+      },
+      {
+        "id": "undergraduate",
+        "label": "03 / Undergraduate research",
+        "title": "Autonomous reconnaissance robot",
+        "meta": "University of Peradeniya · 2017",
+        "intro": "My first exploration and mapping project, built in a three-student team.",
+        "items": [
+          {
+            "name": "Mapping an unknown environment",
+            "focus": "Bachelor’s research project",
+            "status": "2017",
+            "text": "I developed the SLAM system, combining 2D LiDAR mapping with stereo vision for object geometry. The project produced three papers and received the IESL Best Undergraduate Project and IET Sri Lanka Best Technical Paper awards.",
+            "tags": [
+              "SLAM",
+              "2D LiDAR",
+              "Stereo vision",
+              "Exploration planning"
+            ],
+            "links": [
+              {
+                "label": "Robot demo",
+                "href": "/videos/lidar-exploration-mapping-peradeniya/"
+              },
+              {
+                "label": "Exploration planning paper",
+                "href": "https://doi.org/10.1109/ICIINFS.2017.8300386"
+              },
+              {
+                "label": "Stereo vision & laser ranging paper",
+                "href": "https://arxiv.org/abs/2302.01387"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "platform": {
+      "title": "Built to run on the drone",
+      "text": "A custom quadrotor carrying a ZED X One camera and a Jetson Orin NX 16GB. M2H-MX inference is exported through ONNX and optimised with TensorRT FP16.",
+      "metric": "25.5 fps",
+      "metricLabel": "perception throughput",
+      "conditions": "256 × 192 input · Jetson Orin NX 16GB · TensorRT FP16",
+      "linkLabel": "The platform & mapping system",
+      "href": "/projects/mono-hydra-plus/"
+    }
   }
 }

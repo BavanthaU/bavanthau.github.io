@@ -1644,28 +1644,69 @@ def project_ld(pr):
 
 
 def build_projects_index():
-    items = "".join(f"""
-    <li class="card">
-      <p class="eyebrow">{e(pr["partLabel"])}{" &middot; in progress" if pr["status"] == "in progress" else ""}</p>
-      <h3><a href="/projects/{e(pr["slug"])}/">{e(pr["name"])}</a></h3>
-      <p>{e(pr["oneLine"])}</p>
-      <p class="card-meta">{"".join(chr(60)+"span"+chr(62)+e(k)+chr(60)+"/span"+chr(62) for k in pr.get("keyNumbers", [])[:2])}</p>
-    </li>""" for pr in PROJECTS["projects"])
+    overview = PROJECTS["overview"]
 
+    def links(items):
+        return "".join(f'<a href="{e(x["href"])}">{e(x["label"])} <span aria-hidden="true">↗</span></a>'
+                       for x in items)
+
+    groups = []
+    for group in overview["groups"]:
+        items = "".join(
+            f'<article class="project-entry"><p class="eyebrow">{e(item["focus"])}</p>'
+            f'<h3>{e(item["name"])}</h3><p class="project-status">{e(item["status"])}</p>'
+            f'<p class="project-description">{e(item["text"])}</p>'
+            f'<ul class="project-tags" aria-label="Technologies">'
+            + "".join(f'<li>{e(tag)}</li>' for tag in item["tags"])
+            + f'</ul><div class="project-links">{links(item["links"])}</div></article>'
+            for item in group["items"])
+        related = (f'<p class="project-history">{e(group["note"])} '
+                   f'<a href="{e(group["related"]["href"])}">{e(group["related"]["label"])}</a>.</p>'
+                   if group.get("related") else "")
+        supporting = ""
+        if group["id"] == "thesis":
+            platform = overview["platform"]
+            supporting = f"""
+<aside class="project-platform" aria-labelledby="platform-title">
+  {picture("drone-side", sizes="(min-width: 62em) 25rem, 90vw", caption=False)}
+  <div><p class="eyebrow">Embedded deployment</p><h3 id="platform-title">{e(platform['title'])}</h3>
+    <p>{e(platform['text'])}</p>
+    <p class="platform-rate"><strong>{e(platform['metric'])}</strong> {e(platform['metricLabel'])}</p>
+    <p class="platform-conditions">{e(platform['conditions'])}</p>
+    <a href="{e(platform['href'])}">{e(platform['linkLabel'])} ↗</a></div>
+</aside>"""
+        elif group["id"] == "commercial":
+            supporting = (
+                '<div class="project-footage">'
+                + video("humanoid-deployment", autoloop=False,
+                        caption="Service robots navigating the Exness stand in Dubai.")
+                + video("humanoid-mapping", autoloop=False,
+                        caption="The venue map and robot pose, built with GMapping SLAM.")
+                + '</div><div class="project-press"><span>Deployment coverage</span>'
+                + links(group["press"]) + '</div>')
+        groups.append(f"""
+<section class="project-group" id="{e(group['id'])}" aria-labelledby="{e(group['id'])}-title">
+  <header class="project-group-heading"><p class="eyebrow">{e(group['label'])}</p>
+    <h2 id="{e(group['id'])}-title">{e(group['title'])}</h2>
+    <p class="project-meta">{e(group['meta'])}</p><p class="section-intro">{e(group['intro'])}</p></header>
+  <div class="project-list">{items}</div>{related}{supporting}
+</section>""")
+
+    nav = "".join(f'<a href="#{e(g["id"])}">{e(g["label"].split(" / ", 1)[1])}</a>'
+                  for g in overview["groups"])
     body = f"""
-<h1>Projects</h1>
-<p class="standfirst">Systems and code. Each entry links to its repository and to the paper that
-measures it.</p>
-<ul class="cards">{items}</ul>
-
-<h2>Platform</h2>
-<p>{e(PROJECTS["platform"]["name"])}, {e(PROJECTS["platform"]["compute"])}.
-{e(PROJECTS["platform"]["deploymentStatus"])}</p>
+<div class="projects-overview">
+  <header class="projects-intro"><p class="eyebrow">Research & engineering</p><h1>Projects</h1>
+    <p class="standfirst">{e(overview['intro'])}</p>
+    <nav class="project-jumps" aria-label="Project categories">{nav}</nav></header>
+{''.join(groups)}
+</div>
 """
-    shell("projects", f"{NAME} | Projects and open-source code",
-          "Open-source robotics perception systems: Mono-Hydra, M2H, M2H-MX, Mono-Hydra++, and "
-          "ongoing work on learned exploration.",
-          body, extra_ld=[person_node()], crumb="Projects")
+    shell("projects", f"{NAME} | Robotics research and engineering projects",
+          "Monocular mapping with Mono-Hydra++, multi-task perception with M2H and M2H-MX, "
+          "ATLAS exploration, commercial service robots and reconnaissance robotics.",
+          body, extra_ld=[person_node()], crumb="Projects",
+          extra_head=f'\n<link rel="stylesheet" href="/assets/projects.css?v={asset_hash("/assets/projects.css")}">')
 
 
 def build_project_pages():
@@ -2281,12 +2322,20 @@ def build_favicon():
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--home-only", action="store_true",
+    targets = parser.add_mutually_exclusive_group()
+    targets.add_argument("--home-only", action="store_true",
                         help="Render only the homepage, preserving all other generated pages")
+    targets.add_argument("--projects-only", action="store_true",
+                         help="Render only the Projects overview, preserving all other pages")
     args = parser.parse_args()
     if args.home_only:
         build_home()
         print("built homepage only")
+        return
+
+    if args.projects_only:
+        build_projects_index()
+        print("built Projects overview only")
         return
 
     global PUB_FIGURE, PROJ_MEDIA

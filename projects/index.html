@@ -4,24 +4,25 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Bavantha Udugama | Projects and open-source code</title>
-<meta name="description" content="Open-source robotics perception systems: Mono-Hydra, M2H, M2H-MX, Mono-Hydra++, and ongoing work on learned exploration.">
+<title>Bavantha Udugama | Robotics research and engineering projects</title>
+<meta name="description" content="Monocular mapping with Mono-Hydra++, multi-task perception with M2H and M2H-MX, ATLAS exploration, commercial service robots and reconnaissance robotics.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <link rel="canonical" href="https://bavanthau.github.io/projects/">
 <meta name="google-site-verification" content="LWcJVt2Oa5A7B_dpxRGxcpkIGy-YoHjrJKUzmU_0QO4">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bavantha Udugama">
-<meta property="og:title" content="Bavantha Udugama | Projects and open-source code">
-<meta property="og:description" content="Open-source robotics perception systems: Mono-Hydra, M2H, M2H-MX, Mono-Hydra++, and ongoing work on learned exploration.">
+<meta property="og:title" content="Bavantha Udugama | Robotics research and engineering projects">
+<meta property="og:description" content="Monocular mapping with Mono-Hydra++, multi-task perception with M2H and M2H-MX, ATLAS exploration, commercial service robots and reconnaissance robotics.">
 <meta property="og:url" content="https://bavanthau.github.io/projects/">
 <meta property="og:image" content="https://bavanthau.github.io/media/og/projects.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Bavantha Udugama | Projects and open-source code">
+<meta property="og:image:alt" content="Bavantha Udugama | Robotics research and engineering projects">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/projects.png">
-<meta name="twitter:title" content="Bavantha Udugama | Projects and open-source code">
-<meta name="twitter:description" content="Open-source robotics perception systems: Mono-Hydra, M2H, M2H-MX, Mono-Hydra++, and ongoing work on learned exploration.">
+<meta name="twitter:title" content="Bavantha Udugama | Robotics research and engineering projects">
+<meta name="twitter:description" content="Monocular mapping with Mono-Hydra++, multi-task perception with M2H and M2H-MX, ATLAS exploration, commercial service robots and reconnaissance robotics.">
+<link rel="stylesheet" href="/assets/projects.css?v=efffc41eb3">
 <link rel="stylesheet" href="/assets/site.css?v=f70c5fdb9b">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
@@ -89,6 +90,62 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "@id": "https://bavanthau.github.io/projects/#video-humanoid-deployment",
+  "name": "Service humanoids running autonomously on the Exness stand in Dubai, navigating a floor full of",
+  "description": "Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/humanoid-deployment-poster.jpg",
+  "uploadDate": "2026-08-18",
+  "contentUrl": "https://bavanthau.github.io/media/video/humanoid-deployment.mp4",
+  "width": 1100,
+  "height": 618,
+  "inLanguage": "en",
+  "isFamilyFriendly": true,
+  "creator": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "copyrightHolder": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "mainEntityOfPage": "https://bavanthau.github.io/projects/",
+  "duration": "PT32S"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "@id": "https://bavanthau.github.io/projects/#video-humanoid-mapping",
+  "name": "The map behind it",
+  "description": "A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot's pose marked in red.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/humanoid-mapping-poster.jpg",
+  "uploadDate": "2026-08-18",
+  "contentUrl": "https://bavanthau.github.io/media/video/humanoid-mapping.mp4",
+  "width": 1000,
+  "height": 1778,
+  "inLanguage": "en",
+  "isFamilyFriendly": true,
+  "creator": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "copyrightHolder": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "mainEntityOfPage": "https://bavanthau.github.io/projects/",
+  "duration": "PT32S"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     {
@@ -129,44 +186,38 @@
 <main id="main" class="site-main">
 <div class="wrap page-content">
 
-<h1>Projects</h1>
-<p class="standfirst">Systems and code. Each entry links to its repository and to the paper that
-measures it.</p>
-<ul class="cards">
-    <li class="card">
-      <p class="eyebrow">Part I</p>
-      <h3><a href="/projects/mono-hydra-plus/">Mono-Hydra++</a></h3>
-      <p>The current system. One camera, one IMU, a hierarchical 3D scene graph, and a perception loop that feeds back into state estimation.</p>
-      <p class="card-meta"><span>0.08 m ITC 2nd floor mean error</span><span>0.033 m calibrated ATE on 7-Scenes</span></p>
-    </li>
-    <li class="card">
-      <p class="eyebrow">Part I</p>
-      <h3><a href="/projects/m2h-mx/">M2H-MX</a></h3>
-      <p>The perception front end that improved the map, and the ablation showing where the improvement came from.</p>
-      <p class="card-meta"><span>65.60 mIoU and 0.3800 RMSE on NYUDv2</span><span>6.91 cm average ScanNet ATE, down from 17.59 cm</span></p>
-    </li>
-    <li class="card">
-      <p class="eyebrow">Part I</p>
-      <h3><a href="/projects/m2h/">M2H</a></h3>
-      <p>Four dense tasks in one model, replacing two separate networks that did not agree with each other.</p>
-      <p class="card-meta"><span>61.54 mIoU and 0.4196 RMSE on NYUDv2</span><span>0.11 m ITC mean error at 30 fps</span></p>
-    </li>
-    <li class="card">
-      <p class="eyebrow">Part I</p>
-      <h3><a href="/projects/mono-hydra/">Mono-Hydra</a></h3>
-      <p>Where it started. The first real-time 3D scene graph built from a monocular camera and an IMU.</p>
-      <p class="card-meta"><span>0.19 m and 0.21 m ITC mean error</span><span>15 fps at 848x480</span></p>
-    </li>
-    <li class="card">
-      <p class="eyebrow">Part II &middot; in progress</p>
-      <h3><a href="/projects/learned-exploration/">Learned exploration</a></h3>
-      <p>A persistent belief graph of places, open ends and unfinished obligations, over which a learned model proposes and ranks routes that an independent certifier has already admitted.</p>
-      <p class="card-meta"></p>
-    </li></ul>
+<div class="projects-overview">
+  <header class="projects-intro"><p class="eyebrow">Research & engineering</p><h1>Projects</h1>
+    <p class="standfirst">I build perception, mapping and navigation systems for robots, from the first model to deployment. These projects span my PhD research, commercial robotics and the work that got me started.</p>
+    <nav class="project-jumps" aria-label="Project categories"><a href="#thesis">Thesis research</a><a href="#commercial">Commercial robotics</a><a href="#undergraduate">Undergraduate research</a></nav></header>
 
-<h2>Platform</h2>
-<p>Custom drone, Jetson Orin NX 16GB.
-Perception deployed and measured. Full-suite onboard deployment planned for August 2026.</p>
+<section class="project-group" id="thesis" aria-labelledby="thesis-title">
+  <header class="project-group-heading"><p class="eyebrow">01 / Thesis research</p>
+    <h2 id="thesis-title">Structuring the Seen, Exploring the Unseen</h2>
+    <p class="project-meta">University of Twente · 2022–2026</p><p class="section-intro">Monocular perception, 3D mapping and learned exploration, brought together on a custom drone.</p></header>
+  <div class="project-list"><article class="project-entry"><p class="eyebrow">Spatial understanding</p><h3>Mono-Hydra++</h3><p class="project-status">2026 manuscript · Under review</p><p class="project-description">I built a monocular scene-graph mapping system that combines learned perception with visual-inertial estimation. Sparse predicted-depth factors anchor the pose estimate, while predictions are aligned across frames before fusion. The ROS 2 stack runs on the drone’s Jetson Orin NX with a ZED X One camera.</p><ul class="project-tags" aria-label="Technologies"><li>C++</li><li>ROS 2</li><li>Factor graphs</li><li>Jetson Orin NX</li></ul><div class="project-links"><a href="/projects/mono-hydra-plus/">Project &amp; demos <span aria-hidden="true">↗</span></a><a href="https://github.com/BavanthaU/mono-hydra-pp">Code <span aria-hidden="true">↗</span></a><a href="/publications/mono-hydra-plus/">Manuscript <span aria-hidden="true">↗</span></a></div></article><article class="project-entry"><p class="eyebrow">Multi-task perception</p><h3>M2H / M2H-MX</h3><p class="project-status">IROS 2025 · ICRA 2026 workshop</p><p class="project-description">I designed how depth, semantics, surface normals and edges share information in one network. M2H uses DINOv2 with windowed cross-task attention; M2H-MX adds LoRA-adapted DINOv3 features and register-gated Mamba context. They provide the perception front end for Mono-Hydra++.</p><ul class="project-tags" aria-label="Technologies"><li>PyTorch</li><li>DINOv2 / DINOv3</li><li>Multi-task learning</li><li>TensorRT</li></ul><div class="project-links"><a href="/projects/m2h/">M2H project <span aria-hidden="true">↗</span></a><a href="/projects/m2h-mx/">M2H-MX project <span aria-hidden="true">↗</span></a><a href="https://github.com/UAV-Centre-ITC/M2H">M2H code <span aria-hidden="true">↗</span></a><a href="https://github.com/BavanthaU/m2h_mx">M2H-MX code <span aria-hidden="true">↗</span></a></div></article><article class="project-entry"><p class="eyebrow">Belief-graph based indoor exploration</p><h3>ATLAS</h3><p class="project-status">2025–present · Tested on the drone</p><p class="project-description">I developed ATLAS to choose exploration goals using a compact belief graph of places and open ends. It learns first from a classical expert, then through reinforcement learning. Built in PyTorch and tested in Isaac Sim and Isaac Lab, it is integrated over ROS 2 with Mono-Hydra++ maps and has been tested on my custom drone.</p><ul class="project-tags" aria-label="Technologies"><li>Reinforcement learning</li><li>Belief graphs</li><li>Isaac Sim / Isaac Lab</li><li>ROS 2</li></ul><div class="project-links"><a href="/projects/learned-exploration/">Exploration overview &amp; video <span aria-hidden="true">↗</span></a></div></article></div><p class="project-history">The earlier Mono-Hydra system established the monocular mapping pipeline in 2023. <a href="/projects/mono-hydra/">Mono-Hydra project</a>.</p>
+<aside class="project-platform" aria-labelledby="platform-title">
+  <picture><source type="image/avif" srcset="/media/images/drone-side-480.avif 480w, /media/images/drone-side-960.avif 960w, /media/images/drone-side-1600.avif 1600w" sizes="(min-width: 62em) 25rem, 90vw"><source type="image/webp" srcset="/media/images/drone-side-480.webp 480w, /media/images/drone-side-960.webp 960w, /media/images/drone-side-1600.webp 1600w" sizes="(min-width: 62em) 25rem, 90vw"><img src="/media/images/drone-side-1600.jpg" alt="The custom quadrotor on a wooden table, seen from the side. A carbon fibre frame with a protective cage around four red propellers, the flight controller and wiring visible on top, and the compute board mounted underneath." width="4032" height="3024" loading="lazy" decoding="async"></picture>
+  <div><p class="eyebrow">Embedded deployment</p><h3 id="platform-title">Built to run on the drone</h3>
+    <p>A custom quadrotor carrying a ZED X One camera and a Jetson Orin NX 16GB. M2H-MX inference is exported through ONNX and optimised with TensorRT FP16.</p>
+    <p class="platform-rate"><strong>25.5 fps</strong> perception throughput</p>
+    <p class="platform-conditions">256 × 192 input · Jetson Orin NX 16GB · TensorRT FP16</p>
+    <a href="/projects/mono-hydra-plus/">The platform &amp; mapping system ↗</a></div>
+</aside>
+</section>
+<section class="project-group" id="commercial" aria-labelledby="commercial-title">
+  <header class="project-group-heading"><p class="eyebrow">02 / Commercial robotics</p>
+    <h2 id="commercial-title">Humanoid visitor guidance &amp; interaction</h2>
+    <p class="project-meta">Expert Hub Robotics · 2020–2022</p><p class="section-intro">I built the navigation software and led deployments of more than 30 robots for over 10 enterprise clients, including Expo 2020 Dubai.</p></header>
+  <div class="project-list"><article class="project-entry"><p class="eyebrow">Navigation, sensing &amp; interaction</p><h3>Robots working with the public</h3><p class="project-status">2020–2021 deployments</p><p class="project-description">I integrated ROS and GMapping navigation, LiDAR and 3D obstacle sensing with robot SDKs and voice assistance. As the founding robotics engineer and later a three-engineer team lead, I worked on site to get the robots navigating and interacting reliably around visitors.</p><ul class="project-tags" aria-label="Technologies"><li>ROS</li><li>GMapping</li><li>LiDAR</li><li>Robot SDKs</li></ul><div class="project-links"><a href="/cv/#expert-hub-robotics">Deployment videos &amp; my role <span aria-hidden="true">↗</span></a></div></article></div><div class="project-footage"><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/humanoid-deployment-poster.jpg" width="1100" height="618" muted loop playsinline preload="none" aria-label="Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture."><source src="/media/video/humanoid-deployment.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>Service robots navigating the Exness stand in Dubai.</figcaption></figure><figure class="v-figure  is-portrait"><div class="v-wrap"><video poster="/media/video/humanoid-mapping-poster.jpg" width="1000" height="1778" muted loop playsinline preload="none" aria-label="A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot&#x27;s pose marked in red."><source src="/media/video/humanoid-mapping.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>The venue map and robot pose, built with GMapping SLAM.</figcaption></figure></div><div class="project-press"><span>Deployment coverage</span><a href="https://www.leaprate.com/broker/exclusive-pandemic-boosts-use-of-ai-and-robotics-exness-employs-robots-at-dubai-expo/">Exness deployment · LeapRate, 2020 <span aria-hidden="true">↗</span></a><a href="https://gulfnews.com/expo-2020/have-you-met-ahmed-and-hamda-at-expo-2020-dubai-1.83856690">Expo 2020 Dubai · Gulf News, 2021 <span aria-hidden="true">↗</span></a></div>
+</section>
+<section class="project-group" id="undergraduate" aria-labelledby="undergraduate-title">
+  <header class="project-group-heading"><p class="eyebrow">03 / Undergraduate research</p>
+    <h2 id="undergraduate-title">Autonomous reconnaissance robot</h2>
+    <p class="project-meta">University of Peradeniya · 2017</p><p class="section-intro">My first exploration and mapping project, built in a three-student team.</p></header>
+  <div class="project-list"><article class="project-entry"><p class="eyebrow">Bachelor’s research project</p><h3>Mapping an unknown environment</h3><p class="project-status">2017</p><p class="project-description">I developed the SLAM system, combining 2D LiDAR mapping with stereo vision for object geometry. The project produced three papers and received the IESL Best Undergraduate Project and IET Sri Lanka Best Technical Paper awards.</p><ul class="project-tags" aria-label="Technologies"><li>SLAM</li><li>2D LiDAR</li><li>Stereo vision</li><li>Exploration planning</li></ul><div class="project-links"><a href="/videos/lidar-exploration-mapping-peradeniya/">Robot demo <span aria-hidden="true">↗</span></a><a href="https://doi.org/10.1109/ICIINFS.2017.8300386">Exploration planning paper <span aria-hidden="true">↗</span></a><a href="https://arxiv.org/abs/2302.01387">Stereo vision &amp; laser ranging paper <span aria-hidden="true">↗</span></a></div></article></div>
+</section>
+</div>
 
 </div>
 </main>

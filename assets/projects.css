@@ -1,0 +1,56 @@
+/* Loaded only by the Projects overview; individual project pages keep their design. */
+.projects-overview .projects-intro { max-width: 55rem; margin-bottom: 3rem; }
+.projects-overview .projects-intro h1 { margin: 0.4rem 0 1.2rem; }
+.projects-overview .standfirst { font-size: clamp(1.1rem, 1.6vw, 1.35rem); line-height: 1.75; max-width: 62ch; }
+.projects-overview .project-jumps { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.75rem; }
+.projects-overview .project-jumps a { padding: 0.55rem 0.8rem; border: 1px solid var(--rule); border-radius: 2rem; background: var(--surface); color: var(--ink); font: 0.7rem/1.4 var(--mono); text-decoration: none; }
+.projects-overview .project-jumps a:hover { border-color: var(--accent); color: var(--accent); }
+.projects-overview .project-group { border-top: 1px solid var(--rule); padding-block: clamp(2.5rem, 5vw, 4rem); scroll-margin-top: 6rem; }
+.projects-overview .project-group-heading { margin-bottom: 1.8rem; }
+.projects-overview .project-group-heading h2 { margin: 0.6rem 0; font-size: clamp(1.7rem, 3vw, 2.7rem); line-height: 1.2; letter-spacing: -0.04em; text-wrap: balance; }
+.projects-overview .project-meta { margin: 0.75rem 0; color: var(--accent); font: 0.72rem/1.6 var(--mono); }
+.projects-overview .section-intro { max-width: 69ch; margin-bottom: 0; font-size: 1rem; line-height: 1.75; }
+.projects-overview .project-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.projects-overview .project-entry { min-width: 0; display: flex; flex-direction: column; padding: clamp(1.1rem, 2vw, 1.75rem); border: 1px solid var(--rule); border-radius: 0.65rem; background: var(--surface); }
+.projects-overview .project-entry .eyebrow { margin: 0; font-size: 0.58rem; line-height: 1.7; letter-spacing: 0.06em; }
+.projects-overview .project-entry h3 { margin: 0.75rem 0 0.5rem; font-size: 1.6rem; line-height: 1.25; letter-spacing: -0.035em; }
+.projects-overview .project-status { color: var(--accent); margin: 0 0 0.8rem; font: 0.64rem/1.6 var(--mono); }
+.projects-overview .project-description { margin: 0 0 1.2rem; color: var(--ink-2); font-size: 0.92rem; line-height: 1.8; }
+.projects-overview .project-tags { display: flex; flex-wrap: wrap; list-style: none; padding: 0; margin: auto 0 1.2rem; gap: 0.35rem; }
+.projects-overview .project-tags li { padding: 0.25rem 0.45rem; border-radius: 0.2rem; background: var(--accent-soft); color: var(--accent); font: 0.6rem/1.5 var(--mono); }
+.projects-overview .project-links { display: flex; flex-wrap: wrap; gap: 0.7rem 1rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.projects-overview .project-links a, .projects-overview .project-press a, .projects-overview .project-platform a { font: 0.7rem/1.6 var(--mono); text-underline-offset: 0.25rem; }
+.projects-overview .project-history { margin: 1.4rem 0; color: var(--ink-2); font-size: 0.83rem; max-width: none; }
+.projects-overview .project-platform { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); align-items: center; gap: clamp(1.3rem, 4vw, 3rem); padding: 1.3rem; margin-top: 2rem; border: 1px solid var(--rule); border-radius: 0.65rem; background: var(--surface); }
+.projects-overview .project-platform figure { margin: 0; }
+.projects-overview .project-platform img { aspect-ratio: 4 / 3; object-fit: cover; }
+.projects-overview .project-platform h3 { margin: 0.7rem 0; font-size: 1.5rem; }
+.projects-overview .project-platform p:not(.eyebrow):not(.platform-rate):not(.platform-conditions) { color: var(--ink-2); font-size: 0.92rem; line-height: 1.8; }
+.projects-overview .platform-rate { font-size: 0.78rem; margin: 1.2rem 0 0.5rem; }
+.projects-overview .platform-rate strong { color: var(--signal); font: 600 2rem/1.2 var(--display); margin-right: 0.5rem; letter-spacing: -0.04em; }
+.projects-overview .platform-conditions { margin: 0 0 1.2rem; color: var(--ink-2); font: 0.65rem/1.7 var(--mono); }
+.projects-overview :is(#commercial, #undergraduate) .project-list { grid-template-columns: 1fr; }
+.projects-overview :is(#commercial, #undergraduate) .project-description { max-width: 85ch; }
+.projects-overview .project-footage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.projects-overview .project-footage figure { margin: 0; min-width: 0; }
+.projects-overview .project-footage .v-wrap, .projects-overview .project-footage .v-gate { aspect-ratio: 16 / 10; background: var(--stage); max-width: none; }
+.projects-overview .project-footage :is(video, img) { width: 100%; height: 100%; object-fit: contain; }
+.projects-overview .project-press { display: flex; flex-wrap: wrap; gap: 0.7rem 1.5rem; margin-top: 1.5rem; align-items: baseline; }
+.projects-overview .project-press > span { color: var(--ink-2); font: 0.65rem/1.5 var(--mono); }
+.projects-overview a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (prefers-reduced-motion: no-preference) {
+  .projects-overview .project-entry { transition: border-color 200ms ease, box-shadow 200ms ease; }
+  .projects-overview .project-entry:focus-within { border-color: var(--accent); }
+  @media (hover: hover) {
+    .projects-overview .project-entry:hover { border-color: var(--accent); box-shadow: 0 0.7rem 1.5rem var(--accent-soft); }
+  }
+}
+@media (max-width: 62em) {
+  .projects-overview .project-list { grid-template-columns: 1fr; }
+  .projects-overview .project-description { max-width: 75ch; }
+}
+@media (max-width: 40em) {
+  .projects-overview .project-platform, .projects-overview .project-footage { grid-template-columns: 1fr; }
+  .projects-overview .project-jumps a { font-size: 0.64rem; }
+  .projects-overview .project-press { flex-direction: column; align-items: start; }
+}
