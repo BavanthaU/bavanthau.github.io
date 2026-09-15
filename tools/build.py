@@ -1154,6 +1154,19 @@ def build_home():
         f'<span aria-hidden="true">&#8599;</span></a></li>'
         for x in H["capabilities"])
 
+    OR = H["origin"]
+    chrono = ""
+    for n, stp in enumerate(OR["steps"]):
+        links = "".join(
+            f'<a href="{e(l["href"])}">{e(l["label"])} <span aria-hidden="true">&#8599;</span></a>'
+            for l in stp["links"])
+        now = " is-now" if n == len(OR["steps"]) - 1 else ""
+        chrono += (f'<li class="chrono-step{now}">'
+                   f'<p class="spec chrono-when">{e(stp["when"])}</p>'
+                   f'<h3 class="chrono-title">{e(stp["title"])}</h3>'
+                   f'<p class="chrono-text">{e(stp["text"])}</p>'
+                   f'<p class="chrono-links">{links}</p></li>')
+
     body = f"""
 <header class="hero bleed ground-dark">
   <div class="hero-inner bleed-wide">
@@ -1264,9 +1277,24 @@ def build_home():
   </div>
 </section>
 
+<section class="chapter origin bleed ground-dark" id="origin" aria-labelledby="origin-title">
+  <div class="bleed-wide">
+    <div class="chapter-head">
+      <p class="spec"><span>{e(OR['eyebrow'])}</span><span>{e(OR['meta'])}</span></p>
+      <h2 class="chapter-title" id="origin-title">{e(OR['heading'])}</h2>
+      <p class="chapter-lede">{e(OR['lede'])}</p>
+    </div>
+    <div class="origin-body">
+      <div class="origin-clip">{video(OR['clip'], autoloop=False)}</div>
+      <ol class="chrono">{chrono}</ol>
+    </div>
+    <p class="origin-credits spec-lg">{e(OR['credits'])}</p>
+  </div>
+</section>
+
 <section class="chapter" id="exploration">
   <div class="chapter-head">
-    <p class="spec"><span>05 &mdash; Next</span><span>Robot learning
+    <p class="spec"><span>06 &mdash; Next</span><span>Robot learning
       <span class="tag tag-progress">In progress</span></span></p>
     <h2 class="chapter-title">{e(H['explorationHeading'])}</h2>
     <p class="chapter-lede">{e(H['explorationText'])}</p>

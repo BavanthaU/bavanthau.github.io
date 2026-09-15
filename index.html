@@ -22,8 +22,8 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/home.png">
 <meta name="twitter:title" content="Bavantha Udugama | Robotics and computer vision engineer">
 <meta name="twitter:description" content="Robotics engineer working across computer vision, SLAM and embedded systems. Monocular 3D mapping, Jetson deployment and real-world service robotics.">
-<link rel="stylesheet" href="/assets/site.css?v=aab726cd6a">
-<link rel="stylesheet" href="/assets/home.css?v=719ae6946a">
+<link rel="stylesheet" href="/assets/site.css?v=cd63e2e5f0">
+<link rel="stylesheet" href="/assets/home.css?v=e157ec7a91">
 <script src="/assets/stage.js?v=98826a75cc" defer></script>
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
@@ -283,6 +283,107 @@
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
+  "@id": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#video-peradeniya-2017",
+  "name": "A reconnaissance robot explores and maps a maze it has never seen",
+  "description": "The undergraduate project video for the 2017 Peradeniya reconnaissance robot: a holonomic platform with a laser range finder and stereo cameras explores an unknown plywood maze, builds the occupancy map as it goes, and reconstructs the space in 3D. Project video for the 2017 Peradeniya reconnaissance robot. A holonomic robot carrying a laser range finder and stereo cameras drives itself through a plywood maze while an inset occupancy map of the maze fills in, and the three student developers are named on camera beside their parts of the system.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg",
+  "uploadDate": "2026-09-06",
+  "contentUrl": "https://bavanthau.github.io/media/video/peradeniya-2017.mp4",
+  "width": 1280,
+  "height": 720,
+  "inLanguage": "en",
+  "isFamilyFriendly": true,
+  "creator": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "copyrightHolder": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "mainEntityOfPage": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/",
+  "duration": "PT3M4S",
+  "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/",
+  "hasPart": [
+    {
+      "@type": "Clip",
+      "name": "Where a robot has to go instead of a person",
+      "startOffset": 0,
+      "endOffset": 16,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=0"
+    },
+    {
+      "@type": "Clip",
+      "name": "Title, and the department behind it",
+      "startOffset": 16,
+      "endOffset": 24,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=16"
+    },
+    {
+      "@type": "Clip",
+      "name": "The system: holonomic platform, RGB-D and laser range finder, planner",
+      "startOffset": 24,
+      "endOffset": 32,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=24"
+    },
+    {
+      "@type": "Clip",
+      "name": "Stereo vision: calibration, disparity, depth, point cloud stitching",
+      "startOffset": 32,
+      "endOffset": 44,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=32"
+    },
+    {
+      "@type": "Clip",
+      "name": "Exploration planning: smallest gap first, adaptive stepping, neighbours",
+      "startOffset": 44,
+      "endOffset": 58,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=44"
+    },
+    {
+      "@type": "Clip",
+      "name": "Monte Carlo localisation and the recovered trajectory",
+      "startOffset": 58,
+      "endOffset": 72,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=58"
+    },
+    {
+      "@type": "Clip",
+      "name": "Building the plywood arena",
+      "startOffset": 72,
+      "endOffset": 84,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=72"
+    },
+    {
+      "@type": "Clip",
+      "name": "The exploration run, with the occupancy map filling in",
+      "startOffset": 84,
+      "endOffset": 155,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=84"
+    },
+    {
+      "@type": "Clip",
+      "name": "The stitched 3D map of the arena",
+      "startOffset": 155,
+      "endOffset": 176,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=155"
+    },
+    {
+      "@type": "Clip",
+      "name": "Supervisors and credits",
+      "startOffset": 176,
+      "endOffset": 184,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=176"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
   "@id": "https://bavanthau.github.io/#video-scope-explorer",
   "name": "Autonomous exploration in simulation",
   "description": "Simulated indoor exploration run showing the robot's occupancy map growing as it selects routes through the environment.",
@@ -361,7 +462,7 @@
 
 <section class="pxm bleed ground-dark" data-pxm aria-labelledby="pxm-title">
   <div class="pxm-head bleed-wide">
-    <p class="spec">The arc</p>
+    <p class="spec">01 — The arc</p>
     <h2 id="pxm-title">From pixels to a map.</h2>
     <p class="pxm-lede">Five stages of one pipeline, each shown with real output from the stage that produces it. The perception stages are shown indoors and outdoors side by side, from the same network: the benchmarks it is measured on. The mapping stages are from the building the drone was flown through.</p>
   </div>
@@ -471,9 +572,24 @@
   </div>
 </section>
 
+<section class="chapter origin bleed ground-dark" id="origin" aria-labelledby="origin-title">
+  <div class="bleed-wide">
+    <div class="chapter-head">
+      <p class="spec"><span>05 — Origin</span><span>University of Peradeniya · 2017</span></p>
+      <h2 class="chapter-title" id="origin-title">The same question, ten years earlier.</h2>
+      <p class="chapter-lede">The bachelor&#x27;s project was an autonomous exploration planning strategy for a robot mapping a space it had never seen. It had a laser range finder and stereo cameras to work with. The PhD asks the same question with the scanner taken away.</p>
+    </div>
+    <div class="origin-body">
+      <div class="origin-clip"><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/peradeniya-2017-poster.jpg" width="1280" height="720" controls playsinline preload="none" aria-label="Project video for the 2017 Peradeniya reconnaissance robot. A holonomic robot carrying a laser range finder and stereo cameras drives itself through a plywood maze while an inset occupancy map of the maze fills in, and the three student developers are named on camera beside their parts of the system."><source src="/media/video/peradeniya-2017.webm" type="video/webm"><source src="/media/video/peradeniya-2017.mp4" type="video/mp4"></video></div><figcaption>The 2017 Peradeniya project video. A holonomic robot with a laser range finder and stereo cameras explores a plywood maze it has never seen, builds the occupancy map in the inset, and finishes with the stitched 3D reconstruction of the arena. The localisation and control segment, which was mine, starts at 0:59.<a class="watch-link" href="/videos/lidar-exploration-mapping-peradeniya/">Watch the full clip</a></figcaption></figure></div>
+      <ol class="chrono"><li class="chrono-step"><p class="spec chrono-when">2017 · Peradeniya</p><h3 class="chrono-title">Autonomous exploration planning for a reconnaissance agent</h3><p class="chrono-text">An autonomous exploration planning strategy for a reconnaissance robot mapping an unknown space, with a laser range finder fused with stereo cameras. I was the SLAM developer, one of three students on the project.</p><p class="chrono-links"><a href="/videos/lidar-exploration-mapping-peradeniya/">The robot, exploring <span aria-hidden="true">&#8599;</span></a><a href="https://doi.org/10.1109/ICIINFS.2017.8300386">The ICIIS 2017 paper <span aria-hidden="true">&#8599;</span></a></p></li><li class="chrono-step is-now"><p class="spec chrono-when">2026 · ITC, University of Twente</p><h3 class="chrono-title">Monocular 3D scene graphs, built in real time</h3><p class="chrono-text">The same job with the scanner removed. One camera and an IMU produce a hierarchical 3D scene graph of the building in real time, and the exploration policy that chooses where to go next is being learned rather than written.</p><p class="chrono-links"><a href="/projects/mono-hydra-plus/">The mapping system <span aria-hidden="true">&#8599;</span></a></p></li></ol>
+    </div>
+    <p class="origin-credits spec-lg">Three papers came out of it. Best Undergraduate Project, Institution of Engineers Sri Lanka. Best Technical Paper, IET Sri Lanka.</p>
+  </div>
+</section>
+
 <section class="chapter" id="exploration">
   <div class="chapter-head">
-    <p class="spec"><span>05 &mdash; Next</span><span>Robot learning
+    <p class="spec"><span>06 &mdash; Next</span><span>Robot learning
       <span class="tag tag-progress">In progress</span></span></p>
     <h2 class="chapter-title">Where should the robot go next?</h2>
     <p class="chapter-lede">Mapping is one part of the problem. I’m now working on how a robot chooses its next route through an unfamiliar building, remembers unexplored areas and returns to unfinished work.</p>

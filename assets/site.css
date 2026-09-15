@@ -1081,7 +1081,12 @@ button.chapter-row[aria-current="true"] { background: var(--accent-soft); }
   padding-top: 1.1rem;
   border-top: 1px solid var(--ink);
 }
-.chapter-head > .spec { display: flex; justify-content: space-between; gap: 1rem; }
+.chapter-head > .spec { display: flex; justify-content: space-between; gap: 0.35rem 1rem; }
+/* on a narrow screen the two halves of a chapter line stack rather than each wrapping
+   inside a column too narrow to hold it */
+@media (max-width: 46em) {
+  .chapter-head > .spec { flex-direction: column; }
+}
 .chapter-title {
   margin: 0;
   max-width: 22ch;

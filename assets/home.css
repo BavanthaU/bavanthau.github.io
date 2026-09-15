@@ -382,3 +382,56 @@
 @media (min-width: 58em) {
   .onboard-vio { grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); column-gap: clamp(2rem, 5vw, 4rem); }
 }
+
+/* ------------------------------------------------------------------ origin */
+
+/* Where the question started. The two entries hang off one vertical line, which is the only
+   place on the site a trajectory is used as a structural device rather than as evidence. */
+.origin { margin-block: 0; padding-block: clamp(4rem, 9vw, 7rem); }
+.origin .chapter-head { border-top-color: var(--rule-strong); }
+
+.origin-body { margin-top: clamp(2.2rem, 5vw, 3.5rem); display: grid; gap: clamp(2rem, 5vw, 3.5rem); align-items: start; }
+.origin-clip .v-figure { margin: 0; }
+.origin-clip video { display: block; width: 100%; height: auto; }
+
+.chrono { list-style: none; margin: 0; padding: 0 0 0 1.9rem; border-left: 1px solid var(--rule-strong); }
+.chrono-step { position: relative; max-width: none; padding-bottom: clamp(1.8rem, 4vw, 2.6rem); }
+.chrono-step:last-child { padding-bottom: 0; }
+.chrono-step::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.9rem - 0.3rem);
+  top: 0.45rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 50%;
+  background: var(--stage);
+}
+.chrono-step.is-now::before { border-color: var(--accent); background: var(--accent); }
+.chrono-when { color: var(--ink-2); }
+.chrono-step.is-now .chrono-when { color: var(--accent); }
+.chrono-title {
+  margin: 0.55rem 0 0.6rem;
+  max-width: 30ch;
+  font-family: var(--display);
+  font-size: var(--t-h3);
+  font-weight: 640;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+.chrono-text { margin: 0 0 0.9rem; max-width: 46ch; color: var(--ink-2); line-height: 1.65; }
+.chrono-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.3rem; margin: 0; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: 0.03em; }
+
+.origin-credits {
+  margin: clamp(2rem, 5vw, 3rem) 0 0;
+  max-width: 68ch;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+@media (min-width: 58em) {
+  .origin-body { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: clamp(2.5rem, 6vw, 4.5rem); }
+}

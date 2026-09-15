@@ -377,7 +377,7 @@
       "clipLinkLabel": "Watch the flight"
     },
     "arcStage": {
-      "eyebrow": "The arc",
+      "eyebrow": "01 — The arc",
       "heading": "From pixels to a map.",
       "lede": "Five stages of one pipeline, each shown with real output from the stage that produces it. The perception stages are shown indoors and outdoors side by side, from the same network: the benchmarks it is measured on. The mapping stages are from the building the drone was flown through.",
       "steps": [
@@ -450,6 +450,42 @@
         }
       ],
       "foot": "Those predictions drive the mapping. Mean mesh error against LiDAR ground truth on the ITC second floor is 0.08 m for M2H-MX-L at 640 × 480 on an RTX 4080 Super, and 0.22 m from the 256 × 192 operating point that runs onboard."
+    },
+    "origin": {
+      "eyebrow": "05 — Origin",
+      "meta": "University of Peradeniya · 2017",
+      "heading": "The same question, ten years earlier.",
+      "lede": "The bachelor's project was an autonomous exploration planning strategy for a robot mapping a space it had never seen. It had a laser range finder and stereo cameras to work with. The PhD asks the same question with the scanner taken away.",
+      "clip": "peradeniya-2017",
+      "steps": [
+        {
+          "when": "2017 · Peradeniya",
+          "title": "Autonomous exploration planning for a reconnaissance agent",
+          "text": "An autonomous exploration planning strategy for a reconnaissance robot mapping an unknown space, with a laser range finder fused with stereo cameras. I was the SLAM developer, one of three students on the project.",
+          "links": [
+            {
+              "label": "The robot, exploring",
+              "href": "/videos/lidar-exploration-mapping-peradeniya/"
+            },
+            {
+              "label": "The ICIIS 2017 paper",
+              "href": "https://doi.org/10.1109/ICIINFS.2017.8300386"
+            }
+          ]
+        },
+        {
+          "when": "2026 · ITC, University of Twente",
+          "title": "Monocular 3D scene graphs, built in real time",
+          "text": "The same job with the scanner removed. One camera and an IMU produce a hierarchical 3D scene graph of the building in real time, and the exploration policy that chooses where to go next is being learned rather than written.",
+          "links": [
+            {
+              "label": "The mapping system",
+              "href": "/projects/mono-hydra-plus/"
+            }
+          ]
+        }
+      ],
+      "credits": "Three papers came out of it. Best Undergraduate Project, Institution of Engineers Sri Lanka. Best Technical Paper, IET Sri Lanka."
     }
   }
 }
