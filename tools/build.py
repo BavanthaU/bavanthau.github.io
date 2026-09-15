@@ -814,8 +814,8 @@ def shell(path, title, description, body, extra_ld=None, og_type="website", crum
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{e(og)}">
 <meta name="twitter:title" content="{e(title)}">
-<meta name="twitter:description" content="{e(description)}">{extra_head}
-<link rel="stylesheet" href="{depth_prefix}assets/site.css?v={asset_hash("/assets/site.css")}">
+<meta name="twitter:description" content="{e(description)}">
+<link rel="stylesheet" href="{depth_prefix}assets/site.css?v={asset_hash("/assets/site.css")}">{extra_head}
 <link rel="icon" href="{depth_prefix}assets/favicon.svg?v={asset_hash('/assets/favicon.svg')}" type="image/svg+xml">
 <link rel="icon" href="{depth_prefix}assets/favicon-32.png?v={asset_hash('/assets/favicon-32.png')}" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="{depth_prefix}assets/favicon-180.png?v={asset_hash('/assets/favicon-180.png')}">
@@ -1023,153 +1023,251 @@ def descent_svg():
 
 # ---------------------------------------------------------------- home
 
+def arc_stage():
+    """The signature sequence: one system, five representations, scroll-linked.
+
+    The markup is the fallback. Without JavaScript, below 58em, or under reduced motion it
+    is a plain numbered sequence of frame + explanation, which is already the argument.
+    stage.js adds `is-live` and the frames become one sticky stage the notes drive."""
+    S = SITE["home"].get("arcStage")
+    if not S:
+        return ""
+    frames, notes = "", ""
+    for i, st in enumerate(S["steps"]):
+        key = st["key"]
+        if st["media"] == "video":
+            rec = MEDIA["videos"].get(key)
+            if not rec:
+                continue
+            inner = (f'<video poster="{rec["poster"]}" width="{rec["width"]}" '
+                     f'height="{rec["height"]}" muted loop playsinline preload="none" '
+                     f'data-step-video aria-label="{e(rec["alt"])}">'
+                     f'<source src="{rec["mp4"]}" type="video/mp4"></video>')
+        else:
+            inner = picture(key, caption=False, lazy=i > 0,
+                            sizes="(min-width: 58em) 58vw, 92vw")
+        if not inner:
+            continue
+        frames += (f'<figure class="pxm-frame" data-step="{i}">'
+                   f'<div class="pxm-frame-media">{inner}</div>'
+                   f'<figcaption class="spec">{e(st["spec"])}</figcaption></figure>')
+        notes += (f'<li class="pxm-note" data-step="{i}">'
+                  f'<p class="pxm-index">{e(st["index"])}</p>'
+                  f'<h3>{e(st["title"])}</h3>'
+                  f'<p>{e(st["text"])}</p></li>')
+    ticks = "".join(f'<span class="pxm-tick" data-tick="{i}"></span>'
+                    for i in range(len(S["steps"])))
+    return f"""
+<section class="pxm bleed ground-dark" data-pxm aria-labelledby="pxm-title">
+  <div class="pxm-head bleed-wide">
+    <p class="spec">{e(S['eyebrow'])}</p>
+    <h2 id="pxm-title">{e(S['heading'])}</h2>
+    <p class="pxm-lede">{e(S['lede'])}</p>
+  </div>
+  <div class="pxm-body bleed-wide">
+    <div class="pxm-frames">{frames}<div class="pxm-ticks" aria-hidden="true">{ticks}</div></div>
+    <ol class="pxm-notes">{notes}</ol>
+  </div>
+  <p class="pxm-foot bleed-wide spec-lg">{e(S['foot'])}</p>
+</section>"""
+
+
 def build_home():
     H = SITE["home"]
+    HE = H["hero"]
 
     def home_video(key, **kwargs):
         return video(key, caption=H["videoCaptions"][key], **kwargs)
 
-    portrait = picture("portrait", cls="portrait", sizes="5rem", lazy=False, caption=False)
-    proof = "".join(
-        f'<div class="home-proof-item"><dt>{e(x["value"])}</dt><dd>'
-        f'<a href="{e(x["href"])}">{e(x["label"])}</a>'
-        f'<span>{e(x["detail"])}</span></dd></div>' for x in H["proof"])
-    capabilities = "".join(
-        f'<li class="home-capability"><p class="eyebrow">{e(x["index"])} / {e(x["tools"])}</p>'
-        f'<h3>{e(x["title"])}'
-        + (f' <span class="tag tag-progress">{e(x["status"])}</span>' if x.get("status") else "")
-        + f'</h3><p>{e(x["text"])}</p><a href="{e(x["href"])}">{e(x["linkLabel"])} <span aria-hidden="true">↗</span></a></li>'
-        for x in H["capabilities"])
+    hero_rec = MEDIA["videos"].get(HE["clip"], {})
+    hero_band = ""
+    if hero_rec:
+        src = hero_rec.get("preview") or hero_rec["mp4"]
+        if hero_rec.get("preview") and not (ROOT / hero_rec["preview"].lstrip("/")).exists():
+            src = hero_rec["mp4"]
+        hero_band = (
+            f'<div class="hero-band v-wrap">'
+            f'<video poster="{hero_rec["poster"]}" width="{hero_rec["width"]}" '
+            f'height="{hero_rec["height"]}" muted loop playsinline preload="metadata" '
+            f'data-autoloop data-full-src="{hero_rec["mp4"]}" '
+            f'aria-label="{e(hero_rec["alt"])}">'
+            f'<source src="{src}" type="video/mp4"></video>'
+            f'<button type="button" class="v-toggle" data-toggle '
+            f'aria-label="Play or pause video">Pause</button>'
+            f'<button type="button" class="v-expand" data-expand hidden '
+            f'aria-label="Play this clip in a larger frame">'
+            f'<span aria-hidden="true">&#x2921;</span>Expand</button></div>')
+
+    readouts = "".join(
+        f'<div class="rail-readout readout{" readout-emb" if "fps" in x["value"] else ""}">'
+        f'<dt>{e(x["value"])}</dt>'
+        f'<dd><a class="readout-label" href="{e(x["href"])}">{e(x["label"])}</a>'
+        f'<span class="readout-note">{e(x["detail"])}</span></dd></div>'
+        for x in H["proof"])
+
     pubs = {p["slug"]: p for p in PUBS["publications"]}
-    cards = "".join(
-        f'<li class="card home-work-card"><p class="eyebrow">{e(pubs[x["slug"]]["venueShort"])}</p>'
-        f'<h3><a href="/publications/{e(x["slug"])}/">{e(x["name"])} <span aria-hidden="true">↗</span></a></h3>'
-        f'<p>{e(x["text"])}</p><p class="card-meta">{e(pubs[x["slug"]]["statusLabel"])}</p></li>'
-        for x in H["selected"])
+    work = ""
+    for i, x in enumerate(H["selected"], 1):
+        p = pubs[x["slug"]]
+        work += (f'<li><a class="index-row" href="/publications/{e(x["slug"])}/">'
+                 f'<span class="index-num">{i:02d}</span>'
+                 f'<span><span class="index-title">{e(x["name"])}</span>'
+                 f'<span class="spec index-spec">{e(p["venueShort"])}</span></span>'
+                 f'<span class="index-text">{e(x["text"])}</span>'
+                 f'<span class="index-status spec">{e(p["year"])} &middot; '
+                 f'{e(re.split(r",| at ", p["statusLabel"])[0])}</span></a></li>')
+
+    capabilities = "".join(
+        f'<li class="cap"><p class="spec cap-index">{e(x["index"])}</p>'
+        f'<h3 class="cap-title">{e(x["title"])}'
+        + (f' <span class="tag tag-progress">{e(x["status"])}</span>' if x.get("status") else "")
+        + f'</h3><p class="cap-text">{e(x["text"])}</p>'
+        f'<p class="spec cap-tools">{e(x["tools"])}</p>'
+        f'<a class="cap-link" href="{e(x["href"])}">{e(x["linkLabel"])} '
+        f'<span aria-hidden="true">&#8599;</span></a></li>'
+        for x in H["capabilities"])
+
     body = f"""
-<header class="hero">
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <p class="hero-kicker"><span aria-hidden="true"></span>{e(H['kicker'])}</p>
-      <h1><span class="hero-name">{e(NAME)}</span>
-        <span class="hero-pitch">{e(H['pitchLineOne'])}<br><em>{e(H['pitchLineTwo'])}</em></span></h1>
-      <p class="lede">{e(H['lede'])}</p>
-      <p class="home-summary">{e(H['summary'])}</p>
+<header class="hero bleed ground-dark">
+  <div class="hero-inner bleed-wide">
+    <p class="hero-standing spec">
+      <span class="hero-standing-left"><span class="hero-dot" aria-hidden="true"></span>{e(HE['eyebrow'])}</span>
+      <span class="hero-standing-right">{e(HE['standing'])}</span></p>
+    <h1 class="hero-line">
+      <span class="sr-only">{e(NAME)}. </span>
+      <span>{e(HE['lineOne'])}</span>
+      <span>{e(HE['lineTwo'])}</span>
+      <em>{e(HE['lineThree'])}</em></h1>
+    <div class="hero-foot">
+      <p class="hero-lede">{e(HE['lede'])}</p>
       <div class="hero-actions">
-        <a class="action action-primary" href="#selected-work">See my work <span aria-hidden="true">↗</span></a>
-        <a class="action" href="/cv/">View CV</a>
-        <a class="home-contact-link" href="/contact/">Get in touch</a>
+        <a class="action action-primary" href="#work">Selected work</a>
+        <a class="action" href="/cv/">CV</a>
+        <a class="action-plain" href="/contact/">Get in touch</a>
       </div>
-      <div class="hero-id">{portrait}<p><strong>{e(SITE['identity']['role'])}</strong><br>
-        {e(SITE['identity']['affiliation']['shortName'])} · {e(SITE['contact']['location'])}</p></div>
-    </div>
-    <div class="home-visual">
-      <div class="hero-stage has-clip">
-        <div class="hero-stage-head"><span>Monocular 3D mapping</span><span>Research demo</span></div>
-        {hero_clip(H['stageClip'])}
-        <div class="hero-stage-foot"><span>RGB + IMU</span><span>M2H-MX + Mono-Hydra++</span></div>
-      </div>
-      <div class="home-demo-caption"><p>One camera. Geometry, objects, rooms.</p>
-        <a href="/videos/monocular-3d-scene-graph-scannet/">Watch the demo <span aria-hidden="true">↗</span></a></div>
-      <div class="home-focus"><span>Perception</span><span>SLAM</span><span>Robot learning</span><span>Deployment</span></div>
     </div>
   </div>
-  <dl class="home-proof" aria-label="Research and industry experience">{proof}</dl>
+  <div class="hero-clip-band">{hero_band}
+    <div class="hero-clip-rail bleed-wide">
+      <p class="spec"><strong>{e(HE['clipLabel'])}</strong> &mdash; {e(HE['clipDetail'])}</p>
+      <a class="spec" href="{e(HE['clipLink'])}">{e(HE['clipLinkLabel'])} <span aria-hidden="true">&#8599;</span></a>
+    </div>
+  </div>
+  <dl class="hero-rail bleed-wide" aria-label="Measured operating points">{readouts}</dl>
 </header>
 
-<section class="home-section home-section-caps" id="expertise">
-  <div class="section-index"><span>01</span><span>Expertise</span></div>
-  <div class="section-content">
-    <div class="section-heading"><p class="eyebrow">Research & engineering</p>
-      <h2>{e(H['capabilitiesHeading'])}</h2><p class="section-intro">{e(H['capabilitiesIntro'])}</p></div>
-    <figure class="loop"><div class="loop-figure">{loop_svg()}</div>
-      <figcaption>Perception and mapping run onboard. Learned exploration is in progress in simulation;
-      its connection to the scene graph is future work.</figcaption></figure>
-    <ul class="home-capabilities">{capabilities}</ul>
+{arc_stage()}
+
+<section class="chapter" id="work">
+  <div class="chapter-head">
+    <p class="spec"><span>02 &mdash; Research</span><span>2023&ndash;2026</span></p>
+    <h2 class="chapter-title">Four systems, one measurement.</h2>
+    <p class="chapter-lede">{e(SITE['headlineProgression']['caption'])}</p>
   </div>
+  <ol class="index work-index">{work}</ol>
+  <p class="work-more"><a href="/publications/">All ten publications <span aria-hidden="true">&#8599;</span></a></p>
 </section>
 
-<section class="home-section home-section-work" id="selected-work">
-  <div class="section-index"><span>02</span><span>Research</span></div>
-  <div class="section-content">
-    <div class="home-heading-row"><div class="section-heading"><p class="eyebrow">2023–2026</p>
-      <h2>Selected work</h2></div><a href="/publications/">All publications <span aria-hidden="true">↗</span></a></div>
-    <ul class="cards">{cards}</ul>
-    <figure class="descent">
-      <div class="descent-head"><span>Four generations of monocular mapping</span><span>mean error / metres</span></div>
+<section class="chapter descent-chapter bleed ground-dark" aria-labelledby="descent-title">
+  <div class="bleed-wide">
+    <div class="chapter-head">
+      <p class="spec"><span>{e(SITE['headlineProgression']['label'])}</span><span>mean error / metres</span></p>
+      <h2 class="chapter-title" id="descent-title">The error came down as the sensor got smaller.</h2>
+      <p class="chapter-lede">Same building, same floor, same measurement, four system generations.
+        Hardware and input resolution differ across them, and the amber point is the embedded
+        operating point rather than a laptop GPU.</p>
+    </div>
+    <figure class="descent descent-large">
       <div class="descent-figure">{descent_svg()}</div>
       <div class="legend"><span><i class="k-main"></i> laptop or desktop GPU</span>
         <span><i class="k-emb"></i> Jetson Orin NX, embedded</span></div>
-      <figcaption>ITC second floor, measured against LiDAR ground truth. Hardware and resolution differ
-        across systems. <a href="/research/">Full results and conditions</a>.</figcaption>
+      <figcaption>Measured against LiDAR ground truth. <a href="/research/">Full results and conditions</a>.</figcaption>
     </figure>
   </div>
 </section>
 
-<section class="home-section home-section-platform" id="onboard">
-  <div class="section-index"><span>03</span><span>On the robot</span></div>
-  <div class="section-content">
-    <div class="section-heading"><p class="eyebrow">Mono-Hydra++</p>
-      <h2>{e(H['featuredHeading'])}</h2><p class="section-intro">{e(H['featuredText'])}</p></div>
-    {platform_showcase("drone-side", ["drone-top", "drone-angle"], "drone-flight")}
-    <ol class="beats">
-      <li class="beat"><div class="beat-copy"><p class="eyebrow">Mapping</p>
-        <h3>From a corridor to a scene graph</h3>
-        <p>A flight around the ITC second floor, reconstructed as surfaces, objects, places and rooms.</p>
-        <p><a href="/publications/m2h/">The mapping method ↗</a></p></div>
-        <div class="beat-media">{home_video("itc-loop")}</div></li>
-      <li class="beat beat-flip"><div class="beat-copy"><p class="eyebrow">Visual-inertial estimation</p>
-        <h3>Keeping track through a stairwell</h3>
-        <p>Depth-backed odometry running on the Jetson, tested while carrying the drone down and up the stairs.
-        Zero-velocity updates stabilise the estimate when it stops.</p>
-        <p><a href="/projects/mono-hydra-plus/">Inside Mono-Hydra++ ↗</a></p></div>
-        <div class="beat-media">{home_video("stairs-zupt", autoloop=False)}</div></li>
-    </ol>
-    <details class="home-perception"><summary>See what the perception model predicts</summary>
-      <p>RGB, predicted depth and semantic labels, indoors and outdoors.</p>
-      <div class="wipe-pair">{wipe("m2h-mx-indoor", compact=True)}{wipe("m2h-mx-outdoor", compact=True)}</div>
-    </details>
+<section class="chapter" id="onboard">
+  <div class="chapter-head">
+    <p class="spec"><span>03 &mdash; On the robot</span><span>Mono-Hydra++</span></p>
+    <h2 class="chapter-title">{e(H['featuredHeading'])}</h2>
+    <p class="chapter-lede">{e(H['featuredText'])}</p>
   </div>
-</section>
-
-<section class="home-section home-section-applied" id="industry">
-  <div class="section-index"><span>04</span><span>Industry</span></div>
-  <div class="section-content">
-    <div class="section-heading"><p class="eyebrow">Expert Hub Robotics · Dubai · 2020–2022</p>
-      <h2>{e(H['appliedHeading'])}</h2><p class="section-intro">{e(H['appliedIntro'])}</p>
-      <p class="section-intro">{e(H['appliedDetail'])}</p></div>
-    <div class="media-duo">
-      <div><p class="media-label">The fleet in service</p>{home_video("humanoid-deployment")}</div>
-      <div><p class="media-label">Navigation in a client environment</p>{home_video("humanoid-mapping")}</div>
+  <div class="platform">
+    <figure class="platform-hero plate">{picture("drone-side", caption=False, sizes="(min-width: 58em) 62vw, 94vw")}
+      <figcaption>The platform the pipeline runs on: one camera, one IMU, one Jetson Orin NX.</figcaption></figure>
+    <div class="platform-side">
+      <div class="platform-flight">{home_video("drone-flight")}</div>
+      <figure class="plate">{picture("itc-embedded", caption=False, sizes="(min-width: 58em) 30vw, 94vw")}</figure>
     </div>
-    <p class="home-background">{e(H['background'])}</p>
-    <p><a href="/cv/">Experience, teaching and technical skills ↗</a></p>
+  </div>
+  <div class="onboard-vio">
+    <div class="onboard-vio-copy">
+      <p class="spec">Visual-inertial estimation</p>
+      <h3>Keeping track through a stairwell</h3>
+      <p>Depth-backed odometry running on the Jetson, tested while carrying the drone down and
+        up the stairs. Zero-velocity updates stabilise the estimate when it stops.</p>
+      <p><a href="/projects/mono-hydra-plus/">Inside Mono-Hydra++ <span aria-hidden="true">&#8599;</span></a></p>
+    </div>
+    <div class="onboard-vio-media">{home_video("stairs-zupt", autoloop=False)}</div>
+  </div>
+  <div class="loopwork">
+    <figure class="loop"><div class="loop-figure">{loop_svg()}</div>
+      <figcaption>Perception and mapping run onboard. Learned exploration is in progress in
+        simulation; its connection to the scene graph is future work.</figcaption></figure>
+    <ul class="caps">{capabilities}</ul>
   </div>
 </section>
 
-<section class="home-section research-chapter-next" id="exploration">
-  <div class="section-index"><span>05</span><span>Next</span></div>
-  <div class="section-content">
-    <div class="section-heading"><p class="eyebrow">Robot learning <span class="tag tag-progress">In progress</span></p>
-      <h2>{e(H['explorationHeading'])}</h2><p class="section-intro">{e(H['explorationText'])}</p></div>
-    <div class="media-feature">{home_video("scope-explorer", autoloop=False)}</div>
-    <p class="home-research-note">{e(H['explorationNote'])}</p>
-    <p><a href="/projects/learned-exploration/">The exploration project ↗</a></p>
+<section class="chapter applied-chapter" id="industry">
+  <div class="chapter-head">
+    <p class="spec"><span>04 &mdash; Industry</span><span>Expert Hub Robotics &middot; Dubai &middot; 2020&ndash;2022</span></p>
+    <h2 class="chapter-title">{e(H['appliedHeading'])}</h2>
+    <p class="chapter-lede">{e(H['appliedIntro'])}</p>
+  </div>
+  <div class="applied">
+    <div class="applied-copy">
+      <p>{e(H['appliedDetail'])}</p>
+      <p class="applied-background">{e(H['background'])}</p>
+      <p><a href="/cv/">Experience, teaching and technical skills <span aria-hidden="true">&#8599;</span></a></p>
+    </div>
+    <div class="applied-media">
+      <div class="applied-wide">{home_video("humanoid-deployment")}</div>
+      <div class="applied-tall">{home_video("humanoid-mapping")}</div>
+    </div>
   </div>
 </section>
 
-<section class="home-outro" aria-labelledby="home-contact-title">
-  <div><p class="eyebrow">Based in the Netherlands</p><h2 id="home-contact-title">{e(H['contactHeading'])}</h2>
-    <p>{e(H['contactText'])}</p></div>
-  <div class="hero-actions"><a class="action action-primary" href="/contact/">Get in touch ↗</a>
-    <a class="action" href="{e(SITE['links']['github'])}">GitHub</a></div>
+<section class="chapter" id="exploration">
+  <div class="chapter-head">
+    <p class="spec"><span>05 &mdash; Next</span><span>Robot learning
+      <span class="tag tag-progress">In progress</span></span></p>
+    <h2 class="chapter-title">{e(H['explorationHeading'])}</h2>
+    <p class="chapter-lede">{e(H['explorationText'])}</p>
+  </div>
+  <figure class="explore-plate plate">{home_video("scope-explorer", autoloop=False)}</figure>
+  <p class="explore-note spec-lg">{e(H['explorationNote'])}</p>
+  <p><a href="/projects/learned-exploration/">The exploration project <span aria-hidden="true">&#8599;</span></a></p>
+</section>
+
+<section class="outro bleed ground-dark" aria-labelledby="home-contact-title">
+  <div class="outro-inner bleed-wide">
+    <p class="spec">Based in the Netherlands &middot; available from {humandate(SITE['contact']['availableFrom'])}</p>
+    <h2 id="home-contact-title">{e(H['contactHeading'])}</h2>
+    <p class="outro-text">{e(H['contactText'])}</p>
+    <div class="hero-actions">
+      <a class="action action-primary" href="/contact/">Get in touch</a>
+      <a class="action" href="{e(SITE['links']['github'])}">GitHub</a>
+      <a class="action" href="{e(SITE['links']['googleScholar'])}">Google Scholar</a>
+    </div>
+  </div>
 </section>
 """
     shell("", f"{NAME} | Robotics and computer vision engineer",
           "Robotics engineer working across computer vision, SLAM and embedded systems. "
           "Monocular 3D mapping, Jetson deployment and real-world service robotics.",
           body, extra_ld=[person_node(), profile_page_node()], og_type="profile",
-          extra_head=f'\n<link rel="stylesheet" href="/assets/home.css?v={asset_hash("/assets/home.css")}">')
+          extra_head=f'\n<link rel="stylesheet" href="/assets/home.css?v={asset_hash("/assets/home.css")}">'
+                     f'\n<script src="/assets/stage.js?v={asset_hash("/assets/stage.js")}" defer></script>')
 
 
 # ---------------------------------------------------------------- research
@@ -1646,61 +1744,92 @@ def project_ld(pr):
 def build_projects_index():
     overview = PROJECTS["overview"]
 
-    def links(items):
-        return "".join(f'<a href="{e(x["href"])}">{e(x["label"])} <span aria-hidden="true">↗</span></a>'
-                       for x in items)
+    def links(items, cls="entry-links"):
+        return (f'<div class="{cls}">' + "".join(
+            f'<a href="{e(x["href"])}">{e(x["label"])} <span aria-hidden="true">&#8599;</span></a>'
+            for x in items) + '</div>')
+
+    def entry_media(item):
+        """The preview for one entry. Each system gets the output that actually shows it."""
+        kind, key = item.get("mediaKind"), item.get("mediaKey")
+        if kind == "video":
+            return video(key, cls="entry-clip", autoloop=False,
+                         caption=MEDIA["videos"].get(key, {}).get("caption", ""))
+        if kind == "wipe":
+            return wipe(key, heading=False, compact=True,
+                        sizes="(min-width: 62em) 20rem, 90vw")
+        if kind == "image":
+            return picture(key, cls="entry-still", sizes="(min-width: 62em) 44rem, 92vw")
+        return ""
 
     groups = []
-    for group in overview["groups"]:
-        items = "".join(
-            f'<article class="project-entry"><p class="eyebrow">{e(item["focus"])}</p>'
-            f'<h3>{e(item["name"])}</h3><p class="project-status">{e(item["status"])}</p>'
-            f'<p class="project-description">{e(item["text"])}</p>'
-            f'<ul class="project-tags" aria-label="Technologies">'
-            + "".join(f'<li>{e(tag)}</li>' for tag in item["tags"])
-            + f'</ul><div class="project-links">{links(item["links"])}</div></article>'
-            for item in group["items"])
-        related = (f'<p class="project-history">{e(group["note"])} '
+    for gi, group in enumerate(overview["groups"], 1):
+        entries = ""
+        for n, item in enumerate(group["items"], 1):
+            layout = item.get("layout", "split")
+            media = entry_media(item)
+            tags = "".join(f'<li>{e(tag)}</li>' for tag in item["tags"])
+            copy = (f'<div class="entry-copy">'
+                    f'<p class="spec entry-index">{gi:02d}.{n} &mdash; {e(item["focus"])}</p>'
+                    f'<h3 class="entry-title">{e(item["name"])}</h3>'
+                    f'<p class="spec entry-status">{e(item["status"])}</p>'
+                    f'<p class="entry-text">{e(item["text"])}</p>'
+                    f'<ul class="entry-tags" aria-label="Technologies">{tags}</ul>'
+                    f'{links(item["links"])}</div>')
+            entries += (f'<article class="entry entry-{e(layout)}">'
+                        f'<div class="entry-media">{media}</div>{copy}</article>')
+
+        related = (f'<p class="group-note spec-lg">{e(group["note"])} '
                    f'<a href="{e(group["related"]["href"])}">{e(group["related"]["label"])}</a>.</p>'
                    if group.get("related") else "")
+
         supporting = ""
         if group["id"] == "thesis":
-            platform = overview["platform"]
+            pf = overview["platform"]
             supporting = f"""
-<aside class="project-platform" aria-labelledby="platform-title">
-  {picture("drone-side", sizes="(min-width: 62em) 25rem, 90vw", caption=False)}
-  <div><p class="eyebrow">Embedded deployment</p><h3 id="platform-title">{e(platform['title'])}</h3>
-    <p>{e(platform['text'])}</p>
-    <p class="platform-rate"><strong>{e(platform['metric'])}</strong> {e(platform['metricLabel'])}</p>
-    <p class="platform-conditions">{e(platform['conditions'])}</p>
-    <a href="{e(platform['href'])}">{e(platform['linkLabel'])} ↗</a></div>
+<aside class="platform-band bleed ground-dark" aria-labelledby="platform-title">
+  <div class="bleed-wide platform-band-inner">
+    <div class="platform-band-media">{picture("drone-top", sizes="(min-width: 62em) 34rem, 92vw", caption=False)}</div>
+    <div class="platform-band-copy">
+      <p class="spec">Embedded deployment</p>
+      <h3 id="platform-title">{e(pf['title'])}</h3>
+      <p>{e(pf['text'])}</p>
+      <div class="readout readout-emb">
+        <dl><dt>{e(pf['metric'])}</dt>
+          <dd><span class="readout-label">{e(pf['metricLabel'])}</span>
+            <span class="readout-note">{e(pf['conditions'])}</span></dd></dl>
+      </div>
+      <p><a href="{e(pf['href'])}">{e(pf['linkLabel'])} <span aria-hidden="true">&#8599;</span></a></p>
+    </div>
+  </div>
 </aside>"""
         elif group["id"] == "commercial":
-            supporting = (
-                '<div class="project-footage">'
-                + video("humanoid-deployment", autoloop=False,
-                        caption="Service robots navigating the Exness stand in Dubai.")
-                + video("humanoid-mapping", autoloop=False,
-                        caption="The venue map and robot pose, built with GMapping SLAM.")
-                + '</div><div class="project-press"><span>Deployment coverage</span>'
-                + links(group["press"]) + '</div>')
+            supporting = ('<div class="group-aside">'
+                          + video("humanoid-mapping", autoloop=False,
+                                  caption="The venue map and robot pose, built with GMapping SLAM.")
+                          + '<div class="group-press"><p class="spec">Deployment coverage</p>'
+                          + links(group["press"], "group-press-links") + '</div></div>')
+
         groups.append(f"""
 <section class="project-group" id="{e(group['id'])}" aria-labelledby="{e(group['id'])}-title">
-  <header class="project-group-heading"><p class="eyebrow">{e(group['label'])}</p>
-    <h2 id="{e(group['id'])}-title">{e(group['title'])}</h2>
-    <p class="project-meta">{e(group['meta'])}</p><p class="section-intro">{e(group['intro'])}</p></header>
-  <div class="project-list">{items}</div>{related}{supporting}
+  <div class="chapter-head">
+    <p class="spec"><span>{e(group['label'])}</span><span>{e(group['meta'])}</span></p>
+    <h2 class="chapter-title" id="{e(group['id'])}-title">{e(group['title'])}</h2>
+    <p class="chapter-lede">{e(group['intro'])}</p>
+  </div>
+  <div class="entries">{entries}</div>{related}{supporting}
 </section>""")
 
     nav = "".join(f'<a href="#{e(g["id"])}">{e(g["label"].split(" / ", 1)[1])}</a>'
                   for g in overview["groups"])
     body = f"""
-<div class="projects-overview">
-  <header class="projects-intro"><p class="eyebrow">Research & engineering</p><h1>Projects</h1>
-    <p class="standfirst">{e(overview['intro'])}</p>
-    <nav class="project-jumps" aria-label="Project categories">{nav}</nav></header>
+<header class="page-open">
+  <p class="spec">Research &amp; engineering</p>
+  <h1 class="page-open-title">Projects</h1>
+  <p class="page-open-lede">{e(overview['intro'])}</p>
+  <nav class="page-open-jumps spec" aria-label="Project categories">{nav}</nav>
+</header>
 {''.join(groups)}
-</div>
 """
     shell("projects", f"{NAME} | Robotics research and engineering projects",
           "Monocular mapping with Mono-Hydra++, multi-task perception with M2H and M2H-MX, "
@@ -1709,60 +1838,133 @@ def build_projects_index():
           extra_head=f'\n<link rel="stylesheet" href="/assets/projects.css?v={asset_hash("/assets/projects.css")}">')
 
 
+# the opening plate for each system: the output that shows what it is, at full width
+PROJECT_LEAD = {
+    "mono-hydra-plus": ("image", "scene-graph-itc"),
+    "m2h-mx":          ("video", "icra26"),
+    "m2h":             ("video", "itc-loop"),
+    "mono-hydra":      ("image", "scenegraph-system-design"),
+    "learned-exploration": ("video", "scope-explorer"),
+}
+
+
+def project_lead(slug):
+    kind, key = PROJECT_LEAD.get(slug, (None, None))
+    if kind == "video":
+        rec = MEDIA["videos"].get(key)
+        if not rec:
+            return ""
+        src = rec.get("preview") or rec["mp4"]
+        if rec.get("preview") and not (ROOT / rec["preview"].lstrip("/")).exists():
+            src = rec["mp4"]
+        inner = (f'<video poster="{rec["poster"]}" width="{rec["width"]}" height="{rec["height"]}" '
+                 f'muted loop playsinline preload="metadata" data-autoloop '
+                 f'data-full-src="{rec["mp4"]}" aria-label="{e(rec["alt"])}">'
+                 f'<source src="{src}" type="video/mp4"></video>'
+                 f'<button type="button" class="v-toggle" data-toggle '
+                 f'aria-label="Play or pause video">Pause</button>'
+                 f'<button type="button" class="v-expand" data-expand hidden '
+                 f'aria-label="Play this clip in a larger frame">'
+                 f'<span aria-hidden="true">&#x2921;</span>Expand</button>')
+        caption = rec.get("caption", "")
+        return (f'<figure class="case-lead"><div class="case-lead-media v-wrap">{inner}</div>'
+                f'<figcaption class="spec">{e(caption)}</figcaption></figure>')
+    if kind == "image":
+        rec = MEDIA["images"].get(key)
+        if not rec:
+            return ""
+        img = picture(key, caption=False, lazy=False, sizes="100vw")
+        return (f'<figure class="case-lead"><div class="case-lead-media">{img}</div>'
+                f'<figcaption class="spec">{e(rec.get("caption", ""))}</figcaption></figure>')
+    return ""
+
+
 def build_project_pages():
     pub_by_slug = {p["slug"]: p for p in PUBS["publications"]}
     for pr in PROJECTS["projects"]:
         repos = "".join(
-            f'<li><a href="{e(r["url"])}">{e(r["name"])}</a> <span class="pub-venue">{e(r["role"])}</span></li>'
+            f'<li><a class="index-row" href="{e(r["url"])}">'
+            f'<span class="index-title">{e(r["name"])}</span>'
+            f'<span class="spec">{e(r["role"])}</span></a></li>'
             for r in pr["repos"])
-        repos_block = f"<h2>Code</h2><ul class=\"limits\">{repos}</ul>" if repos else ""
+        repos_block = (f'<section class="case-section"><h2 class="case-h">Code</h2>'
+                       f'<ol class="index case-index">{repos}</ol></section>') if repos else ""
 
-        nums = "".join(f'<li class="result"><span class="value">{e(k)}</span></li>'
-                       for k in pr["keyNumbers"]) if pr.get("keyNumbers") else ""
-        nums_block = f'<h2>Key numbers</h2><ul class="results">{nums}</ul>' if nums else ""
+        nums_block = ""
+        if pr.get("keyNumbers"):
+            nums = "".join(f'<li><span class="case-number">{e(k)}</span></li>'
+                           for k in pr["keyNumbers"])
+            nums_block = f"""
+<section class="case-results bleed ground-dark" aria-labelledby="{e(pr['slug'])}-results">
+  <div class="bleed-wide">
+    <p class="spec">Measured</p>
+    <h2 class="case-h" id="{e(pr['slug'])}-results">Key numbers</h2>
+    <ol class="case-numbers">{nums}</ol>
+    <p class="spec case-provenance">Every figure here appears in the thesis results registry with
+      its source location. Conditions are stated with the number.</p>
+  </div>
+</section>"""
 
         honesty = ""
         if pr.get("honesty"):
-            honesty = f"""
-<div class="note">
-  <span class="note-label">Status</span>
-  <p>{e(pr["honesty"])}</p>
-</div>"""
+            honesty = (f'<div class="note case-note"><span class="note-label">Status</span>'
+                       f'<p>{e(pr["honesty"])}</p></div>')
 
         method = ""
         if pr.get("method"):
             blocks = "".join(
                 f'<div class="method-item"><h3>{e(m["title"])}</h3><p>{e(m["text"])}</p></div>'
                 for m in pr["method"]["items"])
-            method = f'<h2>{e(pr["method"]["heading"])}</h2><div class="method">{blocks}</div>'
+            method = (f'<section class="case-section"><h2 class="case-h">{e(pr["method"]["heading"])}</h2>'
+                      f'<div class="method">{blocks}</div></section>')
 
         hyp = ""
         if pr.get("hypothesis"):
-            hyp = (f'<h2>What is being tested</h2>'
-                   f'<blockquote class="hypothesis"><p>{e(pr["hypothesis"])}</p></blockquote>')
+            hyp = (f'<section class="case-section"><h2 class="case-h">What is being tested</h2>'
+                   f'<blockquote class="hypothesis"><p>{e(pr["hypothesis"])}</p></blockquote></section>')
 
         design = ""
         if pr.get("designPoints"):
             pts = "".join(f"<li>{e(x)}</li>" for x in pr["designPoints"])
-            design = f'<h2>Design commitments</h2><p class="lede">{e(pr["commitment"])}</p><ul class="limits">{pts}</ul>'
+            design = (f'<section class="case-section"><h2 class="case-h">Design commitments</h2>'
+                      f'<p class="lede">{e(pr["commitment"])}</p>'
+                      f'<ul class="limits">{pts}</ul></section>')
 
         paper = ""
         if pr.get("paper") and pr["paper"] in pub_by_slug:
             p = pub_by_slug[pr["paper"]]
-            paper = (f'<h2>Paper</h2><p><a href="/publications/{e(p["slug"])}/">{e(p["title"])}</a>'
-                     f'<br><span class="pub-venue">{e(p["statusLabel"])}</span></p>')
+            paper = (f'<section class="case-section"><h2 class="case-h">Paper</h2>'
+                     f'<ol class="index case-index"><li>'
+                     f'<a class="index-row" href="/publications/{e(p["slug"])}/">'
+                     f'<span class="index-title">{e(p["title"])}</span>'
+                     f'<span class="spec">{e(p["statusLabel"])}</span></a></li></ol></section>')
+
+        status_bit = (f'<span class="tag tag-progress">{e(pr.get("statusLabel", pr["status"]))}</span>'
+                      if pr["status"] == "in progress" else e(pr.get("statusLabel", pr["status"])))
+        sysname = (e(pr["systemName"]) + " &middot; ") if pr.get("systemName") else ""
 
         body = f"""
-<p class="eyebrow"><a href="/projects/">Projects</a> &middot; {e(pr["partLabel"])}</p>
-<h1>{e(pr["name"])}</h1>
-<p class="standfirst">{e(pr["oneLine"])}</p>
-<p class="pub-venue">{e(pr["systemName"]) + " &middot; " if pr.get("systemName") else ""}{e(pr["years"])} &middot;
-  {'<span class="tag tag-progress">' + e(pr.get("statusLabel", pr["status"])) + '</span>'
-   if pr["status"] == "in progress" else e(pr.get("statusLabel", pr["status"]))}</p>
+<header class="case-open bleed ground-dark">
+  <div class="bleed-wide case-open-inner">
+    <p class="spec case-crumb"><a href="/projects/">Projects</a> &middot; {e(pr["partLabel"])}</p>
+    <h1 class="case-title">{e(pr["name"])}</h1>
+    <div class="case-open-foot">
+      <p class="case-line">{e(pr["oneLine"])}</p>
+      <p class="spec case-meta">{sysname}{e(pr["years"])} &middot; {status_bit}</p>
+    </div>
+  </div>
+  {project_lead(pr["slug"])}
+</header>
 {honesty}
-<h2>What it does</h2>
-<p>{e(pr["whatItDoes"])}</p>
-{PROJ_MEDIA.get(pr["slug"], "")}
+<section class="case-section case-does">
+  <div class="case-does-head"><p class="spec">01 &mdash; The system</p>
+    <h2 class="case-h">What it does</h2></div>
+  <p class="case-does-text">{e(pr["whatItDoes"])}</p>
+</section>
+<section class="case-section case-evidence">
+  <p class="spec">02 &mdash; Evidence</p>
+  {PROJ_MEDIA.get(pr["slug"], "")}
+</section>
 {method}
 {design}
 {hyp}
@@ -1772,7 +1974,8 @@ def build_project_pages():
 """
         shell(f"projects/{pr['slug']}", f"{NAME} | {pr['name']}",
               f"{pr['oneLine']} By Bavantha Udugama, ITC University of Twente.",
-              body, extra_ld=[project_ld(pr)], og_type="article", crumb=pr["name"])
+              body, extra_ld=[project_ld(pr)], og_type="article", crumb=pr["name"],
+              extra_head=f'\n<link rel="stylesheet" href="/assets/case.css?v={asset_hash("/assets/case.css")}">')
 
 
 # ---------------------------------------------------------------- watch pages
@@ -2017,9 +2220,9 @@ def build_cv():
                     for f in CV["facts"])
 
     glance = "".join(
-        f'<div class="stat"><dt>{e(g["value"])}</dt>'
-        f'<dd><span class="stat-label">{e(g["label"])}</span>'
-        f'<span class="stat-detail">{e(g["detail"])}</span></dd></div>'
+        f'<div class="readout glance-item"><dt>{e(g["value"])}</dt>'
+        f'<dd><span class="readout-label">{e(g["label"])}</span>'
+        f'<span class="readout-note">{e(g["detail"])}</span></dd></div>'
         for g in CV["glance"])
 
     roles = ""
@@ -2117,7 +2320,7 @@ def build_cv():
 
     <section class="cv-section" id="profile">
       <h2>At a glance</h2>
-      <section class="stats stats-flat" aria-label="Key figures"><dl>{glance}</dl></section>
+      <dl class="glance" aria-label="Key figures">{glance}</dl>
     </section>
 
     <section class="cv-section" id="experience">

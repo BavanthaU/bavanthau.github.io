@@ -22,8 +22,8 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/projects.png">
 <meta name="twitter:title" content="Bavantha Udugama | Robotics research and engineering projects">
 <meta name="twitter:description" content="Monocular mapping with Mono-Hydra++, multi-task perception with M2H and M2H-MX, ATLAS exploration, commercial service robots and reconnaissance robotics.">
-<link rel="stylesheet" href="/assets/projects.css?v=997a3d344a">
-<link rel="stylesheet" href="/assets/site.css?v=f70c5fdb9b">
+<link rel="stylesheet" href="/assets/site.css?v=a2ddbbe69b">
+<link rel="stylesheet" href="/assets/projects.css?v=92c7fafa82">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -91,6 +91,100 @@
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
+  "@id": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#video-itc-loop",
+  "name": "A drone flies one corridor loop and the 3D scene graph builds itself",
+  "description": "M2H with Mono-Hydra builds a hierarchical 3D scene graph from one camera and an IMU while a drone flies a loop of the ITC building second floor. Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/itc-loop-poster.jpg",
+  "uploadDate": "2026-08-18",
+  "contentUrl": "https://bavanthau.github.io/media/video/itc-loop.mp4",
+  "width": 1280,
+  "height": 570,
+  "inLanguage": "en",
+  "isFamilyFriendly": true,
+  "creator": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "copyrightHolder": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "mainEntityOfPage": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/",
+  "duration": "PT42S",
+  "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/",
+  "hasPart": [
+    {
+      "@type": "Clip",
+      "name": "Title card, then the first stretch of corridor",
+      "startOffset": 0,
+      "endOffset": 8,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=0"
+    },
+    {
+      "@type": "Clip",
+      "name": "The five layers labelled: building, rooms, places, objects, mesh",
+      "startOffset": 8,
+      "endOffset": 16,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=8"
+    },
+    {
+      "@type": "Clip",
+      "name": "The first turn, and room nodes appear under the building node",
+      "startOffset": 16,
+      "endOffset": 24,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=16"
+    },
+    {
+      "@type": "Clip",
+      "name": "Three sides of the circuit mapped",
+      "startOffset": 24,
+      "endOffset": 36,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=24"
+    },
+    {
+      "@type": "Clip",
+      "name": "Loop closure, seen from above",
+      "startOffset": 36,
+      "endOffset": 42,
+      "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=36"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "@id": "https://bavanthau.github.io/projects/#video-scope-explorer",
+  "name": "Autonomous exploration in simulation",
+  "description": "Simulated indoor exploration run showing the robot's occupancy map growing as it selects routes through the environment.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/scope-explorer-poster.jpg",
+  "uploadDate": "2026-08-18",
+  "contentUrl": "https://bavanthau.github.io/media/video/scope-explorer.mp4",
+  "width": 1100,
+  "height": 892,
+  "inLanguage": "en",
+  "isFamilyFriendly": true,
+  "creator": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "copyrightHolder": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "mainEntityOfPage": "https://bavanthau.github.io/projects/",
+  "duration": "PT1M"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
   "@id": "https://bavanthau.github.io/projects/#video-humanoid-deployment",
   "name": "Service humanoids running autonomously on the Exness stand in Dubai, navigating a floor full of",
   "description": "Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture.",
@@ -146,6 +240,107 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "@id": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#video-peradeniya-2017",
+  "name": "A reconnaissance robot explores and maps a maze it has never seen",
+  "description": "The undergraduate project video for the 2017 Peradeniya reconnaissance robot: a holonomic platform with a laser range finder and stereo cameras explores an unknown plywood maze, builds the occupancy map as it goes, and reconstructs the space in 3D. Project video for the 2017 Peradeniya reconnaissance robot. A holonomic robot carrying a laser range finder and stereo cameras drives itself through a plywood maze while an inset occupancy map of the maze fills in, and the three student developers are named on camera beside their parts of the system.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg",
+  "uploadDate": "2026-09-06",
+  "contentUrl": "https://bavanthau.github.io/media/video/peradeniya-2017.mp4",
+  "width": 1280,
+  "height": 720,
+  "inLanguage": "en",
+  "isFamilyFriendly": true,
+  "creator": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "copyrightHolder": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "mainEntityOfPage": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/",
+  "duration": "PT3M4S",
+  "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/",
+  "hasPart": [
+    {
+      "@type": "Clip",
+      "name": "Where a robot has to go instead of a person",
+      "startOffset": 0,
+      "endOffset": 16,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=0"
+    },
+    {
+      "@type": "Clip",
+      "name": "Title, and the department behind it",
+      "startOffset": 16,
+      "endOffset": 24,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=16"
+    },
+    {
+      "@type": "Clip",
+      "name": "The system: holonomic platform, RGB-D and laser range finder, planner",
+      "startOffset": 24,
+      "endOffset": 32,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=24"
+    },
+    {
+      "@type": "Clip",
+      "name": "Stereo vision: calibration, disparity, depth, point cloud stitching",
+      "startOffset": 32,
+      "endOffset": 44,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=32"
+    },
+    {
+      "@type": "Clip",
+      "name": "Exploration planning: smallest gap first, adaptive stepping, neighbours",
+      "startOffset": 44,
+      "endOffset": 58,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=44"
+    },
+    {
+      "@type": "Clip",
+      "name": "Monte Carlo localisation and the recovered trajectory",
+      "startOffset": 58,
+      "endOffset": 72,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=58"
+    },
+    {
+      "@type": "Clip",
+      "name": "Building the plywood arena",
+      "startOffset": 72,
+      "endOffset": 84,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=72"
+    },
+    {
+      "@type": "Clip",
+      "name": "The exploration run, with the occupancy map filling in",
+      "startOffset": 84,
+      "endOffset": 155,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=84"
+    },
+    {
+      "@type": "Clip",
+      "name": "The stitched 3D map of the arena",
+      "startOffset": 155,
+      "endOffset": 176,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=155"
+    },
+    {
+      "@type": "Clip",
+      "name": "Supervisors and credits",
+      "startOffset": 176,
+      "endOffset": 184,
+      "url": "https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/#t=176"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     {
@@ -186,38 +381,53 @@
 <main id="main" class="site-main">
 <div class="wrap page-content">
 
-<div class="projects-overview">
-  <header class="projects-intro"><p class="eyebrow">Research & engineering</p><h1>Projects</h1>
-    <p class="standfirst">I build perception, mapping and navigation systems for robots, from the first model to deployment. These projects span my PhD research, commercial robotics and the work that got me started.</p>
-    <nav class="project-jumps" aria-label="Project categories"><a href="#thesis">Thesis research</a><a href="#commercial">Commercial robotics</a><a href="#undergraduate">Undergraduate research</a></nav></header>
+<header class="page-open">
+  <p class="spec">Research &amp; engineering</p>
+  <h1 class="page-open-title">Projects</h1>
+  <p class="page-open-lede">I build perception, mapping and navigation systems for robots, from the first model to deployment. These projects span my PhD research, commercial robotics and the work that got me started.</p>
+  <nav class="page-open-jumps spec" aria-label="Project categories"><a href="#thesis">Thesis research</a><a href="#commercial">Commercial robotics</a><a href="#undergraduate">Undergraduate research</a></nav>
+</header>
 
 <section class="project-group" id="thesis" aria-labelledby="thesis-title">
-  <header class="project-group-heading"><p class="eyebrow">01 / Thesis research</p>
-    <h2 id="thesis-title">Structuring the Seen, Exploring the Unseen</h2>
-    <p class="project-meta">University of Twente · 2022–2026</p><p class="section-intro">Monocular perception, 3D mapping and learned exploration, brought together on a custom drone.</p></header>
-  <div class="project-list"><article class="project-entry"><p class="eyebrow">Spatial understanding</p><h3>Mono-Hydra++</h3><p class="project-status">2026 manuscript · Under review</p><p class="project-description">I built a monocular scene-graph mapping system that combines learned perception with visual-inertial estimation. Sparse predicted-depth factors anchor the pose estimate, while predictions are aligned across frames before fusion. The ROS 2 stack runs on the drone’s Jetson Orin NX with a ZED X One camera.</p><ul class="project-tags" aria-label="Technologies"><li>C++</li><li>ROS 2</li><li>Factor graphs</li><li>Jetson Orin NX</li></ul><div class="project-links"><a href="/projects/mono-hydra-plus/">Project &amp; demos <span aria-hidden="true">↗</span></a><a href="https://github.com/BavanthaU/mono-hydra-pp">Code <span aria-hidden="true">↗</span></a><a href="/publications/mono-hydra-plus/">Manuscript <span aria-hidden="true">↗</span></a></div></article><article class="project-entry"><p class="eyebrow">Multi-task perception</p><h3>M2H / M2H-MX</h3><p class="project-status">IROS 2025 · ICRA 2026 workshop</p><p class="project-description">I designed how depth, semantics, surface normals and edges share information in one network. M2H uses DINOv2 with windowed cross-task attention; M2H-MX adds LoRA-adapted DINOv3 features and register-gated Mamba context. They provide the perception front end for Mono-Hydra++.</p><ul class="project-tags" aria-label="Technologies"><li>PyTorch</li><li>DINOv2 / DINOv3</li><li>Multi-task learning</li><li>TensorRT</li></ul><div class="project-links"><a href="/projects/m2h/">M2H project <span aria-hidden="true">↗</span></a><a href="/projects/m2h-mx/">M2H-MX project <span aria-hidden="true">↗</span></a><a href="https://github.com/UAV-Centre-ITC/M2H">M2H code <span aria-hidden="true">↗</span></a><a href="https://github.com/BavanthaU/m2h_mx">M2H-MX code <span aria-hidden="true">↗</span></a></div></article><article class="project-entry"><p class="eyebrow">Belief-graph based indoor exploration</p><h3>ATLAS</h3><p class="project-status">2025–present · Tested on the drone</p><p class="project-description">I developed ATLAS to choose exploration goals using a compact belief graph of places and open ends. It learns first from a classical expert, then through reinforcement learning. Built in PyTorch and tested in Isaac Sim and Isaac Lab, it is integrated over ROS 2 with Mono-Hydra++ maps and has been tested on my custom drone.</p><ul class="project-tags" aria-label="Technologies"><li>Reinforcement learning</li><li>Belief graphs</li><li>Isaac Sim / Isaac Lab</li><li>ROS 2</li></ul><div class="project-links"><a href="/projects/learned-exploration/">Exploration overview &amp; video <span aria-hidden="true">↗</span></a></div></article></div><p class="project-history">The earlier Mono-Hydra system established the monocular mapping pipeline in 2023. <a href="/projects/mono-hydra/">Mono-Hydra project</a>.</p>
-<aside class="project-platform" aria-labelledby="platform-title">
-  <picture><source type="image/avif" srcset="/media/images/drone-side-480.avif 480w, /media/images/drone-side-960.avif 960w, /media/images/drone-side-1600.avif 1600w" sizes="(min-width: 62em) 25rem, 90vw"><source type="image/webp" srcset="/media/images/drone-side-480.webp 480w, /media/images/drone-side-960.webp 960w, /media/images/drone-side-1600.webp 1600w" sizes="(min-width: 62em) 25rem, 90vw"><img src="/media/images/drone-side-1600.jpg" alt="The custom quadrotor on a wooden table, seen from the side. A carbon fibre frame with a protective cage around four red propellers, the flight controller and wiring visible on top, and the compute board mounted underneath." width="4032" height="3024" loading="lazy" decoding="async"></picture>
-  <div><p class="eyebrow">Embedded deployment</p><h3 id="platform-title">Built to run on the drone</h3>
-    <p>A custom quadrotor carrying a ZED X One camera and a Jetson Orin NX 16GB. M2H-MX inference is exported through ONNX and optimised with TensorRT FP16.</p>
-    <p class="platform-rate"><strong>25.5 fps</strong> perception throughput</p>
-    <p class="platform-conditions">256 × 192 input · Jetson Orin NX 16GB · TensorRT FP16</p>
-    <a href="/projects/mono-hydra-plus/">The platform &amp; mapping system ↗</a></div>
+  <div class="chapter-head">
+    <p class="spec"><span>01 / Thesis research</span><span>University of Twente · 2022–2026</span></p>
+    <h2 class="chapter-title" id="thesis-title">Structuring the Seen, Exploring the Unseen</h2>
+    <p class="chapter-lede">Monocular perception, 3D mapping and learned exploration, brought together on a custom drone.</p>
+  </div>
+  <div class="entries"><article class="entry entry-feature"><div class="entry-media"><figure class="v-figure entry-clip"><div class="v-wrap"><video poster="/media/video/itc-loop-poster.jpg" width="1280" height="570" muted loop playsinline preload="none" aria-label="Screen recording of the scene graph being built while the drone flies the ITC second floor loop. The graph grows from nothing to a full corridor circuit, with live RGB, semantic, and depth views alongside."><source src="/media/video/itc-loop.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>The scene graph forming over one loop of the ITC second floor, from the first frame to loop closure. Playback is 10x real time. Live RGB, predicted semantics, and predicted depth run down the right.<a class="watch-link" href="/videos/scene-graph-drone-corridor-loop/">Watch the full clip</a></figcaption></figure></div><div class="entry-copy"><p class="spec entry-index">01.1 &mdash; Spatial understanding</p><h3 class="entry-title">Mono-Hydra++</h3><p class="spec entry-status">2026 manuscript · Under review</p><p class="entry-text">I built a monocular scene-graph mapping system that combines learned perception with visual-inertial estimation. Sparse predicted-depth factors anchor the pose estimate, while predictions are aligned across frames before fusion. The ROS 2 stack runs on the drone’s Jetson Orin NX with a ZED X One camera.</p><ul class="entry-tags" aria-label="Technologies"><li>C++</li><li>ROS 2</li><li>Factor graphs</li><li>Jetson Orin NX</li></ul><div class="entry-links"><a href="/projects/mono-hydra-plus/">Project &amp; demos <span aria-hidden="true">&#8599;</span></a><a href="https://github.com/BavanthaU/mono-hydra-pp">Code <span aria-hidden="true">&#8599;</span></a><a href="/publications/mono-hydra-plus/">Manuscript <span aria-hidden="true">&#8599;</span></a></div></div></article><article class="entry entry-split"><div class="entry-media"><figure class="wipe wipe-compact" data-wipe><div class="wipe-stage"><div class="wipe-pane" data-pane="0"><picture><source type="image/avif" srcset="/media/images/wipe-rgb-480.avif 480w, /media/images/wipe-rgb-848.avif 848w" sizes="(min-width: 62em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-rgb-480.webp 480w, /media/images/wipe-rgb-848.webp 848w" sizes="(min-width: 62em) 20rem, 90vw"><img src="/media/images/wipe-rgb-848.jpg" alt="A corridor in the ITC building seen by the monocular camera: doors on the right, artwork on the walls, an orange floor receding into the distance." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">RGB input</span></div><div class="wipe-pane" data-pane="1"><picture><source type="image/avif" srcset="/media/images/wipe-depth-480.avif 480w, /media/images/wipe-depth-848.avif 848w" sizes="(min-width: 62em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-depth-480.webp 480w, /media/images/wipe-depth-848.webp 848w" sizes="(min-width: 62em) 20rem, 90vw"><img src="/media/images/wipe-depth-848.jpg" alt="Predicted depth for the same corridor frame, rendered as a colour field where blue is near and red is the far end of the corridor." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted depth</span></div><div class="wipe-pane" data-pane="2"><picture><source type="image/avif" srcset="/media/images/wipe-semantics-480.avif 480w, /media/images/wipe-semantics-848.avif 848w" sizes="(min-width: 62em) 20rem, 90vw"><source type="image/webp" srcset="/media/images/wipe-semantics-480.webp 480w, /media/images/wipe-semantics-848.webp 848w" sizes="(min-width: 62em) 20rem, 90vw"><img src="/media/images/wipe-semantics-848.jpg" alt="Predicted semantic labels for the same corridor frame, with flat colour regions for wall, floor, ceiling, and door." width="848" height="480" loading="lazy" decoding="async"></picture><span class="wipe-label">Predicted semantics</span></div></div><div class="wipe-steps" data-wipe-steps hidden role="group" aria-label="Choose the layer to show"><button type="button" class="wipe-step" data-wipe-step="0" aria-pressed="false">RGB input</button><button type="button" class="wipe-step" data-wipe-step="1" aria-pressed="false">Predicted depth</button><button type="button" class="wipe-step" data-wipe-step="2" aria-pressed="true">Predicted semantics</button></div><label class="wipe-control" data-wipe-control hidden><span class="sr-only">Blend between RGB, predicted depth, and predicted semantics</span><input type="range" min="0" max="200" value="200" step="1" data-wipe-input></label><figcaption>One frame from the ITC corridor sequence: camera image, predicted depth, predicted labels. Pick a layer, or drag to blend between them.</figcaption></figure></div><div class="entry-copy"><p class="spec entry-index">01.2 &mdash; Multi-task perception</p><h3 class="entry-title">M2H / M2H-MX</h3><p class="spec entry-status">IROS 2025 · ICRA 2026 workshop</p><p class="entry-text">I designed how depth, semantics, surface normals and edges share information in one network. M2H uses DINOv2 with windowed cross-task attention; M2H-MX adds LoRA-adapted DINOv3 features and register-gated Mamba context. They provide the perception front end for Mono-Hydra++.</p><ul class="entry-tags" aria-label="Technologies"><li>PyTorch</li><li>DINOv2 / DINOv3</li><li>Multi-task learning</li><li>TensorRT</li></ul><div class="entry-links"><a href="/projects/m2h/">M2H project <span aria-hidden="true">&#8599;</span></a><a href="/projects/m2h-mx/">M2H-MX project <span aria-hidden="true">&#8599;</span></a><a href="https://github.com/UAV-Centre-ITC/M2H">M2H code <span aria-hidden="true">&#8599;</span></a><a href="https://github.com/BavanthaU/m2h_mx">M2H-MX code <span aria-hidden="true">&#8599;</span></a></div></div></article><article class="entry entry-flip"><div class="entry-media"><figure class="v-figure entry-clip"><div class="v-wrap"><video poster="/media/video/scope-explorer-poster.jpg" width="1100" height="892" muted loop playsinline preload="none" aria-label="Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment."><source src="/media/video/scope-explorer.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>Autonomous exploration in simulation. The robot holds an occupancy map it has built itself and commits to one certified route at a time, so the map fills in region by region rather than by wandering. 60 second excerpt.</figcaption></figure></div><div class="entry-copy"><p class="spec entry-index">01.3 &mdash; Belief-graph based indoor exploration</p><h3 class="entry-title">ATLAS</h3><p class="spec entry-status">2025–present · Tested on the drone</p><p class="entry-text">I developed ATLAS to choose exploration goals using a compact belief graph of places and open ends. It learns first from a classical expert, then through reinforcement learning. Built in PyTorch and tested in Isaac Sim and Isaac Lab, it is integrated over ROS 2 with Mono-Hydra++ maps and has been tested on my custom drone.</p><ul class="entry-tags" aria-label="Technologies"><li>Reinforcement learning</li><li>Belief graphs</li><li>Isaac Sim / Isaac Lab</li><li>ROS 2</li></ul><div class="entry-links"><a href="/projects/learned-exploration/">Exploration overview &amp; video <span aria-hidden="true">&#8599;</span></a></div></div></article></div><p class="group-note spec-lg">The earlier Mono-Hydra system established the monocular mapping pipeline in 2023. <a href="/projects/mono-hydra/">Mono-Hydra project</a>.</p>
+<aside class="platform-band bleed ground-dark" aria-labelledby="platform-title">
+  <div class="bleed-wide platform-band-inner">
+    <div class="platform-band-media"><picture><source type="image/avif" srcset="/media/images/drone-top-480.avif 480w, /media/images/drone-top-960.avif 960w, /media/images/drone-top-1600.avif 1600w" sizes="(min-width: 62em) 34rem, 92vw"><source type="image/webp" srcset="/media/images/drone-top-480.webp 480w, /media/images/drone-top-960.webp 960w, /media/images/drone-top-1600.webp 1600w" sizes="(min-width: 62em) 34rem, 92vw"><img src="/media/images/drone-top-1600.jpg" alt="The same quadrotor from directly above, showing the square carbon frame, four red propellers inside their cage, the orange lithium battery strapped across the centre, and a cooling fan on the compute board." width="4032" height="3024" loading="lazy" decoding="async"></picture></div>
+    <div class="platform-band-copy">
+      <p class="spec">Embedded deployment</p>
+      <h3 id="platform-title">Built to run on the drone</h3>
+      <p>A custom quadrotor carrying a ZED X One camera and a Jetson Orin NX 16GB. M2H-MX inference is exported through ONNX and optimised with TensorRT FP16.</p>
+      <div class="readout readout-emb">
+        <dl><dt>25.5 fps</dt>
+          <dd><span class="readout-label">perception throughput</span>
+            <span class="readout-note">256 × 192 input · Jetson Orin NX 16GB · TensorRT FP16</span></dd></dl>
+      </div>
+      <p><a href="/projects/mono-hydra-plus/">The platform &amp; mapping system <span aria-hidden="true">&#8599;</span></a></p>
+    </div>
+  </div>
 </aside>
 </section>
 <section class="project-group" id="commercial" aria-labelledby="commercial-title">
-  <header class="project-group-heading"><p class="eyebrow">02 / Commercial robotics</p>
-    <h2 id="commercial-title">Humanoid visitor guidance &amp; interaction</h2>
-    <p class="project-meta">Expert Hub Robotics · 2020–2022</p><p class="section-intro">I built the navigation software and led deployments of more than 30 robots for over 10 enterprise clients, including Expo 2020 Dubai.</p></header>
-  <div class="project-list"><article class="project-entry"><p class="eyebrow">Navigation, sensing &amp; interaction</p><h3>Robots working with the public</h3><p class="project-status">2020–2021 deployments</p><p class="project-description">I integrated ROS and GMapping navigation, LiDAR and 3D obstacle sensing with robot SDKs and voice assistance. As the founding robotics engineer and later a three-engineer team lead, I worked on site to get the robots navigating and interacting reliably around visitors.</p><ul class="project-tags" aria-label="Technologies"><li>ROS</li><li>GMapping</li><li>LiDAR</li><li>Robot SDKs</li></ul><div class="project-links"><a href="/cv/#expert-hub-robotics">Deployment videos &amp; my role <span aria-hidden="true">↗</span></a></div></article></div><div class="project-footage"><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/humanoid-deployment-poster.jpg" width="1100" height="618" muted loop playsinline preload="none" aria-label="Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture."><source src="/media/video/humanoid-deployment.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>Service robots navigating the Exness stand in Dubai.</figcaption></figure><figure class="v-figure  is-portrait"><div class="v-wrap"><video poster="/media/video/humanoid-mapping-poster.jpg" width="1000" height="1778" muted loop playsinline preload="none" aria-label="A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot&#x27;s pose marked in red."><source src="/media/video/humanoid-mapping.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>The venue map and robot pose, built with GMapping SLAM.</figcaption></figure></div><div class="project-press"><span>Deployment coverage</span><a href="https://www.leaprate.com/broker/exclusive-pandemic-boosts-use-of-ai-and-robotics-exness-employs-robots-at-dubai-expo/">Exness deployment · LeapRate, 2020 <span aria-hidden="true">↗</span></a><a href="https://gulfnews.com/expo-2020/have-you-met-ahmed-and-hamda-at-expo-2020-dubai-1.83856690">Expo 2020 Dubai · Gulf News, 2021 <span aria-hidden="true">↗</span></a></div>
+  <div class="chapter-head">
+    <p class="spec"><span>02 / Commercial robotics</span><span>Expert Hub Robotics · 2020–2022</span></p>
+    <h2 class="chapter-title" id="commercial-title">Humanoid visitor guidance &amp; interaction</h2>
+    <p class="chapter-lede">I built the navigation software and led deployments of more than 30 robots for over 10 enterprise clients, including Expo 2020 Dubai.</p>
+  </div>
+  <div class="entries"><article class="entry entry-split"><div class="entry-media"><figure class="v-figure entry-clip"><div class="v-wrap"><video poster="/media/video/humanoid-deployment-poster.jpg" width="1100" height="618" muted loop playsinline preload="none" aria-label="Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture."><source src="/media/video/humanoid-deployment.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>Service humanoids running autonomously on the Exness stand in Dubai, navigating a floor full of people and furniture. Deployment work at Expert Hub Robotics, where I built the navigation stack and led the on-site rollout.</figcaption></figure></div><div class="entry-copy"><p class="spec entry-index">02.1 &mdash; Navigation, sensing &amp; interaction</p><h3 class="entry-title">Robots working with the public</h3><p class="spec entry-status">2020–2021 deployments</p><p class="entry-text">I integrated ROS and GMapping navigation, LiDAR and 3D obstacle sensing with robot SDKs and voice assistance. As the founding robotics engineer and later a three-engineer team lead, I worked on site to get the robots navigating and interacting reliably around visitors.</p><ul class="entry-tags" aria-label="Technologies"><li>ROS</li><li>GMapping</li><li>LiDAR</li><li>Robot SDKs</li></ul><div class="entry-links"><a href="/cv/#expert-hub-robotics">Deployment videos &amp; my role <span aria-hidden="true">&#8599;</span></a></div></div></article></div><div class="group-aside"><figure class="v-figure  is-portrait"><div class="v-wrap"><video poster="/media/video/humanoid-mapping-poster.jpg" width="1000" height="1778" muted loop playsinline preload="none" aria-label="A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot&#x27;s pose marked in red."><source src="/media/video/humanoid-mapping.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>The venue map and robot pose, built with GMapping SLAM.</figcaption></figure><div class="group-press"><p class="spec">Deployment coverage</p><div class="group-press-links"><a href="https://www.leaprate.com/broker/exclusive-pandemic-boosts-use-of-ai-and-robotics-exness-employs-robots-at-dubai-expo/">Exness deployment · LeapRate, 2020 <span aria-hidden="true">&#8599;</span></a><a href="https://gulfnews.com/expo-2020/have-you-met-ahmed-and-hamda-at-expo-2020-dubai-1.83856690">Expo 2020 Dubai · Gulf News, 2021 <span aria-hidden="true">&#8599;</span></a></div></div></div>
 </section>
 <section class="project-group" id="undergraduate" aria-labelledby="undergraduate-title">
-  <header class="project-group-heading"><p class="eyebrow">03 / Undergraduate research</p>
-    <h2 id="undergraduate-title">Autonomous reconnaissance robot</h2>
-    <p class="project-meta">University of Peradeniya · 2017</p><p class="section-intro">My first exploration and mapping project, built in a three-student team.</p></header>
-  <div class="project-list"><article class="project-entry"><p class="eyebrow">Bachelor’s research project</p><h3>Mapping an unknown environment</h3><p class="project-status">2017</p><p class="project-description">I developed the SLAM system, combining 2D LiDAR mapping with stereo vision for object geometry. The project produced three papers and received the IESL Best Undergraduate Project and IET Sri Lanka Best Technical Paper awards.</p><ul class="project-tags" aria-label="Technologies"><li>SLAM</li><li>2D LiDAR</li><li>Stereo vision</li><li>Exploration planning</li></ul><div class="project-links"><a href="/videos/lidar-exploration-mapping-peradeniya/">Robot demo <span aria-hidden="true">↗</span></a><a href="https://doi.org/10.1109/ICIINFS.2017.8300386">Exploration planning paper <span aria-hidden="true">↗</span></a><a href="https://arxiv.org/abs/2302.01387">Stereo vision &amp; laser ranging paper <span aria-hidden="true">↗</span></a></div></article></div>
+  <div class="chapter-head">
+    <p class="spec"><span>03 / Undergraduate research</span><span>University of Peradeniya · 2017</span></p>
+    <h2 class="chapter-title" id="undergraduate-title">Autonomous reconnaissance robot</h2>
+    <p class="chapter-lede">My first exploration and mapping project, built in a three-student team.</p>
+  </div>
+  <div class="entries"><article class="entry entry-feature"><div class="entry-media"><figure class="v-figure entry-clip"><div class="v-wrap"><video poster="/media/video/peradeniya-2017-poster.jpg" width="1280" height="720" controls playsinline preload="none" aria-label="Project video for the 2017 Peradeniya reconnaissance robot. A holonomic robot carrying a laser range finder and stereo cameras drives itself through a plywood maze while an inset occupancy map of the maze fills in, and the three student developers are named on camera beside their parts of the system."><source src="/media/video/peradeniya-2017.webm" type="video/webm"><source src="/media/video/peradeniya-2017.mp4" type="video/mp4"></video></div><figcaption>The 2017 Peradeniya project video. A holonomic robot with a laser range finder and stereo cameras explores a plywood maze it has never seen, builds the occupancy map in the inset, and finishes with the stitched 3D reconstruction of the arena. The localisation and control segment, which was mine, starts at 0:59.<a class="watch-link" href="/videos/lidar-exploration-mapping-peradeniya/">Watch the full clip</a></figcaption></figure></div><div class="entry-copy"><p class="spec entry-index">03.1 &mdash; Bachelor’s research project</p><h3 class="entry-title">Mapping an unknown environment</h3><p class="spec entry-status">2017</p><p class="entry-text">I developed the SLAM system, combining 2D LiDAR mapping with stereo vision for object geometry. The project produced three papers and received the IESL Best Undergraduate Project and IET Sri Lanka Best Technical Paper awards.</p><ul class="entry-tags" aria-label="Technologies"><li>SLAM</li><li>2D LiDAR</li><li>Stereo vision</li><li>Exploration planning</li></ul><div class="entry-links"><a href="/videos/lidar-exploration-mapping-peradeniya/">Robot demo <span aria-hidden="true">&#8599;</span></a><a href="https://doi.org/10.1109/ICIINFS.2017.8300386">Exploration planning paper <span aria-hidden="true">&#8599;</span></a><a href="https://arxiv.org/abs/2302.01387">Stereo vision &amp; laser ranging paper <span aria-hidden="true">&#8599;</span></a></div></div></article></div>
 </section>
-</div>
 
 </div>
 </main>

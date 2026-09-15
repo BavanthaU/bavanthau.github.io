@@ -1,0 +1,80 @@
+/* Project case studies. Loaded only on /projects/<slug>/.
+
+   A case study opens on its own output at full width, then alternates between what the
+   system does and what it produced. Prose stays inside a reading measure; evidence does not. */
+
+.page-projects .page-content { padding-top: 0; }
+
+.case-open { padding-top: clamp(2.5rem, 6vw, 5rem); padding-bottom: 0; }
+.case-crumb a { color: var(--accent); }
+.case-title {
+  margin: 1.2rem 0 0;
+  font-family: var(--display);
+  font-size: var(--t-h1);
+  font-weight: 670;
+  line-height: 0.9;
+  letter-spacing: var(--track-display);
+}
+.case-open-foot {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: clamp(1.5rem, 3vw, 2.2rem);
+  padding-bottom: clamp(2.2rem, 5vw, 3.4rem);
+}
+.case-line { margin: 0; max-width: 48ch; color: var(--ink-2); font-size: var(--t-lede); line-height: 1.5; }
+.case-meta { color: var(--ink-2); }
+@media (min-width: 58em) {
+  .case-open-foot { grid-template-columns: minmax(0, 1fr) auto; align-items: end; column-gap: 3rem; }
+  .case-meta { text-align: right; }
+}
+
+/* The opening plate runs the full width of the viewport. */
+.case-lead { margin: 0; }
+.case-lead-media { border-top: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); }
+.case-lead-media img, .case-lead-media video { display: block; width: 100%; height: auto; }
+.case-lead figcaption {
+  width: min(100%, 108rem);
+  margin-inline: auto;
+  padding: 0.85rem clamp(1.1rem, 3vw, 2.5rem) 0;
+  max-width: 78ch;
+  color: var(--ink-2);
+}
+
+.case-note { margin-top: clamp(2rem, 5vw, 3rem); }
+.case-section { margin-block: var(--chapter); }
+.case-h {
+  margin: 0.7rem 0 1.1rem;
+  font-family: var(--display);
+  font-size: var(--t-h2);
+  font-weight: 640;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.case-does { display: grid; gap: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--ink); }
+.case-does-head .case-h { margin-bottom: 0; max-width: 14ch; }
+.case-does-text { margin: 0; max-width: 60ch; color: var(--ink-2); font-size: var(--t-lede); line-height: 1.6; }
+@media (min-width: 58em) {
+  .case-does { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); column-gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+}
+
+/* Evidence gets more width than the prose around it. */
+.case-evidence { padding-top: 1.2rem; border-top: 1px solid var(--rule); }
+.case-evidence > figure, .case-evidence > .wipe { margin-block: clamp(1.8rem, 4vw, 3rem); }
+.case-evidence figcaption { max-width: 74ch; }
+
+.case-results { margin-block: var(--chapter); padding-block: clamp(3rem, 7vw, 5rem); }
+.case-numbers { list-style: none; margin: clamp(1.5rem, 4vw, 2.5rem) 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule-strong); }
+.case-numbers li { max-width: none; padding-block: clamp(1rem, 2.5vw, 1.5rem); border-bottom: 1px solid var(--rule); }
+.case-number {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 0.9rem + 1.4vw, 2rem);
+  font-weight: 620;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.case-provenance { margin-top: 1.2rem; max-width: 70ch; color: var(--ink-2); line-height: 1.6; text-transform: none; letter-spacing: 0.02em; }
+
+.case-index .index-row { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; }
+.case-index .spec { color: var(--ink-2); }

@@ -1,31 +1,59 @@
 # Design system
 
-Current visual direction, implemented in August 2026.
+Current visual direction. Rebuilt September 2026 on the `redesign` branch.
 
 ## The idea
 
-The site behaves like a spatial-perception instrument rather than a generic portfolio. Its visual
-language comes from the work itself:
+The site is designed outward from the work rather than into a portfolio template. Its visual
+material is the actual output of the systems — camera frames, predicted depth and semantics,
+estimated trajectories, meshes, scene graphs, deployment footage — and the interface exists to
+frame and annotate that output at the size it deserves.
 
-- the sparse grid of a point-cloud viewer;
-- continuous depth fields and categorical semantic layers;
-- measurements with their conditions attached;
-- the scene graph hierarchy, mesh, objects, places, rooms, building;
-- real system output as the primary visual evidence.
+Three rules follow from that:
 
-The homepage hero makes the argument in one screen: one camera produces a map a robot can reason
-with, the system runs on the drone, and the claims below are measured operating points. The rest of
-the page is paced as a sequence of research chapters rather than an undifferentiated media feed.
+1. **Evidence is the decoration.** Every image on the site is a paper figure, a prediction, or
+   real footage. Nothing is illustrative and nothing is generated.
+2. **The interface may frame evidence; it must not invent a result.** Frames keep their own
+   proportions rather than being cropped into a shared card ratio.
+3. **Numbers travel with their conditions.** A figure never appears without its dataset,
+   resolution and hardware.
 
-## Principles
+## Grounds
 
-1. Evidence is the decoration. Every image is a paper figure or real deployment footage.
-2. The interface can frame and annotate evidence, but it must not invent a result.
-3. Numbers always keep their dataset, resolution, and hardware conditions.
-4. Amber is reserved for the embedded Jetson operating point. Status uses teal or neutral styling.
-5. JavaScript enhances theme choice, video, and comparison controls. It is not needed for layout or
-   content.
-6. Dark and light modes are both first-class designs.
+The page has two grounds, and the change between them is how the reading is paced.
+
+- **Paper** — the light or dark page ground, for reading. Prose sits in a measure; evidence
+  breaks out of it.
+- **Instrument** (`.ground-dark`) — a near-black full-bleed band for anything that is system
+  output or a measured claim. It keeps its own colours in both themes, because perception
+  output was authored on black. Used for the hero, the pixels-to-map sequence, the error
+  plot, the platform band, case-study openings and the outro.
+
+`.bleed` takes a block out of the reading column to the full viewport; `.bleed-wide` and
+`.bleed-inner` put content back inside it at two widths.
+
+## The signature sequence
+
+`/` carries one interaction, the pixels-to-map stage: five representations of the same
+problem — RGB, predicted depth, predicted semantics, estimated trajectory, scene graph —
+with a note for each.
+
+It ships as a plain numbered sequence of frame and explanation. That is the fallback and it is
+complete on its own. `assets/stage.js` upgrades it to a sticky stage driven by the notes beside
+it, and only where there is room (≥ 58em) and the reader has not asked for reduced motion.
+Scrolling is native; nothing is hijacked; no understanding depends on the motion.
+
+## No cards
+
+A card is used only where the thing genuinely is a discrete object you could pick up — a link
+to another clip, for instance. Everything else is built from rules, scale and space:
+
+- `.index` / `.index-row` — the editorial index that replaced card grids for selected work,
+  code and papers;
+- `.chapter-head` — a hairline, a mono index line, a title and a lede;
+- `.readout` — a measurement set as the composition, with its label and conditions beneath;
+- `.entry-feature` / `.entry-split` / `.entry-flip` — the three project-index compositions,
+  chosen per project by the proportions of its own media.
 
 ## Palette
 
@@ -38,52 +66,47 @@ the page is paced as a sequence of research chapters rather than an undifferenti
 | `--accent` | `#006F6B` | `#5AD1CA` | navigation, hierarchy, links |
 | `--signal` | `#945500` | `#FFBD4A` | embedded Jetson operating point only |
 | `--rule` | `#C6D1CF` | `#263639` | structure and measurement grid |
+| `--stage` | `#071113` | `#040B0D` | the instrument ground |
 
-Body, supporting, and accent text exceed WCAG AA contrast against their page grounds. The light
-signal colour is deliberately darker than the original amber so embedded table rows also meet the
-4.5:1 text threshold.
+Colour beyond this comes from the media itself — semantic class colours, depth ramps,
+trajectory overlays. The interface around it stays disciplined.
 
 ## Type
 
-No web fonts are requested. Display type uses the narrowest available system sans, body copy uses
-the system UI stack, and all measurements, metadata, controls, and conditions use the system
-monospace stack with tabular numerals.
+No web fonts are requested; the site still makes no external request. Display type uses the
+narrowest available system sans, body copy the system UI stack, and every measurement, label
+and condition the system monospace stack with tabular numerals.
 
-The homepage pitch and page titles use large display type. Dense research metadata remains small
-and monospaced, preserving the distinction between argument and provenance.
+Scale is tokenised and fluid, so a heading fills the measure it was composed against at any
+width: `--t-display` (hero only), `--t-h1`, `--t-h2`, `--t-h3`, `--t-lede`, `--t-body`,
+`--t-sm`, `--t-mono`, `--t-micro`. Vertical rhythm comes from `--chapter` and
+`--chapter-tight` so pacing is tuned in one place.
 
 ## Layout
 
-- The shell is capped at 82 rem, with a sticky, translucent navigation bar.
-- The hero is a two-column evidence composition above 52 rem and a single column below it.
-- Homepage sections have a persistent chapter rail at desktop sizes and source-order labels on
-  mobile.
-- Media may break beyond the reading measure while prose remains constrained.
-- Publication lists, result units, methods, and timelines use ruled structures instead of floating
-  cards.
-- Every page remains usable at 320 px. Primary navigation fits at that width and never requires a
-  menu script.
+- The shell is capped at 82rem; long-form pages (`research`, `publications`, `contact`) narrow
+  to 68rem so prose reads in a column.
+- Media is allowed to dominate. The hero clip, case-study openings and the platform band run
+  edge to edge; the signature stage takes roughly two thirds of the viewport.
+- Project entries do not share one component. Each uses the composition its own output asks
+  for, declared as `layout` in `data/projects.json`.
+- Every page remains usable at 320px, and no page scrolls horizontally. Diagrams and wide
+  plots scroll inside their own container.
 
 ## Motion and interaction
 
-The descent plot draws once and its measured points land in sequence. Wipe comparisons use a short
-linear blend. Hover transitions are limited to navigation and action affordances. Under
-`prefers-reduced-motion: reduce`, all motion is effectively removed and videos do not autoplay.
+The masthead joins the hero's dark ground and hands itself back at the top of the page. The
+descent plot draws once. The signature stage crossfades between representations and plays a
+clip only while its step is showing. Hover transitions are limited to navigation and action
+affordances.
 
-Theme choice is stored locally. The inline theme bootstrap prevents a light-to-dark flash, while
-the control itself remains progressive enhancement and is hidden without JavaScript.
-
-## Social cards
-
-`tools/og.py` mirrors the live visual system with the dark measurement grid, BU locator mark, teal
-status point, and a framed crop of real research output. It never uses the amber signal colour for
-review or work-in-progress status.
+Under `prefers-reduced-motion: reduce` the stage stays a static sequence, all motion is
+removed, and videos do not autoplay.
 
 ## Constraints preserved
 
-- no CDN or third-party page-load request;
+- no CDN or third-party page-load request, no framework, no npm;
 - no stock imagery, generated imagery, icon library, skill meters, or invented charts;
-- visible keyboard focus and logical source order;
-- one `h1` per page;
 - content and navigation remain available without JavaScript;
+- visible keyboard focus and logical source order; one `h1` per page;
 - the YouTube facade uses a local poster and contacts YouTube only after activation.

@@ -360,7 +360,69 @@
       "stairs-zupt": "Onboard odometry during a stairwell test. MOVING and ZUPT STATIONARY indicate motion and zero-velocity updates.",
       "scope-explorer": "An exploration run in simulation, shown as a 60-second excerpt.",
       "humanoid-deployment": "Service robots navigating the Exness stand in Dubai. Expert Hub Robotics.",
-      "humanoid-mapping": "A venue map built with GMapping SLAM, with the robot’s estimated pose shown in red."
+      "humanoid-mapping": "A venue map built with GMapping SLAM, with the robot’s estimated pose shown in red.",
+      "drone-flight": "Take-off and a pass down the corridor. Everything the mapping runs on is carried onboard."
+    },
+    "hero": {
+      "eyebrow": "Monocular spatial perception",
+      "lineOne": "One camera.",
+      "lineTwo": "A map a robot",
+      "lineThree": "can reason with.",
+      "lede": "I build the pipeline that turns a single camera stream into geometry, objects, places and rooms — and I make it run on the robot, not on a workstation.",
+      "standing": "PhD candidate, ITC · University of Twente · UAV Centre of Expertise",
+      "clip": "itc-loop",
+      "clipLabel": "ITC building, second floor",
+      "clipDetail": "Scene graph built live from the drone's camera, shown at 10× real time",
+      "clipLink": "/videos/scene-graph-drone-corridor-loop/",
+      "clipLinkLabel": "Watch the flight"
+    },
+    "arcStage": {
+      "eyebrow": "The arc",
+      "heading": "From pixels to a map.",
+      "lede": "Five representations of the same problem. Each one is produced by a stage of the system that follows it, and every frame below is real output, not a diagram.",
+      "steps": [
+        {
+          "index": "01",
+          "title": "The only sensor",
+          "media": "frame",
+          "key": "wipe-rgb",
+          "text": "A monocular RGB stream and an IMU. No laser, no depth camera, no stereo rig — the sensor a small drone can actually carry.",
+          "spec": "RGB · ITC 2nd floor · 848 × 480"
+        },
+        {
+          "index": "02",
+          "title": "Metric depth, learned",
+          "media": "frame",
+          "key": "wipe-depth",
+          "text": "One network predicts metric depth from that single frame. Scale comes from the network, not from a second camera.",
+          "spec": "M2H-MX · predicted depth"
+        },
+        {
+          "index": "03",
+          "title": "Semantics, same pass",
+          "media": "frame",
+          "key": "wipe-semantics",
+          "text": "The same forward pass labels the pixels. Depth, semantics, surface normals and edges are predicted together so the tasks can share what each one learns.",
+          "spec": "M2H-MX · 4 tasks, 1 network"
+        },
+        {
+          "index": "04",
+          "title": "Where the camera went",
+          "media": "image",
+          "key": "uhumans2-loop",
+          "text": "Learned depth backs the visual-inertial estimator, so the trajectory keeps its scale. Recognising a place already visited pulls the estimate back onto itself before the map is committed.",
+          "spec": "Mono-Hydra++ · estimated against ground truth · uHumans2"
+        },
+        {
+          "index": "05",
+          "title": "A structure, not a cloud",
+          "media": "image",
+          "key": "scene-graph-itc",
+          "text": "The map that comes out is hierarchical: a mesh carrying semantics, then objects, places, rooms and the building above them. That is the thing a robot can plan over.",
+          "spec": "Mono-Hydra++ · 3D scene graph · ITC 2nd floor"
+        }
+      ],
+      "foot": "Mean mesh error against LiDAR ground truth on this floor is 0.08 m for M2H-MX-L at 640 × 480 on an RTX 4080 Super, and 0.22 m from the 256 × 192 operating point that runs onboard."
     }
   }
 }

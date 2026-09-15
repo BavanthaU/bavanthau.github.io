@@ -22,7 +22,8 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/proj-mono-hydra.png">
 <meta name="twitter:title" content="Bavantha Udugama | Mono-Hydra">
 <meta name="twitter:description" content="Where it started. The first real-time 3D scene graph built from a monocular camera and an IMU. By Bavantha Udugama, ITC University of Twente.">
-<link rel="stylesheet" href="/assets/site.css?v=f70c5fdb9b">
+<link rel="stylesheet" href="/assets/site.css?v=a2ddbbe69b">
+<link rel="stylesheet" href="/assets/case.css?v=d83b5159f1">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -97,21 +98,42 @@
 <main id="main" class="site-main">
 <div class="wrap page-content">
 
-<p class="eyebrow"><a href="/projects/">Projects</a> &middot; Part I</p>
-<h1>Mono-Hydra</h1>
-<p class="standfirst">Where it started. The first real-time 3D scene graph built from a monocular camera and an IMU.</p>
-<p class="pub-venue">2022 to 2023 &middot;
-  published</p>
+<header class="case-open bleed ground-dark">
+  <div class="bleed-wide case-open-inner">
+    <p class="spec case-crumb"><a href="/projects/">Projects</a> &middot; Part I</p>
+    <h1 class="case-title">Mono-Hydra</h1>
+    <div class="case-open-foot">
+      <p class="case-line">Where it started. The first real-time 3D scene graph built from a monocular camera and an IMU.</p>
+      <p class="spec case-meta">2022 to 2023 &middot; published</p>
+    </div>
+  </div>
+  <figure class="case-lead"><div class="case-lead-media"><picture><source type="image/avif" srcset="/media/images/scenegraph-system-design-480.avif 480w, /media/images/scenegraph-system-design-960.avif 960w, /media/images/scenegraph-system-design-1354.avif 1354w" sizes="100vw"><source type="image/webp" srcset="/media/images/scenegraph-system-design-480.webp 480w, /media/images/scenegraph-system-design-960.webp 960w, /media/images/scenegraph-system-design-1354.webp 1354w" sizes="100vw"><img src="/media/images/scenegraph-system-design-1354.jpg" alt="System design diagram for monocular 3D scene graph construction, showing the perception networks, visual-inertial odometry, and the scene graph layers." width="1354" height="767" decoding="async"></picture></div><figcaption class="spec">The original Mono-Hydra design: two independent networks for depth and semantics, feeding a robocentric VIO and the Hydra scene graph layers.</figcaption></figure>
+</header>
 
-<h2>What it does</h2>
-<p>Learned depth and learned semantics run as separate networks, feeding a robocentric square-root VIO and the Hydra scene graph layers: mesh, objects, places, rooms, buildings.</p>
-<figure class=""><picture><source type="image/avif" srcset="/media/images/scenegraph-system-design-480.avif 480w, /media/images/scenegraph-system-design-960.avif 960w, /media/images/scenegraph-system-design-1354.avif 1354w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/scenegraph-system-design-480.webp 480w, /media/images/scenegraph-system-design-960.webp 960w, /media/images/scenegraph-system-design-1354.webp 1354w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/scenegraph-system-design-1354.jpg" alt="System design diagram for monocular 3D scene graph construction, showing the perception networks, visual-inertial odometry, and the scene graph layers." width="1354" height="767" loading="lazy" decoding="async"></picture><figcaption>The original Mono-Hydra design: two independent networks for depth and semantics, feeding a robocentric VIO and the Hydra scene graph layers.</figcaption></figure>
+<section class="case-section case-does">
+  <div class="case-does-head"><p class="spec">01 &mdash; The system</p>
+    <h2 class="case-h">What it does</h2></div>
+  <p class="case-does-text">Learned depth and learned semantics run as separate networks, feeding a robocentric square-root VIO and the Hydra scene graph layers: mesh, objects, places, rooms, buildings.</p>
+</section>
+<section class="case-section case-evidence">
+  <p class="spec">02 &mdash; Evidence</p>
+  <figure class=""><picture><source type="image/avif" srcset="/media/images/scenegraph-system-design-480.avif 480w, /media/images/scenegraph-system-design-960.avif 960w, /media/images/scenegraph-system-design-1354.avif 1354w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/scenegraph-system-design-480.webp 480w, /media/images/scenegraph-system-design-960.webp 960w, /media/images/scenegraph-system-design-1354.webp 1354w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/scenegraph-system-design-1354.jpg" alt="System design diagram for monocular 3D scene graph construction, showing the perception networks, visual-inertial odometry, and the scene graph layers." width="1354" height="767" loading="lazy" decoding="async"></picture><figcaption>The original Mono-Hydra design: two independent networks for depth and semantics, feeding a robocentric VIO and the Hydra scene graph layers.</figcaption></figure>
+</section>
 
 
 
-<h2>Key numbers</h2><ul class="results"><li class="result"><span class="value">0.19 m and 0.21 m ITC mean error</span></li><li class="result"><span class="value">15 fps at 848x480</span></li><li class="result"><span class="value">RTX 3080 8GB laptop</span></li></ul>
-<h2>Paper</h2><p><a href="/publications/mono-hydra/">Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU</a><br><span class="pub-venue">Published, ISPRS Annals 2023</span></p>
-<h2>Code</h2><ul class="limits"><li><a href="https://github.com/UAV-Centre-ITC/mono_hydra">mono_hydra</a> <span class="pub-venue">system</span></li></ul>
+
+<section class="case-results bleed ground-dark" aria-labelledby="mono-hydra-results">
+  <div class="bleed-wide">
+    <p class="spec">Measured</p>
+    <h2 class="case-h" id="mono-hydra-results">Key numbers</h2>
+    <ol class="case-numbers"><li><span class="case-number">0.19 m and 0.21 m ITC mean error</span></li><li><span class="case-number">15 fps at 848x480</span></li><li><span class="case-number">RTX 3080 8GB laptop</span></li></ol>
+    <p class="spec case-provenance">Every figure here appears in the thesis results registry with
+      its source location. Conditions are stated with the number.</p>
+  </div>
+</section>
+<section class="case-section"><h2 class="case-h">Paper</h2><ol class="index case-index"><li><a class="index-row" href="/publications/mono-hydra/"><span class="index-title">Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU</span><span class="spec">Published, ISPRS Annals 2023</span></a></li></ol></section>
+<section class="case-section"><h2 class="case-h">Code</h2><ol class="index case-index"><li><a class="index-row" href="https://github.com/UAV-Centre-ITC/mono_hydra"><span class="index-title">mono_hydra</span><span class="spec">system</span></a></li></ol></section>
 
 </div>
 </main>

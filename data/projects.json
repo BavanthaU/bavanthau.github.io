@@ -315,7 +315,10 @@
                 "label": "Manuscript",
                 "href": "/publications/mono-hydra-plus/"
               }
-            ]
+            ],
+            "mediaKind": "video",
+            "mediaKey": "itc-loop",
+            "layout": "feature"
           },
           {
             "name": "M2H / M2H-MX",
@@ -345,7 +348,10 @@
                 "label": "M2H-MX code",
                 "href": "https://github.com/BavanthaU/m2h_mx"
               }
-            ]
+            ],
+            "mediaKind": "wipe",
+            "mediaKey": "itc-corridor",
+            "layout": "split"
           },
           {
             "name": "ATLAS",
@@ -363,7 +369,10 @@
                 "label": "Exploration overview & video",
                 "href": "/projects/learned-exploration/"
               }
-            ]
+            ],
+            "mediaKind": "video",
+            "mediaKey": "scope-explorer",
+            "layout": "flip"
           }
         ],
         "note": "The earlier Mono-Hydra system established the monocular mapping pipeline in 2023.",
@@ -395,7 +404,10 @@
                 "label": "Deployment videos & my role",
                 "href": "/cv/#expert-hub-robotics"
               }
-            ]
+            ],
+            "mediaKind": "video",
+            "mediaKey": "humanoid-deployment",
+            "layout": "split"
           }
         ],
         "press": [
@@ -440,7 +452,10 @@
                 "label": "Stereo vision & laser ranging paper",
                 "href": "https://arxiv.org/abs/2302.01387"
               }
-            ]
+            ],
+            "mediaKind": "video",
+            "mediaKey": "peradeniya-2017",
+            "layout": "feature"
           }
         ]
       }

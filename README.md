@@ -23,7 +23,9 @@ For homepage-only content or design changes, preserve all other generated pages 
 
     python3 tools/build.py --home-only
 
-Homepage styles live in `assets/home.css` and load only on `/`.
+Page stylesheets load after `assets/site.css` and override it: `assets/home.css` on `/`,
+`assets/projects.css` on `/projects/`, `assets/case.css` on the project detail pages.
+`assets/stage.js` drives the pixels-to-map sequence and the masthead on `/` only.
 
 For the Projects overview, edit `data/projects.json` → `overview`, then run:
 
