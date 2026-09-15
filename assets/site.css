@@ -1159,3 +1159,21 @@ a.index-row:hover { background: var(--accent-soft); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Wide figures keep their own horizontal scroll rather than shrinking until the axis labels
+   collide. Below the width where they fit, the clipped edge is marked so it is clear there
+   is more of the figure to reach. */
+@media (max-width: 46em) {
+  .descent, .loop { position: relative; }
+  .descent::after, .loop::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 2.5rem;
+    width: 3rem;
+    pointer-events: none;
+    background: linear-gradient(to right, transparent, var(--paper));
+  }
+  .descent-figure, .loop-figure { scrollbar-width: thin; }
+}

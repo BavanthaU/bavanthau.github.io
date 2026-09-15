@@ -1012,9 +1012,12 @@ def descent_svg():
             f'<g class="pt">'
             f'<path class="dot-embedded" d="M {xe} {y - 6} L {xe + 6} {y} L {xe} {y + 6} '
             f'L {xe - 6} {y} Z"/>'
-            f'<text class="plabel" x="{xe}" y="{y - 14:.1f}" text-anchor="middle" '
+            f'<text class="plabel" x="{xe}" y="{y - 14:.1f}" text-anchor="end" '
             f'font-size="12" fill="var(--signal)">{e(r["error"])}</text>'
-            f'<text x="{xe}" y="{y1 + 20:.1f}" text-anchor="middle" font-size="11">embedded</text>'
+            # the embedded point is a separate operating point rather than a fifth generation,
+            # so its label sits on its own baseline and never collides with the series below
+            f'<text x="{x1}" y="{y1 + 38:.1f}" text-anchor="end" font-size="11" '
+            f'fill="var(--signal)">embedded, {e(r["resolution"])}</text>'
             f'</g>')
 
     parts.append("</svg>")
