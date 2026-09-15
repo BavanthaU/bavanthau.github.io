@@ -1037,6 +1037,30 @@ def arc_stage():
         return ""
     frames, notes = "", ""
     for i, st in enumerate(S["steps"]):
+        if st["media"] == "pair":
+            panes = ""
+            for pane in st["panes"]:
+                rec = MEDIA["frames"].get(pane["key"]) or MEDIA["images"].get(pane["key"])
+                if not rec:
+                    continue
+                img = picture(pane["key"], caption=False, lazy=i > 0,
+                              sizes="(min-width: 58em) 30vw, 92vw")
+                # growing each pane in proportion to its own aspect ratio is what makes the
+                # two frames the same height without cropping either one to fit the other
+                ar = rec["width"] / rec["height"]
+                panes += (f'<div class="pxm-pane" style="--ar: {ar:.4f}">{img}'
+                          f'<span class="pxm-pane-label">{e(pane["label"])}</span></div>')
+            if not panes:
+                continue
+            frames += (f'<figure class="pxm-frame" data-step="{i}">'
+                       f'<div class="pxm-frame-media pxm-pair">{panes}</div>'
+                       f'<figcaption class="spec">{e(st["spec"])}</figcaption></figure>')
+            notes += (f'<li class="pxm-note" data-step="{i}">'
+                      f'<p class="pxm-index">{e(st["index"])}</p>'
+                      f'<h3>{e(st["title"])}</h3>'
+                      f'<p>{e(st["text"])}</p></li>')
+            continue
+
         key = st["key"]
         if st["media"] == "video":
             rec = MEDIA["videos"].get(key)

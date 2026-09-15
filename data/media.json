@@ -137,7 +137,13 @@
         572
       ],
       "label": "Predicted depth",
-      "alt": "Predicted depth for the same living room, as a smooth colour field where the near armchair and sofa stand out from the far wall."
+      "alt": "Predicted depth for the same living room, as a smooth colour field where the near armchair and sofa stand out from the far wall.",
+      "box": [
+        0,
+        0,
+        383,
+        285
+      ]
     },
     "mx-indoor-semantics": {
       "src": "_source/media/m2h-mx-qualitative/indoor-semantics.png",
@@ -146,7 +152,13 @@
         572
       ],
       "label": "Predicted semantics",
-      "alt": "Predicted semantic labels for the same living room, with flat colour regions for sofa, chair, lamp, table, floor, wall, and pictures."
+      "alt": "Predicted semantic labels for the same living room, with flat colour regions for sofa, chair, lamp, table, floor, wall, and pictures.",
+      "box": [
+        0,
+        0,
+        386,
+        287
+      ]
     },
     "mx-outdoor-rgb": {
       "src": "_source/media/m2h-mx-qualitative/outdoor-rgb.png",
@@ -173,7 +185,13 @@
         573
       ],
       "label": "Predicted semantics",
-      "alt": "Predicted semantic labels for the same street, with distinct colours for road, cars, vegetation, buildings, poles, and traffic signs."
+      "alt": "Predicted semantic labels for the same street, with distinct colours for road, cars, vegetation, buildings, poles, and traffic signs.",
+      "box": [
+        0,
+        0,
+        736,
+        286
+      ]
     }
   },
   "videos": {
@@ -200,7 +218,6 @@
       "crf": 28,
       "webmCrf": 40
     },
-
     "icra26": {
       "src": "_source/media/icra26-teaser.mp4",
       "posterAt": 7,

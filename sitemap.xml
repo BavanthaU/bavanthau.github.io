@@ -6,8 +6,11 @@
     <loc>https://bavanthau.github.io/</loc>
     <lastmod>2026-09-15</lastmod>
     <priority>1.0</priority>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-rgb-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-outdoor-rgb-1472.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-depth-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-outdoor-depth-1472.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-semantics-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-outdoor-semantics-1472.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/uhumans2-loop-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>

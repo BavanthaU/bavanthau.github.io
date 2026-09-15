@@ -147,6 +147,27 @@
 }
 .pxm-frame figcaption { padding-top: 0.7rem; }
 
+/* Two domains, one network. The panes grow in proportion to their own aspect ratios, so a
+   2.57:1 street frame and a 1.34:1 room frame end up exactly the same height with neither
+   cropped. The border belongs to each pane, not to the pair. */
+.pxm-pair { display: flex; flex-wrap: wrap; gap: 0.55rem; border: 0; background: none; overflow: visible; }
+.pxm-pane { position: relative; flex: var(--ar, 1.6) 1 0; min-width: 0; border: 1px solid var(--rule); background: #000; }
+.pxm-pane img { display: block; width: 100%; height: auto; }
+.pxm-pane-label {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding: 0.24rem 0.5rem;
+  background: rgba(4, 11, 13, 0.82);
+  color: var(--stage-ink);
+  font: 500 var(--t-micro)/1.4 var(--mono);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+@media (max-width: 46em) {
+  .pxm-pane { flex: 1 1 100%; }
+}
+
 .pxm-note { position: relative; }
 .pxm-index {
   margin: 0 0 0.5rem;
@@ -228,7 +249,8 @@
 }
 .pxm.is-live .pxm-frame.is-on { opacity: 1; visibility: visible; }
 .pxm.is-live .pxm-frame-media { flex: none; }
-.pxm.is-live .pxm-frame-media img, .pxm.is-live .pxm-frame-media video {
+.pxm.is-live .pxm-frame-media > img, .pxm.is-live .pxm-frame-media > picture img,
+.pxm.is-live .pxm-frame-media > video {
   width: 100%;
   height: auto;
   max-height: calc(100vh - 15rem);

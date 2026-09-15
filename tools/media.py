@@ -123,7 +123,7 @@ def do_frames(man, force):
         if not src.exists():
             print(f"  skip {name}: source missing")
             continue
-        d = digest(src, f"{spec.get('at')}{spec.get('resize')}{WIDTHS}")
+        d = digest(src, f"{spec.get('at')}{spec.get('box')}{spec.get('resize')}{WIDTHS}")
         if not force and man["frames"].get(name, {}).get("digest") == d:
             print(f"  ok   {name} (unchanged)")
             continue
@@ -134,6 +134,10 @@ def do_frames(man, force):
             sh(FFMPEG, "-hide_banner", "-loglevel", "error", "-ss", str(spec["at"]),
                "-i", str(src), "-frames:v", "1", "-y", str(still))
             im = Image.open(still)
+        if spec.get("box"):
+            # some panes were cut from a multi-row paper figure and carry a few rows of the
+            # panel below them; box is left, top, right, bottom in source pixels
+            im = im.crop(tuple(spec["box"]))
         if spec.get("resize"):
             # panes in one set must share exact dimensions or the crossfade jitters
             im = im.convert("RGB").resize(tuple(spec["resize"]), Image.LANCZOS)

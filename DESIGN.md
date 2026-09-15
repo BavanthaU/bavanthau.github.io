@@ -38,6 +38,13 @@ The page has two grounds, and the change between them is how the reading is pace
 problem — RGB, predicted depth, predicted semantics, estimated trajectory, scene graph —
 with a note for each.
 
+The three perception stages show an indoor and an outdoor frame side by side, from the same
+network, because one network covering both domains is the claim being made. The two panes
+grow in proportion to their own aspect ratios, so a 2.57:1 street frame and a 1.34:1 room
+frame end up the same height with neither cropped to suit the other. Frames on the
+instrument ground are exempt from the dark-mode image filter: that ground is dark in both
+themes, and the same predicted depth must not render two different ways.
+
 It ships as a plain numbered sequence of frame and explanation. That is the fallback and it is
 complete on its own. `assets/stage.js` upgrades it to a sticky stage driven by the notes beside
 it, and only where there is room (≥ 58em) and the reader has not asked for reduced motion.

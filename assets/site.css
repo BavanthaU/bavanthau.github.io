@@ -392,12 +392,17 @@ figure picture { display: block; }
 figure img, figure video { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--surface); }
 figcaption { max-width: 84ch; margin-top: 0.75rem; color: var(--ink-2); font: 0.71rem/1.65 var(--mono); }
 
+/* Figures are eased back a little against a dark page ground. Anything sitting on the
+   instrument ground is exempt: that ground is dark in both themes, so a theme-dependent
+   filter there would render the same predicted depth or semantics two different ways. */
 :root[data-theme="dark"] figure:not(.hero-map) img,
 :root[data-theme="dark"] figure video { filter: brightness(0.92) contrast(0.97); }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) figure:not(.hero-map) img,
   :root:not([data-theme="light"]) figure video { filter: brightness(0.92) contrast(0.97); }
 }
+.ground-dark figure img, .ground-dark figure video,
+.ground-dark .pxm-pane img { filter: none !important; }
 
 .v-figure { margin: 2.25rem 0; }
 .v-wrap, .v-gate { position: relative; overflow: hidden; border-radius: var(--radius); }
