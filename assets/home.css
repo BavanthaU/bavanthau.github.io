@@ -199,23 +199,26 @@
 
 /* Live: the frames collapse into one stage the notes drive.
 
-   The stage is centred in what is left of the viewport and sized from the frame ratio, so
-   the media is as large as it can be without letterboxing or cropping, and the reader's eye
-   does not have to travel to the top of the screen on every step. */
+   The frames are stacked in a single grid cell rather than positioned absolutely, so the
+   stage takes its height from the tallest frame and holds it. Nothing jumps between steps,
+   the step ticks sit with the frame instead of at the bottom of the window, and a wide
+   frame is not surrounded by empty screen. */
 .pxm.is-live .pxm-body { grid-template-columns: minmax(0, 1fr) clamp(17rem, 23vw, 25rem); }
 .pxm.is-live .pxm-frames {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 1.5rem;
   position: sticky;
-  top: 4.5rem;
+  top: max(4.75rem, calc(50vh - 21rem));
   grid-column: 1;
   grid-row: 1;
-  height: calc(100vh - 4.5rem);
+  height: auto;
 }
 .pxm.is-live .pxm-notes { display: block; grid-column: 2; grid-row: 1; }
 .pxm.is-live .pxm-frame {
-  position: absolute;
-  inset: 0;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: stretch;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -224,11 +227,11 @@
   transition: opacity 420ms ease;
 }
 .pxm.is-live .pxm-frame.is-on { opacity: 1; visibility: visible; }
-.pxm.is-live .pxm-frame-media { flex: none; align-self: stretch; }
+.pxm.is-live .pxm-frame-media { flex: none; }
 .pxm.is-live .pxm-frame-media img, .pxm.is-live .pxm-frame-media video {
   width: 100%;
   height: auto;
-  max-height: calc(100vh - 12rem);
+  max-height: calc(100vh - 15rem);
   object-fit: contain;
 }
 .pxm.is-live .pxm-frame figcaption { flex: none; }
@@ -241,13 +244,13 @@
   transition: opacity 320ms ease;
 }
 .pxm.is-live .pxm-note.is-on { opacity: 1; }
-.pxm.is-live .pxm-note:last-child { min-height: calc(62vh); }
+.pxm.is-live .pxm-note:last-child { min-height: 62vh; }
 .pxm.is-live .pxm-ticks {
   display: flex;
   gap: 0.45rem;
-  position: absolute;
-  left: 0;
-  bottom: 2.2rem;
+  position: static;
+  grid-column: 1;
+  grid-row: 2;
 }
 .pxm-tick { width: 1.9rem; height: 2px; background: var(--rule-strong); transition: background-color 280ms ease; }
 .pxm-tick.is-on { background: var(--accent); }

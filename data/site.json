@@ -379,31 +379,31 @@
     "arcStage": {
       "eyebrow": "The arc",
       "heading": "From pixels to a map.",
-      "lede": "Five representations of the same problem. Each one is produced by a stage of the system that follows it, and every frame below is real output, not a diagram.",
+      "lede": "Five stages of one pipeline, each shown with real output from the stage that produces it. The frames come from different scenes: the public benchmarks the perception network is measured on, and the building the mapping system was flown through.",
       "steps": [
         {
           "index": "01",
-          "title": "The only sensor",
+          "title": "One image in",
           "media": "frame",
-          "key": "wipe-rgb",
-          "text": "A monocular RGB stream and an IMU. No laser, no depth camera, no stereo rig — the sensor a small drone can actually carry.",
-          "spec": "RGB · ITC 2nd floor · 848 × 480"
+          "key": "mx-outdoor-rgb",
+          "text": "Everything downstream starts from a single RGB frame. No laser, no depth camera, no stereo rig — one passive camera is all the system reads.",
+          "spec": "RGB input · Cityscapes · 1472 × 573"
         },
         {
           "index": "02",
           "title": "Metric depth, learned",
           "media": "frame",
-          "key": "wipe-depth",
+          "key": "mx-outdoor-depth",
           "text": "One network predicts metric depth from that single frame. Scale comes from the network, not from a second camera.",
-          "spec": "M2H-MX · predicted depth"
+          "spec": "M2H-MX · predicted depth · Cityscapes"
         },
         {
           "index": "03",
           "title": "Semantics, same pass",
           "media": "frame",
-          "key": "wipe-semantics",
+          "key": "mx-outdoor-semantics",
           "text": "The same forward pass labels the pixels. Depth, semantics, surface normals and edges are predicted together so the tasks can share what each one learns.",
-          "spec": "M2H-MX · 4 tasks, 1 network"
+          "spec": "M2H-MX · predicted semantics · Cityscapes"
         },
         {
           "index": "04",
@@ -422,7 +422,7 @@
           "spec": "Mono-Hydra++ · 3D scene graph · ITC 2nd floor"
         }
       ],
-      "foot": "Mean mesh error against LiDAR ground truth on this floor is 0.08 m for M2H-MX-L at 640 × 480 on an RTX 4080 Super, and 0.22 m from the 256 × 192 operating point that runs onboard."
+      "foot": "Those predictions drive the mapping. Mean mesh error against LiDAR ground truth on the ITC second floor is 0.08 m for M2H-MX-L at 640 × 480 on an RTX 4080 Super, and 0.22 m from the 256 × 192 operating point that runs onboard."
     }
   }
 }
