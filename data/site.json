@@ -486,6 +486,19 @@
         }
       ],
       "credits": "Three papers came out of it. Best Undergraduate Project, Institution of Engineers Sri Lanka. Best Technical Paper, IET Sri Lanka."
+    },
+    "work": {
+      "eyebrow": "02 — Research",
+      "meta": "2023–2026",
+      "heading": "Four systems, one measurement.",
+      "lede": "Four generations of the same system, each one measured on the same building. The full progression, with the hardware and input resolution behind every row, is on the research page.",
+      "clip": "icra26",
+      "readout": {
+        "value": "0.08 m",
+        "label": "mean mesh error",
+        "detail": "ITC second floor against LiDAR ground truth · M2H-MX-L at 640 × 480 · RTX 4080 Super",
+        "href": "/research/"
+      }
     }
   }
 }

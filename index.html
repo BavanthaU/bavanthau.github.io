@@ -22,8 +22,8 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/home.png">
 <meta name="twitter:title" content="Bavantha Udugama | Robotics and computer vision engineer">
 <meta name="twitter:description" content="Robotics engineer working across computer vision, SLAM and embedded systems. Monocular 3D mapping, Jetson deployment and real-world service robotics.">
-<link rel="stylesheet" href="/assets/site.css?v=cd63e2e5f0">
-<link rel="stylesheet" href="/assets/home.css?v=e157ec7a91">
+<link rel="stylesheet" href="/assets/site.css?v=4dfefd40ef">
+<link rel="stylesheet" href="/assets/home.css?v=3cbec12daa">
 <script src="/assets/stage.js?v=98826a75cc" defer></script>
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
@@ -165,6 +165,35 @@
       "url": "https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/#t=36"
     }
   ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "@id": "https://bavanthau.github.io/videos/monocular-3d-scene-graph-scannet/#video-icra26",
+  "name": "A 3D scene graph built live from one RGB camera, ScanNet scene 0000",
+  "description": "M2H-MX predicts depth and semantics from a single RGB stream while Mono-Hydra++ builds a hierarchical 3D scene graph of ScanNet scene 0000 in real time. Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/icra26-poster.jpg",
+  "uploadDate": "2026-08-18",
+  "contentUrl": "https://bavanthau.github.io/media/video/icra26.mp4",
+  "width": 1600,
+  "height": 686,
+  "inLanguage": "en",
+  "isFamilyFriendly": true,
+  "creator": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "copyrightHolder": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "mainEntityOfPage": "https://bavanthau.github.io/videos/monocular-3d-scene-graph-scannet/",
+  "duration": "PT10S",
+  "url": "https://bavanthau.github.io/videos/monocular-3d-scene-graph-scannet/"
 }
 </script>
 <script type="application/ld+json">
@@ -473,52 +502,25 @@
   <p class="pxm-foot bleed-wide spec-lg">Those predictions drive the mapping. Mean mesh error against LiDAR ground truth on the ITC second floor is 0.08 m for M2H-MX-L at 640 × 480 on an RTX 4080 Super, and 0.22 m from the 256 × 192 operating point that runs onboard.</p>
 </section>
 
-<section class="chapter" id="work">
+<section class="chapter work-chapter" id="work">
   <div class="chapter-head">
-    <p class="spec"><span>02 &mdash; Research</span><span>2023&ndash;2026</span></p>
+    <p class="spec"><span>02 — Research</span><span>2023–2026</span></p>
     <h2 class="chapter-title">Four systems, one measurement.</h2>
-    <p class="chapter-lede">One building, four system generations, same measurement. Hardware and input resolution change across rows, so this is a system progression, not a controlled ablation.</p>
+    <p class="chapter-lede">Four generations of the same system, each one measured on the same building. The full progression, with the hardware and input resolution behind every row, is on the research page.</p>
   </div>
+  <figure class="work-band bleed">
+    <div class="work-band-media"><div class="v-wrap"><video poster="/media/video/icra26-poster.jpg" width="1600" height="686" muted loop playsinline preload="none" data-autoloop data-full-src="/media/video/icra26.mp4" aria-label="Screen recording of ScanNet scene 0000. A hierarchical 3D scene graph hangs from a building node down through room and place nodes to labelled object boxes over the reconstructed mesh, while the RGB frame, the predicted semantics, and the predicted depth run down the right."><source src="/media/video/icra26.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div></div>
+    <figcaption class="work-band-rail bleed-wide">
+      <p class="spec">The whole pipeline on ScanNet scene 0000. M2H-MX predicts depth and semantics from the image stream, Mono-Hydra++ consumes those predictions inside the visual-inertial odometry and the mapping backend, and the hierarchical scene graph is built in real time. Playback is 16x.</p>
+      <div class="readout work-readout">
+        <dl><dt>0.08 m</dt>
+          <dd><a class="readout-label" href="/research/">mean mesh error</a>
+            <span class="readout-note">ITC second floor against LiDAR ground truth · M2H-MX-L at 640 × 480 · RTX 4080 Super</span></dd></dl>
+      </div>
+    </figcaption>
+  </figure>
   <ol class="index work-index"><li><a class="index-row" href="/publications/mono-hydra-plus/"><span class="index-num">01</span><span><span class="index-title">Mono-Hydra++</span><span class="spec index-spec">ISPRS J. Photogramm. Remote Sens.</span></span><span class="index-text">Bringing learned depth and visual-inertial estimation together for monocular 3D scene graphs.</span><span class="index-status spec">2026 &middot; Under review</span></a></li><li><a class="index-row" href="/publications/m2h-mx/"><span class="index-num">02</span><span><span class="index-title">M2H-MX</span><span class="spec index-spec">ICRA 2026 SRRA Workshop</span></span><span class="index-text">Semantic and geometric perception, evaluated inside a running mapping system and deployed on Jetson.</span><span class="index-status spec">2026 &middot; Accepted</span></a></li><li><a class="index-row" href="/publications/m2h/"><span class="index-num">03</span><span><span class="index-title">M2H</span><span class="spec index-spec">IROS 2025</span></span><span class="index-text">Four dense prediction tasks in one model, with cross-task attention to share what each task learns.</span><span class="index-status spec">2025 &middot; Published</span></a></li><li><a class="index-row" href="/publications/mono-hydra/"><span class="index-num">04</span><span><span class="index-title">Mono-Hydra</span><span class="spec index-spec">ISPRS Annals 2023</span></span><span class="index-text">The starting point: real-time hierarchical 3D scene graphs from a monocular camera and an IMU.</span><span class="index-status spec">2023 &middot; Published</span></a></li></ol>
   <p class="work-more"><a href="/publications/">All ten publications <span aria-hidden="true">&#8599;</span></a></p>
-</section>
-
-<section class="chapter descent-chapter bleed ground-dark" aria-labelledby="descent-title">
-  <div class="bleed-wide">
-    <div class="chapter-head">
-      <p class="spec"><span>ITC building, 2nd floor mesh mean error</span><span>mean error / metres</span></p>
-      <h2 class="chapter-title" id="descent-title">The error came down as the sensor got smaller.</h2>
-      <p class="chapter-lede">Same building, same floor, same measurement, four system generations.
-        Hardware and input resolution differ across them, and the amber point is the embedded
-        operating point rather than a laptop GPU.</p>
-    </div>
-    <figure class="descent descent-large">
-      <div class="descent-figure"><svg viewBox="0 0 720 300" role="img" aria-labelledby="descent-title descent-desc">
-<title id="descent-title">Mean mapping error on the ITC building second floor, across four system generations</title>
-<desc id="descent-desc">Error falls from 0.19 metres for Mono-Hydra in 2023 to 0.08 metres for M2H-MX-L in 2026. A separate embedded operating point on the Jetson Orin NX measures 0.22 metres at reduced input resolution.</desc>
-<line class="axis" x1="78" y1="193.9" x2="640" y2="193.9" stroke-dasharray="2 4" opacity="0.6"/>
-<text x="68" y="197.9" text-anchor="end" font-size="11">0.05</text>
-<line class="axis" x1="78" y1="151.8" x2="640" y2="151.8" stroke-dasharray="2 4" opacity="0.6"/>
-<text x="68" y="155.8" text-anchor="end" font-size="11">0.10</text>
-<line class="axis" x1="78" y1="109.8" x2="640" y2="109.8" stroke-dasharray="2 4" opacity="0.6"/>
-<text x="68" y="113.8" text-anchor="end" font-size="11">0.15</text>
-<line class="axis" x1="78" y1="67.7" x2="640" y2="67.7" stroke-dasharray="2 4" opacity="0.6"/>
-<text x="68" y="71.7" text-anchor="end" font-size="11">0.20</text>
-<line class="axis" x1="78" y1="34" x2="78" y2="236"/>
-<line class="axis" x1="78" y1="236" x2="640" y2="236"/>
-<text x="68" y="38" text-anchor="end" font-size="11">metres</text>
-<polyline class="trend" points="108.0,76.1 268.7,143.4 429.3,151.8 590.0,168.7"/>
-<g class="pt"><a href="/publications/mono-hydra/" aria-label="Mono-Hydra 2023, 0.19 m mean error"><circle class="dot" cx="108.0" cy="76.1" r="5"/><text class="plabel" x="108.0" y="62.1" text-anchor="middle" font-size="12">0.19 m</text><text x="108.0" y="256.0" text-anchor="middle" font-size="11">Mono-Hydra 2023</text></a></g>
-<g class="pt"><a href="/publications/m2h/" aria-label="M2H 2025, 0.11 m mean error"><circle class="dot" cx="268.7" cy="143.4" r="5"/><text class="plabel" x="268.7" y="129.4" text-anchor="middle" font-size="12">0.11 m</text><text x="268.7" y="256.0" text-anchor="middle" font-size="11">M2H 2025</text></a></g>
-<g class="pt"><a href="/publications/m2h-mx/" aria-label="M2H-MX-B 2026, 0.10 m mean error"><circle class="dot" cx="429.3" cy="151.8" r="5"/><text class="plabel" x="429.3" y="137.8" text-anchor="middle" font-size="12">0.10 m</text><text x="429.3" y="256.0" text-anchor="middle" font-size="11">M2H-MX-B 2026</text></a></g>
-<g class="pt"><a href="/publications/m2h-mx/" aria-label="M2H-MX-L 2026, 0.08 m mean error"><circle class="dot" cx="590.0" cy="168.7" r="5"/><text class="plabel" x="590.0" y="154.7" text-anchor="middle" font-size="12">0.08 m</text><text x="590.0" y="256.0" text-anchor="middle" font-size="11">M2H-MX-L 2026</text></a></g>
-<g class="pt"><path class="dot-embedded" d="M 634 44.833333333333314 L 640 50.833333333333314 L 634 56.833333333333314 L 628 50.833333333333314 Z"/><text class="plabel" x="634" y="36.8" text-anchor="end" font-size="12" fill="var(--signal)">0.22 m</text><text x="640" y="274.0" text-anchor="end" font-size="11" fill="var(--signal)">embedded, 256x192</text></g>
-</svg></div>
-      <div class="legend"><span><i class="k-main"></i> laptop or desktop GPU</span>
-        <span><i class="k-emb"></i> Jetson Orin NX, embedded</span></div>
-      <figcaption>Measured against LiDAR ground truth. <a href="/research/">Full results and conditions</a>.</figcaption>
-    </figure>
-  </div>
 </section>
 
 <section class="chapter" id="onboard">
@@ -559,16 +561,14 @@
     <h2 class="chapter-title">Robotics beyond the lab</h2>
     <p class="chapter-lede">Before my PhD, I was the founding robotics engineer at Expert Hub Robotics in Dubai. I built the ROS navigation stack and led deployments of more than 30 humanoid robots across Expo 2020, healthcare and reception sites.</p>
   </div>
+  <div class="applied-lead"><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/humanoid-deployment-poster.jpg" width="1100" height="618" muted loop playsinline preload="none" data-autoloop aria-label="Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture."><source src="/media/video/humanoid-deployment.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>Service robots navigating the Exness stand in Dubai. Expert Hub Robotics.</figcaption></figure></div>
   <div class="applied">
     <div class="applied-copy">
       <p>I was promoted to lead a team of three within ten months. Alongside navigation, I fine-tuned a thermal face detector and deployed it in a commercial product using a FLIR camera and an Intel NUC.</p>
       <p class="applied-background">Earlier, I worked in chip verification at Synopsys, including on-site support at Samsung Electronics. At Twente, I’ve also designed robotics labs and supervised three master’s thesis students.</p>
       <p><a href="/cv/">Experience, teaching and technical skills <span aria-hidden="true">&#8599;</span></a></p>
     </div>
-    <div class="applied-media">
-      <div class="applied-wide"><figure class="v-figure "><div class="v-wrap"><video poster="/media/video/humanoid-deployment-poster.jpg" width="1100" height="618" muted loop playsinline preload="none" data-autoloop aria-label="Two branded humanoid service robots driving themselves across the floor of a busy exhibition stand, moving among standing visitors and around furniture."><source src="/media/video/humanoid-deployment.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>Service robots navigating the Exness stand in Dubai. Expert Hub Robotics.</figcaption></figure></div>
-      <div class="applied-tall"><figure class="v-figure  is-portrait"><div class="v-wrap"><video poster="/media/video/humanoid-mapping-poster.jpg" width="1000" height="1778" muted loop playsinline preload="none" data-autoloop aria-label="A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot&#x27;s pose marked in red."><source src="/media/video/humanoid-mapping.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>A venue map built with GMapping SLAM, with the robot’s estimated pose shown in red.</figcaption></figure></div>
-    </div>
+    <div class="applied-tall"><figure class="v-figure  is-portrait"><div class="v-wrap"><video poster="/media/video/humanoid-mapping-poster.jpg" width="1000" height="1778" muted loop playsinline preload="none" data-autoloop aria-label="A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot&#x27;s pose marked in red."><source src="/media/video/humanoid-mapping.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>A venue map built with GMapping SLAM, with the robot’s estimated pose shown in red.</figcaption></figure></div>
   </div>
 </section>
 

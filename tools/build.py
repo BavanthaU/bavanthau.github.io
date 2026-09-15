@@ -947,83 +947,6 @@ def loop_svg():
         + "".join(parts) + '</svg>')
 
 
-# ---------------------------------------------------------------- the descent
-
-def descent_svg():
-    prog = SITE["headlineProgression"]
-    rows = prog["rows"]
-    main = [r for r in rows if "embedded" not in r["system"].lower()]
-    emb = [r for r in rows if "embedded" in r["system"].lower()]
-
-    def val(r):
-        return float(re.match(r"([\d.]+)", r["error"]).group(1))
-
-    W, H = 720, 300
-    x0, x1, y0, y1 = 78, 640, 34, 236
-    vmax = 0.24
-    ys = lambda v: y1 - (v / vmax) * (y1 - y0)
-    step = (x1 - x0 - 80) / max(len(main) - 1, 1)
-    xs = [x0 + 30 + i * step for i in range(len(main))]
-    xe = x1 - 6
-
-    parts = [f'<svg viewBox="0 0 {W} {H}" role="img" '
-             f'aria-labelledby="descent-title descent-desc">',
-             '<title id="descent-title">Mean mapping error on the ITC building second floor, '
-             'across four system generations</title>',
-             f'<desc id="descent-desc">Error falls from 0.19 metres for Mono-Hydra in 2023 to '
-             f'0.08 metres for M2H-MX-L in 2026. A separate embedded operating point on the '
-             f'Jetson Orin NX measures 0.22 metres at reduced input resolution.</desc>']
-
-    for gv in (0.05, 0.10, 0.15, 0.20):
-        y = ys(gv)
-        parts.append(f'<line class="axis" x1="{x0}" y1="{y:.1f}" x2="{x1}" y2="{y:.1f}" '
-                     f'stroke-dasharray="2 4" opacity="0.6"/>')
-        parts.append(f'<text x="{x0 - 10}" y="{y + 4:.1f}" text-anchor="end" '
-                     f'font-size="11">{gv:.2f}</text>')
-
-    parts.append(f'<line class="axis" x1="{x0}" y1="{y0}" x2="{x0}" y2="{y1}"/>')
-    parts.append(f'<line class="axis" x1="{x0}" y1="{y1}" x2="{x1}" y2="{y1}"/>')
-    parts.append(f'<text x="{x0 - 10}" y="{y0 + 4}" text-anchor="end" font-size="11">metres</text>')
-
-    pts = " ".join(f"{x:.1f},{ys(val(r)):.1f}" for x, r in zip(xs, main))
-    parts.append(f'<polyline class="trend" points="{pts}"/>')
-
-    slug_by_system = {"Mono-Hydra": "mono-hydra", "M2H": "m2h",
-                      "M2H-MX-B": "m2h-mx", "M2H-MX-L": "m2h-mx"}
-
-    for x, r in zip(xs, main):
-        y = ys(val(r))
-        slug = slug_by_system.get(r["system"])
-        label = f'{r["system"]} {r["year"]}'
-        inner = (f'<circle class="dot" cx="{x:.1f}" cy="{y:.1f}" r="5"/>'
-                 f'<text class="plabel" x="{x:.1f}" y="{y - 14:.1f}" text-anchor="middle" '
-                 f'font-size="12">{e(r["error"])}</text>'
-                 f'<text x="{x:.1f}" y="{y1 + 20:.1f}" text-anchor="middle" '
-                 f'font-size="11">{e(label)}</text>')
-        if slug:
-            parts.append(f'<g class="pt"><a href="/publications/{slug}/" '
-                         f'aria-label="{e(label)}, {e(r["error"])} mean error">{inner}</a></g>')
-        else:
-            parts.append(f'<g class="pt">{inner}</g>')
-
-    for r in emb:
-        y = ys(val(r))
-        parts.append(
-            f'<g class="pt">'
-            f'<path class="dot-embedded" d="M {xe} {y - 6} L {xe + 6} {y} L {xe} {y + 6} '
-            f'L {xe - 6} {y} Z"/>'
-            f'<text class="plabel" x="{xe}" y="{y - 14:.1f}" text-anchor="end" '
-            f'font-size="12" fill="var(--signal)">{e(r["error"])}</text>'
-            # the embedded point is a separate operating point rather than a fifth generation,
-            # so its label sits on its own baseline and never collides with the series below
-            f'<text x="{x1}" y="{y1 + 38:.1f}" text-anchor="end" font-size="11" '
-            f'fill="var(--signal)">embedded, {e(r["resolution"])}</text>'
-            f'</g>')
-
-    parts.append("</svg>")
-    return "\n".join(parts)
-
-
 # ---------------------------------------------------------------- home
 
 def arc_stage():
@@ -1154,6 +1077,24 @@ def build_home():
         f'<span aria-hidden="true">&#8599;</span></a></li>'
         for x in H["capabilities"])
 
+    WK = H["work"]
+    _wk = MEDIA["videos"].get(WK["clip"], {})
+    work_clip = ""
+    if _wk:
+        _src = _wk.get("preview") or _wk["mp4"]
+        if _wk.get("preview") and not (ROOT / _wk["preview"].lstrip("/")).exists():
+            _src = _wk["mp4"]
+        work_clip = (
+            f'<div class="v-wrap"><video poster="{_wk["poster"]}" width="{_wk["width"]}" '
+            f'height="{_wk["height"]}" muted loop playsinline preload="none" data-autoloop '
+            f'data-full-src="{_wk["mp4"]}" aria-label="{e(_wk["alt"])}">'
+            f'<source src="{_src}" type="video/mp4"></video>'
+            f'<button type="button" class="v-toggle" data-toggle '
+            f'aria-label="Play or pause video">Pause</button>'
+            f'<button type="button" class="v-expand" data-expand hidden '
+            f'aria-label="Play this clip in a larger frame">'
+            f'<span aria-hidden="true">&#x2921;</span>Expand</button></div>')
+
     OR = H["origin"]
     chrono = ""
     for n, stp in enumerate(OR["steps"]):
@@ -1198,32 +1139,25 @@ def build_home():
 
 {arc_stage()}
 
-<section class="chapter" id="work">
+<section class="chapter work-chapter" id="work">
   <div class="chapter-head">
-    <p class="spec"><span>02 &mdash; Research</span><span>2023&ndash;2026</span></p>
-    <h2 class="chapter-title">Four systems, one measurement.</h2>
-    <p class="chapter-lede">{e(SITE['headlineProgression']['caption'])}</p>
+    <p class="spec"><span>{e(WK['eyebrow'])}</span><span>{e(WK['meta'])}</span></p>
+    <h2 class="chapter-title">{e(WK['heading'])}</h2>
+    <p class="chapter-lede">{e(WK['lede'])}</p>
   </div>
+  <figure class="work-band bleed">
+    <div class="work-band-media">{work_clip}</div>
+    <figcaption class="work-band-rail bleed-wide">
+      <p class="spec">{e(MEDIA["videos"].get(WK["clip"], {}).get("caption", ""))}</p>
+      <div class="readout work-readout">
+        <dl><dt>{e(WK['readout']['value'])}</dt>
+          <dd><a class="readout-label" href="{e(WK['readout']['href'])}">{e(WK['readout']['label'])}</a>
+            <span class="readout-note">{e(WK['readout']['detail'])}</span></dd></dl>
+      </div>
+    </figcaption>
+  </figure>
   <ol class="index work-index">{work}</ol>
   <p class="work-more"><a href="/publications/">All ten publications <span aria-hidden="true">&#8599;</span></a></p>
-</section>
-
-<section class="chapter descent-chapter bleed ground-dark" aria-labelledby="descent-title">
-  <div class="bleed-wide">
-    <div class="chapter-head">
-      <p class="spec"><span>{e(SITE['headlineProgression']['label'])}</span><span>mean error / metres</span></p>
-      <h2 class="chapter-title" id="descent-title">The error came down as the sensor got smaller.</h2>
-      <p class="chapter-lede">Same building, same floor, same measurement, four system generations.
-        Hardware and input resolution differ across them, and the amber point is the embedded
-        operating point rather than a laptop GPU.</p>
-    </div>
-    <figure class="descent descent-large">
-      <div class="descent-figure">{descent_svg()}</div>
-      <div class="legend"><span><i class="k-main"></i> laptop or desktop GPU</span>
-        <span><i class="k-emb"></i> Jetson Orin NX, embedded</span></div>
-      <figcaption>Measured against LiDAR ground truth. <a href="/research/">Full results and conditions</a>.</figcaption>
-    </figure>
-  </div>
 </section>
 
 <section class="chapter" id="onboard">
@@ -1264,16 +1198,14 @@ def build_home():
     <h2 class="chapter-title">{e(H['appliedHeading'])}</h2>
     <p class="chapter-lede">{e(H['appliedIntro'])}</p>
   </div>
+  <div class="applied-lead">{home_video("humanoid-deployment")}</div>
   <div class="applied">
     <div class="applied-copy">
       <p>{e(H['appliedDetail'])}</p>
       <p class="applied-background">{e(H['background'])}</p>
       <p><a href="/cv/">Experience, teaching and technical skills <span aria-hidden="true">&#8599;</span></a></p>
     </div>
-    <div class="applied-media">
-      <div class="applied-wide">{home_video("humanoid-deployment")}</div>
-      <div class="applied-tall">{home_video("humanoid-mapping")}</div>
-    </div>
+    <div class="applied-tall">{home_video("humanoid-mapping")}</div>
   </div>
 </section>
 

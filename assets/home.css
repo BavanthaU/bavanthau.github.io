@@ -285,13 +285,26 @@
 @media (max-width: 51.99em) { .index-status { text-align: left; } }
 .work-more { margin-top: 1.6rem; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: 0.04em; text-transform: uppercase; }
 
-/* ------------------------------------------------------------------ descent */
-
-.descent-chapter { margin-block: 0; padding-block: clamp(4rem, 9vw, 8rem); }
-.descent-chapter .chapter-head { border-top-color: var(--rule-strong); }
-.descent-large { margin: clamp(2.2rem, 5vw, 3.6rem) 0 0; }
-.descent-large .descent-figure { max-width: none; }
-.descent-large svg { width: 100%; height: auto; }
+/* The research chapter leads with the system running rather than with a chart of it.
+   The measured claim sits in the rail under the clip, beside the conditions it holds for. */
+.work-band {
+  /* .bleed sets the inline offset; a shorthand margin here would cancel it and the clip
+     would hang off the right edge instead of running edge to edge */
+  margin-block: clamp(2.5rem, 6vw, 4rem) clamp(2rem, 5vw, 3rem);
+  margin-inline: calc(50% - 50vw);
+}
+.work-band-media { border-block: 1px solid var(--rule); background: var(--stage); }
+.work-band-media .v-wrap { margin: 0; border-radius: 0; }
+.work-band-media video { display: block; width: 100%; height: auto; }
+.work-band-rail { display: grid; gap: 1.5rem; max-width: none; padding-top: 1.1rem; }
+.work-band-rail > .spec { max-width: 62ch; text-transform: none; letter-spacing: 0.02em; font-size: var(--t-sm); line-height: 1.6; color: var(--ink-2); }
+.work-readout dl { margin: 0; }
+.work-readout dt { font-size: clamp(2.2rem, 1.4rem + 2.6vw, 3.6rem); }
+.work-readout a { color: inherit; text-decoration: none; }
+.work-readout a:hover { color: var(--accent); }
+@media (min-width: 58em) {
+  .work-band-rail { grid-template-columns: minmax(0, 1fr) minmax(0, 20rem); column-gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+}
 
 /* ------------------------------------------------------------------ platform */
 
@@ -321,16 +334,21 @@
 
 /* ------------------------------------------------------------------ applied */
 
-.applied { margin-top: clamp(2rem, 5vw, 3.4rem); display: grid; gap: clamp(1.8rem, 4vw, 3rem); }
+/* The deployment footage is the evidence for this chapter, so it takes the full measure
+   rather than a third of a media column. The venue map sits beside the copy below it. */
+.applied-lead { margin-top: clamp(2rem, 5vw, 3.4rem); }
+.applied-lead .v-figure { margin: 0; }
+.applied-lead video { display: block; width: 100%; height: auto; }
+
+.applied { margin-top: clamp(2.2rem, 5vw, 3.4rem); display: grid; gap: clamp(1.8rem, 4vw, 3rem); align-items: start; }
 .applied-copy p { max-width: 54ch; color: var(--ink-2); line-height: 1.65; }
 .applied-copy p + p { margin-top: 1rem; }
 .applied-background { padding-top: 1rem; border-top: 1px solid var(--rule); }
-.applied-media { display: grid; gap: clamp(1rem, 2.5vw, 1.5rem); align-items: start; }
-.applied-media .v-figure { margin: 0; }
-.applied-tall video { width: 100%; height: auto; }
+.applied-tall .v-figure { margin: 0; }
+.applied-tall video { display: block; width: 100%; height: auto; }
 @media (min-width: 58em) {
-  .applied { grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); column-gap: clamp(2rem, 5vw, 4.5rem); }
-  .applied-media { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+  .applied { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); column-gap: clamp(2rem, 5vw, 4.5rem); }
+  .applied-tall { max-width: 22rem; margin-left: auto; }
 }
 
 /* ------------------------------------------------------------------ exploration */

@@ -26,8 +26,8 @@ The page has two grounds, and the change between them is how the reading is pace
   breaks out of it.
 - **Instrument** (`.ground-dark`) — a near-black full-bleed band for anything that is system
   output or a measured claim. It keeps its own colours in both themes, because perception
-  output was authored on black. Used for the hero, the pixels-to-map sequence, the error
-  plot, the platform band, case-study openings and the outro.
+  output was authored on black. Used for the hero, the pixels-to-map sequence, the origin
+  chapter, the platform band, case-study openings and the outro.
 
 `.bleed` takes a block out of the reading column to the full viewport; `.bleed-wide` and
 `.bleed-inner` put content back inside it at two widths.
@@ -97,14 +97,17 @@ width: `--t-display` (hero only), `--t-h1`, `--t-h2`, `--t-h3`, `--t-lede`, `--t
   edge to edge; the signature stage takes roughly two thirds of the viewport.
 - Project entries do not share one component. Each uses the composition its own output asks
   for, declared as `layout` in `data/projects.json`.
-- Every page remains usable at 320px, and no page scrolls horizontally. Diagrams and wide
-  plots scroll inside their own container.
+- Every page remains usable at 320px, and no page scrolls horizontally. Wide diagrams scroll
+  inside their own container, with the clipped edge marked.
+- A measured claim is made beside the output that produced it, not as a chart of itself. The
+  home page states the mapping error in the rail under the clip of the system running; the
+  full progression, with the conditions for every row, is the table on the research page.
 
 ## Motion and interaction
 
 The masthead joins the hero's dark ground and hands itself back at the top of the page. The
-descent plot draws once. The signature stage crossfades between representations and plays a
-clip only while its step is showing. Hover transitions are limited to navigation and action
+signature stage crossfades between representations and plays a clip only while its step is
+showing. Hover transitions are limited to navigation and action
 affordances.
 
 Under `prefers-reduced-motion: reduce` the stage stays a static sequence, all motion is
