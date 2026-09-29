@@ -670,7 +670,6 @@ def _pub_figures():
 def _proj_media():
     return {
         "mono-hydra-plus": gallery("drone-side", ["drone-top", "drone-angle"])
-                           + video("drone-flight") + video("stairs-zupt")
                            + picture("scene-graph-itc") + picture("itc-embedded"),
         "m2h-mx":          video("icra26") + wipe("m2h-mx-indoor", compact=True)
                            + wipe("m2h-mx-outdoor", compact=True)
@@ -938,6 +937,30 @@ def pipeline_story():
             f'<a href="#depth-geometry">03 / Factor geometry</a></nav>{parts}</section>')
 
 
+def onboard_configuration():
+    d = GRAPHICS['onboardConfiguration']
+    cards = ''.join(
+        f'<article class="config-card"><p class="eyebrow">{e(c["label"])}</p>'
+        f'{engineering_icon(c["icon"])}<h3>{e(c["title"])}</h3>'
+        f'<p>{e(c["text"])}</p><p class="config-output">{e(c["output"])}</p></article>'
+        for c in d['steps'])
+    return (f'<section class="onboard-config" id="configuration" aria-labelledby="config-title">'
+            f'<p class="eyebrow">Hardware × software integration</p><h2 id="config-title">{e(d["title"])}</h2>'
+            f'<p class="lede">{e(d["intro"])}</p>'
+            f'<div class="config-hardware"><div>{picture("drone-top")}</div>'
+            f'<div><p class="eyebrow">Built and flight-tested</p><h3>Carry the mapping stack into the air.</h3>'
+            f'<p>I built the custom drone and integrated perception, odometry and scene graph construction on its Jetson. '
+            f'The carbon frame, propeller cage, battery placement and onboard compute are visible in the hardware photographs.</p>'
+            f'<dl class="config-specs"><div><dt>Sensing</dt><dd>One RGB camera + IMU</dd></div>'
+            f'<div><dt>Compute</dt><dd>Jetson Orin NX</dd></div>'
+            f'<div><dt>Inference</dt><dd>ONNX → TensorRT FP16</dd></div>'
+            f'<div><dt>Mapping</dt><dd>RVIO2 + local refinement + Hydra</dd></div></dl></div></div>'
+            f'<div class="config-grid">{cards}</div>'
+            f'<div class="config-demos"><div><h3>Watch the platform fly.</h3>{video("drone-flight")}</div>'
+            f'<div><h3>Inspect the onboard pose estimate.</h3>{video("stairs-zupt")}</div></div>'
+            f'<p class="illustration-note">{e(d["note"])}</p></section>')
+
+
 def hierarchy_story():
     levels = [('Building', 'The top-level environment.'), ('Rooms', 'Regions that organise the building.'),
               ('Places', 'Connected locations through the space.'), ('Objects', 'Semantic entities in the map.'),
@@ -1132,6 +1155,25 @@ def build_home():
     <h2 id="work-title">Mapping, exploration and field deployment.</h2></div>
     <a class="section-link" href="/projects/">All projects ↗</a></div>
   <div class="work-grid">{cases}</div>
+</section>
+
+<section class="tile-section" id="flight" aria-labelledby="flight-title">
+  <div class="tile-section-head"><div><p class="tile-eyebrow">Designed, integrated, flight-tested</p>
+    <h2 id="flight-title">Build it. Fly it. Map with it.</h2>
+    <p class="expertise-intro">A custom airframe. Its own onboard computer. A mapping stack I took from models to a flying robot.</p></div>
+    <a class="section-link" href="/projects/mono-hydra-plus/#configuration">Explore the onboard setup ↗</a></div>
+  <div class="flight-grid">
+    <article class="flight-hardware">
+      <div class="flight-photo">{picture('drone-angle', caption=False, sizes='(min-width: 52em) 45vw, 92vw')}<span class="flight-badge">01 / The robot I built</span></div>
+      <div class="flight-copy"><h3>Fit the software to the aircraft.</h3><p>Camera and IMU sensing, Jetson compute, and a protected carbon frame: the hardware behind my onboard mapping research.</p>
+        <ul class="flight-chips"><li>RGB + IMU</li><li>Jetson Orin NX</li><li>TensorRT FP16</li></ul></div>
+    </article>
+    <article class="flight-demo"><div class="flight-demo-head"><p class="tile-eyebrow">02 / Flight test</p><h3>Watch it leave the lab bench.</h3></div>
+      {tile_video('drone-flight', 'Real flight footage · take-off and an indoor corridor pass')}
+      <p class="flight-demo-note">The robot carries its mapping compute onboard. See the separate ITC recording above for the scene graph output.</p>
+    </article>
+  </div>
+  <a class="flight-route" href="/projects/mono-hydra-plus/#configuration"><span>03 / Inside the onboard stack</span><strong>Camera + IMU → learned perception → refined poses → 3D scene graph</strong><span aria-hidden="true">↗</span></a>
 </section>
 
 <section class="tile-section expertise-section" id="skills" aria-labelledby="skills-title">
@@ -1874,7 +1916,7 @@ def build_project_pages():
 </header>
 <nav class="case-jumps" aria-label="Case study sections">
   <a href="#system">System</a>
-{('<a href="#pipeline">Pipeline explained</a>' if pr['slug'] == 'mono-hydra-plus' else '')}
+{('<a href="#configuration">Onboard configuration</a><a href="#pipeline">Pipeline explained</a>' if pr['slug'] == 'mono-hydra-plus' else '')}
   <a href="#evidence">Evidence</a>
   <a href="/projects/">All projects ↗</a>
 </nav>
@@ -1885,7 +1927,7 @@ def build_project_pages():
   <p class="case-does-text">{e(pr["whatItDoes"])}</p>
 </section>
 {system_diagram(pr['slug'])}
-{pipeline_story() if pr['slug'] == 'mono-hydra-plus' else ''}
+{onboard_configuration() + pipeline_story() if pr['slug'] == 'mono-hydra-plus' else ''}
 <section class="case-section case-evidence" id="evidence">
   <p class="spec">02 &mdash; Evidence</p>
   {PROJ_MEDIA.get(pr["slug"], "")}

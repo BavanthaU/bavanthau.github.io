@@ -23,8 +23,8 @@
 <meta name="twitter:title" content="Bavantha Udugama | Robotics and computer vision engineer">
 <meta name="twitter:description" content="Robotics engineer working across computer vision, SLAM and embedded systems. Monocular 3D mapping, Jetson deployment and real-world service robotics.">
 <link rel="stylesheet" href="/assets/site.css?v=2c76c792ac">
-<link rel="stylesheet" href="/assets/portfolio.css?v=0ac4dd5612">
-<link rel="stylesheet" href="/assets/fieldbook.css?v=2e020990cd">
+<link rel="stylesheet" href="/assets/portfolio.css?v=7417157599">
+<link rel="stylesheet" href="/assets/fieldbook.css?v=62ea4360a8">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -353,6 +353,34 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "@id": "https://bavanthau.github.io/#video-drone-flight",
+  "name": "Take-off and a pass down the corridor",
+  "description": "The custom quadrotor lifting off from the floor of an indoor walkway and flying down it towards the camera, past timber and glass balconies.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/drone-flight-poster.jpg",
+  "uploadDate": "2026-08-18",
+  "contentUrl": "https://bavanthau.github.io/media/video/drone-flight.mp4",
+  "width": 1080,
+  "height": 1920,
+  "inLanguage": "en",
+  "isFamilyFriendly": true,
+  "creator": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "copyrightHolder": {
+    "@id": "https://bavanthau.github.io/#person",
+    "@type": "Person",
+    "name": "Bavantha Udugama"
+  },
+  "mainEntityOfPage": "https://bavanthau.github.io/",
+  "duration": "PT7S"
+}
+</script>
 </head>
 <body class="page page-home">
 <a class="skip" href="#main">Skip to content</a>
@@ -444,6 +472,25 @@
     </div>
   </div>
 </article></div>
+</section>
+
+<section class="tile-section" id="flight" aria-labelledby="flight-title">
+  <div class="tile-section-head"><div><p class="tile-eyebrow">Designed, integrated, flight-tested</p>
+    <h2 id="flight-title">Build it. Fly it. Map with it.</h2>
+    <p class="expertise-intro">A custom airframe. Its own onboard computer. A mapping stack I took from models to a flying robot.</p></div>
+    <a class="section-link" href="/projects/mono-hydra-plus/#configuration">Explore the onboard setup ↗</a></div>
+  <div class="flight-grid">
+    <article class="flight-hardware">
+      <div class="flight-photo"><picture><source type="image/avif" srcset="/media/images/drone-angle-480.avif 480w, /media/images/drone-angle-960.avif 960w, /media/images/drone-angle-1600.avif 1600w" sizes="(min-width: 52em) 45vw, 92vw"><source type="image/webp" srcset="/media/images/drone-angle-480.webp 480w, /media/images/drone-angle-960.webp 960w, /media/images/drone-angle-1600.webp 1600w" sizes="(min-width: 52em) 45vw, 92vw"><img src="/media/images/drone-angle-1600.jpg" alt="The quadrotor from a three-quarter angle, showing the depth of the carbon frame, the propeller cage, and the battery and electronics stacked in the centre." width="3024" height="4032" loading="lazy" decoding="async"></picture><span class="flight-badge">01 / The robot I built</span></div>
+      <div class="flight-copy"><h3>Fit the software to the aircraft.</h3><p>Camera and IMU sensing, Jetson compute, and a protected carbon frame: the hardware behind my onboard mapping research.</p>
+        <ul class="flight-chips"><li>RGB + IMU</li><li>Jetson Orin NX</li><li>TensorRT FP16</li></ul></div>
+    </article>
+    <article class="flight-demo"><div class="flight-demo-head"><p class="tile-eyebrow">02 / Flight test</p><h3>Watch it leave the lab bench.</h3></div>
+      <figure class="tile-player"><div class="tile-player-frame"><video controls muted loop playsinline preload="none" data-autoloop poster="/media/video/drone-flight-poster.jpg" width="1080" height="1920" aria-label="The custom quadrotor lifting off from the floor of an indoor walkway and flying down it towards the camera, past timber and glass balconies."><source src="/media/video/drone-flight.mp4" type="video/mp4"></video><button class="v-toggle" type="button" data-toggle aria-label="Play or pause Real flight footage · take-off and an indoor corridor pass">Play</button></div><figcaption>Real flight footage · take-off and an indoor corridor pass</figcaption></figure>
+      <p class="flight-demo-note">The robot carries its mapping compute onboard. See the separate ITC recording above for the scene graph output.</p>
+    </article>
+  </div>
+  <a class="flight-route" href="/projects/mono-hydra-plus/#configuration"><span>03 / Inside the onboard stack</span><strong>Camera + IMU → learned perception → refined poses → 3D scene graph</strong><span aria-hidden="true">↗</span></a>
 </section>
 
 <section class="tile-section expertise-section" id="skills" aria-labelledby="skills-title">

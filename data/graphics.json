@@ -182,5 +182,40 @@
       "text": "The depth measurement is camera-frame distance along the optical axis. A depth factor connects a camera pose and a tracked landmark; visual, motion and IMU factors provide complementary constraints.",
       "purpose": "The illustration omits velocity and bias variables to make the pose–landmark relationship easier to read."
     }
-  ]
+  ],
+  "onboardConfiguration": {
+    "title": "Configure the robot around one camera and an IMU.",
+    "intro": "The hardware, inference runtime and mapping backend have to work as one system. This is the configuration behind my onboard mapping work.",
+    "steps": [
+      {
+        "title": "Sense motion and appearance",
+        "label": "01 / Inputs",
+        "text": "RGB images provide appearance; the IMU provides inertial measurements. RVIO2 supplies motion estimates for the mapping pipeline.",
+        "output": "RGB + IMU → motion estimates",
+        "icon": "sense"
+      },
+      {
+        "title": "Run learned perception onboard",
+        "label": "02 / Compute",
+        "text": "The Jetson Orin NX carries the perception workload. Models are exported through ONNX and run with TensorRT FP16; predicted depth and semantic labels feed the mapping stack.",
+        "output": "Images → depth + semantic labels",
+        "icon": "compute"
+      },
+      {
+        "title": "Align predictions and refine poses",
+        "label": "03 / Integration",
+        "text": "Relative poses align predictions across frames. Selected depth samples join visual, motion and IMU constraints in local graph refinement.",
+        "output": "Aligned predictions → refined poses",
+        "icon": "map"
+      },
+      {
+        "title": "Construct a structured map",
+        "label": "04 / Output",
+        "text": "Hydra receives refined poses and loop-closure proposals, maintains the geometric map and builds the hierarchical 3D scene graph.",
+        "output": "Geometry → objects, places and rooms",
+        "icon": "graph"
+      }
+    ],
+    "note": "The flight clip shows the physical platform; the mapping recordings show software output. They are separate recordings. Perception throughput is not an end-to-end mapping or flight-control rate."
+  }
 }

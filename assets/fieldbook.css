@@ -233,3 +233,31 @@ body::before { display: none; }
 }
 
 .nav a { font-size: .8rem; }
+
+/* Onboard configuration: hardware evidence, signal path and runtime demos. */
+.onboard-config { margin: var(--chapter) 0; padding-top: 2rem; border-top: 1px solid var(--rule); }
+.onboard-config > h2 { max-width: 25ch; }
+.config-hardware { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin: 2rem 0; padding: 1.5rem; border: 1px solid var(--rule); border-radius: 1rem; background: var(--surface); }
+.config-hardware > div { min-width: 0; }
+.config-hardware figure { margin: 0; }
+.config-hardware img { width: 100%; max-height: 30rem; object-fit: contain; }
+.config-hardware h3 { font-size: 1.65rem; margin-top: 0; }
+.config-hardware p { color: var(--ink-2); }
+.config-specs { margin: 1.5rem 0 0; }
+.config-specs > div { display: grid; grid-template-columns: 6rem 1fr; gap: 1rem; border-top: 1px solid var(--rule); padding: .75rem 0; font-size: .9rem; }
+.config-specs dt { color: var(--ink-2); }
+.config-specs dd { margin: 0; font-weight: 600; }
+.config-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+.config-card { background: var(--surface); border: 1px solid var(--rule); border-radius: .8rem; padding: 1.5rem; }
+.config-card > svg { width: 2.5rem; height: 2.5rem; color: var(--accent); }
+.config-card h3 { margin: 1rem 0 .7rem; font-size: 1.25rem; }
+.config-card p { color: var(--ink-2); font-size: .95rem; }
+.config-card .config-output { padding-top: 1rem; margin-bottom: 0; border-top: 1px solid var(--rule); color: var(--accent); font: .8rem/1.7 var(--mono); }
+.config-demos { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; margin-top: 2rem; }
+.config-demos > div { min-width: 0; }
+.config-demos h3 { font-size: 1.25rem; }
+.config-demos video { width: 100%; aspect-ratio: 16 / 10; object-fit: contain; background: var(--field-panel); }
+@media (max-width: 52em) {
+  .config-hardware, .config-grid, .config-demos { grid-template-columns: 1fr; }
+  .config-hardware { padding: 1rem; }
+}
