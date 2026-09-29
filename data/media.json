@@ -100,6 +100,42 @@
       "alt": "The quadrotor from a three-quarter angle, showing the depth of the carbon frame, the propeller cage, and the battery and electronics stacked in the centre.",
       "caption": "Three-quarter view.",
       "credit": "Custom drone"
+    },
+    "pipeline-overview": {
+      "src": "_source/media/web-explainers/system_overview_journal_v9.png",
+      "alt": "Mono-Hydra++ system overview: RGB and IMU feed perception and odometry; aligned depth supports local graph refinement and volumetric fusion; Hydra builds a hierarchical scene graph.",
+      "caption": "Mono-Hydra++ system overview. Scene and map views are illustrative.",
+      "credit": "ISPRS manuscript, Figure pipeline_overview; system_overview_journal_v9.png"
+    },
+    "pipeline-temporal": {
+      "src": "_source/media/web-explainers/temporal_alignment_journal_v5.png",
+      "alt": "Previous depth and labels are back-projected, transformed by relative camera pose and reprojected into the current image; validity checks precede depth median and label voting.",
+      "caption": "Pose-aware temporal alignment. Illustrative scene views show how history is aligned and combined with the current prediction.",
+      "credit": "ISPRS manuscript, Figure temporal alignment; temporal_alignment_journal_v5.png"
+    },
+    "pipeline-sampling": {
+      "src": "_source/media/web-explainers/depth_sampling_journal_v2.png",
+      "alt": "Tracked keypoints sample aligned depth; validity, motion, reprojection and semantic checks select depth factors for local graph refinement.",
+      "caption": "Sparse depth-factor selection. Scene views are illustrative.",
+      "credit": "ISPRS manuscript, Figure sparse depth factors; depth_sampling_journal_v2.png"
+    },
+    "pipeline-geometry": {
+      "src": "_source/media/web-explainers/depth_factor_geometry_journal_v3.png",
+      "alt": "Optical-axis depth relates a camera pose to a landmark; the local factor graph combines visual, IMU, motion and depth constraints.",
+      "caption": "Depth-factor geometry and local factor graph. Velocity and bias variables are omitted in this illustration.",
+      "credit": "ISPRS manuscript, Figure depth factor geometry; depth_factor_geometry_journal_v3.png"
+    },
+    "scenegraph-explained": {
+      "src": "_source/media/web-explainers/scenegraph.png",
+      "alt": "Conceptual exploded view of a scene graph: building, rooms, connected places, objects and a geometric mesh.",
+      "caption": "Illustration of the scene-graph hierarchy, from geometry to a building-level representation. Not an experimental reconstruction.",
+      "credit": "PhD thesis illustration; figures/story3d/scenegraph.png"
+    },
+    "platform-illustration": {
+      "src": "_source/media/web-explainers/drone-pusher-threeblade.png",
+      "alt": "Illustration of the custom aerial robot showing its carbon frame, front camera, electronics stack, battery and underside rotors.",
+      "caption": "Illustration of the custom aerial research platform, based on supplied hardware photographs.",
+      "credit": "PhD thesis platform artwork; figures/platform_drone/drone-pusher-threeblade.png"
     }
   },
   "frames": {

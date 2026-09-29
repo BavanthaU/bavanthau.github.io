@@ -12,15 +12,15 @@
     ],
     "publishingName": "U.V.B.L. Udugama",
     "publishingNameNote": "All four PhD papers are published under this form. It is listed so that a search for the publishing name resolves to this site.",
-    "role": "PhD candidate",
+    "role": "Robotics software engineer",
     "roleUntil": "2026-08-01",
     "headline": [
-      "Robotics engineer",
-      "Computer vision engineer",
-      "Perception and spatial AI"
+      "Robotics software engineer",
+      "3D perception",
+      "Computer vision"
     ],
     "headlineNote": "What the work is, as opposed to the academic post. Used for schema.org jobTitle, which accepts a list, so the entity resolves for both robotics and computer vision searches. The role field stays the academic one because it is paired with the affiliation.",
-    "field": "monocular spatial perception and robot exploration",
+    "field": "3D perception, SLAM and navigation for real robots",
     "affiliation": {
       "name": "Faculty ITC, University of Twente",
       "shortName": "ITC, University of Twente",
@@ -42,7 +42,8 @@
     "email": "bavanthaU@eng.pdn.ac.lk",
     "location": "Netherlands",
     "availableFrom": "2026-08-01",
-    "emailNote": "Confirmed 2026-08-18 as the public contact address. Deliberately not the UT address, which stops working after 2026-08-01."
+    "emailNote": "Confirmed 2026-08-18 as the public contact address. Deliberately not the UT address, which stops working after 2026-08-01.",
+    "availability": "Available immediately"
   },
   "links": {
     "googleScholar": "https://scholar.google.com/citations?user=qQ5IPg4AAAAJ",
@@ -249,7 +250,7 @@
   ],
   "statsFootnote": "Perception, odometry, mapping, and scene graph construction all run on the drone. The frame rate is the measured perception throughput.",
   "home": {
-    "kicker": "Robotics · Computer vision · Spatial AI",
+    "kicker": "Robotics software · 3D perception · Computer vision",
     "pitchLineOne": "From camera pixels",
     "pitchLineTwo": "to capable robots.",
     "lede": "I’m Bavantha, a robotics engineer working across computer vision, SLAM and embedded systems. I build models that help robots understand their surroundings, and take them from research code to real hardware.",
@@ -292,8 +293,8 @@
         "tools": "ROS · Jetson · TensorRT"
       }
     ],
-    "appliedHeading": "Robotics beyond the lab",
-    "appliedIntro": "Before my PhD, I was the founding robotics engineer at Expert Hub Robotics in Dubai. I built the ROS navigation stack and led deployments of more than 30 humanoid robots across Expo 2020, healthcare and reception sites.",
+    "appliedHeading": "Robots working with the public.",
+    "appliedIntro": "Senior robotics software engineer and project lead at Expert Hub Robotics. I built the navigation software and led deployments of more than 30 humanoid robots for more than 10 enterprise clients, including a six-month run at Expo 2020 Dubai, recovering localisation on site as the crowds changed.",
     "thenNow": {
       "heading": "Then and now, the same question",
       "thenTitle": "2017 · Peradeniya",
@@ -309,10 +310,10 @@
     "featuredHeading": "A camera, an IMU, a map of the building.",
     "featuredText": "My PhD at the University of Twente focuses on indoor mapping for small drones. Mono-Hydra++ builds a layered 3D map from a single camera and an IMU, with perception, odometry and mapping running on the drone’s Jetson.",
     "explorationHeading": "Where should the robot go next?",
-    "explorationText": "Mapping is one part of the problem. I’m now working on how a robot chooses its next route through an unfamiliar building, remembers unexplored areas and returns to unfinished work.",
-    "explorationNote": "This work is in simulation, with no reported evaluation results yet. It uses its own occupancy map and belief graph; connecting it to Mono-Hydra++ is a next step.",
-    "contactHeading": "Let’s build useful robots.",
-    "contactText": "For research collaborations or engineering opportunities in perception, SLAM and robotics, get in touch.",
+    "explorationText": "ATLAS chooses exploration goals from a compact belief graph of places and open ends, so goal selection stays real time as the explored area grows. It was trained in Isaac Sim from planner demonstrations and reinforcement learning, integrated with Mono-Hydra++ over ROS 2, and flown on the drone.",
+    "explorationNote": "No evaluation results are published for ATLAS yet. The clip below is an exploration run in simulation.",
+    "contactHeading": "Build perception and navigation for real robots.",
+    "contactText": "For robotics software, perception, SLAM and navigation roles, or research collaborations. Available immediately.",
     "selected": [
       {
         "slug": "mono-hydra-plus",
@@ -337,21 +338,27 @@
     ],
     "proof": [
       {
-        "value": "30+",
-        "label": "robots deployed",
-        "detail": "Led fleet deployments with the team at Expert Hub Robotics.",
+        "value": "8 yrs",
+        "label": "in robotics",
+        "detail": "Research and industry, from award-winning undergraduate work to a PhD and commercial deployments.",
         "href": "/cv/#experience"
       },
       {
+        "value": "30+",
+        "label": "robots deployed",
+        "detail": "Led a three-engineer team at Expert Hub Robotics, for more than 10 enterprise clients including Expo 2020 Dubai.",
+        "href": "#industry"
+      },
+      {
         "value": "4",
-        "label": "first-author research papers",
-        "detail": "ISPRS Annals, IROS, ICRA workshop and a journal manuscript under review.",
+        "label": "first-author papers",
+        "detail": "IROS 2025, ICRA 2026 workshop, ISPRS Annals, and a journal manuscript under review.",
         "href": "/publications/"
       },
       {
-        "value": "25.53 fps",
+        "value": "25.5 fps",
         "label": "onboard perception",
-        "detail": "M2H-MX-L · 256 × 192 · Jetson Orin NX 16GB · TensorRT FP16. Perception throughput.",
+        "detail": "M2H-MX-L · 256 × 192 · Jetson Orin NX 16GB · TensorRT FP16",
         "href": "/projects/m2h-mx/"
       }
     ],
@@ -364,28 +371,28 @@
       "drone-flight": "Take-off and a pass down the corridor. Everything the mapping runs on is carried onboard."
     },
     "hero": {
-      "eyebrow": "Monocular spatial perception",
-      "lineOne": "One camera.",
-      "lineTwo": "A map a robot",
-      "lineThree": "can reason with.",
-      "lede": "I build the pipeline that turns a single camera stream into geometry, objects, places and rooms — and I make it run on the robot, not on a workstation.",
-      "standing": "PhD candidate, ITC · University of Twente · UAV Centre of Expertise",
+      "eyebrow": "Robotics software engineer · 3D perception & computer vision",
+      "lineOne": "From algorithm design",
+      "lineTwo": "to the robots",
+      "lineThree": "that run it.",
+      "lede": "Eight years across research and industry, taking mapping, perception and navigation from algorithm design to deployment on real robots: a custom autonomous drone with onboard perception, and a fleet of more than 30 commercial robots.",
+      "standing": "Available immediately · Netherlands",
       "clip": "itc-loop",
       "clipLabel": "ITC building, second floor",
-      "clipDetail": "Scene graph built live from the drone's camera, shown at 10× real time",
+      "clipDetail": "Scene graph built live onboard the drone, shown at 10× real time",
       "clipLink": "/videos/scene-graph-drone-corridor-loop/",
       "clipLinkLabel": "Watch the flight"
     },
     "arcStage": {
-      "eyebrow": "01 — The arc",
+      "eyebrow": "02 — Doctoral research",
       "heading": "From pixels to a map.",
-      "lede": "Five stages of one pipeline, each shown with real output from the stage that produces it. The perception stages are shown indoors and outdoors side by side, from the same network: the benchmarks it is measured on. The mapping stages are from the building the drone was flown through.",
+      "lede": "The PhD asks how much a robot can understand from the lightest sensor it can carry. Five stages of that pipeline, each shown with real output. The perception stages are indoors and outdoors side by side from one network; the mapping stages are from the building the drone was flown through.",
       "steps": [
         {
           "index": "01",
           "title": "One image in",
           "media": "pair",
-          "text": "Everything downstream starts from a single RGB frame. No laser, no depth camera, no stereo rig — one passive camera is all the system reads, indoors or out.",
+          "text": "The research constraint is deliberate: one RGB camera and an IMU, the lightest sensing a small drone can carry. Everything downstream is built from that stream, indoors or out.",
           "spec": "RGB input · the only thing the network is given",
           "panes": [
             {
@@ -452,7 +459,7 @@
       "foot": "Those predictions drive the mapping. Mean mesh error against LiDAR ground truth on the ITC second floor is 0.08 m for M2H-MX-L at 640 × 480 on an RTX 4080 Super, and 0.22 m from the 256 × 192 operating point that runs onboard."
     },
     "origin": {
-      "eyebrow": "05 — Origin",
+      "eyebrow": "06 — Origin",
       "meta": "University of Peradeniya · 2017",
       "heading": "The same question, ten years earlier.",
       "lede": "The bachelor's project was an autonomous exploration planning strategy for a robot mapping a space it had never seen. It had a laser range finder and stereo cameras to work with. The PhD asks the same question with the scanner taken away.",
@@ -488,7 +495,7 @@
       "credits": "Three papers came out of it. Best Undergraduate Project, Institution of Engineers Sri Lanka. Best Technical Paper, IET Sri Lanka."
     },
     "work": {
-      "eyebrow": "02 — Research",
+      "eyebrow": "03 — Research",
       "meta": "2023–2026",
       "heading": "Four systems, one measurement.",
       "lede": "Four generations of the same system, each one measured on the same building. The full progression, with the hardware and input resolution behind every row, is on the research page.",
@@ -498,6 +505,237 @@
         "label": "mean mesh error",
         "detail": "ITC second floor against LiDAR ground truth · M2H-MX-L at 640 × 480 · RTX 4080 Super",
         "href": "/research/"
+      }
+    },
+    "skills": {
+      "eyebrow": "01 — What I work across",
+      "meta": "Research and industry · 2017–2026",
+      "heading": "Perception, mapping and navigation, built and deployed.",
+      "lede": "I take a robot's software from the algorithm to the field: the models that let it see, the estimation that tells it where it is, the planning that decides where it goes, and the engineering that makes all of it run on the hardware.",
+      "groups": [
+        {
+          "title": "Robotics software",
+          "text": "Robot behaviours, simulation and field debugging, from a single drone to a fleet in a live venue.",
+          "tools": "C++ · Python · Linux · ROS 1 / ROS 2 · Git · Isaac Sim & Isaac Lab",
+          "thumb": "poster:scope-explorer",
+          "href": "#onboard",
+          "hrefLabel": "On the robot"
+        },
+        {
+          "title": "Computer vision",
+          "text": "Multi-task networks that predict depth and semantics together, indoors and out, with the calibration and geometry around them.",
+          "tools": "PyTorch · multi-task depth & semantics · OpenCV · calibration · geometry",
+          "thumb": "image:mx-outdoor-semantics",
+          "href": "#arc",
+          "hrefLabel": "The perception stack"
+        },
+        {
+          "title": "Embedded deployment & hardware",
+          "text": "Models exported, optimised and profiled for the robot's own computer, on a drone I built and flight-tested.",
+          "tools": "NVIDIA Jetson · ONNX · TensorRT FP16 · Docker · drone build & flight testing",
+          "thumb": "image:drone-top",
+          "href": "#onboard",
+          "hrefLabel": "The platform"
+        },
+        {
+          "title": "Active SLAM & navigation",
+          "text": "Camera–IMU estimation, factor graphs and hierarchical scene graphs, with learned goal selection, planning and control, on UAVs and humanoid fleets.",
+          "tools": "Camera–IMU estimation · factor graphs · scene graphs · path planning · control",
+          "thumb": "image:scene-graph-itc",
+          "href": "#work",
+          "hrefLabel": "The mapping systems"
+        }
+      ]
+    },
+    "portfolio": {
+      "eyebrow": "Robotics software engineer · Netherlands",
+      "headline": "I build robot",
+      "headlineAccent": "perception & navigation.",
+      "intro": "I’m Bavantha, a robotics software engineer. I build perception and navigation systems, integrate them on hardware, and deploy robots in the field.",
+      "cases": [
+        {
+          "id": "onboard",
+          "index": "01",
+          "type": "Doctoral research",
+          "place": "University of Twente · 2022–2026",
+          "title": "Map buildings and explore autonomously.",
+          "summary": "A custom drone that carries its own perception, localisation and 3D mapping. My doctoral work connects learned models to the hardware they need to run on.",
+          "role": "Developed the perception and mapping software, built and flight-tested the drone, and integrated the stack on Jetson.",
+          "delivered": "M2H / M2H-MX perception → depth-backed visual-inertial estimation → Mono-Hydra++ scene graphs. Exported and optimised inference with ONNX and TensorRT FP16.",
+          "evidence": "25.53 fps for M2H-MX-L perception at 256 × 192 on Jetson Orin NX 16GB. This measures perception throughput, not end-to-end autonomy.",
+          "skills": [
+            "Perception & SLAM",
+            "Learned exploration",
+            "Embedded robotics"
+          ],
+          "clip": "itc-loop",
+          "caption": "ITC second floor: scene graph construction, shown at 10× real time.",
+          "href": "/projects/#thesis",
+          "link": "Explore the mapping system",
+          "detailTitle": "From a model to an onboard system",
+          "detailText": "The same engineering work spans network training, camera–IMU estimation, deployment and hardware testing. ATLAS extends this into learned exploration; its evaluation results are not yet published.",
+          "detailClip": "stairs-zupt",
+          "detailCaption": "Onboard odometry tested through a stairwell, with zero-velocity updates at rest.",
+          "secondClip": "scope-explorer",
+          "secondCaption": "ATLAS exploration in simulation. Evaluation results are not yet published.",
+          "homeRole": "Developed the perception and mapping stack; built and flight-tested the drone.",
+          "homeOutcome": "Perception, odometry and 3D scene graphs running on the drone’s Jetson.",
+          "tileTitle": "Map buildings. Explore autonomously.",
+          "tileText": "I built the perception and mapping stack, developed learned exploration in simulation, and integrated the mapping system on a custom drone.",
+          "tileMetric": "Mapping + exploration",
+          "tileMetricLabel": "Onboard mapping · exploration in simulation",
+          "tileLink": "Explore mapping & autonomous exploration"
+        },
+        {
+          "id": "industry",
+          "index": "02",
+          "type": "Commercial deployment",
+          "place": "Expert Hub Robotics · Dubai · 2020–2022",
+          "title": "Deploy humanoids in busy public spaces.",
+          "summary": "Navigation and visitor guidance for humanoid service robots in real venues, with customers, crowds and on-site failures to solve.",
+          "role": "Founding robotics engineer, then senior engineer and project lead. Promoted within ten months to lead a team of three.",
+          "delivered": "Built navigation software and led deployments of 30+ robots for 10+ enterprise clients, including a six-month run at Expo 2020 Dubai.",
+          "evidence": "Integrated ROS, GMapping, LiDAR and 3D obstacle sensing with vendor SDKs and voice assistance. Recovered localisation on site as crowd conditions changed.",
+          "skills": [
+            "Navigation",
+            "Sensor integration",
+            "Field support",
+            "Team leadership"
+          ],
+          "clip": "humanoid-deployment",
+          "caption": "Service robots at the Exness stand in Dubai. Expert Hub Robotics.",
+          "href": "/projects/#commercial",
+          "link": "Explore the commercial deployments",
+          "detailTitle": "The work behind the deployment",
+          "detailText": "Alongside navigation, I fine-tuned a thermal face detector and deployed it in a commercial screening product using a FLIR camera and an Intel NUC.",
+          "detailClip": "humanoid-mapping",
+          "detailCaption": "A venue map built with GMapping; the robot’s estimated pose is shown in red.",
+          "homeRole": "Developed navigation software and led a three-engineer team.",
+          "homeOutcome": "30+ robots deployed for 10+ enterprise clients, including Expo 2020 Dubai.",
+          "tileTitle": "Deploy humanoids in public spaces.",
+          "tileText": "I built navigation software, led a three-engineer team, and supported customer deployments in changing crowds.",
+          "tileMetric": "30+ robots",
+          "tileMetricLabel": "10+ enterprise clients",
+          "tileLink": "Explore the commercial deployments"
+        },
+        {
+          "id": "origin",
+          "index": "03",
+          "type": "Bachelor’s project",
+          "place": "University of Peradeniya · 2017",
+          "title": "Explore unknown spaces with laser and stereo.",
+          "summary": "An autonomous reconnaissance robot that explored unknown space using a laser range finder and stereo cameras. The start of my work in robot perception and autonomy.",
+          "role": "SLAM developer in a three-student project team.",
+          "delivered": "Built the SLAM component of a reconnaissance system combining laser and stereo sensing with autonomous exploration planning.",
+          "evidence": "Three papers came out of the project. Best Undergraduate Project, Institution of Engineers Sri Lanka; Best Technical Paper, IET Sri Lanka.",
+          "skills": [
+            "SLAM",
+            "Sensor fusion",
+            "Exploration",
+            "System integration"
+          ],
+          "clip": "peradeniya-2017",
+          "caption": "The reconnaissance robot exploring and mapping an unknown environment.",
+          "href": "/projects/#undergraduate",
+          "link": "Explore the reconnaissance project",
+          "homeRole": "Built the SLAM component in a three-student reconnaissance project.",
+          "homeOutcome": "Integrated sensing and mapping with autonomous exploration planning.",
+          "tileTitle": "Explore with laser and stereo.",
+          "tileText": "I built the SLAM component of an autonomous reconnaissance robot in a three-student project team.",
+          "tileMetric": "SLAM + exploration",
+          "tileMetricLabel": "Laser and stereo sensing",
+          "tileLink": "Explore the reconnaissance robot"
+        }
+      ],
+      "workflow": [
+        {
+          "title": "Sense",
+          "detail": "Cameras, IMU, LiDAR",
+          "href": "#origin"
+        },
+        {
+          "title": "Understand",
+          "detail": "Depth & semantics",
+          "href": "/projects/m2h-mx/"
+        },
+        {
+          "title": "Localise & map",
+          "detail": "VIO, SLAM, scene graphs",
+          "href": "#onboard"
+        },
+        {
+          "title": "Navigate",
+          "detail": "Planning & behaviours",
+          "href": "#industry"
+        },
+        {
+          "title": "Deploy & support",
+          "detail": "Onboard compute, field tests",
+          "href": "#industry"
+        }
+      ],
+      "contactHeading": "Build perception and navigation for real robots.",
+      "deepDives": [
+        {
+          "key": "pipeline-overview",
+          "label": "Mapping architecture",
+          "title": "Trace the camera-to-map pipeline.",
+          "text": "How depth, odometry and graph refinement produce a layered 3D map.",
+          "href": "/projects/mono-hydra-plus/#pipeline",
+          "link": "Follow the pipeline"
+        },
+        {
+          "key": "m2h-mx-architecture",
+          "label": "Learned perception",
+          "title": "Predict geometry and semantics together.",
+          "text": "Inside M2H-MX: the network, its outputs and the embedded deployment path.",
+          "href": "/projects/m2h-mx/",
+          "link": "Explore the perception model"
+        },
+        {
+          "key": "scope-explorer",
+          "media": "video-poster",
+          "label": "Autonomous exploration · in progress",
+          "title": "Learn where the robot should explore next.",
+          "text": "ATLAS selects exploration goals from a belief graph of places and open ends. See the simulation and planning approach.",
+          "href": "/projects/learned-exploration/",
+          "link": "Explore the ATLAS project"
+        }
+      ],
+      "expertiseLoop": {
+        "title": "From the model to the robot.",
+        "intro": "I connect learned perception, spatial mapping and autonomous exploration, then engineer the software for the robot’s hardware.",
+        "steps": [
+          {
+            "number": "Input",
+            "title": "Camera + IMU",
+            "detail": "Monocular visual–inertial sensing",
+            "href": "/projects/mono-hydra/"
+          },
+          {
+            "number": "01",
+            "title": "Deep learning perception",
+            "detail": "Metric depth · semantic labels",
+            "href": "/projects/m2h-mx/"
+          },
+          {
+            "number": "02",
+            "title": "Spatial AI and SLAM",
+            "detail": "VIO · mapping · scene graphs",
+            "href": "/projects/mono-hydra-plus/"
+          },
+          {
+            "number": "03",
+            "title": "Autonomous exploration",
+            "detail": "Imitation + reinforcement learning",
+            "href": "/projects/learned-exploration/"
+          }
+        ],
+        "feedback": "Selected goals → planning and control → new observations",
+        "deploymentTitle": "Deploy and support real robots.",
+        "onboard": "Jetson · TensorRT · ROS",
+        "commercial": "30+ commercial humanoids deployed",
+        "note": "Perception and mapping run onboard the drone. Learned exploration is shown in simulation; its evaluation results are not yet published. The commercial humanoid deployments are separate industry work."
       }
     }
   }

@@ -6,40 +6,20 @@
     <loc>https://bavanthau.github.io/</loc>
     <lastmod>2026-09-15</lastmod>
     <priority>1.0</priority>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-rgb-769.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/mx-outdoor-rgb-1472.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-depth-769.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/mx-outdoor-depth-1472.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-semantics-769.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/mx-outdoor-semantics-1472.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/uhumans2-loop-1600.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/drone-side-1600.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/itc-embedded-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-overview-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/m2h-mx-architecture-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/portrait-1254.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/itc-loop-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/icra26-poster.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/drone-flight-poster.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/stairs-zupt-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-deployment-poster.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-mapping-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</image:loc></image:image>
     <video:video>
-      <video:thumbnail_loc>https://bavanthau.github.io/media/video/drone-flight-poster.jpg</video:thumbnail_loc>
-      <video:title>Take-off and a pass down the corridor</video:title>
-      <video:description>The custom quadrotor lifting off from the floor of an indoor walkway and flying down it towards the camera, past timber and glass balconies.</video:description>
-      <video:content_loc>https://bavanthau.github.io/media/video/drone-flight.mp4</video:content_loc>
-      <video:duration>7</video:duration>
-      <video:publication_date>2026-08-18</video:publication_date>
-      <video:family_friendly>yes</video:family_friendly>
-      <video:live>no</video:live>
-    </video:video>
-    <video:video>
-      <video:thumbnail_loc>https://bavanthau.github.io/media/video/stairs-zupt-poster.jpg</video:thumbnail_loc>
-      <video:title>Depth-backed visual-inertial odometry on the drone&#x27;s Jetson, walked down and back up the stairs at</video:title>
-      <video:description>Screen recording on the drone&#x27;s Jetson. An rviz window shows predicted depth, tracked features, and predicted semantics down the left, and the estimated trajectory climbing a stairwell in the centre, labelled MOVING while the drone is in motion and ZUPT STATIONARY while it is still.</video:description>
-      <video:content_loc>https://bavanthau.github.io/media/video/stairs-zupt.mp4</video:content_loc>
-      <video:duration>94</video:duration>
+      <video:thumbnail_loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</video:thumbnail_loc>
+      <video:title>Autonomous exploration in simulation</video:title>
+      <video:description>Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment.</video:description>
+      <video:content_loc>https://bavanthau.github.io/media/video/scope-explorer.mp4</video:content_loc>
+      <video:duration>60</video:duration>
       <video:publication_date>2026-08-18</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
       <video:live>no</video:live>
@@ -54,41 +34,25 @@
       <video:family_friendly>yes</video:family_friendly>
       <video:live>no</video:live>
     </video:video>
-    <video:video>
-      <video:thumbnail_loc>https://bavanthau.github.io/media/video/humanoid-mapping-poster.jpg</video:thumbnail_loc>
-      <video:title>The map behind it</video:title>
-      <video:description>A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot&#x27;s pose marked in red.</video:description>
-      <video:content_loc>https://bavanthau.github.io/media/video/humanoid-mapping.mp4</video:content_loc>
-      <video:duration>32</video:duration>
-      <video:publication_date>2026-08-18</video:publication_date>
-      <video:family_friendly>yes</video:family_friendly>
-      <video:live>no</video:live>
-    </video:video>
-    <video:video>
-      <video:thumbnail_loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</video:thumbnail_loc>
-      <video:title>Autonomous exploration in simulation</video:title>
-      <video:description>Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment.</video:description>
-      <video:content_loc>https://bavanthau.github.io/media/video/scope-explorer.mp4</video:content_loc>
-      <video:duration>60</video:duration>
-      <video:publication_date>2026-08-18</video:publication_date>
-      <video:family_friendly>yes</video:family_friendly>
-      <video:live>no</video:live>
-    </video:video>
   </url>
   <url>
     <loc>https://bavanthau.github.io/contact/</loc>
     <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/portrait-1254.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://bavanthau.github.io/cv/</loc>
     <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/portrait-1254.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/itc-loop-poster.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-deployment-poster.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/icra26-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/stairs-zupt-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/drone-flight-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-deployment-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-mapping-poster.jpg</image:loc></image:image>
     <video:video>
       <video:thumbnail_loc>https://bavanthau.github.io/media/video/stairs-zupt-poster.jpg</video:thumbnail_loc>
@@ -233,10 +197,14 @@
     <loc>https://bavanthau.github.io/projects/mono-hydra-plus/</loc>
     <lastmod>2026-09-15</lastmod>
     <priority>0.6</priority>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-overview-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-temporal-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-sampling-1536.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-geometry-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/drone-side-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/drone-top-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/drone-angle-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/itc-embedded-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/drone-flight-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/stairs-zupt-poster.jpg</image:loc></image:image>
@@ -265,6 +233,10 @@
     <loc>https://bavanthau.github.io/publications/</loc>
     <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/m2h-mx-architecture-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/itc-loop-poster.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/scenegraph-system-design-1354.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/bibtex/</loc>
@@ -306,7 +278,10 @@
     <loc>https://bavanthau.github.io/publications/mono-hydra-plus/</loc>
     <lastmod>2026-09-15</lastmod>
     <priority>0.6</priority>
-    <image:image><image:loc>https://bavanthau.github.io/media/images/mono-hydra-pp-pipeline-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-overview-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-temporal-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-sampling-1536.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-geometry-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/uhumans2-loop-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scannet-radius-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scannet-failure-1600.jpg</image:loc></image:image>
@@ -326,6 +301,7 @@
     <loc>https://bavanthau.github.io/research/</loc>
     <lastmod>2026-09-15</lastmod>
     <priority>0.8</priority>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/scenegraph-explained-1122.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/perception-pipeline-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>

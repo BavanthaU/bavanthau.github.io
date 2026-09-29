@@ -108,10 +108,15 @@
   padding-block: clamp(2.6rem, 6vw, 4.5rem);
 }
 .rail-readout { padding-top: 1.1rem; border-top: 1px solid var(--rule-strong); }
+/* four operating points share the row, so the figures step down from the chapter size */
+.rail-readout dt { font-size: clamp(2.4rem, 1.3rem + 3vw, 4.1rem); white-space: nowrap; }
 .rail-readout a { color: inherit; text-decoration: none; }
 .rail-readout a:hover { color: var(--accent); }
-@media (min-width: 46em) {
-  .hero-rail { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3.5rem); }
+@media (min-width: 40em) {
+  .hero-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); }
+}
+@media (min-width: 64em) {
+  .hero-rail { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 /* ------------------------------------------------------------------ the arc */
@@ -320,18 +325,6 @@
   .platform-hero img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; }
 }
 
-.loopwork { margin-top: clamp(3rem, 7vw, 5rem); display: grid; gap: clamp(2rem, 5vw, 3.5rem); }
-.caps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
-.cap { padding-block: clamp(1.3rem, 3vw, 2rem); border-bottom: 1px solid var(--rule); }
-.cap-index { color: var(--accent); }
-.cap-title { margin: 0.45rem 0 0.5rem; font-family: var(--display); font-size: var(--t-h3); font-weight: 640; line-height: 1.1; letter-spacing: -0.02em; }
-.cap-text { margin: 0 0 0.7rem; max-width: 52ch; color: var(--ink-2); line-height: 1.6; }
-.cap-tools { margin: 0 0 0.6rem; }
-.cap-link { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: 0.04em; }
-@media (min-width: 52em) {
-  .caps { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(2rem, 5vw, 4rem); }
-}
-
 /* ------------------------------------------------------------------ applied */
 
 /* The deployment footage is the evidence for this chapter, so it takes the full measure
@@ -351,10 +344,6 @@
   .applied-tall { max-width: 22rem; margin-left: auto; }
 }
 
-/* ------------------------------------------------------------------ exploration */
-
-.explore-plate { margin: clamp(2rem, 5vw, 3.4rem) 0 0; }
-.explore-plate .v-figure { margin: 0; }
 .explore-note { margin: 1.2rem 0 1.6rem; max-width: 70ch; padding-top: 1rem; border-top: 1px solid var(--rule); color: var(--ink-2); line-height: 1.6; }
 
 /* ------------------------------------------------------------------ outro */
@@ -453,3 +442,69 @@
 @media (min-width: 58em) {
   .origin-body { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: clamp(2.5rem, 6vw, 4.5rem); }
 }
+
+/* ------------------------------------------------------------------ 01 skills */
+
+/* The CV's four skill groups, each with a thumbnail of the evidence further down the page.
+   The thumbnails are pointers, not illustrations: every one links to the chapter where the
+   same output is shown at full size. Rules separate the rows; nothing is boxed. */
+.skills { list-style: none; margin: clamp(2.2rem, 5vw, 3.4rem) 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.skill {
+  max-width: none;
+  display: grid;
+  gap: 1.2rem;
+  padding-block: clamp(1.6rem, 3.5vw, 2.4rem);
+  border-bottom: 1px solid var(--rule);
+}
+.skill-thumb { display: block; overflow: hidden; border: 1px solid var(--rule); background: var(--stage); aspect-ratio: 16 / 10; }
+.skill-thumb img, .skill-thumb picture { display: block; width: 100%; height: 100%; object-fit: cover; }
+.skill-thumb img { transition: transform 600ms cubic-bezier(.2,.8,.2,1); }
+.skill:hover .skill-thumb img { transform: scale(1.035); }
+.skill-index { color: var(--accent); }
+.skill-title {
+  margin: 0.4rem 0 0.55rem;
+  font-family: var(--display);
+  font-size: var(--t-h3);
+  font-weight: 640;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+.skill-text { margin: 0 0 0.8rem; max-width: 54ch; color: var(--ink-2); line-height: 1.6; }
+.skill-tools { margin: 0 0 0.9rem; color: var(--ink); text-transform: none; letter-spacing: 0.02em; line-height: 1.7; }
+.skill-link { font-family: var(--mono); font-size: var(--t-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+@media (min-width: 52em) {
+  .skill { grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); column-gap: clamp(1.8rem, 4vw, 3rem); align-items: start; }
+}
+@media (min-width: 72em) {
+  .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .skill { grid-template-columns: minmax(0, 12rem) minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .skill-thumb img { transition: none; } }
+
+/* ------------------------------------------------------------------ 04 exploration, folded in */
+
+.onboard-explore { margin-top: clamp(3rem, 7vw, 5rem); display: grid; gap: clamp(1.5rem, 4vw, 2.5rem); align-items: center; }
+.onboard-explore-media .v-figure { margin: 0; }
+.onboard-explore-copy h3 { margin: 0.5rem 0 0.7rem; font-family: var(--display); font-size: var(--t-h3); font-weight: 640; line-height: 1.1; letter-spacing: -0.02em; }
+.onboard-explore-copy > p { max-width: 46ch; color: var(--ink-2); line-height: 1.65; }
+.onboard-explore-copy .explore-note { margin: 1rem 0; padding-top: 0.9rem; border-top: 1px solid var(--rule); max-width: 46ch; }
+@media (min-width: 58em) {
+  .onboard-explore { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); column-gap: clamp(2rem, 5vw, 4rem); }
+}
+
+/* ------------------------------------------------------------------ 05 experience */
+
+.applied-chapter { margin-block: 0; padding-block: clamp(4rem, 9vw, 7rem); }
+.applied-chapter .chapter-head { border-top-color: var(--rule-strong); }
+.roles-index { margin-top: 0.8rem; border-top-color: var(--rule-strong); }
+.roles-index .role-row { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; padding-block: 1rem; }
+.role-title { font-size: clamp(1.02rem, 0.9rem + 0.5vw, 1.25rem); }
+.role-org { display: block; margin-top: 0.25rem; color: var(--ink-2); }
+.role-when { color: var(--accent); }
+.roles-more { margin-top: 1.2rem; font-family: var(--mono); font-size: var(--t-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+@media (min-width: 40em) {
+  .roles-index .role-row { grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); column-gap: 1.5rem; align-items: baseline; }
+}
+
+/* Origin now sits on the paper ground, so the hollow chronology dot takes that ground. */
+.chrono-step::before { background: var(--paper); }

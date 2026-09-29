@@ -22,7 +22,8 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/publications.png">
 <meta name="twitter:title" content="Bavantha Udugama | Publications">
 <meta name="twitter:description" content="Peer-reviewed publications on monocular 3D scene graphs, multi-task dense prediction, and real-time metric-semantic mapping, by Bavantha Udugama (U.V.B.L.">
-<link rel="stylesheet" href="/assets/site.css?v=4dfefd40ef">
+<link rel="stylesheet" href="/assets/site.css?v=2c76c792ac">
+<link rel="stylesheet" href="/assets/fieldbook.css?v=2e020990cd">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -42,9 +43,9 @@
     "B. Udugama"
   ],
   "jobTitle": [
-    "Robotics engineer",
-    "Computer vision engineer",
-    "Perception and spatial AI"
+    "Robotics software engineer",
+    "3D perception",
+    "Computer vision"
   ],
   "url": "https://bavanthau.github.io/",
   "affiliation": {
@@ -78,7 +79,7 @@
     "contentUrl": "https://bavanthau.github.io/media/images/portrait-1254.jpg",
     "width": 1254,
     "height": 1254,
-    "caption": "Bavantha Udugama, PhD candidate",
+    "caption": "Bavantha Udugama, Robotics software engineer",
     "creditText": "Bavantha Udugama",
     "copyrightHolder": {
       "@id": "https://bavanthau.github.io/#person"
@@ -129,43 +130,56 @@
 <main id="main" class="site-main">
 <div class="wrap page-content">
 
-<h1>Publications</h1>
+<header class="folio-heading"><p class="eyebrow">Papers &amp; technical evidence</p>
+<h1>Publications.<br><em>Perception, SLAM &amp; exploration.</em></h1>
 <p class="standfirst">Papers are indexed under U.V.B.L. Udugama, and the earlier ones under
-B. Udugama.</p>
+B. Udugama.</p></header>
 
-<h2>Peer reviewed</h2>
+<h2>Research papers</h2>
 <ul class="publist">
-    <li class="pub">
+    <li class="pub pub-illustrated">
+      <a class="pub-preview" href="/publications/mono-hydra-plus/" tabindex="-1" aria-hidden="true">
+        <picture><source type="image/avif" srcset="/media/images/scene-graph-itc-480.avif 480w, /media/images/scene-graph-itc-960.avif 960w, /media/images/scene-graph-itc-1600.avif 1600w" sizes="(min-width: 58em) 15rem, 90vw"><source type="image/webp" srcset="/media/images/scene-graph-itc-480.webp 480w, /media/images/scene-graph-itc-960.webp 960w, /media/images/scene-graph-itc-1600.webp 1600w" sizes="(min-width: 58em) 15rem, 90vw"><img src="/media/images/scene-graph-itc-1600.jpg" alt="A 3D scene graph over the ITC building second floor. A single building node at the top connects down to a room node, then to a dense band of place nodes following the corridor loop, then to object nodes scattered along the walls, and finally to the reconstructed mesh of the floor." width="3826" height="2240" loading="lazy" decoding="async"></picture>
+      </a><div class="pub-copy"><p class="eyebrow">2026 / Under review at ISPRS Journal of Photogrammetry and Remote Sensing</p>
       <h3><a href="/publications/mono-hydra-plus/">Mono-Hydra++: Real-Time Monocular Scene Graph Construction with Multi-Task Learning for 3D Indoor Mapping</a></h3>
       <p class="pub-authors"><span class="self">U.V.B.L. Udugama</span>, <span>George Vosselman</span>, <span>Francesco Nex</span></p>
       <p class="pub-venue">ISPRS Journal of Photogrammetry and Remote Sensing
         <span class="tag tag-review">Under review</span></p>
       <p>A single camera and an IMU build a hierarchical metric-semantic 3D scene graph of an indoor building in real time, and the map is accurate to 0.08 m.</p>
-      <div class="linkrow"><a href="https://arxiv.org/abs/2605.17661">arXiv</a><a href="https://github.com/BavanthaU/mono-hydra-pp">Code</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/">LinkedIn</a><a href="/publications/bibtex/#mono-hydra-plus">BibTeX</a></div>
+      <div class="linkrow"><a href="https://arxiv.org/abs/2605.17661">arXiv</a><a href="https://github.com/BavanthaU/mono-hydra-pp">Code</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/">LinkedIn</a><a href="/publications/bibtex/#mono-hydra-plus">BibTeX</a></div></div>
     </li>
-    <li class="pub">
+    <li class="pub pub-illustrated">
+      <a class="pub-preview" href="/publications/m2h-mx/" tabindex="-1" aria-hidden="true">
+        <picture><source type="image/avif" srcset="/media/images/m2h-mx-architecture-480.avif 480w, /media/images/m2h-mx-architecture-960.avif 960w, /media/images/m2h-mx-architecture-1600.avif 1600w" sizes="(min-width: 58em) 15rem, 90vw"><source type="image/webp" srcset="/media/images/m2h-mx-architecture-480.webp 480w, /media/images/m2h-mx-architecture-960.webp 960w, /media/images/m2h-mx-architecture-1600.webp 1600w" sizes="(min-width: 58em) 15rem, 90vw"><img src="/media/images/m2h-mx-architecture-1600.jpg" alt="M2H-MX architecture diagram. A DINOv3 backbone with LoRA adaptation feeds token reassembly and a feature pyramid, then register-gated Mamba blocks at each scale, task adaptors, a cross-task mixer, multi-scale convolutional attention, and finally the task heads." width="2890" height="1240" loading="lazy" decoding="async"></picture>
+      </a><div class="pub-copy"><p class="eyebrow">2026 / Accepted, ICRA 2026 SRRA Workshop</p>
       <h3><a href="/publications/m2h-mx/">M2H-MX: Multi-Task Semantic and Geometric Perception for Real-Time Monocular 3D Scene Graph Construction</a></h3>
       <p class="pub-authors"><span class="self">U.V.B.L. Udugama</span>, <span>George Vosselman</span>, <span>Francesco Nex</span></p>
       <p class="pub-venue">IEEE International Conference on Robotics and Automation (ICRA) 2026, SRRA Workshop, Vienna
         </p>
       <p>Better per-frame depth and semantics measurably improve the map and the trajectory, not just the benchmark score.</p>
-      <div class="linkrow"><a href="https://doi.org/10.48550/arXiv.2603.29236">DOI</a><a href="https://arxiv.org/abs/2603.29236">arXiv</a><a href="https://github.com/BavanthaU/m2h_mx">Code</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/">LinkedIn</a><a href="/publications/bibtex/#m2h-mx">BibTeX</a></div>
+      <div class="linkrow"><a href="https://doi.org/10.48550/arXiv.2603.29236">DOI</a><a href="https://arxiv.org/abs/2603.29236">arXiv</a><a href="https://github.com/BavanthaU/m2h_mx">Code</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7468549671389442048/">LinkedIn</a><a href="/publications/bibtex/#m2h-mx">BibTeX</a></div></div>
     </li>
-    <li class="pub">
+    <li class="pub pub-illustrated">
+      <a class="pub-preview" href="/publications/m2h/" tabindex="-1" aria-hidden="true">
+        <img src="/media/video/itc-loop-poster.jpg" alt="" width="1280" height="570" loading="lazy">
+      </a><div class="pub-copy"><p class="eyebrow">2025 / Published, IEEE/RSJ IROS 2025</p>
       <h3><a href="/publications/m2h/">M2H: Multi-Task Learning with Efficient Window-Based Cross-Task Attention for Monocular Spatial Perception</a></h3>
       <p class="pub-authors"><span class="self">U.V.B.L. Udugama</span>, <span>George Vosselman</span>, <span>Francesco Nex</span></p>
       <p class="pub-venue">IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2025
         </p>
       <p>Four dense prediction tasks share one small model and make each other better, fast enough to sit inside a mapping loop.</p>
-      <div class="linkrow"><a href="https://arxiv.org/abs/2510.17363">arXiv</a><a href="https://github.com/UAV-Centre-ITC/M2H">Code</a><a href="https://www.youtube.com/watch?v=X2w_AqGwkaY">Video</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7392253889087074304/">LinkedIn</a><a href="/publications/bibtex/#m2h">BibTeX</a></div>
+      <div class="linkrow"><a href="https://arxiv.org/abs/2510.17363">arXiv</a><a href="https://github.com/UAV-Centre-ITC/M2H">Code</a><a href="https://www.youtube.com/watch?v=X2w_AqGwkaY">Video</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7392253889087074304/">LinkedIn</a><a href="/publications/bibtex/#m2h">BibTeX</a></div></div>
     </li>
-    <li class="pub">
+    <li class="pub pub-illustrated">
+      <a class="pub-preview" href="/publications/mono-hydra/" tabindex="-1" aria-hidden="true">
+        <picture><source type="image/avif" srcset="/media/images/scenegraph-system-design-480.avif 480w, /media/images/scenegraph-system-design-960.avif 960w, /media/images/scenegraph-system-design-1354.avif 1354w" sizes="(min-width: 58em) 15rem, 90vw"><source type="image/webp" srcset="/media/images/scenegraph-system-design-480.webp 480w, /media/images/scenegraph-system-design-960.webp 960w, /media/images/scenegraph-system-design-1354.webp 1354w" sizes="(min-width: 58em) 15rem, 90vw"><img src="/media/images/scenegraph-system-design-1354.jpg" alt="System design diagram for monocular 3D scene graph construction, showing the perception networks, visual-inertial odometry, and the scene graph layers." width="1354" height="767" loading="lazy" decoding="async"></picture>
+      </a><div class="pub-copy"><p class="eyebrow">2023 / Published, ISPRS Annals 2023</p>
       <h3><a href="/publications/mono-hydra/">Mono-Hydra: Real-Time 3D Scene Graph Construction from Monocular Camera Input with IMU</a></h3>
       <p class="pub-authors"><span class="self">U.V.B.L. Udugama</span>, <span>G. Vosselman</span>, <span>F. Nex</span></p>
       <p class="pub-venue">ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, volume 1, pages 439 to 445
         </p>
       <p>A monocular camera and an IMU can build a layered 3D scene graph while the robot is still moving, without a depth sensor or LiDAR.</p>
-      <div class="linkrow"><a href="https://arxiv.org/abs/2308.05515">arXiv</a><a href="https://github.com/UAV-Centre-ITC/mono_hydra">Code</a><a href="https://www.youtube.com/watch?v=X2w_AqGwkaY">Video</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7107072728993533952/">LinkedIn</a><a href="/publications/bibtex/#mono-hydra">BibTeX</a></div>
+      <div class="linkrow"><a href="https://arxiv.org/abs/2308.05515">arXiv</a><a href="https://github.com/UAV-Centre-ITC/mono_hydra">Code</a><a href="https://www.youtube.com/watch?v=X2w_AqGwkaY">Video</a><a href="https://www.linkedin.com/feed/update/urn:li:activity:7107072728993533952/">LinkedIn</a><a href="/publications/bibtex/#mono-hydra">BibTeX</a></div></div>
     </li></ul>
 
 <h2>Review preprints</h2><p class="section-intro">Single-author literature reviews written during the MSc at Middlesex University Dubai, posted to arXiv later. Not peer reviewed.</p><ul class="publist">
@@ -239,7 +253,7 @@ B. Udugama.</p>
   <div class="wrap foot-inner">
     <div class="foot-signoff">
       <span class="wordmark-mark" aria-hidden="true">BU</span>
-      <p><strong>Bavantha Udugama</strong><br>monocular spatial perception and robot exploration.</p>
+      <p><strong>Bavantha Udugama</strong><br>3D perception, SLAM and navigation for real robots.</p>
     </div>
     <div>
       <ul>
@@ -254,6 +268,6 @@ B. Udugama.</p>
     </div>
   </div>
 </footer>
-<script src="/assets/media.js?v=7ae0e82d2d" defer></script>
+<script src="/assets/media.js?v=316fa21c33" defer></script>
 </body>
 </html>

@@ -23,9 +23,19 @@ For homepage-only content or design changes, preserve all other generated pages 
 
     python3 tools/build.py --home-only
 
-Page stylesheets load after `assets/site.css` and override it: `assets/home.css` on `/`,
+Page stylesheets load after `assets/site.css`: `assets/portfolio.css` on `/`,
 `assets/projects.css` on `/projects/`, `assets/case.css` on the project detail pages.
-`assets/stage.js` drives the pixels-to-map sequence and the masthead on `/` only.
+`assets/fieldbook.css` loads last on every page and owns shared colours, typography,
+controls and interior layouts.
+The homepage fieldbook is generated from `data/site.json` → `home.portfolio`.
+It presents doctoral mapping and autonomous exploration, industrial humanoids, and the
+bachelor’s robot as three visual project tiles. The preferred perception–mapping–exploration
+feedback diagram is driven by `home.portfolio.expertiseLoop`. Technical deep-dive tiles
+link to the detailed pipeline, learned perception, and ATLAS pages. The homepage includes inline demos for each category, with mapping/exploration tabs in
+the doctoral tile. Videos autoplay muted when visible; native controls remain usable without
+JavaScript. Technical explanations remain on the subpages.
+`assets/home.css` and `assets/stage.js` retain the previous homepage design but are no
+longer loaded on `/`.
 
 For the Projects overview, edit `data/projects.json` → `overview`, then run:
 
@@ -43,6 +53,25 @@ Python 3 standard library only. No install step.
 | `data/projects.json` | one entry per system, with repositories and media |
 | `data/timeline.json` | CV timeline and teaching |
 | `data/videos.json` | one entry per clip that gets its own watch page at `/videos/<slug>/` |
+
+## Technical illustrations and site validation
+
+`data/graphics.json` holds the conceptual system sketches and the guided Mono-Hydra++
+explanation. Six manuscript/thesis illustrations have responsive AVIF, WebP and JPEG
+renditions in `media/images/`. Their captions distinguish illustration from experimental
+output; source filenames and credits live in `data/media.json` and `media/MANIFEST.json`.
+Original files are archived under ignored `_source/media/web-explainers/`. The Overleaf
+projects are read-only sources and are not modified by the website build.
+
+After a site-wide change:
+
+    python3 tools/build.py
+    python3 tools/check_site.py
+    node tools/tests/media_playback.cjs
+
+The checker validates every generated page's local links, media, anchors, markup nesting,
+heading count, shared stylesheet, image alt text/dimensions and structured data. It does
+not replace browser layout/accessibility testing or verify external URLs.
 
 ## How to add a publication
 

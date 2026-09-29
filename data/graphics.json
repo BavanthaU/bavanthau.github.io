@@ -1,0 +1,186 @@
+{
+  "research": {
+    "title": "From sensing to spatial understanding",
+    "note": "A simplified view of the doctoral stack. Learned exploration is ongoing work; its evaluation results are not yet published.",
+    "steps": [
+      {
+        "icon": "sense",
+        "title": "Sense",
+        "text": "One camera + IMU",
+        "href": "/projects/mono-hydra/"
+      },
+      {
+        "icon": "perceive",
+        "title": "Predict",
+        "text": "M2H / M2H-MX perception",
+        "href": "/projects/m2h-mx/"
+      },
+      {
+        "icon": "map",
+        "title": "Build a map",
+        "text": "Mono-Hydra++ scene graphs",
+        "href": "/projects/mono-hydra-plus/"
+      },
+      {
+        "icon": "navigate",
+        "title": "Choose where next",
+        "text": "ATLAS · in progress",
+        "href": "/projects/learned-exploration/"
+      }
+    ]
+  },
+  "mono-hydra": {
+    "title": "From camera measurements to a layered map",
+    "note": "Simplified architecture: the camera and IMU support visual-inertial estimation; predicted depth and semantics support mapping.",
+    "steps": [
+      {
+        "icon": "sense",
+        "title": "Measure",
+        "text": "Monocular camera + IMU"
+      },
+      {
+        "icon": "perceive",
+        "title": "Predict",
+        "text": "Separate depth and semantic networks"
+      },
+      {
+        "icon": "map",
+        "title": "Estimate & reconstruct",
+        "text": "Robocentric VIO + semantic mesh"
+      },
+      {
+        "icon": "graph",
+        "title": "Structure",
+        "text": "Objects, places, rooms, building"
+      }
+    ]
+  },
+  "m2h": {
+    "title": "One image, four connected prediction tasks",
+    "note": "Conceptual model overview. The experimental figures below show the actual predictions and mapping output.",
+    "steps": [
+      {
+        "icon": "sense",
+        "title": "Input",
+        "text": "One RGB image"
+      },
+      {
+        "icon": "compute",
+        "title": "Encode",
+        "text": "DINOv2-small backbone"
+      },
+      {
+        "icon": "graph",
+        "title": "Share information",
+        "text": "Window-based cross-task attention"
+      },
+      {
+        "icon": "perceive",
+        "title": "Predict together",
+        "text": "Depth, semantics, normals, edges"
+      }
+    ]
+  },
+  "m2h-mx": {
+    "title": "Perception designed for a running mapping system",
+    "note": "A simplified view of the model and its deployment path. ONNX / TensorRT FP16 is the embedded inference route.",
+    "steps": [
+      {
+        "icon": "sense",
+        "title": "Input",
+        "text": "One RGB image"
+      },
+      {
+        "icon": "compute",
+        "title": "Adapt features",
+        "text": "DINOv3 + LoRA"
+      },
+      {
+        "icon": "perceive",
+        "title": "Decode & refine",
+        "text": "Register-gated Mamba + cross-task refinement"
+      },
+      {
+        "icon": "map",
+        "title": "Use on the robot",
+        "text": "Depth & semantics for mapping"
+      }
+    ]
+  },
+  "mono-hydra-plus": {
+    "title": "From motion estimates to refined poses and scene graphs",
+    "note": "RVIO2 supplies motion estimates. Local graph refinement combines motion, visual, IMU and sparse-depth constraints before sending refined poses to Hydra.",
+    "feedback": "RVIO2 poses → align depth and labels across frames",
+    "steps": [
+      {
+        "icon": "sense",
+        "title": "Sense",
+        "text": "One camera + IMU"
+      },
+      {
+        "icon": "perceive",
+        "title": "Predict",
+        "text": "Learned depth + semantic masks"
+      },
+      {
+        "icon": "map",
+        "title": "Refine poses",
+        "text": "Visual, motion, IMU and sparse-depth constraints"
+      },
+      {
+        "icon": "graph",
+        "title": "Map",
+        "text": "Hierarchical 3D scene graph"
+      }
+    ]
+  },
+  "learned-exploration": {
+    "title": "Learned choice, with geometric checks",
+    "note": "Conceptual decision path. The learned layer selects among certified routes and may abstain; it does not command the actuators directly.",
+    "steps": [
+      {
+        "icon": "graph",
+        "title": "Remember",
+        "text": "Places, open ends, obligations"
+      },
+      {
+        "icon": "map",
+        "title": "Propose & certify",
+        "text": "Geometrically checked routes"
+      },
+      {
+        "icon": "compute",
+        "title": "Rank",
+        "text": "Learned option selection"
+      },
+      {
+        "icon": "navigate",
+        "title": "Execute",
+        "text": "Selected route through the planner"
+      }
+    ]
+  },
+  "pipelineStory": [
+    {
+      "id": "temporal-alignment",
+      "key": "pipeline-temporal",
+      "title": "Align predictions before fusing the map.",
+      "text": "A pixel in the previous frame does not refer to the same scene point after the camera moves. RVIO2 relative poses warp historical depth and labels into the current view. The nearest sample is retained at each pixel; accepted history is fused with the current prediction using depth medians and label voting.",
+      "purpose": "The output is aligned depth and labels for local graph refinement and volumetric fusion."
+    },
+    {
+      "id": "depth-selection",
+      "key": "pipeline-sampling",
+      "title": "Turn selected depth samples into pose constraints.",
+      "text": "Aligned depth is sampled at tracked keypoints. Depth validity, motion, reprojection and semantic checks select the samples that can become depth factors. These enter local graph refinement alongside visual tracks, RVIO2 motion and IMU constraints.",
+      "purpose": "Refined poses and loop-closure proposals are passed to Hydra, which optimises the map and updates the scene graph."
+    },
+    {
+      "id": "depth-geometry",
+      "key": "pipeline-geometry",
+      "title": "Constrain optical-axis depth in the local graph.",
+      "text": "The depth measurement is camera-frame distance along the optical axis. A depth factor connects a camera pose and a tracked landmark; visual, motion and IMU factors provide complementary constraints.",
+      "purpose": "The illustration omits velocity and bias variables to make the pose–landmark relationship easier to read."
+    }
+  ]
+}

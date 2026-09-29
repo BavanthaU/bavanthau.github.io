@@ -22,8 +22,9 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/proj-mono-hydra.png">
 <meta name="twitter:title" content="Bavantha Udugama | Mono-Hydra">
 <meta name="twitter:description" content="Where it started. The first real-time 3D scene graph built from a monocular camera and an IMU. By Bavantha Udugama, ITC University of Twente.">
-<link rel="stylesheet" href="/assets/site.css?v=4dfefd40ef">
+<link rel="stylesheet" href="/assets/site.css?v=2c76c792ac">
 <link rel="stylesheet" href="/assets/case.css?v=d83b5159f1">
+<link rel="stylesheet" href="/assets/fieldbook.css?v=2e020990cd">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -98,8 +99,8 @@
 <main id="main" class="site-main">
 <div class="wrap page-content">
 
-<header class="case-open bleed ground-dark">
-  <div class="bleed-wide case-open-inner">
+<header class="case-open field-case-open">
+  <div class="case-open-inner">
     <p class="spec case-crumb"><a href="/projects/">Projects</a> &middot; Part I</p>
     <h1 class="case-title">Mono-Hydra</h1>
     <div class="case-open-foot">
@@ -109,13 +110,21 @@
   </div>
   <figure class="case-lead"><div class="case-lead-media"><picture><source type="image/avif" srcset="/media/images/scenegraph-system-design-480.avif 480w, /media/images/scenegraph-system-design-960.avif 960w, /media/images/scenegraph-system-design-1354.avif 1354w" sizes="100vw"><source type="image/webp" srcset="/media/images/scenegraph-system-design-480.webp 480w, /media/images/scenegraph-system-design-960.webp 960w, /media/images/scenegraph-system-design-1354.webp 1354w" sizes="100vw"><img src="/media/images/scenegraph-system-design-1354.jpg" alt="System design diagram for monocular 3D scene graph construction, showing the perception networks, visual-inertial odometry, and the scene graph layers." width="1354" height="767" decoding="async"></picture></div><figcaption class="spec">The original Mono-Hydra design: two independent networks for depth and semantics, feeding a robocentric VIO and the Hydra scene graph layers.</figcaption></figure>
 </header>
+<nav class="case-jumps" aria-label="Case study sections">
+  <a href="#system">System</a>
 
-<section class="case-section case-does">
+  <a href="#evidence">Evidence</a>
+  <a href="/projects/">All projects ↗</a>
+</nav>
+
+<section class="case-section case-does" id="system">
   <div class="case-does-head"><p class="spec">01 &mdash; The system</p>
     <h2 class="case-h">What it does</h2></div>
   <p class="case-does-text">Learned depth and learned semantics run as separate networks, feeding a robocentric square-root VIO and the Hydra scene graph layers: mesh, objects, places, rooms, buildings.</p>
 </section>
-<section class="case-section case-evidence">
+<figure class="system-diagram" aria-label="From camera measurements to a layered map"><div class="diagram-heading"><span class="eyebrow">System sketch</span><p>From camera measurements to a layered map</p></div><ol><li><span class="diagram-number">01</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><rect x="10" y="17" width="48" height="32" rx="3"/><circle cx="34" cy="33" r="10"/><path d="M58 25 81 15v36L58 41M20 11h15M76 5h12v12M8 54v5h12"/></svg><div><strong>Measure</strong><span>Monocular camera + IMU</span></div></li><li><span class="diagram-number">02</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="m12 40 20-25 21 9 27-12M12 40l28 12 13-28M40 52l40-13V12M12 40l68-1"/><circle cx="32" cy="15" r="4"/><circle cx="53" cy="24" r="4"/><circle cx="40" cy="52" r="4"/></svg><div><strong>Predict</strong><span>Separate depth and semantic networks</span></div></li><li><span class="diagram-number">03</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="m12 44 21-12 23 12 25-17M12 44v10l21-12 23 12 25-17V27M33 32V15l23-9 25 11v10M56 6v38"/><circle cx="12" cy="44" r="3"/><circle cx="81" cy="27" r="3"/></svg><div><strong>Estimate &amp; reconstruct</strong><span>Robocentric VIO + semantic mesh</span></div></li><li><span class="diagram-number">04</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="M46 13v10M19 34v-11h54v11M19 42v8H9v5M19 50h12v5M73 42v8H62v5M73 50h12v5"/><circle cx="46" cy="9" r="4"/><circle cx="19" cy="38" r="4"/><circle cx="73" cy="38" r="4"/></svg><div><strong>Structure</strong><span>Objects, places, rooms, building</span></div></li></ol><figcaption>Simplified architecture: the camera and IMU support visual-inertial estimation; predicted depth and semantics support mapping.</figcaption></figure>
+
+<section class="case-section case-evidence" id="evidence">
   <p class="spec">02 &mdash; Evidence</p>
   <figure class=""><picture><source type="image/avif" srcset="/media/images/scenegraph-system-design-480.avif 480w, /media/images/scenegraph-system-design-960.avif 960w, /media/images/scenegraph-system-design-1354.avif 1354w" sizes="(min-width: 56em) 62rem, 100vw"><source type="image/webp" srcset="/media/images/scenegraph-system-design-480.webp 480w, /media/images/scenegraph-system-design-960.webp 960w, /media/images/scenegraph-system-design-1354.webp 1354w" sizes="(min-width: 56em) 62rem, 100vw"><img src="/media/images/scenegraph-system-design-1354.jpg" alt="System design diagram for monocular 3D scene graph construction, showing the perception networks, visual-inertial odometry, and the scene graph layers." width="1354" height="767" loading="lazy" decoding="async"></picture><figcaption>The original Mono-Hydra design: two independent networks for depth and semantics, feeding a robocentric VIO and the Hydra scene graph layers.</figcaption></figure>
 </section>
@@ -141,7 +150,7 @@
   <div class="wrap foot-inner">
     <div class="foot-signoff">
       <span class="wordmark-mark" aria-hidden="true">BU</span>
-      <p><strong>Bavantha Udugama</strong><br>monocular spatial perception and robot exploration.</p>
+      <p><strong>Bavantha Udugama</strong><br>3D perception, SLAM and navigation for real robots.</p>
     </div>
     <div>
       <ul>
@@ -156,6 +165,6 @@
     </div>
   </div>
 </footer>
-<script src="/assets/media.js?v=7ae0e82d2d" defer></script>
+<script src="/assets/media.js?v=316fa21c33" defer></script>
 </body>
 </html>

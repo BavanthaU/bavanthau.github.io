@@ -22,7 +22,8 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/research.png">
 <meta name="twitter:title" content="Bavantha Udugama | Research">
 <meta name="twitter:description" content="The two-part research arc: building hierarchical metric-semantic 3D scene graphs from a single camera, then learning to select among certified exploration.">
-<link rel="stylesheet" href="/assets/site.css?v=4dfefd40ef">
+<link rel="stylesheet" href="/assets/site.css?v=2c76c792ac">
+<link rel="stylesheet" href="/assets/fieldbook.css?v=2e020990cd">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -42,9 +43,9 @@
     "B. Udugama"
   ],
   "jobTitle": [
-    "Robotics engineer",
-    "Computer vision engineer",
-    "Perception and spatial AI"
+    "Robotics software engineer",
+    "3D perception",
+    "Computer vision"
   ],
   "url": "https://bavanthau.github.io/",
   "affiliation": {
@@ -78,7 +79,7 @@
     "contentUrl": "https://bavanthau.github.io/media/images/portrait-1254.jpg",
     "width": 1254,
     "height": 1254,
-    "caption": "Bavantha Udugama, PhD candidate",
+    "caption": "Bavantha Udugama, Robotics software engineer",
     "creditText": "Bavantha Udugama",
     "copyrightHolder": {
       "@id": "https://bavanthau.github.io/#person"
@@ -230,8 +231,11 @@
 <main id="main" class="site-main">
 <div class="wrap page-content">
 
-<h1>Research</h1>
-<p class="standfirst">The PhD is lightweight perception for aerial robots: one camera, one network predicting depth, semantics, surface normals and edges together, and those predictions driving mapping and autonomous exploration on the drone&#x27;s own compute, in real time.</p>
+<header class="folio-heading"><p class="eyebrow">Research / University of Twente</p>
+<h1>Research.<br><em>From sensing to autonomy.</em></h1>
+<p class="standfirst">The PhD is lightweight perception for aerial robots: one camera, one network predicting depth, semantics, surface normals and edges together, and those predictions driving mapping and autonomous exploration on the drone&#x27;s own compute, in real time.</p></header>
+<figure class="system-diagram" aria-label="From sensing to spatial understanding"><div class="diagram-heading"><span class="eyebrow">System sketch</span><p>From sensing to spatial understanding</p></div><ol><li><span class="diagram-number">01</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><rect x="10" y="17" width="48" height="32" rx="3"/><circle cx="34" cy="33" r="10"/><path d="M58 25 81 15v36L58 41M20 11h15M76 5h12v12M8 54v5h12"/></svg><div><a href="/projects/mono-hydra/"><strong>Sense</strong><span>One camera + IMU</span></a></div></li><li><span class="diagram-number">02</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="m12 40 20-25 21 9 27-12M12 40l28 12 13-28M40 52l40-13V12M12 40l68-1"/><circle cx="32" cy="15" r="4"/><circle cx="53" cy="24" r="4"/><circle cx="40" cy="52" r="4"/></svg><div><a href="/projects/m2h-mx/"><strong>Predict</strong><span>M2H / M2H-MX perception</span></a></div></li><li><span class="diagram-number">03</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="m12 44 21-12 23 12 25-17M12 44v10l21-12 23 12 25-17V27M33 32V15l23-9 25 11v10M56 6v38"/><circle cx="12" cy="44" r="3"/><circle cx="81" cy="27" r="3"/></svg><div><a href="/projects/mono-hydra-plus/"><strong>Build a map</strong><span>Mono-Hydra++ scene graphs</span></a></div></li><li><span class="diagram-number">04</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="M12 49h20V32h24V12h23M12 49V12h20M45 49h34V32M70 5l9 7-9 7"/><circle cx="12" cy="49" r="4"/><path d="M20 57h60" stroke-dasharray="2 5"/></svg><div><a href="/projects/learned-exploration/"><strong>Choose where next</strong><span>ATLAS · in progress</span></a></div></li></ol><figcaption>A simplified view of the doctoral stack. Learned exploration is ongoing work; its evaluation results are not yet published.</figcaption></figure>
+<section class="hierarchy-story"><div class="hierarchy-art"><picture><source type="image/avif" srcset="/media/images/scenegraph-explained-480.avif 480w, /media/images/scenegraph-explained-960.avif 960w, /media/images/scenegraph-explained-1122.avif 1122w" sizes="(min-width: 58em) 32rem, 90vw"><source type="image/webp" srcset="/media/images/scenegraph-explained-480.webp 480w, /media/images/scenegraph-explained-960.webp 960w, /media/images/scenegraph-explained-1122.webp 1122w" sizes="(min-width: 58em) 32rem, 90vw"><img src="/media/images/scenegraph-explained-1122.jpg" alt="Conceptual exploded view of a scene graph: building, rooms, connected places, objects and a geometric mesh." width="1122" height="1402" loading="lazy" decoding="async"></picture></div><div><p class="eyebrow">Read the map at five levels</p><h2>Turn geometry into a map a robot can reason about.</h2><p>A scene graph connects geometric detail to objects and larger spaces. The illustration shows the hierarchy; the experimental reconstructions appear below.</p><ol><li><strong>Building</strong><span>The top-level environment.</span></li><li><strong>Rooms</strong><span>Regions that organise the building.</span></li><li><strong>Places</strong><span>Connected locations through the space.</span></li><li><strong>Objects</strong><span>Semantic entities in the map.</span></li><li><strong>Mesh</strong><span>Reconstructed geometry carrying semantic labels.</span></li></ol><p class="illustration-note">Conceptual thesis illustration, not an experimental reconstruction.</p><a href="/projects/mono-hydra-plus/#pipeline">Follow the mapping pipeline ↗</a></div></section>
 
 <h2 class="prologue-heading">Prologue. The same question, ten years earlier</h2>
 <p>The same question was asked at Peradeniya in 2017: an autonomous exploration planning strategy for a robot mapping an unknown space, using a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.</p>
@@ -354,7 +358,7 @@ George Vosselman and Francesco Nex.</p>
   <div class="wrap foot-inner">
     <div class="foot-signoff">
       <span class="wordmark-mark" aria-hidden="true">BU</span>
-      <p><strong>Bavantha Udugama</strong><br>monocular spatial perception and robot exploration.</p>
+      <p><strong>Bavantha Udugama</strong><br>3D perception, SLAM and navigation for real robots.</p>
     </div>
     <div>
       <ul>
@@ -369,6 +373,6 @@ George Vosselman and Francesco Nex.</p>
     </div>
   </div>
 </footer>
-<script src="/assets/media.js?v=7ae0e82d2d" defer></script>
+<script src="/assets/media.js?v=316fa21c33" defer></script>
 </body>
 </html>

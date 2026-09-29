@@ -22,8 +22,9 @@
 <meta name="twitter:image" content="https://bavanthau.github.io/media/og/proj-learned-exploration.png">
 <meta name="twitter:title" content="Bavantha Udugama | Learned exploration">
 <meta name="twitter:description" content="A persistent belief graph of places, open ends and unfinished obligations, over which a learned model proposes and ranks routes that an independent.">
-<link rel="stylesheet" href="/assets/site.css?v=4dfefd40ef">
+<link rel="stylesheet" href="/assets/site.css?v=2c76c792ac">
 <link rel="stylesheet" href="/assets/case.css?v=d83b5159f1">
+<link rel="stylesheet" href="/assets/fieldbook.css?v=2e020990cd">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -120,8 +121,8 @@
 <main id="main" class="site-main">
 <div class="wrap page-content">
 
-<header class="case-open bleed ground-dark">
-  <div class="bleed-wide case-open-inner">
+<header class="case-open field-case-open">
+  <div class="case-open-inner">
     <p class="spec case-crumb"><a href="/projects/">Projects</a> &middot; Part II</p>
     <h1 class="case-title">Learned exploration</h1>
     <div class="case-open-foot">
@@ -131,13 +132,21 @@
   </div>
   <figure class="case-lead"><div class="case-lead-media v-wrap"><video poster="/media/video/scope-explorer-poster.jpg" width="1100" height="892" muted loop playsinline preload="metadata" data-autoloop data-full-src="/media/video/scope-explorer.mp4" aria-label="Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment."><source src="/media/video/scope-explorer.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption class="spec">Autonomous exploration in simulation. The robot holds an occupancy map it has built itself and commits to one certified route at a time, so the map fills in region by region rather than by wandering. 60 second excerpt.</figcaption></figure>
 </header>
+<nav class="case-jumps" aria-label="Case study sections">
+  <a href="#system">System</a>
+
+  <a href="#evidence">Evidence</a>
+  <a href="/projects/">All projects ↗</a>
+</nav>
 <div class="note case-note"><span class="note-label">Status</span><p>The formulation, the belief graph, the effect model, the objective and the training setup are written up in the thesis. The experiments are not run yet. The exploration agent also does not consume the Mono-Hydra++ scene graph: it maintains its own belief graph over an occupancy map built from simulated depth and pose. Connecting the two parts is the next step.</p></div>
-<section class="case-section case-does">
+<section class="case-section case-does" id="system">
   <div class="case-does-head"><p class="spec">01 &mdash; The system</p>
     <h2 class="case-h">What it does</h2></div>
   <p class="case-does-text">The robot enters an unmapped indoor space with one forward-facing camera and has to cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes it has verified against the occupancy map the robot has built. The open problem is choice, not motion, so the learned layer decides among certified options and may abstain, but never commands motion itself. The system is ATLAS V11, built in PyTorch and trained in Isaac Sim.</p>
 </section>
-<section class="case-section case-evidence">
+<figure class="system-diagram" aria-label="Learned choice, with geometric checks"><div class="diagram-heading"><span class="eyebrow">System sketch</span><p>Learned choice, with geometric checks</p></div><ol><li><span class="diagram-number">01</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="M46 13v10M19 34v-11h54v11M19 42v8H9v5M19 50h12v5M73 42v8H62v5M73 50h12v5"/><circle cx="46" cy="9" r="4"/><circle cx="19" cy="38" r="4"/><circle cx="73" cy="38" r="4"/></svg><div><strong>Remember</strong><span>Places, open ends, obligations</span></div></li><li><span class="diagram-number">02</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="m12 44 21-12 23 12 25-17M12 44v10l21-12 23 12 25-17V27M33 32V15l23-9 25 11v10M56 6v38"/><circle cx="12" cy="44" r="3"/><circle cx="81" cy="27" r="3"/></svg><div><strong>Propose &amp; certify</strong><span>Geometrically checked routes</span></div></li><li><span class="diagram-number">03</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><rect x="26" y="14" width="40" height="36" rx="3"/><path d="M36 24h20v16H36zM18 22h8M18 32h8M18 42h8M66 22h8M66 32h8M66 42h8M36 6v8M46 6v8M56 6v8M36 50v8M46 50v8M56 50v8"/></svg><div><strong>Rank</strong><span>Learned option selection</span></div></li><li><span class="diagram-number">04</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="M12 49h20V32h24V12h23M12 49V12h20M45 49h34V32M70 5l9 7-9 7"/><circle cx="12" cy="49" r="4"/><path d="M20 57h60" stroke-dasharray="2 5"/></svg><div><strong>Execute</strong><span>Selected route through the planner</span></div></li></ol><figcaption>Conceptual decision path. The learned layer selects among certified routes and may abstain; it does not command the actuators directly.</figcaption></figure>
+
+<section class="case-section case-evidence" id="evidence">
   <p class="spec">02 &mdash; Evidence</p>
   <figure class="v-figure "><div class="v-wrap"><video poster="/media/video/scope-explorer-poster.jpg" width="1100" height="892" muted loop playsinline preload="none" data-autoloop aria-label="Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment."><source src="/media/video/scope-explorer.mp4" type="video/mp4"></video><button type="button" class="v-toggle" data-toggle aria-label="Play or pause video">Pause</button><button type="button" class="v-expand" data-expand hidden aria-label="Play this clip in a larger frame"><span aria-hidden="true">&#x2921;</span>Expand</button></div><figcaption>Autonomous exploration in simulation. The robot holds an occupancy map it has built itself and commits to one certified route at a time, so the map fills in region by region rather than by wandering. 60 second excerpt.</figcaption></figure>
 </section>
@@ -154,7 +163,7 @@
   <div class="wrap foot-inner">
     <div class="foot-signoff">
       <span class="wordmark-mark" aria-hidden="true">BU</span>
-      <p><strong>Bavantha Udugama</strong><br>monocular spatial perception and robot exploration.</p>
+      <p><strong>Bavantha Udugama</strong><br>3D perception, SLAM and navigation for real robots.</p>
     </div>
     <div>
       <ul>
@@ -169,6 +178,6 @@
     </div>
   </div>
 </footer>
-<script src="/assets/media.js?v=7ae0e82d2d" defer></script>
+<script src="/assets/media.js?v=316fa21c33" defer></script>
 </body>
 </html>

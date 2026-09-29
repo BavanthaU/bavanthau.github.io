@@ -37,40 +37,75 @@
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- autoplay loops only while visible, and never under reduced motion ---- */
-  var loops = document.querySelectorAll("video[data-autoloop]");
-  if (loops.length && !reduced) {
-    // some browsers refuse the first play() until the page has been interacted with, so a
-    // rejected attempt is retried once on the next gesture rather than left as a still poster
-    var pending = [];
-    var retry = function () {
-      pending.splice(0).forEach(function (v) {
-        if (v.paused && !v.dataset.userPaused) v.play().catch(function () {});
-      });
+  /* ---- chapter-start clips: start and repeat from the selected segment ---- */
+  document.querySelectorAll("video[data-start]").forEach(function (v) {
+    var startAt = Number(v.dataset.start);
+    if (!Number.isFinite(startAt) || startAt < 0) return;
+    var seekToStart = function () {
+      if (Number.isFinite(v.duration) && startAt >= v.duration) return false;
+      v.currentTime = startAt;
+      return true;
     };
+    if (v.readyState >= 1) seekToStart();
+    else v.addEventListener("loadedmetadata", seekToStart, { once: true });
+    v.addEventListener("ended", function () {
+      if (!seekToStart() || document.hidden || v.closest("[hidden]")) return;
+      var bounds = v.getBoundingClientRect();
+      if (bounds.bottom <= 0 || bounds.top >= window.innerHeight) return;
+      v.play().catch(function () {});
+    });
+  });
+
+  /* ---- autoplay only while visible; respect native pause and reduced motion ---- */
+  var loops = document.querySelectorAll("video[data-autoloop]");
+  if (loops.length) {
+    var visible = new WeakMap();
+    var automaticPauses = new WeakSet();
+    var pending = [];
+    var pauseOffscreen = function (v) {
+      if (v.paused) return;
+      automaticPauses.add(v);
+      v.pause();
+    };
+    var start = function (v) {
+      if (reduced || !("IntersectionObserver" in window) || document.hidden || !visible.get(v) || v.closest("[hidden]") ||
+          !v.paused || v.dataset.userPaused) return;
+      var attempt = v.play();
+      if (attempt && attempt.catch) {
+        attempt.catch(function () { if (pending.indexOf(v) < 0) pending.push(v); });
+      }
+    };
+    loops.forEach(function (v) {
+      v.addEventListener("pause", function () {
+        if (automaticPauses.delete(v)) return;
+        if (visible.get(v) && !v.closest("[hidden]") && !document.hidden) v.dataset.userPaused = "1";
+      });
+      v.addEventListener("play", function () {
+        delete v.dataset.userPaused;
+        if (document.hidden || v.closest("[hidden]") || visible.get(v) === false) pauseOffscreen(v);
+      });
+    });
+    var retry = function () { pending.splice(0).forEach(start); };
     ["pointerdown", "keydown", "touchstart", "scroll"].forEach(function (ev) {
       addEventListener(ev, retry, { once: true, passive: true });
     });
-
-    var start = function (v) {
-      if (!v.paused || v.dataset.userPaused) return;
-      var p = v.play();
-      if (p && p.catch) {
-        p.catch(function () { if (pending.indexOf(v) < 0) pending.push(v); });
-      }
-    };
-
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
-          if (en.intersectionRatio >= 0.4) start(en.target);
-          else if (!en.target.paused) en.target.pause();
+          var on = en.intersectionRatio >= 0.4;
+          visible.set(en.target, on);
+          if (on) start(en.target);
+          else pauseOffscreen(en.target);
         });
       }, { threshold: [0, 0.4, 1] });
       loops.forEach(function (v) { io.observe(v); });
     } else {
-      loops.forEach(start);
+      // Leave native controls available when visibility cannot be observed.
+      loops.forEach(function (v) { visible.set(v, true); });
     }
+    document.addEventListener("visibilitychange", function () {
+      loops.forEach(function (v) { if (document.hidden) pauseOffscreen(v); else start(v); });
+    });
   }
 
   /* ---- visible play and pause control, keyboard reachable ---- */

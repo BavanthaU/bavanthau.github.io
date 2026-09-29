@@ -1,6 +1,67 @@
 # Design system
 
-Current visual direction. Rebuilt September 2026 on the `redesign` branch.
+## Homepage tile layout
+
+The landing page now uses rounded, separated tiles with short summaries, consistent padding
+and clear navigation. Reading order: introduction and muted ITC mapping video; three engineering
+project tiles; the perception–mapping–exploration feedback diagram; technical deep dives;
+experience and contact. Long-form case details remain on their dedicated pages.
+
+Doctoral work covers both mapping and autonomous exploration. Its tile shows map output and
+simulation exploration together, labels the simulation, and links to the full thesis project
+group. The feedback loop follows the author's preferred dark diagram, with real HTML text,
+linked stages and a vertical layout on phones. The delivery row distinguishes onboard drone
+software from commercial humanoid deployment. No unsupported end-to-end autonomy result is
+implied. Inline category videos sit outside project navigation links. The doctoral tile switches
+between mapping and exploration clips; humanoid and reconnaissance tiles each have their
+own player. The hero and category videos autoplay muted while visible, with native controls
+and explicit pause buttons. Manual pauses survive scrolling. Reduced-motion preferences
+disable automatic playback, and background tabs pause playback.
+
+## Shared fieldbook — all routes
+
+The homepage theme is now shared by projects, research, publications, BibTeX, CV, contact,
+video pages and the 404 page. `assets/fieldbook.css` owns the palette and common type/control
+styles, loading after the original structural and route styles. `assets/portfolio.css`
+contains homepage compositions only. Avoid duplicating palette tokens in route files.
+
+Headlines name engineering work: perception, SLAM, navigation, hardware integration and
+onboard deployment. Avoid generic slogans such as “works in the world”. The landing page
+uses short role/outcome summaries, three evidence clips and a clearly labelled illustration
+of the custom drone. Technical mechanisms, numeric conditions and additional demos belong
+on the relevant subpages.
+
+`data/graphics.json` and shared SVG symbols provide small conceptual system sketches.
+Manuscript figures explain the actual Mono-Hydra++ pipeline, temporal alignment, sparse
+depth selection and factor geometry. Thesis artwork explains the aerial platform and the
+scene-graph hierarchy. These illustrations are explicitly labelled; they are not presented
+as experimental outputs. Real hardware photographs, footage and reconstruction figures
+remain available. Diagram links open larger renditions without JavaScript.
+
+Only responsive website derivatives and metadata are published. Raw source files stay in
+ignored `_source/`; manuscript and thesis workspaces are unchanged. Existing numbers,
+publication statuses, citations and routes are preserved.
+
+## Homepage fieldbook — September 2026
+
+The homepage now leads with engineering delivery. Its three case studies are the doctoral
+onboard mapping stack, commercial humanoid deployments, and the bachelor’s reconnaissance
+robot. Each identifies the personal role, delivered work, evidence and demonstrated skills.
+Research system names and publication statuses follow those concrete examples.
+
+The visual composition pairs oversized sans-serif type and a serif headline accent with a
+navy hardware plate, cobalt links, rust section numbers and custom vector skill illustrations.
+Actual drone photography and deployment footage remain the evidence. The illustrations are
+conceptual skill symbols, not synthetic results. Layout stacks on narrow screens, respects
+light/dark preferences, and exposes native video controls and disclosure elements without JS.
+Video is loaded on request; the homepage no longer uses the scroll-driven stage.
+
+Homepage content: `data/site.json` → `home.portfolio`; renderer: `build_home()` in
+`tools/build.py`; styles: `assets/portfolio.css`. Run `python3 tools/build.py --home-only`.
+
+The design notes below are historical context. The shared fieldbook rules above supersede
+their palette, typography, controls and page-opening rules; existing media interactions and
+evidence constraints continue to apply.
 
 ## The idea
 

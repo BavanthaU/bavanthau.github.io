@@ -1008,6 +1008,390 @@
       "alt": "The quadrotor from a three-quarter angle, showing the depth of the carbon frame, the propeller cage, and the battery and electronics stacked in the centre.",
       "caption": "Three-quarter view.",
       "credit": "Custom drone"
+    },
+    "pipeline-overview": {
+      "kind": "image",
+      "width": 1774,
+      "height": 887,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-overview-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-overview-960.avif"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/pipeline-overview-1600.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-overview-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-overview-960.webp"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/pipeline-overview-1600.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-overview-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-overview-960.jpg"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/pipeline-overview-1600.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "pipeline-overview-480.avif": 18707,
+        "pipeline-overview-480.webp": 22462,
+        "pipeline-overview-480.jpg": 31830,
+        "pipeline-overview-960.avif": 51462,
+        "pipeline-overview-960.webp": 62848,
+        "pipeline-overview-960.jpg": 98337,
+        "pipeline-overview-1600.avif": 99487,
+        "pipeline-overview-1600.webp": 122842,
+        "pipeline-overview-1600.jpg": 205861
+      },
+      "digest": "30ac123fd37f5a63",
+      "alt": "Mono-Hydra++ system overview: RGB and IMU feed perception and odometry; aligned depth supports local graph refinement and volumetric fusion; Hydra builds a hierarchical scene graph.",
+      "caption": "Mono-Hydra++ system overview. Scene and map views are illustrative.",
+      "credit": "ISPRS manuscript, Figure pipeline_overview; system_overview_journal_v9.png"
+    },
+    "pipeline-temporal": {
+      "kind": "image",
+      "width": 1774,
+      "height": 887,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-temporal-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-temporal-960.avif"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/pipeline-temporal-1600.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-temporal-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-temporal-960.webp"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/pipeline-temporal-1600.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-temporal-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-temporal-960.jpg"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/pipeline-temporal-1600.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "pipeline-temporal-480.avif": 15699,
+        "pipeline-temporal-480.webp": 19100,
+        "pipeline-temporal-480.jpg": 28885,
+        "pipeline-temporal-960.avif": 40849,
+        "pipeline-temporal-960.webp": 50734,
+        "pipeline-temporal-960.jpg": 85722,
+        "pipeline-temporal-1600.avif": 76459,
+        "pipeline-temporal-1600.webp": 98852,
+        "pipeline-temporal-1600.jpg": 176204
+      },
+      "digest": "6ef0e3fb524a16f0",
+      "alt": "Previous depth and labels are back-projected, transformed by relative camera pose and reprojected into the current image; validity checks precede depth median and label voting.",
+      "caption": "Pose-aware temporal alignment. Illustrative scene views show how history is aligned and combined with the current prediction.",
+      "credit": "ISPRS manuscript, Figure temporal alignment; temporal_alignment_journal_v5.png"
+    },
+    "pipeline-sampling": {
+      "kind": "image",
+      "width": 1536,
+      "height": 1024,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-sampling-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-sampling-960.avif"
+          },
+          {
+            "w": 1536,
+            "path": "/media/images/pipeline-sampling-1536.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-sampling-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-sampling-960.webp"
+          },
+          {
+            "w": 1536,
+            "path": "/media/images/pipeline-sampling-1536.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-sampling-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-sampling-960.jpg"
+          },
+          {
+            "w": 1536,
+            "path": "/media/images/pipeline-sampling-1536.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "pipeline-sampling-480.avif": 14052,
+        "pipeline-sampling-480.webp": 17044,
+        "pipeline-sampling-480.jpg": 27072,
+        "pipeline-sampling-960.avif": 35247,
+        "pipeline-sampling-960.webp": 45836,
+        "pipeline-sampling-960.jpg": 79254,
+        "pipeline-sampling-1536.avif": 59243,
+        "pipeline-sampling-1536.webp": 85184,
+        "pipeline-sampling-1536.jpg": 157548
+      },
+      "digest": "27778995d2cd51d7",
+      "alt": "Tracked keypoints sample aligned depth; validity, motion, reprojection and semantic checks select depth factors for local graph refinement.",
+      "caption": "Sparse depth-factor selection. Scene views are illustrative.",
+      "credit": "ISPRS manuscript, Figure sparse depth factors; depth_sampling_journal_v2.png"
+    },
+    "pipeline-geometry": {
+      "kind": "image",
+      "width": 1774,
+      "height": 887,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-geometry-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-geometry-960.avif"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/pipeline-geometry-1600.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-geometry-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-geometry-960.webp"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/pipeline-geometry-1600.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/pipeline-geometry-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/pipeline-geometry-960.jpg"
+          },
+          {
+            "w": 1600,
+            "path": "/media/images/pipeline-geometry-1600.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "pipeline-geometry-480.avif": 9599,
+        "pipeline-geometry-480.webp": 12350,
+        "pipeline-geometry-480.jpg": 19749,
+        "pipeline-geometry-960.avif": 24261,
+        "pipeline-geometry-960.webp": 32698,
+        "pipeline-geometry-960.jpg": 55891,
+        "pipeline-geometry-1600.avif": 45863,
+        "pipeline-geometry-1600.webp": 62260,
+        "pipeline-geometry-1600.jpg": 117874
+      },
+      "digest": "df847d9d0945401e",
+      "alt": "Optical-axis depth relates a camera pose to a landmark; the local factor graph combines visual, IMU, motion and depth constraints.",
+      "caption": "Depth-factor geometry and local factor graph. Velocity and bias variables are omitted in this illustration.",
+      "credit": "ISPRS manuscript, Figure depth factor geometry; depth_factor_geometry_journal_v3.png"
+    },
+    "scenegraph-explained": {
+      "kind": "image",
+      "width": 1122,
+      "height": 1402,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/scenegraph-explained-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/scenegraph-explained-960.avif"
+          },
+          {
+            "w": 1122,
+            "path": "/media/images/scenegraph-explained-1122.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/scenegraph-explained-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/scenegraph-explained-960.webp"
+          },
+          {
+            "w": 1122,
+            "path": "/media/images/scenegraph-explained-1122.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/scenegraph-explained-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/scenegraph-explained-960.jpg"
+          },
+          {
+            "w": 1122,
+            "path": "/media/images/scenegraph-explained-1122.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "scenegraph-explained-480.avif": 16176,
+        "scenegraph-explained-480.webp": 19974,
+        "scenegraph-explained-480.jpg": 31259,
+        "scenegraph-explained-960.avif": 46637,
+        "scenegraph-explained-960.webp": 63034,
+        "scenegraph-explained-960.jpg": 105886,
+        "scenegraph-explained-1122.avif": 57320,
+        "scenegraph-explained-1122.webp": 77666,
+        "scenegraph-explained-1122.jpg": 137518
+      },
+      "digest": "a6367ff9d94ffed3",
+      "alt": "Conceptual exploded view of a scene graph: building, rooms, connected places, objects and a geometric mesh.",
+      "caption": "Illustration of the scene-graph hierarchy, from geometry to a building-level representation. Not an experimental reconstruction.",
+      "credit": "PhD thesis illustration; figures/story3d/scenegraph.png"
+    },
+    "platform-illustration": {
+      "kind": "image",
+      "width": 1403,
+      "height": 1121,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/platform-illustration-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/platform-illustration-960.avif"
+          },
+          {
+            "w": 1403,
+            "path": "/media/images/platform-illustration-1403.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/platform-illustration-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/platform-illustration-960.webp"
+          },
+          {
+            "w": 1403,
+            "path": "/media/images/platform-illustration-1403.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/platform-illustration-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/platform-illustration-960.jpg"
+          },
+          {
+            "w": 1403,
+            "path": "/media/images/platform-illustration-1403.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "platform-illustration-480.avif": 19738,
+        "platform-illustration-480.webp": 24284,
+        "platform-illustration-480.jpg": 33773,
+        "platform-illustration-960.avif": 50654,
+        "platform-illustration-960.webp": 66518,
+        "platform-illustration-960.jpg": 100958,
+        "platform-illustration-1403.avif": 75385,
+        "platform-illustration-1403.webp": 106984,
+        "platform-illustration-1403.jpg": 178466
+      },
+      "digest": "1df6fb78fdac5699",
+      "alt": "Illustration of the custom aerial robot showing its carbon frame, front camera, electronics stack, battery and underside rotors.",
+      "caption": "Illustration of the custom aerial research platform, based on supplied hardware photographs.",
+      "credit": "PhD thesis platform artwork; figures/platform_drone/drone-pusher-threeblade.png"
     }
   },
   "frames": {
