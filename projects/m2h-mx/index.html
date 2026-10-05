@@ -23,8 +23,8 @@
 <meta name="twitter:title" content="Bavantha Udugama | M2H-MX">
 <meta name="twitter:description" content="The perception front end that improved the map, and the ablation showing where the improvement came from. By Bavantha Udugama, ITC University of Twente.">
 <link rel="stylesheet" href="/assets/site.css?v=2c76c792ac">
-<link rel="stylesheet" href="/assets/case.css?v=d83b5159f1">
-<link rel="stylesheet" href="/assets/fieldbook.css?v=62ea4360a8">
+<link rel="stylesheet" href="/assets/case.css?v=35bc7f03d1">
+<link rel="stylesheet" href="/assets/fieldbook.css?v=dccf420671">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -141,6 +141,7 @@
 </header>
 <nav class="case-jumps" aria-label="Case study sections">
   <a href="#system">System</a>
+  <a href="#contribution">My contribution</a>
 
   <a href="#evidence">Evidence</a>
   <a href="/projects/">All projects ↗</a>
@@ -151,6 +152,7 @@
     <h2 class="case-h">What it does</h2></div>
   <p class="case-does-text">DINOv3 features adapted with LoRA, decoded through register-gated Mamba blocks at multiple scales, with directed cross-task refinement between depth and semantics. Exported to ONNX and TensorRT FP16 for the drone.</p>
 </section>
+<section class="case-section case-contribution" id="contribution"><p class="eyebrow">Engineering ownership</p><h2 class="case-h">My contribution</h2><ul><li>Developed the multi-task perception model and evaluated its predictions inside the mapping pipeline.</li><li>Exported and optimised embedded inference through ONNX and TensorRT FP16 on Jetson Orin NX.</li></ul></section>
 <figure class="system-diagram" aria-label="Perception designed for a running mapping system"><div class="diagram-heading"><span class="eyebrow">System sketch</span><p>Perception designed for a running mapping system</p></div><ol><li><span class="diagram-number">01</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><rect x="10" y="17" width="48" height="32" rx="3"/><circle cx="34" cy="33" r="10"/><path d="M58 25 81 15v36L58 41M20 11h15M76 5h12v12M8 54v5h12"/></svg><div><strong>Input</strong><span>One RGB image</span></div></li><li><span class="diagram-number">02</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><rect x="26" y="14" width="40" height="36" rx="3"/><path d="M36 24h20v16H36zM18 22h8M18 32h8M18 42h8M66 22h8M66 32h8M66 42h8M36 6v8M46 6v8M56 6v8M36 50v8M46 50v8M56 50v8"/></svg><div><strong>Adapt features</strong><span>DINOv3 + LoRA</span></div></li><li><span class="diagram-number">03</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="m12 40 20-25 21 9 27-12M12 40l28 12 13-28M40 52l40-13V12M12 40l68-1"/><circle cx="32" cy="15" r="4"/><circle cx="53" cy="24" r="4"/><circle cx="40" cy="52" r="4"/></svg><div><strong>Decode &amp; refine</strong><span>Register-gated Mamba + cross-task refinement</span></div></li><li><span class="diagram-number">04</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="m12 44 21-12 23 12 25-17M12 44v10l21-12 23 12 25-17V27M33 32V15l23-9 25 11v10M56 6v38"/><circle cx="12" cy="44" r="3"/><circle cx="81" cy="27" r="3"/></svg><div><strong>Use on the robot</strong><span>Depth &amp; semantics for mapping</span></div></li></ol><figcaption>A simplified view of the model and its deployment path. ONNX / TensorRT FP16 is the embedded inference route.</figcaption></figure>
 
 <section class="case-section case-evidence" id="evidence">

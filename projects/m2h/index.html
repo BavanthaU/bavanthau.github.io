@@ -23,8 +23,8 @@
 <meta name="twitter:title" content="Bavantha Udugama | M2H">
 <meta name="twitter:description" content="Four dense tasks in one model, replacing two separate networks that did not agree with each other. By Bavantha Udugama, ITC University of Twente.">
 <link rel="stylesheet" href="/assets/site.css?v=2c76c792ac">
-<link rel="stylesheet" href="/assets/case.css?v=d83b5159f1">
-<link rel="stylesheet" href="/assets/fieldbook.css?v=62ea4360a8">
+<link rel="stylesheet" href="/assets/case.css?v=35bc7f03d1">
+<link rel="stylesheet" href="/assets/fieldbook.css?v=dccf420671">
 <link rel="icon" href="/assets/favicon.svg?v=12e1995266" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon-32.png?v=529caf0bfa" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/favicon-180.png?v=9596c88975">
@@ -178,6 +178,7 @@
 </header>
 <nav class="case-jumps" aria-label="Case study sections">
   <a href="#system">System</a>
+  <a href="#contribution">My contribution</a>
 
   <a href="#evidence">Evidence</a>
   <a href="/projects/">All projects ↗</a>
@@ -188,6 +189,7 @@
     <h2 class="case-h">What it does</h2></div>
   <p class="case-does-text">Window-based cross-task attention on a DINOv2-small backbone, predicting depth, semantics, surface normals, and edges together so that each task can use what the others found.</p>
 </section>
+<section class="case-section case-contribution" id="contribution"><p class="eyebrow">Engineering ownership</p><h2 class="case-h">My contribution</h2><ul><li>Developed a shared model for depth, semantics, surface normals and edges using cross-task attention.</li><li>Integrated the learned predictions into monocular scene graph construction and evaluated mapping performance.</li></ul></section>
 <figure class="system-diagram" aria-label="One image, four connected prediction tasks"><div class="diagram-heading"><span class="eyebrow">System sketch</span><p>One image, four connected prediction tasks</p></div><ol><li><span class="diagram-number">01</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><rect x="10" y="17" width="48" height="32" rx="3"/><circle cx="34" cy="33" r="10"/><path d="M58 25 81 15v36L58 41M20 11h15M76 5h12v12M8 54v5h12"/></svg><div><strong>Input</strong><span>One RGB image</span></div></li><li><span class="diagram-number">02</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><rect x="26" y="14" width="40" height="36" rx="3"/><path d="M36 24h20v16H36zM18 22h8M18 32h8M18 42h8M66 22h8M66 32h8M66 42h8M36 6v8M46 6v8M56 6v8M36 50v8M46 50v8M56 50v8"/></svg><div><strong>Encode</strong><span>DINOv2-small backbone</span></div></li><li><span class="diagram-number">03</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="M46 13v10M19 34v-11h54v11M19 42v8H9v5M19 50h12v5M73 42v8H62v5M73 50h12v5"/><circle cx="46" cy="9" r="4"/><circle cx="19" cy="38" r="4"/><circle cx="73" cy="38" r="4"/></svg><div><strong>Share information</strong><span>Window-based cross-task attention</span></div></li><li><span class="diagram-number">04</span><svg class="diagram-icon" viewBox="0 0 92 64" aria-hidden="true" focusable="false"><path d="m12 40 20-25 21 9 27-12M12 40l28 12 13-28M40 52l40-13V12M12 40l68-1"/><circle cx="32" cy="15" r="4"/><circle cx="53" cy="24" r="4"/><circle cx="40" cy="52" r="4"/></svg><div><strong>Predict together</strong><span>Depth, semantics, normals, edges</span></div></li></ol><figcaption>Conceptual model overview. The experimental figures below show the actual predictions and mapping output.</figcaption></figure>
 
 <section class="case-section case-evidence" id="evidence">

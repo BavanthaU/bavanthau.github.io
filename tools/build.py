@@ -677,6 +677,7 @@ def _proj_media():
         "m2h":             video("itc-loop") + wipe(compact=True),
         "mono-hydra":      picture("scenegraph-system-design"),
         "learned-exploration": video("scope-explorer"),
+        "commercial-navigation": video("humanoid-deployment") + video("humanoid-mapping", caption="Venue mapping with GMapping; the estimated robot pose is shown in red."),
     }
 
 
@@ -979,11 +980,12 @@ def hierarchy_story():
 def experience_graphic():
     """Visual links back to the three engineering experiences, without new claims."""
     rows = ''
-    for c in SITE['home']['portfolio']['cases']:
+    for c in [x for x in SITE['home']['portfolio']['cases'] if x.get('clip')] + [SITE['home']['portfolio']['supportingProject']]:
         rec = MEDIA['videos'][c['clip']]
+        label = c['type'] if ' / ' in c['type'] else c['index'] + ' / ' + c['type']
         rows += (f'<li><a href="/#{e(c["id"])}"><img src="{e(rec["poster"])}" '
                  f'width="{rec["width"]}" height="{rec["height"]}" alt="" loading="lazy">'
-                 f'<span><span class="eyebrow">{e(c["index"])} / {e(c["type"])}</span>'
+                 f'<span><span class="eyebrow">{e(label)}</span>'
                  f'<strong>{e(c["title"])}</strong></span><span aria-hidden="true">↗</span></a></li>')
     return f'<nav class="experience-graphic" aria-label="Engineering experience in three projects"><ul>{rows}</ul></nav>'
 
@@ -1065,160 +1067,132 @@ def arc_stage():
 
 def build_home():
     P = SITE['home']['portfolio']
-    hero_video = MEDIA['videos']['itc-loop']
-    def tile_video(key, caption, start=0):
+
+    def player(key, caption):
         rec = MEDIA['videos'][key]
-        playback = f'data-start="{start}"' if start else 'loop'
-        src = rec['mp4'] + (f'#t={start}' if start else '')
-        return (f'<figure class="tile-player"><div class="tile-player-frame">'
-                f'<video controls muted {playback} playsinline preload="none" data-autoloop '
+        return (f'<figure class="portfolio-player"><div class="portfolio-player-frame">'
+                f'<video controls muted loop playsinline preload="none" data-autoloop '
                 f'poster="{e(rec["poster"])}" width="{rec["width"]}" height="{rec["height"]}" '
-                f'aria-label="{e(rec["alt"])}"><source src="{e(src)}" type="video/mp4"></video>'
+                f'aria-label="{e(rec["alt"])}"><source src="{e(rec["mp4"])}" type="video/mp4"></video>'
                 f'<button class="v-toggle" type="button" data-toggle '
                 f'aria-label="Play or pause {e(caption)}">Play</button></div>'
                 f'<figcaption>{e(caption)}</figcaption></figure>')
 
     cases = ''
     for c in P['cases']:
-        tags = ''.join(f'<li>{e(t)}</li>' for t in c['skills'][:3])
-        if c['id'] == 'origin':
-            preview = ('<div class="tile-clipbar"><span>SLAM &amp; control · from 0:59</span></div>'
-                       + tile_video(c['clip'], 'My SLAM and control explanation · starts at 0:59', start=59))
+        if c.get('mediaKind') == 'wipe':
+            media = wipe(c['image'], heading=False, compact=True, sizes='(min-width: 52em) 40vw, 92vw')
+        elif c.get('image'):
+            media = picture(c['image'], caption=False, sizes='(min-width: 52em) 40vw, 92vw')
         else:
-            preview = ('<div class="tile-clipbar"><span>Commercial deployment</span></div>'
-                       + tile_video(c['clip'], c['caption']))
-        if c['id'] == 'onboard':
-            preview = switcher('doctoral-clips', [
-                ('3D mapping', tile_video('icra26', 'Monocular 3D scene graph · ScanNet scene 0000')),
-                ('Exploration', tile_video('scope-explorer', 'ATLAS autonomous exploration · simulation')),
-            ], label='Doctoral research demos')
+            media = player(c['clip'], c['caption'])
+        tags = ''.join(f'<li>{e(t)}</li>' for t in c['skills'][:3])
         cases += f'''
-<article class="work-tile work-tile-{e(c['id'])}" id="{e(c['id'])}" aria-labelledby="tile-{e(c['id'])}">
-  <div class="tile-card-body">
-    <div class="tile-video-area"><p class="tile-video-category">{e(c['type'])}</p>{preview}</div>
-    <div class="tile-copy">
-      <p class="tile-location">{e(c['place'])}</p>
-      <h3 id="tile-{e(c['id'])}"><a href="{e(c['href'])}">{e(c['tileTitle'])}</a></h3>
-      <p class="tile-description">{e(c['tileText'])}</p>
-      <div class="tile-outcome"><strong>{e(c['tileMetric'])}</strong><span>{e(c['tileMetricLabel'])}</span></div>
-      <ul class="tile-tags" aria-label="Skills demonstrated">{tags}</ul>
-      <a class="tile-cta" href="{e(c['href'])}">{e(c['tileLink'])}<span aria-hidden="true">↗</span></a>
-    </div>
+<article class="project-feature project-feature-{e(c['id'])}" id="{e(c['id'])}" aria-labelledby="tile-{e(c['id'])}">
+  <div class="project-visual">{media}</div>
+  <div class="project-copy">
+    <p class="tile-eyebrow">{e(c['type'])}</p>
+    <h3 id="tile-{e(c['id'])}"><a href="{e(c['href'])}">{e(c['tileTitle'])}</a></h3>
+    <p class="project-description">{e(c['tileText'])}</p>
+    <ul class="tile-tags" aria-label="Skills demonstrated">{tags}</ul>
+    <div class="project-result"><strong>{e(c['tileMetric'])}</strong><span>{e(c['tileMetricLabel'])}</span></div>
+    <a class="text-link" href="{e(c['href'])}">{e(c['tileLink'])} <span aria-hidden="true">↗</span></a>
   </div>
 </article>'''
+    proof = ''.join(f'<li><a href="{e(x["href"])}"><strong>{e(x["value"])}</strong>'
+                    f'<span>{e(x["label"])}</span><small>{e(x["detail"])}</small></a></li>'
+                    for x in P['proof'])
     loop = P['expertiseLoop']
-    loop_nodes = ''.join(
-        f'<li><a href="{e(step["href"])}"><span class="loop-number">{e(step["number"])}</span>'
-        f'<strong>{e(step["title"])}</strong><span class="loop-description">{e(step["detail"])}</span></a></li>'
-        for step in loop['steps'])
-    def dive_image(d):
-        if d.get('media') == 'video-poster':
-            rec = MEDIA['videos'][d['key']]
-            return (f'<img src="{e(rec["poster"])}" width="{rec["width"]}" height="{rec["height"]}" '
-                    f'alt="{e(rec["alt"])}" loading="lazy" decoding="async">')
-        return picture(d['key'], caption=False, sizes='(min-width: 58em) 36rem, 92vw')
-
-    dives = ''.join(
-        f'<article class="deep-tile"><a href="{e(d["href"])}">'
-        f'<div class="deep-image">{dive_image(d)}</div>'
-        f'<div class="deep-copy"><p class="tile-eyebrow">{e(d["label"])}</p>'
-        f'<h3>{e(d["title"])}</h3><p>{e(d["text"])}</p>'
-        f'<span class="tile-cta">{e(d["link"])}<span aria-hidden="true">↗</span></span></div></a></article>'
-        for d in P['deepDives'])
+    nodes = ''.join(f'<li><a href="{e(x["href"])}"><span class="loop-number">{e(x["number"])}</span>'
+                    f'<strong>{e(x["title"])}</strong><span class="loop-description">{e(x["detail"])}</span></a></li>'
+                    for x in loop['steps'])
+    a = P['exploration']
+    pubs = ''.join(f'<li><a href="/publications/{e(p["slug"])}/"><span class="paper-name">{e(p["title"])}</span>'
+                   f'<span class="paper-status">{e(p["statusLabel"])}</span><span aria-hidden="true">↗</span></a></li>'
+                   for p in PUBS['publications'][:3])
+    origin = P['supportingProject']
     body = f'''
-<header class="tile-hero">
-  <div class="intro-tile">
+<header class="portfolio-hero">
+  <div class="hero-copy">
     <p class="tile-eyebrow">{e(P['eyebrow'])}</p>
     <h1>{e(P['headline'])}<br><em>{e(P['headlineAccent'])}</em></h1>
-    <p class="intro-summary">{e(P['intro'])}</p>
-    <div class="tile-actions"><a class="tile-button" href="#work">Explore my projects <span aria-hidden="true">↓</span></a>
-      <a class="intro-cv" href="/cv/">View CV ↗</a></div>
-    <p class="intro-availability"><span aria-hidden="true"></span>{e(SITE['contact']['availability'])}</p>
+    <p class="hero-summary">{e(P['intro'])}</p>
+    <div class="hero-actions"><a class="portfolio-button" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
+      <a class="text-link" href="/cv/">View CV ↗</a><a class="text-link" href="/contact/">Contact ↗</a></div>
+    <p class="hero-availability">{e(SITE['contact']['availability'])} · Robotics roles &amp; research collaborations</p>
   </div>
-  <figure class="hardware-tile hero-video-tile">
-    <div class="hardware-label"><span>ITC second floor</span><span>Mapping demo · 10× speed</span></div>
-    <div class="hero-video-media">
-      <video controls muted loop playsinline preload="metadata" data-autoloop
-        poster="{e(hero_video['poster'])}" width="{hero_video['width']}" height="{hero_video['height']}"
-        aria-label="{e(hero_video['alt'])}">
-        <source src="{e(hero_video['mp4'])}" type="video/mp4">
-      </video>
-      <button class="v-toggle" type="button" data-toggle aria-label="Play or pause the ITC mapping video">Play</button>
-    </div>
-    <figcaption><div><strong>Build a 3D scene graph from one camera.</strong><span>ITC corridor loop · Scene graph construction shown at 10× real time</span></div>
-      <a href="{watch_url('itc-loop')}" aria-label="Watch the full ITC mapping video">↗</a></figcaption>
-  </figure>
+  <div class="hero-demo"><div class="demo-label"><span>MONOCULAR 3D MAPPING / LIVE OUTPUT</span><span>RGB + IMU</span></div>
+    {player('itc-loop', 'ITC corridor loop · Scene graph construction shown at 10× real time')}
+    <a class="demo-link" href="/projects/mono-hydra-plus/">One camera. A map of surfaces, objects and rooms. <span aria-hidden="true">↗</span></a>
+  </div>
 </header>
+<ul class="proof-strip" aria-label="Selected engineering evidence">{proof}</ul>
 
-<section class="tile-section" id="work" aria-labelledby="work-title">
-  <div class="tile-section-head"><div><p class="tile-eyebrow">Selected engineering work</p>
-    <h2 id="work-title">Mapping, exploration and field deployment.</h2></div>
-    <a class="section-link" href="/projects/">All projects ↗</a></div>
-  <div class="work-grid">{cases}</div>
+<section class="portfolio-section" id="work" aria-labelledby="work-title">
+  <div class="section-heading"><div><p class="tile-eyebrow">Selected work / Research to deployment</p>
+    <h2 id="work-title">Perceive. Localise. Navigate.</h2></div><a class="text-link" href="/projects/">All projects ↗</a></div>
+  <div class="project-grid">{cases}</div>
 </section>
 
-<section class="tile-section" id="flight" aria-labelledby="flight-title">
-  <div class="tile-section-head"><div><p class="tile-eyebrow">Designed, integrated, flight-tested</p>
-    <h2 id="flight-title">Build it. Fly it. Map with it.</h2>
-    <p class="expertise-intro">A custom airframe. Its own onboard computer. A mapping stack I took from models to a flying robot.</p></div>
-    <a class="section-link" href="/projects/mono-hydra-plus/#configuration">Explore the onboard setup ↗</a></div>
-  <div class="flight-grid">
-    <article class="flight-hardware">
-      <div class="flight-photo">{picture('drone-angle', caption=False, sizes='(min-width: 52em) 45vw, 92vw')}<span class="flight-badge">01 / The robot I built</span></div>
-      <div class="flight-copy"><h3>Fit the software to the aircraft.</h3><p>Camera and IMU sensing, Jetson compute, and a protected carbon frame: the hardware behind my onboard mapping research.</p>
-        <ul class="flight-chips"><li>RGB + IMU</li><li>Jetson Orin NX</li><li>TensorRT FP16</li></ul></div>
-    </article>
-    <article class="flight-demo"><div class="flight-demo-head"><p class="tile-eyebrow">02 / Flight test</p><h3>Watch it leave the lab bench.</h3></div>
-      {tile_video('drone-flight', 'Real flight footage · take-off and an indoor corridor pass')}
-      <p class="flight-demo-note">The robot carries its mapping compute onboard. See the separate ITC recording above for the scene graph output.</p>
-    </article>
-  </div>
-  <a class="flight-route" href="/projects/mono-hydra-plus/#configuration"><span>03 / Inside the onboard stack</span><strong>Camera + IMU → learned perception → refined poses → 3D scene graph</strong><span aria-hidden="true">↗</span></a>
+<section class="portfolio-section exploration-feature" id="exploration" aria-labelledby="exploration-title">
+  <div class="exploration-copy"><p class="tile-eyebrow">{e(a['eyebrow'])}</p><h2 id="exploration-title">{e(a['title'])}</h2>
+    <p>{e(a['text'])}</p><p class="research-status">{e(a['status'])}</p><p class="exploration-note">{e(a['note'])}</p>
+    <a class="text-link" href="{e(a['href'])}">Explore the ATLAS approach <span aria-hidden="true">↗</span></a></div>
+  <div class="exploration-media">{player('scope-explorer', 'ATLAS autonomous exploration · Simulation demonstration')}</div>
 </section>
 
-<section class="tile-section expertise-section" id="skills" aria-labelledby="skills-title">
-  <div class="tile-section-head"><div><p class="tile-eyebrow">Research &amp; engineering</p>
-    <h2 id="skills-title">{e(loop['title'])}</h2>
-    <p class="expertise-intro">{e(loop['intro'])}</p></div></div>
+<section class="portfolio-section" id="skills" aria-labelledby="skills-title">
+  <div class="section-heading"><div><p class="tile-eyebrow">Connected expertise</p><h2 id="skills-title">{e(loop['title'])}</h2>
+    <p class="section-intro">{e(loop['intro'])}</p></div></div>
   <figure class="expertise-loop" aria-label="Perception, mapping and autonomous exploration feedback loop">
-    <ol class="loop-nodes">{loop_nodes}</ol>
-    <div class="loop-return"><span>{e(loop['feedback'])}</span></div>
-    <div class="loop-deployment">
-      <div><span class="loop-number">04 / Engineering delivery</span><strong>{e(loop['deploymentTitle'])}</strong></div>
-      <div class="loop-delivery-links"><a href="/projects/mono-hydra-plus/">{e(loop['onboard'])} ↗</a>
-        <a href="/projects/#commercial">{e(loop['commercial'])} ↗</a></div>
-    </div>
+    <ol class="loop-nodes">{nodes}</ol><div class="loop-return"><span>{e(loop['feedback'])}</span></div>
+    <div class="loop-deployment"><strong>{e(loop['deploymentTitle'])}</strong>
+      <div><a href="/projects/mono-hydra-plus/#configuration">{e(loop['onboard'])} ↗</a>
+      <a href="/projects/commercial-navigation/">{e(loop['commercial'])} ↗</a></div></div>
     <figcaption>{e(loop['note'])}</figcaption>
   </figure>
 </section>
 
-<section class="tile-section" id="research" aria-labelledby="research-title">
-  <div class="tile-section-head"><div><p class="tile-eyebrow">Explore the technical details</p>
-    <h2 id="research-title">Inside the mapping and exploration stack.</h2></div>
-    <a class="section-link" href="/publications/">Papers &amp; results ↗</a></div>
-  <div class="deep-grid">{dives}</div>
+<section class="portfolio-section" id="flight" aria-labelledby="flight-title">
+  <div class="section-heading"><div><p class="tile-eyebrow">Embedded robotics / Hardware integration</p>
+    <h2 id="flight-title">Built for the aircraft.</h2></div><a class="text-link" href="/projects/mono-hydra-plus/#configuration">Onboard architecture ↗</a></div>
+  <div class="platform-feature"><div class="platform-photo">{picture('drone-angle', caption=False, sizes='(min-width: 52em) 32vw, 92vw')}</div>
+    <div class="platform-copy"><h3>Models, estimation and mapping.<br>On the robot’s own compute.</h3>
+      <p>I built and flight-tested the custom drone, integrating camera–IMU sensing, learned perception, odometry and scene graph construction on Jetson.</p>
+      <ul class="tile-tags"><li>Jetson Orin NX</li><li>ONNX · TensorRT FP16</li><li>C++ · ROS</li></ul>
+      <a class="text-link" href="/projects/mono-hydra-plus/#pipeline">Trace a frame through the stack ↗</a></div></div>
+  <details class="flight-details"><summary>Watch the aircraft in flight <span aria-hidden="true">+</span></summary>
+    {player('drone-flight', 'Flight footage · Take-off and indoor corridor pass')}
+    <p>The aircraft carries its mapping compute onboard. The ITC demo above shows the separate scene graph recording.</p></details>
 </section>
 
-<div class="closing-grid">
-  <section class="profile-tile" aria-labelledby="profile-title">
-    <div class="profile-photo">{picture('portrait', caption=False, sizes='100px')}</div>
-    <div><p class="tile-eyebrow">Engineering &amp; leadership</p>
-      <h2 id="profile-title">Lead deployments. Teach robotics.</h2>
-      <p>I led a three-engineer team in industry, designed robotics labs at Twente, and supervised three master’s thesis students.</p>
-      <a class="section-link" href="/cv/">Experience &amp; education ↗</a></div>
-  </section>
-  <section class="contact-tile" aria-labelledby="contact-title">
-    <p class="tile-eyebrow">Based in the Netherlands</p>
-    <h2 id="contact-title">Build perception and navigation for real robots.</h2>
-    <a class="tile-button" href="/contact/">Discuss a robotics role <span aria-hidden="true">↗</span></a>
-  </section>
-</div>
+<section class="portfolio-section" id="research" aria-labelledby="research-title">
+  <div class="section-heading"><div><p class="tile-eyebrow">Research contributions</p><h2 id="research-title">Selected publications.</h2></div>
+    <a class="text-link" href="/publications/">All publications &amp; results ↗</a></div>
+  <ol class="paper-list">{pubs}</ol>
+</section>
+
+<section class="portfolio-section experience-section" aria-labelledby="experience-title">
+  <div><p class="tile-eyebrow">Engineering &amp; leadership</p><h2 id="experience-title">Build systems.<br>Lead their delivery.</h2>
+    <p>I led a three-engineer team in industry, designed robotics labs at Twente, and supervised three master’s thesis students.</p>
+    <a class="text-link" href="/cv/">Experience &amp; education ↗</a></div>
+  <aside id="origin"><p class="tile-eyebrow">Earlier work / 2017</p><h3>Where the mapping work began.</h3>
+    <p>{e(origin['tileText'])}</p><a class="text-link" href="{e(origin['href'])}">Laser &amp; stereo reconnaissance robot ↗</a></aside>
+</section>
+
+<section class="portfolio-contact" aria-labelledby="contact-title">
+  <div class="contact-portrait">{picture('portrait', caption=False, sizes='96px')}</div>
+  <div><p class="tile-eyebrow">Based in the Netherlands · {e(SITE['contact']['availability'])}</p>
+    <h2 id="contact-title">Let’s build the next robot.</h2><p>SLAM, computer vision, navigation and embedded robotics.</p></div>
+  <a class="portfolio-button" href="/contact/">Get in touch <span aria-hidden="true">↗</span></a>
+</section>
 '''
-    shell('', f'{NAME} | Robotics and computer vision engineer',
-          'Robotics engineer working across computer vision, SLAM and embedded systems. '
-          'Monocular 3D mapping, Jetson deployment and real-world service robotics.',
+    shell('', f'{NAME} | SLAM, computer vision and robot navigation',
+          'Robotics engineer specialising in SLAM, computer vision and autonomous navigation. '
+          'Visual-inertial mapping, learned perception, Jetson deployment and commercial robotics.',
           body, extra_ld=[person_node(), profile_page_node()], og_type='profile',
           extra_head=f'\n<link rel="stylesheet" href="/assets/portfolio.css?v={asset_hash("/assets/portfolio.css")}">')
+
 
 # ---------------------------------------------------------------- research
 
@@ -1333,7 +1307,7 @@ predictions. 0.08 m on the ITC second floor, 0.033 m calibrated trajectory error
 
 {picture("scene-graph-itc")}
 
-<h2>{e(a2['label'])}. {e(a2['title'])} <span class="tag tag-progress">In progress</span></h2>
+<h2>{e(a2['label'])}. {e(a2['title'])} <span class="tag tag-progress">{e(proj2['statusLabel'])}</span></h2>
 <p>{e(a2['line'])}</p>
 
 <div class="note">
@@ -1804,6 +1778,7 @@ PROJECT_LEAD = {
     "m2h":             ("video", "itc-loop"),
     "mono-hydra":      ("image", "scenegraph-system-design"),
     "learned-exploration": ("video", "scope-explorer"),
+    "commercial-navigation": ("video", "humanoid-deployment"),
 }
 
 
@@ -1864,6 +1839,13 @@ def build_project_pages():
   </div>
 </section>"""
 
+        contribution = ""
+        if pr.get("contribution"):
+            items = ''.join(f'<li>{e(item)}</li>' for item in pr['contribution'])
+            contribution = (f'<section class="case-section case-contribution" id="contribution">'
+                            f'<p class="eyebrow">Engineering ownership</p><h2 class="case-h">My contribution</h2>'
+                            f'<ul>{items}</ul></section>')
+
         honesty = ""
         if pr.get("honesty"):
             honesty = (f'<div class="note case-note"><span class="note-label">Status</span>'
@@ -1916,6 +1898,7 @@ def build_project_pages():
 </header>
 <nav class="case-jumps" aria-label="Case study sections">
   <a href="#system">System</a>
+  <a href="#contribution">My contribution</a>
 {('<a href="#configuration">Onboard configuration</a><a href="#pipeline">Pipeline explained</a>' if pr['slug'] == 'mono-hydra-plus' else '')}
   <a href="#evidence">Evidence</a>
   <a href="/projects/">All projects ↗</a>
@@ -1926,6 +1909,7 @@ def build_project_pages():
     <h2 class="case-h">What it does</h2></div>
   <p class="case-does-text">{e(pr["whatItDoes"])}</p>
 </section>
+{contribution}
 {system_diagram(pr['slug'])}
 {onboard_configuration() + pipeline_story() if pr['slug'] == 'mono-hydra-plus' else ''}
 <section class="case-section case-evidence" id="evidence">

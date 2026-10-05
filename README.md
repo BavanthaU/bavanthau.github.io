@@ -28,12 +28,14 @@ Page stylesheets load after `assets/site.css`: `assets/portfolio.css` on `/`,
 `assets/fieldbook.css` loads last on every page and owns shared colours, typography,
 controls and interior layouts.
 The homepage fieldbook is generated from `data/site.json` → `home.portfolio`.
-It presents doctoral mapping and autonomous exploration, industrial humanoids, and the
-bachelor’s robot as three visual project tiles. The preferred perception–mapping–exploration
-feedback diagram is driven by `home.portfolio.expertiseLoop`. Technical deep-dive tiles
-link to the detailed pipeline, learned perception, and ATLAS pages. The homepage includes inline demos for each category, with mapping/exploration tabs in
-the doctoral tile. Videos autoplay muted when visible; native controls remain usable without
-JavaScript. Technical explanations remain on the subpages.
+It leads with three areas of expertise: SLAM and spatial mapping, learned computer vision,
+and commercial navigation. `home.portfolio.cases` drives the three flagship features;
+`proof` holds scoped evidence; `exploration` presents ATLAS and its deployment status;
+`supportingProject` keeps the undergraduate work accessible. The feedback diagram is
+controlled by `home.portfolio.expertiseLoop`. Selected papers come from `publications.json`.
+Videos autoplay muted when visible, respect reduced motion, and keep native controls.
+The flight demonstration is available in an expandable section. Project detail pages include
+`contribution` summaries; commercial navigation has a dedicated case study.
 `assets/home.css` and `assets/stage.js` retain the previous homepage design but are no
 longer loaded on `/`.
 

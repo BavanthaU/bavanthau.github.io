@@ -58,7 +58,11 @@
         "G5 scene-graph overlay still",
         "G6 decimated glTF for the 3D viewer"
       ],
-      "partLabel": "Part I"
+      "partLabel": "Part I",
+      "contribution": [
+        "Developed the perception–estimation loop: sparse learned depth factors, semantic masking and temporal alignment.",
+        "Integrated perception, odometry and scene graph construction on Jetson and built and flight-tested the custom drone."
+      ]
     },
     {
       "slug": "m2h-mx",
@@ -112,7 +116,11 @@
       "gaps": [
         "G4 drone photograph for the embedded deployment section"
       ],
-      "partLabel": "Part I"
+      "partLabel": "Part I",
+      "contribution": [
+        "Developed the multi-task perception model and evaluated its predictions inside the mapping pipeline.",
+        "Exported and optimised embedded inference through ONNX and TensorRT FP16 on Jetson Orin NX."
+      ]
     },
     {
       "slug": "m2h",
@@ -159,7 +167,11 @@
         ]
       },
       "gaps": [],
-      "partLabel": "Part I"
+      "partLabel": "Part I",
+      "contribution": [
+        "Developed a shared model for depth, semantics, surface normals and edges using cross-task attention.",
+        "Integrated the learned predictions into monocular scene graph construction and evaluated mapping performance."
+      ]
     },
     {
       "slug": "mono-hydra",
@@ -199,21 +211,24 @@
         ]
       },
       "gaps": [],
-      "partLabel": "Part I"
+      "partLabel": "Part I",
+      "contribution": [
+        "Developed and integrated monocular learned perception, visual-inertial odometry and hierarchical scene graph construction."
+      ]
     },
     {
       "slug": "learned-exploration",
-      "name": "Learned exploration",
+      "name": "ATLAS",
       "act": 2,
       "order": 5,
-      "oneLine": "A persistent belief graph of places, open ends and unfinished obligations, over which a learned model proposes and ranks routes that an independent certifier has already admitted.",
+      "oneLine": "Learned exploration over a persistent belief graph, trained and tested in simulation and now transferring to the drone.",
       "status": "in progress",
-      "statusLabel": "Work in progress, no results yet",
+      "statusLabel": "Simulation validated · Drone transfer underway",
       "years": "2025 to present",
       "paper": null,
       "repos": [],
-      "honesty": "The formulation, the belief graph, the effect model, the objective and the training setup are written up in the thesis. The experiments are not run yet. The exploration agent also does not consume the Mono-Hydra++ scene graph: it maintains its own belief graph over an occupancy map built from simulated depth and pose. Connecting the two parts is the next step.",
-      "whatItDoes": "The robot enters an unmapped indoor space with one forward-facing camera and has to cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes it has verified against the occupancy map the robot has built. The open problem is choice, not motion, so the learned layer decides among certified options and may abstain, but never commands motion itself. The system is ATLAS V11, built in PyTorch and trained in Isaac Sim.",
+      "honesty": "Trained and tested in simulation. Current drone transfer underway; earlier iterations flight-tested.",
+      "whatItDoes": "The robot enters an unmapped indoor space with one forward-facing camera and has to cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes it has verified against the occupancy map the robot has built. The open problem is choice, not motion, so the learned layer decides among certified options and may abstain, but never commands motion itself. ATLAS is built in PyTorch and fully trained and tested in simulation. Current work transfers the policy to the drone, building on earlier flight-tested iterations.",
       "commitment": "Certification creates, learning selects.",
       "designPoints": [
         "Options are judged against one another, so two routes leading through the same opening are not treated as genuine alternatives.",
@@ -225,7 +240,7 @@
       ],
       "media": {
         "hero": null,
-        "heroNote": "Gap. No visual of the agent's own behaviour exists.",
+        "heroNote": "Simulation demonstration; the current policy is transferring to the drone.",
         "supporting": [
           {
             "asset": "scope-explorer",
@@ -236,16 +251,14 @@
           }
         ]
       },
-      "gaps": [
-        "G10 no exploration result of any kind yet"
-      ],
+      "gaps": [],
       "partLabel": "Part II",
       "method": {
         "heading": "How the agent decides",
         "items": [
           {
             "title": "The state is a belief graph, not a map",
-            "text": "ATLAS V11 carries a persistent causal belief graph rather than a snapshot of the occupancy grid. It has three kinds of node: places the robot has been, open ends where its knowledge of the space stops, and obligations it has taken on and not yet discharged. Every edge is keyed by a certified route and by the hash of that route's certificate, so an edge exists only where a verified way through exists, and it stops existing when that certificate does. Nodes carry an 18-dimensional feature vector, edges a 7-dimensional one."
+            "text": "ATLAS carries a persistent causal belief graph rather than a snapshot of the occupancy grid. It has three kinds of node: places the robot has been, open ends where its knowledge of the space stops, and obligations it has taken on and not yet discharged. Every edge is keyed by a certified route and by the hash of that route's certificate, so an edge exists only where a verified way through exists, and it stops existing when that certificate does. Nodes carry an 18-dimensional feature vector, edges a 7-dimensional one."
           },
           {
             "title": "Two views of the same surroundings",
@@ -265,12 +278,58 @@
           },
           {
             "title": "The control layer underneath",
-            "text": "Below the option layer sits V9, a depth-only policy: a temporal transformer over the same dual-scale occupancy, with no colour and no semantic input. It is trained first by counterfactual advantage-weighted behaviour cloning, then by constrained SMDP-PPO with duration-aware GAE, which credits temporally extended options by how long they actually ran, under a Lagrangian budget on collision cost."
+            "text": "Below the option layer sits a depth-only control policy: a temporal transformer over the same dual-scale occupancy, with no colour and no semantic input. It is trained first by counterfactual advantage-weighted behaviour cloning, then by constrained SMDP-PPO with duration-aware GAE, which credits temporally extended options by how long they actually ran, under a Lagrangian budget on collision cost."
           }
         ]
       },
       "hypothesis": "If the state of exploration is a persistent belief graph of places, open ends and obligations rather than a snapshot of the map, if options over that graph are scored by a distributional model of their effects under a reward fixed in advance, and if every route the learned layer can rank has already been certified by something outside it, then the agent should finish the regions it starts, leave them when the evidence says they are exhausted rather than when time runs out, and stay safe where it is ignorant.",
-      "systemName": "ATLAS V11"
+      "systemName": "Learned autonomous exploration",
+      "contribution": [
+        "Designed the persistent belief graph and learned selection of geometrically admitted exploration routes.",
+        "Trained and tested the policy in simulation; tested earlier iterations on the drone and am transferring the current policy."
+      ]
+    },
+    {
+      "slug": "commercial-navigation",
+      "name": "Commercial robot navigation",
+      "act": 0,
+      "order": 6,
+      "partLabel": "Industry",
+      "oneLine": "Navigation software, sensor integration and field deployment for humanoid service robots in public spaces.",
+      "status": "deployed",
+      "statusLabel": "Commercial deployments · 2020–2022",
+      "years": "2020 to 2022",
+      "paper": null,
+      "repos": [],
+      "whatItDoes": "Service robots localise, map their venues and support visitor guidance in public environments. The software integrates ROS, GMapping, LiDAR and 3D obstacle sensing with vendor SDKs and voice assistance.",
+      "contribution": [
+        "Built navigation software and integrated sensing, mapping and vendor interfaces.",
+        "Led a three-engineer team and deployments of 30+ robots for 10+ enterprise clients, including a six-month run at Expo 2020 Dubai.",
+        "Recovered localisation on site as crowd conditions changed and supported customer operations."
+      ],
+      "method": {
+        "heading": "Engineering for the venue",
+        "items": [
+          {
+            "title": "Integrate the robot stack",
+            "text": "Connected ROS mapping and navigation with LiDAR, 3D obstacle sensing and vendor interfaces to support visitor guidance."
+          },
+          {
+            "title": "Keep localisation usable in crowds",
+            "text": "Supported deployments on site and recovered localisation as the venue and crowd conditions changed."
+          },
+          {
+            "title": "Deliver with a team",
+            "text": "Progressed from founding robotics engineer to senior engineer and project lead, coordinating a three-engineer team and enterprise deployments."
+          }
+        ]
+      },
+      "honesty": "Deployment footage and a venue mapping demonstration show the commercial work. Source code is not published on this portfolio.",
+      "media": {
+        "hero": null,
+        "supporting": []
+      },
+      "gaps": []
     }
   ],
   "platform": {
@@ -356,8 +415,8 @@
           {
             "name": "ATLAS",
             "focus": "Belief-graph based indoor exploration",
-            "status": "2025–present · Tested on the drone",
-            "text": "I developed ATLAS to choose exploration goals using a compact belief graph of places and open ends. It learns first from a classical expert, then through reinforcement learning. Built in PyTorch and tested in Isaac Sim and Isaac Lab, it is integrated over ROS 2 with Mono-Hydra++ maps and has been tested on my custom drone.",
+            "status": "Trained and tested in simulation · Current drone transfer underway",
+            "text": "I developed ATLAS to choose exploration goals using a persistent belief graph. Trained through imitation and reinforcement learning, the current policy is fully tested in simulation and transferring to the drone. Earlier iterations were tested on the aircraft.",
             "tags": [
               "Reinforcement learning",
               "Belief graphs",
@@ -400,6 +459,10 @@
               "Robot SDKs"
             ],
             "links": [
+              {
+                "href": "/projects/commercial-navigation/",
+                "label": "Navigation case study"
+              },
               {
                 "label": "Deployment videos & my role",
                 "href": "/cv/#expert-hub-robotics"

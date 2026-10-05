@@ -1,33 +1,36 @@
 # Design system
 
-## Homepage tile layout
+## Homepage evidence layout
 
-The landing page now uses rounded, separated tiles with short summaries, consistent padding
-and clear navigation. Reading order: introduction and muted ITC mapping video; three engineering
-project tiles; the perception–mapping–exploration feedback diagram; technical deep dives;
-experience and contact. Long-form case details remain on their dedicated pages.
+Reading order: explicit SLAM / vision / navigation positioning and ITC mapping video;
+scoped evidence strip; three flagship projects; ATLAS simulation and transfer status;
+perception–mapping–exploration loop; onboard hardware; selected papers; experience and contact.
 
-Doctoral work covers both mapping and autonomous exploration. Its tile shows map output and
-simulation exploration together, labels the simulation, and links to the full thesis project
-group. The feedback loop follows the author's preferred dark diagram, with real HTML text,
-linked stages and a vertical layout on phones. The delivery row distinguishes onboard drone
-software from commercial humanoid deployment. No unsupported end-to-end autonomy result is
-implied. Inline category videos sit outside project navigation links. The doctoral tile switches
-between mapping and exploration clips; humanoid and reconnaissance tiles each have their
-own player. The hero and category videos autoplay muted while visible, with native controls
-and explicit pause buttons. Manual pauses survive scrolling. Reduced-motion preferences
-disable automatic playback, and background tabs pause playback.
+The composition uses open editorial sections, one wide mapping feature, paired perception
+and navigation features, and a distinct exploration panel. Keep borders structural, with
+blue reserved for expertise and actions. The shared fieldbook palette supports light and
+dark themes. Use real media and retain playback speed, simulation and benchmark conditions.
+
+ATLAS is fully trained and tested in simulation. Transfer of the current policy to the drone
+is underway, building on earlier flight-tested iterations. State that scope consistently;
+do not describe it as untrained or claim current-policy drone validation is complete.
+
+Videos stay outside navigation links, retain native controls and explicit pause buttons,
+and respect reduced motion and manual pauses. The flight clip is expandable. The
+undergraduate project remains accessible as supporting work. Each project page has a
+contribution summary that distinguishes personal ownership from system behaviour.
 
 ## Shared fieldbook — all routes
 
 The homepage theme is now shared by projects, research, publications, BibTeX, CV, contact,
 video pages and the 404 page. `assets/fieldbook.css` owns the palette and common type/control
 styles, loading after the original structural and route styles. `assets/portfolio.css`
-contains homepage compositions only. Avoid duplicating palette tokens in route files.
+contains homepage compositions only. Interior routes use the same sans-serif heading accents,
+blue links, flat borders and square panels. Avoid duplicating palette tokens in route files.
 
 Headlines name engineering work: perception, SLAM, navigation, hardware integration and
 onboard deployment. Avoid generic slogans such as “works in the world”. The landing page
-uses short role/outcome summaries, three evidence clips and a clearly labelled illustration
+uses short role/outcome summaries, real demonstrations and photographs
 of the custom drone. Technical mechanisms, numeric conditions and additional demos belong
 on the relevant subpages.
 

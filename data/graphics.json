@@ -1,7 +1,7 @@
 {
   "research": {
     "title": "From sensing to spatial understanding",
-    "note": "A simplified view of the doctoral stack. Learned exploration is ongoing work; its evaluation results are not yet published.",
+    "note": "Perception and mapping run onboard. ATLAS is trained and tested in simulation, with current drone transfer underway and earlier iterations flight-tested.",
     "steps": [
       {
         "icon": "sense",
@@ -24,7 +24,7 @@
       {
         "icon": "navigate",
         "title": "Choose where next",
-        "text": "ATLAS · in progress",
+        "text": "ATLAS · simulation validated",
         "href": "/projects/learned-exploration/"
       }
     ]
@@ -217,5 +217,31 @@
       }
     ],
     "note": "The flight clip shows the physical platform; the mapping recordings show software output. They are separate recordings. Perception throughput is not an end-to-end mapping or flight-control rate."
+  },
+  "commercial-navigation": {
+    "title": "Navigation software for public venues",
+    "note": "Simplified integration view of the commercial deployment work. The videos below show deployment footage and venue mapping.",
+    "steps": [
+      {
+        "icon": "sense",
+        "title": "Sense",
+        "text": "LiDAR + 3D obstacle sensing"
+      },
+      {
+        "icon": "map",
+        "title": "Localise & map",
+        "text": "ROS + GMapping"
+      },
+      {
+        "icon": "navigate",
+        "title": "Navigate",
+        "text": "Visitor guidance + vendor interfaces"
+      },
+      {
+        "icon": "compute",
+        "title": "Deploy & support",
+        "text": "Customer operations + field recovery"
+      }
+    ]
   }
 }

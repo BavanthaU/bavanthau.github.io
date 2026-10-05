@@ -73,11 +73,11 @@
       "title": "Exploring the unseen",
       "line": "A learned agent over a persistent belief graph of places, open ends and unfinished obligations, choosing where to look next in a building it has never seen.",
       "status": "in-progress",
-      "honesty": "The formulation and the layering contract are written up. The experiments are not run yet.",
+      "honesty": "Trained and tested in simulation. Current drone transfer underway; earlier iterations flight-tested.",
       "commitment": "Predict consequences, not appearances.",
       "label": "Part II",
       "subtitle": "Learning to explore",
-      "homeLine": "The agent's state is a belief graph, not a snapshot of the map: places it has been, open ends where its knowledge stops, and obligations it has not yet discharged, with every edge keyed to a route that has been certified. A transformer proposes up to eight options over that graph and scores each one by a distributional model of what it would produce. Certification stays outside the network, so the learned layer re-orders admitted options and never commands motion."
+      "homeLine": "ATLAS uses a persistent belief graph of places, open ends and unfinished obligations to select among routes admitted by a geometric planner. It is fully trained and tested in simulation; transfer of the current policy to the drone is underway, following flight tests of earlier iterations."
     },
     "prologue": "The same question was asked at Peradeniya in 2017: an autonomous exploration planning strategy for a robot mapping an unknown space, using a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.",
     "prologueVideo": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s",
@@ -278,11 +278,11 @@
       {
         "index": "03",
         "title": "Learning to explore",
-        "text": "I’m developing policies that choose where a robot should look next. The work combines imitation and reinforcement learning with a planner that checks routes before they can be selected.",
+        "text": "I developed ATLAS to choose where a robot should explore next, combining imitation and reinforcement learning with geometrically checked routes. The policy is trained and tested in simulation, with transfer to the drone underway.",
         "href": "/projects/learned-exploration/",
         "linkLabel": "Exploration research",
         "tools": "PyTorch · Isaac Sim",
-        "status": "In progress"
+        "status": "Simulation validated · Drone transfer underway"
       },
       {
         "index": "04",
@@ -310,8 +310,8 @@
     "featuredHeading": "A camera, an IMU, a map of the building.",
     "featuredText": "My PhD at the University of Twente focuses on indoor mapping for small drones. Mono-Hydra++ builds a layered 3D map from a single camera and an IMU, with perception, odometry and mapping running on the drone’s Jetson.",
     "explorationHeading": "Where should the robot go next?",
-    "explorationText": "ATLAS chooses exploration goals from a compact belief graph of places and open ends, so goal selection stays real time as the explored area grows. It was trained in Isaac Sim from planner demonstrations and reinforcement learning, integrated with Mono-Hydra++ over ROS 2, and flown on the drone.",
-    "explorationNote": "No evaluation results are published for ATLAS yet. The clip below is an exploration run in simulation.",
+    "explorationText": "ATLAS uses a persistent belief graph of places, open ends and unfinished obligations to select among routes admitted by a geometric planner. It is fully trained and tested in simulation; transfer of the current policy to the drone is underway, following flight tests of earlier iterations.",
+    "explorationNote": "The demonstration shows ATLAS in simulation. Trained and tested in simulation. Current drone transfer underway; earlier iterations flight-tested.",
     "contactHeading": "Build perception and navigation for real robots.",
     "contactText": "For robotics software, perception, SLAM and navigation roles, or research collaborations. Available immediately.",
     "selected": [
@@ -548,15 +548,15 @@
       ]
     },
     "portfolio": {
-      "eyebrow": "Robotics software engineer · Netherlands",
-      "headline": "I build robot",
-      "headlineAccent": "perception & navigation.",
-      "intro": "I’m Bavantha, a robotics software engineer. I build perception and navigation systems, integrate them on hardware, and deploy robots in the field.",
+      "eyebrow": "Bavantha Udugama · Robotics engineer · Netherlands",
+      "headline": "SLAM. Vision.",
+      "headlineAccent": "Navigation.",
+      "intro": "I build systems that help robots understand where they are, map their surroundings, and decide where to go. My work connects learned perception and visual-inertial estimation with embedded deployment and navigation in the field.",
       "cases": [
         {
           "id": "onboard",
           "index": "01",
-          "type": "Doctoral research",
+          "type": "01 / SLAM & spatial mapping",
           "place": "University of Twente · 2022–2026",
           "title": "Map buildings and explore autonomously.",
           "summary": "A custom drone that carries its own perception, localisation and 3D mapping. My doctoral work connects learned models to the hardware they need to run on.",
@@ -564,32 +564,52 @@
           "delivered": "M2H / M2H-MX perception → depth-backed visual-inertial estimation → Mono-Hydra++ scene graphs. Exported and optimised inference with ONNX and TensorRT FP16.",
           "evidence": "25.53 fps for M2H-MX-L perception at 256 × 192 on Jetson Orin NX 16GB. This measures perception throughput, not end-to-end autonomy.",
           "skills": [
-            "Perception & SLAM",
-            "Learned exploration",
-            "Embedded robotics"
+            "Visual-inertial estimation",
+            "Semantic mapping",
+            "C++ · ROS"
           ],
-          "clip": "itc-loop",
-          "caption": "ITC second floor: scene graph construction, shown at 10× real time.",
-          "href": "/projects/#thesis",
+          "clip": "icra26",
+          "caption": "Mono-Hydra++ · ScanNet scene 0000 · Playback at 16× real time",
+          "href": "/projects/mono-hydra-plus/",
           "link": "Explore the mapping system",
           "detailTitle": "From a model to an onboard system",
-          "detailText": "The same engineering work spans network training, camera–IMU estimation, deployment and hardware testing. ATLAS extends this into learned exploration; its evaluation results are not yet published.",
+          "detailText": "ATLAS extends this work into learned exploration. Trained and tested in simulation. Current drone transfer underway; earlier iterations flight-tested.",
           "detailClip": "stairs-zupt",
           "detailCaption": "Onboard odometry tested through a stairwell, with zero-velocity updates at rest.",
           "secondClip": "scope-explorer",
-          "secondCaption": "ATLAS exploration in simulation. Evaluation results are not yet published.",
+          "secondCaption": "ATLAS · trained and tested in simulation",
           "homeRole": "Developed the perception and mapping stack; built and flight-tested the drone.",
           "homeOutcome": "Perception, odometry and 3D scene graphs running on the drone’s Jetson.",
-          "tileTitle": "Map buildings. Explore autonomously.",
-          "tileText": "I built the perception and mapping stack, developed learned exploration in simulation, and integrated the mapping system on a custom drone.",
-          "tileMetric": "Mapping + exploration",
-          "tileMetricLabel": "Onboard mapping · exploration in simulation",
-          "tileLink": "Explore mapping & autonomous exploration"
+          "tileTitle": "From a camera stream to a structured world.",
+          "tileText": "I developed Mono-Hydra++ to connect learned depth, visual-inertial estimation and hierarchical 3D scene graphs, then integrated the mapping stack on a custom drone.",
+          "tileMetric": "Camera + IMU",
+          "tileMetricLabel": "Perception, odometry and scene graphs on Jetson",
+          "tileLink": "Inside Mono-Hydra++"
+        },
+        {
+          "id": "vision",
+          "index": "02",
+          "type": "02 / Computer vision",
+          "place": "University of Twente · M2H / M2H-MX",
+          "tileTitle": "Learn geometry and semantics together.",
+          "tileText": "I develop multi-task perception models and evaluate their predictions inside a running mapping system. I take inference from PyTorch to ONNX and TensorRT on Jetson.",
+          "tileMetric": "25.53 fps",
+          "tileMetricLabel": "M2H-MX-L perception · 256 × 192 · Orin NX 16GB",
+          "tileLink": "Explore learned perception",
+          "href": "/projects/m2h-mx/",
+          "skills": [
+            "Multi-task learning",
+            "PyTorch",
+            "ONNX · TensorRT"
+          ],
+          "image": "m2h-mx-indoor",
+          "title": "Learn geometry and semantics together.",
+          "mediaKind": "wipe"
         },
         {
           "id": "industry",
           "index": "02",
-          "type": "Commercial deployment",
+          "type": "03 / Navigation & field deployment",
           "place": "Expert Hub Robotics · Dubai · 2020–2022",
           "title": "Deploy humanoids in busy public spaces.",
           "summary": "Navigation and visitor guidance for humanoid service robots in real venues, with customers, crowds and on-site failures to solve.",
@@ -604,7 +624,7 @@
           ],
           "clip": "humanoid-deployment",
           "caption": "Service robots at the Exness stand in Dubai. Expert Hub Robotics.",
-          "href": "/projects/#commercial",
+          "href": "/projects/commercial-navigation/",
           "link": "Explore the commercial deployments",
           "detailTitle": "The work behind the deployment",
           "detailText": "Alongside navigation, I fine-tuned a thermal face detector and deployed it in a commercial screening product using a FLIR camera and an Intel NUC.",
@@ -612,39 +632,11 @@
           "detailCaption": "A venue map built with GMapping; the robot’s estimated pose is shown in red.",
           "homeRole": "Developed navigation software and led a three-engineer team.",
           "homeOutcome": "30+ robots deployed for 10+ enterprise clients, including Expo 2020 Dubai.",
-          "tileTitle": "Deploy humanoids in public spaces.",
-          "tileText": "I built navigation software, led a three-engineer team, and supported customer deployments in changing crowds.",
+          "tileTitle": "Navigation beyond the lab.",
+          "tileText": "I built navigation software for service robots, integrated sensors and vendor SDKs, and led a three-engineer team through customer deployments and changing crowds.",
           "tileMetric": "30+ robots",
           "tileMetricLabel": "10+ enterprise clients",
-          "tileLink": "Explore the commercial deployments"
-        },
-        {
-          "id": "origin",
-          "index": "03",
-          "type": "Bachelor’s project",
-          "place": "University of Peradeniya · 2017",
-          "title": "Explore unknown spaces with laser and stereo.",
-          "summary": "An autonomous reconnaissance robot that explored unknown space using a laser range finder and stereo cameras. The start of my work in robot perception and autonomy.",
-          "role": "SLAM developer in a three-student project team.",
-          "delivered": "Built the SLAM component of a reconnaissance system combining laser and stereo sensing with autonomous exploration planning.",
-          "evidence": "Three papers came out of the project. Best Undergraduate Project, Institution of Engineers Sri Lanka; Best Technical Paper, IET Sri Lanka.",
-          "skills": [
-            "SLAM",
-            "Sensor fusion",
-            "Exploration",
-            "System integration"
-          ],
-          "clip": "peradeniya-2017",
-          "caption": "The reconnaissance robot exploring and mapping an unknown environment.",
-          "href": "/projects/#undergraduate",
-          "link": "Explore the reconnaissance project",
-          "homeRole": "Built the SLAM component in a three-student reconnaissance project.",
-          "homeOutcome": "Integrated sensing and mapping with autonomous exploration planning.",
-          "tileTitle": "Explore with laser and stereo.",
-          "tileText": "I built the SLAM component of an autonomous reconnaissance robot in a three-student project team.",
-          "tileMetric": "SLAM + exploration",
-          "tileMetricLabel": "Laser and stereo sensing",
-          "tileLink": "Explore the reconnaissance robot"
+          "tileLink": "Explore navigation engineering"
         }
       ],
       "workflow": [
@@ -695,9 +687,9 @@
         {
           "key": "scope-explorer",
           "media": "video-poster",
-          "label": "Autonomous exploration · in progress",
+          "label": "Autonomous exploration · simulation validated",
           "title": "Learn where the robot should explore next.",
-          "text": "ATLAS selects exploration goals from a belief graph of places and open ends. See the simulation and planning approach.",
+          "text": "A trained exploration policy over a persistent belief graph. Simulation-tested, with current drone transfer underway.",
           "href": "/projects/learned-exploration/",
           "link": "Explore the ATLAS project"
         }
@@ -735,7 +727,63 @@
         "deploymentTitle": "Deploy and support real robots.",
         "onboard": "Jetson · TensorRT · ROS",
         "commercial": "30+ commercial humanoids deployed",
-        "note": "Perception and mapping run onboard the drone. Learned exploration is shown in simulation; its evaluation results are not yet published. The commercial humanoid deployments are separate industry work."
+        "note": "The perception and mapping stack runs onboard the drone. ATLAS is trained and tested in simulation, with current drone transfer underway and earlier iterations flight-tested."
+      },
+      "proof": [
+        {
+          "value": "Camera + IMU",
+          "label": "Monocular spatial mapping",
+          "detail": "Visual-inertial estimation and hierarchical 3D scene graphs",
+          "href": "/projects/mono-hydra-plus/"
+        },
+        {
+          "value": "25.53 fps",
+          "label": "Embedded perception",
+          "detail": "M2H-MX-L · 256 × 192 · Jetson Orin NX 16GB",
+          "href": "/projects/m2h-mx/"
+        },
+        {
+          "value": "30+ robots",
+          "label": "Commercial deployment",
+          "detail": "Navigation software · 10+ enterprise clients",
+          "href": "/projects/commercial-navigation/"
+        }
+      ],
+      "supportingProject": {
+        "id": "origin",
+        "index": "03",
+        "type": "Bachelor’s project",
+        "place": "University of Peradeniya · 2017",
+        "title": "Explore unknown spaces with laser and stereo.",
+        "summary": "An autonomous reconnaissance robot that explored unknown space using a laser range finder and stereo cameras. The start of my work in robot perception and autonomy.",
+        "role": "SLAM developer in a three-student project team.",
+        "delivered": "Built the SLAM component of a reconnaissance system combining laser and stereo sensing with autonomous exploration planning.",
+        "evidence": "Three papers came out of the project. Best Undergraduate Project, Institution of Engineers Sri Lanka; Best Technical Paper, IET Sri Lanka.",
+        "skills": [
+          "SLAM",
+          "Sensor fusion",
+          "Exploration",
+          "System integration"
+        ],
+        "clip": "peradeniya-2017",
+        "caption": "The reconnaissance robot exploring and mapping an unknown environment.",
+        "href": "/projects/#undergraduate",
+        "link": "Explore the reconnaissance project",
+        "homeRole": "Built the SLAM component in a three-student reconnaissance project.",
+        "homeOutcome": "Integrated sensing and mapping with autonomous exploration planning.",
+        "tileTitle": "Explore with laser and stereo.",
+        "tileText": "I built the SLAM component of an autonomous reconnaissance robot in a three-student project team.",
+        "tileMetric": "SLAM + exploration",
+        "tileMetricLabel": "Laser and stereo sensing",
+        "tileLink": "Explore the reconnaissance robot"
+      },
+      "exploration": {
+        "eyebrow": "Autonomous exploration / ATLAS",
+        "title": "Teach a robot where to go next.",
+        "text": "I developed ATLAS to select exploration goals from a persistent belief graph of places, open ends and unfinished work. The learned policy ranks routes admitted by a geometric planner.",
+        "status": "Simulation validated · Drone transfer underway",
+        "note": "Fully trained and tested in simulation, with earlier iterations tested on the drone. The current policy is now being transferred to the aircraft.",
+        "href": "/projects/learned-exploration/"
       }
     }
   }

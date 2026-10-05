@@ -78,3 +78,9 @@
 
 .case-index .index-row { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; }
 .case-index .spec { color: var(--ink-2); }
+
+/* Contribution summaries separate engineering ownership from system behaviour. */
+.case-contribution { padding: 1.5rem 2rem; border: 1px solid var(--rule); background: var(--surface-2); }
+.case-contribution ul { margin-bottom: 0; padding-left: 1.2rem; }
+.case-contribution li { margin-top: .65rem; color: var(--ink-2); max-width: 75ch; }
+@media (max-width: 40em) { .case-contribution { padding: 1.2rem; } }
