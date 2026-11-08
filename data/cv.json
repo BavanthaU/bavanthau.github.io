@@ -52,7 +52,7 @@
         "Developed C++ software for monocular visual-inertial SLAM and 3D scene-graph mapping in ROS 2 (Mono-Hydra++). Sparse predicted-depth factors in the factor graph cut trajectory error by 61% on ScanNet against monocular GO-SLAM while holding 25 to 30 Hz.",
         "Designed the multi-task deep learning architecture for joint depth estimation and semantic segmentation (M2H, M2H-MX). M2H appeared at IEEE/RSJ IROS 2025; M2H-MX, accepted at the IEEE ICRA 2026 SRRA Workshop, improves NYUDv2 mIoU by 6.6% and depth RMSE by 9.4% over the best tested baseline.",
         "Built a custom autonomous drone and deployed onboard perception on its Jetson Orin NX 16GB, exported through ONNX and optimised with TensorRT FP16, processing images at 25.5 frames per second.",
-        "Developed ATLAS, an autonomous exploration algorithm on top of that mapping system: a compact belief graph of places and open ends keeps goal selection real time, trained in Isaac Sim from planner demonstrations and deep reinforcement learning, integrated with Mono-Hydra++ over ROS 2 and deployed on the drone.",
+        "ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.",
         "Prepared and taught practical exercises for two master's courses in robot perception and autonomy, and supervised three master's thesis students."
       ],
       "tags": [
@@ -88,7 +88,7 @@
         {
           "index": "04",
           "title": "Exploration",
-          "clip": "scope-explorer",
+          "clip": "atlas-kth",
           "autoplay": true,
           "note": "Still at simulation level, in NVIDIA Isaac Sim and the lab: the map it built decides where to look next. Deployment on the drone comes next."
         }

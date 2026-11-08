@@ -98,7 +98,7 @@
   "mainEntity": {
     "@id": "https://bavanthau.github.io/#person"
   },
-  "dateModified": "2026-10-05"
+  "dateModified": "2026-11-08"
 }
 </script>
 <script type="application/ld+json">
@@ -228,14 +228,14 @@
 {
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "@id": "https://bavanthau.github.io/#video-scope-explorer",
-  "name": "Autonomous exploration in simulation",
-  "description": "Simulated indoor exploration run showing the robot's occupancy map growing as it selects routes through the environment.",
-  "thumbnailUrl": "https://bavanthau.github.io/media/video/scope-explorer-poster.jpg",
-  "uploadDate": "2026-08-18",
-  "contentUrl": "https://bavanthau.github.io/media/video/scope-explorer.mp4",
-  "width": 1100,
-  "height": 892,
+  "@id": "https://bavanthau.github.io/#video-atlas-kth",
+  "name": "Selected KTH floor-plan benchmark runs, replayed at accelerated speeds shown in the video",
+  "description": "ATLAS KTH exploration replay showing observed free space, the robot and its travelled path.",
+  "thumbnailUrl": "https://bavanthau.github.io/media/video/atlas-kth-poster.jpg",
+  "uploadDate": "2026-11-08",
+  "contentUrl": "https://bavanthau.github.io/media/video/ATLAS_KTH_exploration_highlights.mp4",
+  "width": 1920,
+  "height": 1080,
   "inLanguage": "en",
   "isFamilyFriendly": true,
   "creator": {
@@ -249,7 +249,7 @@
     "name": "Bavantha Udugama"
   },
   "mainEntityOfPage": "https://bavanthau.github.io/",
-  "duration": "PT1M"
+  "duration": "PT22S"
 }
 </script>
 <script type="application/ld+json">
@@ -360,9 +360,9 @@
 
 <section class="portfolio-section exploration-feature" id="exploration" aria-labelledby="exploration-title">
   <div class="exploration-copy"><p class="tile-eyebrow">Autonomous exploration / ATLAS</p><h2 id="exploration-title">Teach a robot where to go next.</h2>
-    <p>I developed ATLAS to select exploration goals from a persistent belief graph of places, open ends and unfinished work. The learned policy ranks routes admitted by a geometric planner.</p><p class="research-status">Simulation validated · Drone transfer underway</p><p class="exploration-note">Fully trained and tested in simulation, with earlier iterations tested on the drone. The current policy is now being transferred to the aircraft.</p>
+    <p>ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.</p><p class="research-status">Draft results · KTH benchmark + preliminary aerial simulation</p><p class="exploration-note">Average observable-floor coverage across 14 KTH floors: 80.36% for ATLAS versus 38.74% for CogniPlan and 42.33% for ARiADNE. 14 floors × 4 starts; 0.30 m body + 0.05 m padding per face; 8 m sensing; 1800 s motion budget, excluding planning time. Draft Table III.</p>
     <a class="text-link" href="/projects/learned-exploration/">Explore the ATLAS approach <span aria-hidden="true">↗</span></a></div>
-  <div class="exploration-media"><figure class="portfolio-player"><div class="portfolio-player-frame"><video controls muted loop playsinline preload="none" data-autoloop poster="/media/video/scope-explorer-poster.jpg" width="1100" height="892" aria-label="Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment."><source src="/media/video/scope-explorer.mp4" type="video/mp4"></video><button class="v-toggle" type="button" data-toggle aria-label="Play or pause ATLAS autonomous exploration · Simulation demonstration">Play</button></div><figcaption>ATLAS autonomous exploration · Simulation demonstration</figcaption></figure></div>
+  <div class="exploration-media"><figure class="portfolio-player"><div class="portfolio-player-frame"><video controls muted loop playsinline preload="none" data-autoloop poster="/media/video/atlas-kth-poster.jpg" width="1920" height="1080" aria-label="ATLAS KTH exploration replay showing observed free space, the robot and its travelled path."><source src="/media/video/ATLAS_KTH_exploration_highlights.mp4" type="video/mp4"></video><button class="v-toggle" type="button" data-toggle aria-label="Play or pause ATLAS · KTH exploration highlights">Play</button></div><figcaption>ATLAS · KTH exploration highlights</figcaption></figure></div>
 </section>
 
 <section class="portfolio-section" id="skills" aria-labelledby="skills-title">
@@ -373,7 +373,7 @@
     <div class="loop-deployment"><strong>Deploy and support real robots.</strong>
       <div><a href="/projects/mono-hydra-plus/#configuration">Jetson · TensorRT · ROS ↗</a>
       <a href="/projects/commercial-navigation/">30+ commercial humanoids deployed ↗</a></div></div>
-    <figcaption>The perception and mapping stack runs onboard the drone. ATLAS is trained and tested in simulation, with current drone transfer underway and earlier iterations flight-tested.</figcaption>
+    <figcaption>The perception and mapping stack runs onboard the drone. ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.</figcaption>
   </figure>
 </section>
 

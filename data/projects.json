@@ -221,73 +221,81 @@
       "name": "ATLAS",
       "act": 2,
       "order": 5,
-      "oneLine": "Learned exploration over a persistent belief graph, trained and tested in simulation and now transferring to the drone.",
+      "oneLine": "Topology-aware learned attention over spatial memory for indoor UAV exploration.",
       "status": "in progress",
-      "statusLabel": "Simulation validated · Drone transfer underway",
+      "statusLabel": "Draft results · KTH benchmark + preliminary aerial simulation",
       "years": "2025 to present",
       "paper": null,
       "repos": [],
-      "honesty": "Trained and tested in simulation. Current drone transfer underway; earlier iterations flight-tested.",
-      "whatItDoes": "The robot enters an unmapped indoor space with one forward-facing camera and has to cover it under a time budget without collision. Motion is treated as solved: a geometric planner proposes only routes it has verified against the occupancy map the robot has built. The open problem is choice, not motion, so the learned layer decides among certified options and may abstain, but never commands motion itself. ATLAS is built in PyTorch and fully trained and tested in simulation. Current work transfers the policy to the drone, building on earlier flight-tested iterations.",
-      "commitment": "Certification creates, learning selects.",
+      "honesty": "Draft results from ATLAS_v1. KTH evaluates exploration per unit of motion, excluding planning time and the aerial camera, shield and flight controller. Aerial baseline comparisons, ablations and decision-cost measurements are pending; current-policy hardware validation is not reported.",
+      "whatItDoes": "ATLAS chooses where an indoor UAV should explore next. It retains observed geometry in a metric map and place graph, keeps a separate token for each current candidate, and reads the remaining places through a fixed bank of learned queries. Graph topology and full-graph route lengths inform goal selection. In aerial execution, each motion prefix is checked against observed free space and a reactive depth shield can stop the drone.",
+      "commitment": "Retain spatial memory. Learn goal selection. Check motion geometrically.",
       "designPoints": [
-        "Options are judged against one another, so two routes leading through the same opening are not treated as genuine alternatives.",
-        "Actions are temporally extended, because passing through a doorway is locally expensive and locally uninformative, and everything of value happens afterwards. The critic credits them by their duration.",
-        "Unfinished work is a node type rather than a heuristic: an obligation stays in the graph until it is discharged, so regions get completed and exhausted ones get abandoned on evidence rather than on a timer.",
-        "Every edge is keyed to a certified route and its certificate hash, so the graph cannot express a way through that has not been verified.",
-        "The reward is registered before the experiments, so the objective cannot be tuned to the result.",
-        "No learned component is permitted to command motion. It re-orders certified options or refuses them."
+        "Keep the full measured map and place graph; compress the policy readout without pruning remembered places.",
+        "Bias candidate attention with graph adjacency, shared free-space components and distance.",
+        "Train whole-goal forecasts across replanning; exclude abandoned, unresolved goals from forecast targets.",
+        "Keep learned predictions outside the measured map and geometric safety checks."
       ],
       "media": {
         "hero": null,
-        "heroNote": "Simulation demonstration; the current policy is transferring to the drone.",
+        "heroNote": "Selected KTH floor-plan benchmark replays; accelerated playback.",
         "supporting": [
           {
-            "asset": "scope-explorer",
+            "asset": "atlas-kth",
             "type": "video",
-            "source": "_source/media/exploration-baselines/SCOPE_explorer_local_global.mp4",
-            "caption": "An exploration run in simulation.",
-            "attribution": "own work, confirmed 2026-08-18"
+            "source": "media/video/ATLAS_KTH_exploration_highlights.mp4",
+            "caption": "Selected KTH floor-plan exploration highlights.",
+            "attribution": "User-supplied ATLAS benchmark video"
           }
         ]
       },
       "gaps": [],
       "partLabel": "Part II",
       "method": {
-        "heading": "How the agent decides",
+        "heading": "How ATLAS chooses its next goal",
         "items": [
           {
-            "title": "The state is a belief graph, not a map",
-            "text": "ATLAS carries a persistent causal belief graph rather than a snapshot of the occupancy grid. It has three kinds of node: places the robot has been, open ends where its knowledge of the space stops, and obligations it has taken on and not yet discharged. Every edge is keyed by a certified route and by the hash of that route's certificate, so an edge exists only where a verified way through exists, and it stops existing when that certificate does. Nodes carry an 18-dimensional feature vector, edges a 7-dimensional one."
+            "title": "Persistent memory, compact readout",
+            "text": "Every current candidate keeps its own token. A bank of 64 learned queries reads the other remembered places. For a fixed candidate count, attention cost grows linearly with remembered places; candidate attention remains quadratic in the number of candidates. This is an architectural cost statement, not a measured end-to-end speed result."
           },
           {
-            "title": "Two views of the same surroundings",
-            "text": "A graph neural network reads that structure, and its output is fused with ten-channel body-aligned occupancy crops taken at two scales: 8 m across at 0.125 m per cell for what is immediately around the robot, and 24 m at 0.25 m for the wider region it sits in. The crops are body-aligned, so the representation turns with the robot instead of with the world frame."
+            "title": "Topology-aware candidate attention",
+            "text": "Graph adjacency, shared free-space components and distance bias attention between candidates. Route descriptors computed on the full graph retain information about paths through remembered places. Local and global map tokens are fused with the graph representation and recurrent state."
           },
           {
-            "title": "Proposing and ranking the options",
-            "text": "A transformer over candidate tokens proposes and ranks up to eight options at each decision, through four heads: proposal, choice, count and criterion. It is trained by behaviour cloning against a classical teacher whose routes are themselves certified, so the learned policy starts from decisions that were admissible by construction."
+            "title": "Forecast the whole goal",
+            "text": "The network predicts duration, newly observed area and probability of reaching each goal. These forecasts inform the actor. When replanning keeps the same goal, observed segments are joined into one target; abandoned unresolved goals receive no forecast target."
           },
           {
-            "title": "Scoring an option before committing to it",
-            "text": "Each option is scored by a distributional effect model, which predicts a distribution over what the option would produce rather than a single expected value, and by a horizon-3 ICBO MPC that chains those predictions three decisions deep. Both score against a reward that was registered before the experiments: new observed area, arrival in a region, and resolution of an obligation, charged against elapsed time, control effort, and revisiting ground that yields nothing."
+            "title": "Distillation and reinforcement learning",
+            "text": "The compact policy is distilled from an earlier dense-attention policy and then fine-tuned with PPO using duration-aware advantages. The evaluated policy uses collected trajectories only. The auxiliary graph model was fitted with the encoder frozen; imagined actor–critic updates were not enabled."
           },
           {
-            "title": "The learned layer cannot steer",
-            "text": "All route certification and all collision authority sit outside the network by construction. The learned model re-orders options that an independent certifier has already admitted, and it may put none of them forward. There is no path from the network to the actuators that does not pass through the certifier."
-          },
-          {
-            "title": "The control layer underneath",
-            "text": "Below the option layer sits a depth-only control policy: a temporal transformer over the same dual-scale occupancy, with no colour and no semantic input. It is trained first by counterfactual advantage-weighted behaviour cloning, then by constrained SMDP-PPO with duration-aware GAE, which credits temporally extended options by how long they actually ran, under a Lagrangian budget on collision cost."
+            "title": "Independent motion checks",
+            "text": "Aerial motion prefixes, including turning and stopping envelopes, must stay within observed free space. A separate 5 cm local grid supports swept-body checks, and a reactive depth shield guards execution between checks. These aerial safety components are outside the KTH floor-plan benchmark."
           }
         ]
       },
-      "hypothesis": "If the state of exploration is a persistent belief graph of places, open ends and obligations rather than a snapshot of the map, if options over that graph are scored by a distributional model of their effects under a reward fixed in advance, and if every route the learned layer can rank has already been certified by something outside it, then the agent should finish the regions it starts, leave them when the evidence says they are exhausted rather than when time runs out, and stay safe where it is ignorant.",
+      "hypothesis": "The remaining experiments test aerial performance against FALCON, EDEN, CogniPlan and ARiADNE, isolate the contribution of each policy component, and measure complete decision cost as the map grows.",
       "systemName": "Learned autonomous exploration",
       "contribution": [
-        "Designed the persistent belief graph and learned selection of geometrically admitted exploration routes.",
-        "Trained and tested the policy in simulation; tested earlier iterations on the drone and am transferring the current policy."
-      ]
+        "Developed ATLAS for goal selection with topology-aware attention over persistent spatial memory.",
+        "Trained the compact policy through distillation and reinforcement learning, and evaluated it on KTH floor plans and preliminary aerial simulation scenes."
+      ],
+      "evidence": {
+        "heading": "Results in the new draft",
+        "paragraphs": [
+          "Average observable-floor coverage across all 14 KTH floors is 80.36% for ATLAS, compared with 38.74% for CogniPlan and 42.33% for ARiADNE. The shared setting uses a 0.30 m body with 0.05 m padding per face, 8 m sensing and an 1800 s motion budget. Four starts are averaged within each floor, then the 14 floors are weighted equally. This aggregate is not the result of a single video run. Planning time is excluded.",
+          "The area under the observable-coverage curve is 0.719 for ATLAS, 0.377 for CogniPlan and 0.413 for ARiADNE. ATLAS is ahead on this measure on all 14 floors, but complete exploration remains uncommon: only 2 of 56 ATLAS episodes reach 99% observable coverage.",
+          "Preliminary aerial simulation reports mean newly observed areas of 1714 m² in the school and 1999 m² in the research wing, each from two scored starts using the full 1800 s budget. No collision was recorded in the reported preliminary runs. These are development scenes, some starts remain unfinished, and no aerial baseline comparison is yet available.",
+          "Source: ATLAS_v1 draft, Section VI, Tables III–IV and Figure 8. These draft findings do not establish real-flight performance or end-to-end planning speed."
+        ],
+        "figures": [
+          "atlas-kth-coverage",
+          "atlas-decision-cycle",
+          "atlas-policy-network"
+        ]
+      }
     },
     {
       "slug": "commercial-navigation",
@@ -414,14 +422,14 @@
           },
           {
             "name": "ATLAS",
-            "focus": "Belief-graph based indoor exploration",
-            "status": "Trained and tested in simulation · Current drone transfer underway",
-            "text": "I developed ATLAS to choose exploration goals using a persistent belief graph. Trained through imitation and reinforcement learning, the current policy is fully tested in simulation and transferring to the drone. Earlier iterations were tested on the aircraft.",
+            "focus": "Topology-aware attention over spatial memory",
+            "status": "Draft results · KTH benchmark + preliminary aerial simulation",
+            "text": "ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.",
             "tags": [
               "Reinforcement learning",
-              "Belief graphs",
-              "Isaac Sim / Isaac Lab",
-              "ROS 2"
+              "Spatial memory",
+              "Topology-aware attention",
+              "Indoor exploration"
             ],
             "links": [
               {
@@ -430,7 +438,7 @@
               }
             ],
             "mediaKind": "video",
-            "mediaKey": "scope-explorer",
+            "mediaKey": "atlas-kth",
             "layout": "flip"
           }
         ],

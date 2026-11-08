@@ -1,7 +1,7 @@
 {
   "research": {
     "title": "From sensing to spatial understanding",
-    "note": "Perception and mapping run onboard. ATLAS is trained and tested in simulation, with current drone transfer underway and earlier iterations flight-tested.",
+    "note": "The perception and mapping stack runs onboard the drone. ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.",
     "steps": [
       {
         "icon": "sense",
@@ -24,7 +24,7 @@
       {
         "icon": "navigate",
         "title": "Choose where next",
-        "text": "ATLAS · simulation validated",
+        "text": "ATLAS · draft benchmark results",
         "href": "/projects/learned-exploration/"
       }
     ]
@@ -136,12 +136,12 @@
   },
   "learned-exploration": {
     "title": "Learned choice, with geometric checks",
-    "note": "Conceptual decision path. The learned layer selects among certified routes and may abstain; it does not command the actuators directly.",
+    "note": "Conceptual decision path. The policy selects goals from measured spatial memory; geometric checks and a reactive depth shield guard aerial motion.",
     "steps": [
       {
         "icon": "graph",
         "title": "Remember",
-        "text": "Places, open ends, obligations"
+        "text": "Measured places and candidate goals"
       },
       {
         "icon": "map",

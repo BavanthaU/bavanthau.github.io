@@ -676,7 +676,7 @@ def _proj_media():
                            + picture("m2h-mx-architecture"),
         "m2h":             video("itc-loop") + wipe(compact=True),
         "mono-hydra":      picture("scenegraph-system-design"),
-        "learned-exploration": video("scope-explorer"),
+        "learned-exploration": video("atlas-kth"),
         "commercial-navigation": video("humanoid-deployment") + video("humanoid-mapping", caption="Venue mapping with GMapping; the estimated robot pose is shown in red."),
     }
 
@@ -1138,7 +1138,7 @@ def build_home():
   <div class="exploration-copy"><p class="tile-eyebrow">{e(a['eyebrow'])}</p><h2 id="exploration-title">{e(a['title'])}</h2>
     <p>{e(a['text'])}</p><p class="research-status">{e(a['status'])}</p><p class="exploration-note">{e(a['note'])}</p>
     <a class="text-link" href="{e(a['href'])}">Explore the ATLAS approach <span aria-hidden="true">↗</span></a></div>
-  <div class="exploration-media">{player('scope-explorer', 'ATLAS autonomous exploration · Simulation demonstration')}</div>
+  <div class="exploration-media">{player('atlas-kth', 'ATLAS · KTH exploration highlights')}</div>
 </section>
 
 <section class="portfolio-section" id="skills" aria-labelledby="skills-title">
@@ -1777,7 +1777,7 @@ PROJECT_LEAD = {
     "m2h-mx":          ("video", "icra26"),
     "m2h":             ("video", "itc-loop"),
     "mono-hydra":      ("image", "scenegraph-system-design"),
-    "learned-exploration": ("video", "scope-explorer"),
+    "learned-exploration": ("video", "atlas-kth"),
     "commercial-navigation": ("video", "humanoid-deployment"),
 }
 
@@ -1859,6 +1859,13 @@ def build_project_pages():
             method = (f'<section class="case-section"><h2 class="case-h">{e(pr["method"]["heading"])}</h2>'
                       f'<div class="method">{blocks}</div></section>')
 
+        evidence = ""
+        if pr.get("evidence"):
+            detail = pr["evidence"]
+            paragraphs = ''.join(f'<p>{e(text)}</p>' for text in detail['paragraphs'])
+            figures = ''.join(picture(key, cls="case-paper-figure") for key in detail['figures'])
+            evidence = f'<h2 class="case-h">{e(detail["heading"])}</h2>{paragraphs}{figures}'
+
         hyp = ""
         if pr.get("hypothesis"):
             hyp = (f'<section class="case-section"><h2 class="case-h">What is being tested</h2>'
@@ -1914,7 +1921,7 @@ def build_project_pages():
 {onboard_configuration() + pipeline_story() if pr['slug'] == 'mono-hydra-plus' else ''}
 <section class="case-section case-evidence" id="evidence">
   <p class="spec">02 &mdash; Evidence</p>
-  {PROJ_MEDIA.get(pr["slug"], "")}
+  {PROJ_MEDIA.get(pr["slug"], "")}{evidence}
 </section>
 {method}
 {design}

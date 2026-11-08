@@ -136,6 +136,24 @@
       "alt": "Illustration of the custom aerial robot showing its carbon frame, front camera, electronics stack, battery and underside rotors.",
       "caption": "Illustration of the custom aerial research platform, based on supplied hardware photographs.",
       "credit": "PhD thesis platform artwork; figures/platform_drone/drone-pusher-threeblade.png"
+    },
+    "atlas-decision-cycle": {
+      "src": "_source/media/atlas/atlas-decision-cycle.png",
+      "alt": "ATLAS decision cycle: depth sensing, measured map and graph update, goal selection, and geometrically checked execution.",
+      "caption": "Decision cycle, extracted from ATLAS_v1, Figure 2. Method illustration; not an experimental trajectory.",
+      "credit": "ATLAS_v1.pdf, page 5"
+    },
+    "atlas-policy-network": {
+      "src": "_source/media/atlas/atlas-policy-network.png",
+      "alt": "ATLAS network with learned memory queries, topology-aware candidate attention, latent fusion, recurrence and per-candidate forecast and policy heads.",
+      "caption": "Policy network, extracted from ATLAS_v1, Figure 4. The evaluated policy uses collected-data updates only.",
+      "credit": "ATLAS_v1.pdf, page 6"
+    },
+    "atlas-kth-coverage": {
+      "src": "_source/media/atlas/atlas-kth-coverage.png",
+      "alt": "Per-floor observable coverage for ATLAS, CogniPlan and ARiADNE on 14 KTH floors, with separate panels for 0.30 m and 0.20 m bodies.",
+      "caption": "KTH per-floor coverage, extracted from ATLAS_v1, Figure 8. Large markers average four starts; small markers show individual starts. 8 m sensing, 1800 s motion budget. Observable sets differ between body sizes; panels are not directly comparable.",
+      "credit": "ATLAS_v1.pdf, page 11"
     }
   },
   "frames": {
@@ -344,6 +362,15 @@
       "alt": "A laptop beside one of the humanoid robots, showing a 2D occupancy grid of the venue being filled in as the robot drives, with the robot's pose marked in red.",
       "caption": "The map behind it. A 2D occupancy grid of the venue built with GMapping-based SLAM while the robot drives, with its estimated pose in red. This is what the navigation stack plans over.",
       "credit": "Expert Hub Robotics"
+    },
+    "atlas-kth": {
+      "src": "media/video/ATLAS_KTH_exploration_highlights.mp4",
+      "posterAt": 12,
+      "silent": true,
+      "clickToLoad": true,
+      "alt": "ATLAS KTH exploration replay showing observed free space, the robot and its travelled path.",
+      "caption": "Selected KTH floor-plan benchmark runs, replayed at accelerated speeds shown in the video. These are 2D benchmark replays, not drone flights. The video reports floor observed; the paper’s primary metric is coverage of the observable floor.",
+      "credit": "User-supplied ATLAS KTH exploration highlights"
     }
   },
   "wipeSets": {

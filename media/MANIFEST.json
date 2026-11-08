@@ -1392,6 +1392,198 @@
       "alt": "Illustration of the custom aerial robot showing its carbon frame, front camera, electronics stack, battery and underside rotors.",
       "caption": "Illustration of the custom aerial research platform, based on supplied hardware photographs.",
       "credit": "PhD thesis platform artwork; figures/platform_drone/drone-pusher-threeblade.png"
+    },
+    "atlas-decision-cycle": {
+      "kind": "image",
+      "width": 1548,
+      "height": 441,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/atlas-decision-cycle-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/atlas-decision-cycle-960.avif"
+          },
+          {
+            "w": 1548,
+            "path": "/media/images/atlas-decision-cycle-1548.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/atlas-decision-cycle-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/atlas-decision-cycle-960.webp"
+          },
+          {
+            "w": 1548,
+            "path": "/media/images/atlas-decision-cycle-1548.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/atlas-decision-cycle-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/atlas-decision-cycle-960.jpg"
+          },
+          {
+            "w": 1548,
+            "path": "/media/images/atlas-decision-cycle-1548.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "atlas-decision-cycle-480.avif": 5834,
+        "atlas-decision-cycle-480.webp": 7664,
+        "atlas-decision-cycle-480.jpg": 13208,
+        "atlas-decision-cycle-960.avif": 14541,
+        "atlas-decision-cycle-960.webp": 21830,
+        "atlas-decision-cycle-960.jpg": 38402,
+        "atlas-decision-cycle-1548.avif": 21898,
+        "atlas-decision-cycle-1548.webp": 42120,
+        "atlas-decision-cycle-1548.jpg": 84630
+      },
+      "alt": "ATLAS decision cycle: depth sensing, measured map and graph update, goal selection, and geometrically checked execution.",
+      "caption": "Decision cycle, extracted from ATLAS_v1, Figure 2. Method illustration; not an experimental trajectory.",
+      "credit": "ATLAS_v1.pdf, page 5",
+      "digest": "e4e39d5e857d9ec1"
+    },
+    "atlas-policy-network": {
+      "kind": "image",
+      "width": 1548,
+      "height": 657,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/atlas-policy-network-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/atlas-policy-network-960.avif"
+          },
+          {
+            "w": 1548,
+            "path": "/media/images/atlas-policy-network-1548.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/atlas-policy-network-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/atlas-policy-network-960.webp"
+          },
+          {
+            "w": 1548,
+            "path": "/media/images/atlas-policy-network-1548.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/atlas-policy-network-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/atlas-policy-network-960.jpg"
+          },
+          {
+            "w": 1548,
+            "path": "/media/images/atlas-policy-network-1548.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "atlas-policy-network-480.avif": 10309,
+        "atlas-policy-network-480.webp": 13402,
+        "atlas-policy-network-480.jpg": 21525,
+        "atlas-policy-network-960.avif": 22624,
+        "atlas-policy-network-960.webp": 32266,
+        "atlas-policy-network-960.jpg": 59774,
+        "atlas-policy-network-1548.avif": 42242,
+        "atlas-policy-network-1548.webp": 56362,
+        "atlas-policy-network-1548.jpg": 111005
+      },
+      "alt": "ATLAS network with learned memory queries, topology-aware candidate attention, latent fusion, recurrence and per-candidate forecast and policy heads.",
+      "caption": "Policy network, extracted from ATLAS_v1, Figure 4. The evaluated policy uses collected-data updates only.",
+      "credit": "ATLAS_v1.pdf, page 6",
+      "digest": "bdbbf032d220d826"
+    },
+    "atlas-kth-coverage": {
+      "kind": "image",
+      "width": 1548,
+      "height": 876,
+      "sources": {
+        "avif": [
+          {
+            "w": 480,
+            "path": "/media/images/atlas-kth-coverage-480.avif"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/atlas-kth-coverage-960.avif"
+          },
+          {
+            "w": 1548,
+            "path": "/media/images/atlas-kth-coverage-1548.avif"
+          }
+        ],
+        "webp": [
+          {
+            "w": 480,
+            "path": "/media/images/atlas-kth-coverage-480.webp"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/atlas-kth-coverage-960.webp"
+          },
+          {
+            "w": 1548,
+            "path": "/media/images/atlas-kth-coverage-1548.webp"
+          }
+        ],
+        "jpg": [
+          {
+            "w": 480,
+            "path": "/media/images/atlas-kth-coverage-480.jpg"
+          },
+          {
+            "w": 960,
+            "path": "/media/images/atlas-kth-coverage-960.jpg"
+          },
+          {
+            "w": 1548,
+            "path": "/media/images/atlas-kth-coverage-1548.jpg"
+          }
+        ]
+      },
+      "bytes": {
+        "atlas-kth-coverage-480.avif": 11129,
+        "atlas-kth-coverage-480.webp": 14074,
+        "atlas-kth-coverage-480.jpg": 21972,
+        "atlas-kth-coverage-960.avif": 28052,
+        "atlas-kth-coverage-960.webp": 34646,
+        "atlas-kth-coverage-960.jpg": 58788,
+        "atlas-kth-coverage-1548.avif": 48828,
+        "atlas-kth-coverage-1548.webp": 60106,
+        "atlas-kth-coverage-1548.jpg": 110972
+      },
+      "alt": "Per-floor observable coverage for ATLAS, CogniPlan and ARiADNE on 14 KTH floors, with separate panels for 0.30 m and 0.20 m bodies.",
+      "caption": "KTH per-floor coverage, extracted from ATLAS_v1, Figure 8. Large markers average four starts; small markers show individual starts. 8 m sensing, 1800 s motion budget. Observable sets differ between body sizes; panels are not directly comparable.",
+      "credit": "ATLAS_v1.pdf, page 11",
+      "digest": "f9c311566aa9a25e"
     }
   },
   "frames": {
@@ -2021,6 +2213,23 @@
       "caption": "The 2017 Peradeniya project video. A holonomic robot with a laser range finder and stereo cameras explores a plywood maze it has never seen, builds the occupancy map in the inset, and finishes with the stitched 3D reconstruction of the arena. The localisation and control segment, which was mine, starts at 0:59.",
       "credit": "Peradeniya reconnaissance robot, ICIIS 2017",
       "audio": true,
+      "clickToLoad": true
+    },
+    "atlas-kth": {
+      "width": 1920,
+      "height": 1080,
+      "mp4": "/media/video/ATLAS_KTH_exploration_highlights.mp4",
+      "webm": null,
+      "poster": "/media/video/atlas-kth-poster.jpg",
+      "preview": null,
+      "bytes": {
+        "ATLAS_KTH_exploration_highlights.mp4": 2099188,
+        "atlas-kth-poster.jpg": 116700
+      },
+      "audio": false,
+      "alt": "ATLAS KTH exploration replay showing observed free space, the robot and its travelled path.",
+      "caption": "Selected KTH floor-plan benchmark runs, replayed at accelerated speeds shown in the video. These are 2D benchmark replays, not drone flights. The video reports floor observed; the paper’s primary metric is coverage of the observable floor.",
+      "credit": "User-supplied ATLAS KTH exploration highlights",
       "clickToLoad": true
     }
   }

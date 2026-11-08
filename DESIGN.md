@@ -11,9 +11,9 @@ and navigation features, and a distinct exploration panel. Keep borders structur
 blue reserved for expertise and actions. The shared fieldbook palette supports light and
 dark themes. Use real media and retain playback speed, simulation and benchmark conditions.
 
-ATLAS is fully trained and tested in simulation. Transfer of the current policy to the drone
-is underway, building on earlier flight-tested iterations. State that scope consistently;
-do not describe it as untrained or claim current-policy drone validation is complete.
+ATLAS content follows the ATLAS_v1 draft: KTH floor-plan comparisons and preliminary
+aerial simulation. Label findings as draft results; aerial baseline comparisons, ablations
+and timing remain pending. KTH replays do not demonstrate current-policy drone flight.
 
 Videos stay outside navigation links, retain native controls and explicit pause buttons,
 and respect reduced motion and manual pauses. The flight clip is expandable. The

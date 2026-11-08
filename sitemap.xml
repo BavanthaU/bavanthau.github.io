@@ -4,7 +4,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://bavanthau.github.io/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>1.0</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-rgb-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-depth-769.jpg</image:loc></image:image>
@@ -14,7 +14,7 @@
     <image:image><image:loc>https://bavanthau.github.io/media/video/itc-loop-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/icra26-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-deployment-poster.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/atlas-kth-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/drone-flight-poster.jpg</image:loc></image:image>
     <video:video>
       <video:thumbnail_loc>https://bavanthau.github.io/media/video/humanoid-deployment-poster.jpg</video:thumbnail_loc>
@@ -27,12 +27,12 @@
       <video:live>no</video:live>
     </video:video>
     <video:video>
-      <video:thumbnail_loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</video:thumbnail_loc>
-      <video:title>Autonomous exploration in simulation</video:title>
-      <video:description>Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment.</video:description>
-      <video:content_loc>https://bavanthau.github.io/media/video/scope-explorer.mp4</video:content_loc>
-      <video:duration>60</video:duration>
-      <video:publication_date>2026-08-18</video:publication_date>
+      <video:thumbnail_loc>https://bavanthau.github.io/media/video/atlas-kth-poster.jpg</video:thumbnail_loc>
+      <video:title>Selected KTH floor-plan benchmark runs, replayed at accelerated speeds shown in the video</video:title>
+      <video:description>ATLAS KTH exploration replay showing observed free space, the robot and its travelled path.</video:description>
+      <video:content_loc>https://bavanthau.github.io/media/video/ATLAS_KTH_exploration_highlights.mp4</video:content_loc>
+      <video:duration>22</video:duration>
+      <video:publication_date>2026-11-08</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
       <video:live>no</video:live>
     </video:video>
@@ -49,21 +49,21 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/contact/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.8</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/portrait-1254.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://bavanthau.github.io/cv/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.8</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/portrait-1254.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/icra26-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-deployment-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/atlas-kth-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/stairs-zupt-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/drone-flight-poster.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-mapping-poster.jpg</image:loc></image:image>
     <video:video>
       <video:thumbnail_loc>https://bavanthau.github.io/media/video/stairs-zupt-poster.jpg</video:thumbnail_loc>
@@ -86,12 +86,12 @@
       <video:live>no</video:live>
     </video:video>
     <video:video>
-      <video:thumbnail_loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</video:thumbnail_loc>
-      <video:title>Autonomous exploration in simulation</video:title>
-      <video:description>Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment.</video:description>
-      <video:content_loc>https://bavanthau.github.io/media/video/scope-explorer.mp4</video:content_loc>
-      <video:duration>60</video:duration>
-      <video:publication_date>2026-08-18</video:publication_date>
+      <video:thumbnail_loc>https://bavanthau.github.io/media/video/atlas-kth-poster.jpg</video:thumbnail_loc>
+      <video:title>Selected KTH floor-plan benchmark runs, replayed at accelerated speeds shown in the video</video:title>
+      <video:description>ATLAS KTH exploration replay showing observed free space, the robot and its travelled path.</video:description>
+      <video:content_loc>https://bavanthau.github.io/media/video/ATLAS_KTH_exploration_highlights.mp4</video:content_loc>
+      <video:duration>22</video:duration>
+      <video:publication_date>2026-11-08</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
       <video:live>no</video:live>
     </video:video>
@@ -118,24 +118,24 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.8</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-rgb-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-depth-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-semantics-769.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/atlas-kth-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/drone-top-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/itc-loop-poster.jpg</image:loc></image:image>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-deployment-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-mapping-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
     <video:video>
-      <video:thumbnail_loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</video:thumbnail_loc>
-      <video:title>Autonomous exploration in simulation</video:title>
-      <video:description>Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment.</video:description>
-      <video:content_loc>https://bavanthau.github.io/media/video/scope-explorer.mp4</video:content_loc>
-      <video:duration>60</video:duration>
-      <video:publication_date>2026-08-18</video:publication_date>
+      <video:thumbnail_loc>https://bavanthau.github.io/media/video/atlas-kth-poster.jpg</video:thumbnail_loc>
+      <video:title>Selected KTH floor-plan benchmark runs, replayed at accelerated speeds shown in the video</video:title>
+      <video:description>ATLAS KTH exploration replay showing observed free space, the robot and its travelled path.</video:description>
+      <video:content_loc>https://bavanthau.github.io/media/video/ATLAS_KTH_exploration_highlights.mp4</video:content_loc>
+      <video:duration>22</video:duration>
+      <video:publication_date>2026-11-08</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
       <video:live>no</video:live>
     </video:video>
@@ -162,7 +162,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/commercial-navigation/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-deployment-poster.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/video/humanoid-mapping-poster.jpg</image:loc></image:image>
@@ -189,23 +189,26 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/learned-exploration/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
-    <image:image><image:loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/video/atlas-kth-poster.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/atlas-kth-coverage-1548.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/atlas-decision-cycle-1548.jpg</image:loc></image:image>
+    <image:image><image:loc>https://bavanthau.github.io/media/images/atlas-policy-network-1548.jpg</image:loc></image:image>
     <video:video>
-      <video:thumbnail_loc>https://bavanthau.github.io/media/video/scope-explorer-poster.jpg</video:thumbnail_loc>
-      <video:title>Autonomous exploration in simulation</video:title>
-      <video:description>Simulated indoor exploration run showing the robot&#x27;s occupancy map growing as it selects routes through the environment.</video:description>
-      <video:content_loc>https://bavanthau.github.io/media/video/scope-explorer.mp4</video:content_loc>
-      <video:duration>60</video:duration>
-      <video:publication_date>2026-08-18</video:publication_date>
+      <video:thumbnail_loc>https://bavanthau.github.io/media/video/atlas-kth-poster.jpg</video:thumbnail_loc>
+      <video:title>Selected KTH floor-plan benchmark runs, replayed at accelerated speeds shown in the video</video:title>
+      <video:description>ATLAS KTH exploration replay showing observed free space, the robot and its travelled path.</video:description>
+      <video:content_loc>https://bavanthau.github.io/media/video/ATLAS_KTH_exploration_highlights.mp4</video:content_loc>
+      <video:duration>22</video:duration>
+      <video:publication_date>2026-11-08</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
       <video:live>no</video:live>
     </video:video>
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/m2h/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/wipe-rgb-848.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/wipe-depth-848.jpg</image:loc></image:image>
@@ -214,7 +217,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/m2h-mx/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-rgb-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-depth-769.jpg</image:loc></image:image>
@@ -227,13 +230,13 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/mono-hydra/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scenegraph-system-design-1354.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://bavanthau.github.io/projects/mono-hydra-plus/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-overview-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/drone-top-1600.jpg</image:loc></image:image>
@@ -269,7 +272,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.8</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/m2h-mx-architecture-1600.jpg</image:loc></image:image>
@@ -278,12 +281,12 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/bibtex/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/m2h/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/wipe-rgb-848.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/wipe-depth-848.jpg</image:loc></image:image>
@@ -292,7 +295,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/m2h-mx/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-rgb-769.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/mx-indoor-depth-769.jpg</image:loc></image:image>
@@ -307,14 +310,14 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/mono-hydra/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scenegraph-system-design-1354.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://bavanthau.github.io/publications/mono-hydra-plus/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-overview-1600.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/pipeline-temporal-1600.jpg</image:loc></image:image>
@@ -337,7 +340,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/research/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.8</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scenegraph-explained-1122.jpg</image:loc></image:image>
     <image:image><image:loc>https://bavanthau.github.io/media/images/scene-graph-itc-1600.jpg</image:loc></image:image>
@@ -346,7 +349,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/videos/lidar-exploration-mapping-peradeniya/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/peradeniya-2017-poster.jpg</image:loc></image:image>
     <video:video>
@@ -362,7 +365,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/videos/monocular-3d-scene-graph-scannet/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/icra26-poster.jpg</image:loc></image:image>
     <video:video>
@@ -378,7 +381,7 @@
   </url>
   <url>
     <loc>https://bavanthau.github.io/videos/scene-graph-drone-corridor-loop/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-10-05</lastmod>
     <priority>0.6</priority>
     <image:image><image:loc>https://bavanthau.github.io/media/video/itc-loop-poster.jpg</image:loc></image:image>
     <video:video>

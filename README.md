@@ -108,6 +108,9 @@ a competing copy.
 
 ## Rules this site holds itself to
 
+- **ATLAS draft evidence.** ATLAS results are sourced to `ATLAS_v1.pdf`, Section VI,
+  Tables III–IV and Figure 8 in `data/projects.json`; they are not thesis-registry results.
+  Figure provenance is recorded in the media configuration and manifest.
 - **Every number is traceable.** No figure appears unless it exists in the thesis
   `results_registry.csv` with a source location. `publications.json` carries a `registryId`
   against each headline result so this is checkable.

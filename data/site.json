@@ -71,13 +71,13 @@
     },
     "actTwo": {
       "title": "Exploring the unseen",
-      "line": "A learned agent over a persistent belief graph of places, open ends and unfinished obligations, choosing where to look next in a building it has never seen.",
+      "line": "Topology-aware learned attention over persistent spatial memory for exploration goal selection.",
       "status": "in-progress",
-      "honesty": "Trained and tested in simulation. Current drone transfer underway; earlier iterations flight-tested.",
+      "honesty": "Draft KTH benchmark results and preliminary aerial simulation; hardware validation is not reported.",
       "commitment": "Predict consequences, not appearances.",
       "label": "Part II",
       "subtitle": "Learning to explore",
-      "homeLine": "ATLAS uses a persistent belief graph of places, open ends and unfinished obligations to select among routes admitted by a geometric planner. It is fully trained and tested in simulation; transfer of the current policy to the drone is underway, following flight tests of earlier iterations."
+      "homeLine": "ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs."
     },
     "prologue": "The same question was asked at Peradeniya in 2017: an autonomous exploration planning strategy for a robot mapping an unknown space, using a laser range finder fused with stereo cameras. It is being asked again 10 years later with a learned model and a single camera.",
     "prologueVideo": "https://www.youtube.com/watch?v=csG_hieJj6s&t=59s",
@@ -278,11 +278,11 @@
       {
         "index": "03",
         "title": "Learning to explore",
-        "text": "I developed ATLAS to choose where a robot should explore next, combining imitation and reinforcement learning with geometrically checked routes. The policy is trained and tested in simulation, with transfer to the drone underway.",
+        "text": "ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.",
         "href": "/projects/learned-exploration/",
         "linkLabel": "Exploration research",
         "tools": "PyTorch · Isaac Sim",
-        "status": "Simulation validated · Drone transfer underway"
+        "status": "Draft results · KTH benchmark + preliminary aerial simulation"
       },
       {
         "index": "04",
@@ -310,8 +310,8 @@
     "featuredHeading": "A camera, an IMU, a map of the building.",
     "featuredText": "My PhD at the University of Twente focuses on indoor mapping for small drones. Mono-Hydra++ builds a layered 3D map from a single camera and an IMU, with perception, odometry and mapping running on the drone’s Jetson.",
     "explorationHeading": "Where should the robot go next?",
-    "explorationText": "ATLAS uses a persistent belief graph of places, open ends and unfinished obligations to select among routes admitted by a geometric planner. It is fully trained and tested in simulation; transfer of the current policy to the drone is underway, following flight tests of earlier iterations.",
-    "explorationNote": "The demonstration shows ATLAS in simulation. Trained and tested in simulation. Current drone transfer underway; earlier iterations flight-tested.",
+    "explorationText": "ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.",
+    "explorationNote": "ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.",
     "contactHeading": "Build perception and navigation for real robots.",
     "contactText": "For robotics software, perception, SLAM and navigation roles, or research collaborations. Available immediately.",
     "selected": [
@@ -365,7 +365,7 @@
     "videoCaptions": {
       "itc-loop": "ITC second floor. Scene graph construction shown at 10× real time.",
       "stairs-zupt": "Onboard odometry during a stairwell test. MOVING and ZUPT STATIONARY indicate motion and zero-velocity updates.",
-      "scope-explorer": "An exploration run in simulation, shown as a 60-second excerpt.",
+      "atlas-kth": "Selected KTH benchmark runs at accelerated playback speeds.",
       "humanoid-deployment": "Service robots navigating the Exness stand in Dubai. Expert Hub Robotics.",
       "humanoid-mapping": "A venue map built with GMapping SLAM, with the robot’s estimated pose shown in red.",
       "drone-flight": "Take-off and a pass down the corridor. Everything the mapping runs on is carried onboard."
@@ -517,7 +517,7 @@
           "title": "Robotics software",
           "text": "Robot behaviours, simulation and field debugging, from a single drone to a fleet in a live venue.",
           "tools": "C++ · Python · Linux · ROS 1 / ROS 2 · Git · Isaac Sim & Isaac Lab",
-          "thumb": "poster:scope-explorer",
+          "thumb": "poster:atlas-kth",
           "href": "#onboard",
           "hrefLabel": "On the robot"
         },
@@ -573,11 +573,11 @@
           "href": "/projects/mono-hydra-plus/",
           "link": "Explore the mapping system",
           "detailTitle": "From a model to an onboard system",
-          "detailText": "ATLAS extends this work into learned exploration. Trained and tested in simulation. Current drone transfer underway; earlier iterations flight-tested.",
+          "detailText": "ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.",
           "detailClip": "stairs-zupt",
           "detailCaption": "Onboard odometry tested through a stairwell, with zero-velocity updates at rest.",
-          "secondClip": "scope-explorer",
-          "secondCaption": "ATLAS · trained and tested in simulation",
+          "secondClip": "atlas-kth",
+          "secondCaption": "ATLAS · KTH benchmark results",
           "homeRole": "Developed the perception and mapping stack; built and flight-tested the drone.",
           "homeOutcome": "Perception, odometry and 3D scene graphs running on the drone’s Jetson.",
           "tileTitle": "From a camera stream to a structured world.",
@@ -685,11 +685,11 @@
           "link": "Explore the perception model"
         },
         {
-          "key": "scope-explorer",
+          "key": "atlas-kth",
           "media": "video-poster",
           "label": "Autonomous exploration · simulation validated",
           "title": "Learn where the robot should explore next.",
-          "text": "A trained exploration policy over a persistent belief graph. Simulation-tested, with current drone transfer underway.",
+          "text": "Topology-aware goal selection evaluated on KTH floor plans and preliminary aerial simulation scenes.",
           "href": "/projects/learned-exploration/",
           "link": "Explore the ATLAS project"
         }
@@ -727,7 +727,7 @@
         "deploymentTitle": "Deploy and support real robots.",
         "onboard": "Jetson · TensorRT · ROS",
         "commercial": "30+ commercial humanoids deployed",
-        "note": "The perception and mapping stack runs onboard the drone. ATLAS is trained and tested in simulation, with current drone transfer underway and earlier iterations flight-tested."
+        "note": "The perception and mapping stack runs onboard the drone. ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs."
       },
       "proof": [
         {
@@ -780,9 +780,9 @@
       "exploration": {
         "eyebrow": "Autonomous exploration / ATLAS",
         "title": "Teach a robot where to go next.",
-        "text": "I developed ATLAS to select exploration goals from a persistent belief graph of places, open ends and unfinished work. The learned policy ranks routes admitted by a geometric planner.",
-        "status": "Simulation validated · Drone transfer underway",
-        "note": "Fully trained and tested in simulation, with earlier iterations tested on the drone. The current policy is now being transferred to the aircraft.",
+        "text": "ATLAS selects exploration goals with topology-aware learned attention over persistent spatial memory. The draft reports KTH floor-plan benchmarks and preliminary aerial simulation runs.",
+        "status": "Draft results · KTH benchmark + preliminary aerial simulation",
+        "note": "Average observable-floor coverage across 14 KTH floors: 80.36% for ATLAS versus 38.74% for CogniPlan and 42.33% for ARiADNE. 14 floors × 4 starts; 0.30 m body + 0.05 m padding per face; 8 m sensing; 1800 s motion budget, excluding planning time. Draft Table III.",
         "href": "/projects/learned-exploration/"
       }
     }
